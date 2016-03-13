@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../template/etcTemplateGreen.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="form">  
+
+                    <p:growl id="msgs" showDetail="true"/>  
+
+                    <p:panel header="Manage Assign Tracing ประจำเดือนฯ" style="margin-bottom:10px;">  
+
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Manage Assign Tracing  สนง.กกต." for="lb1" style="width: 350px"/>
+                            <p:selectOneMenu id="ectDll" label="lb1" style="width: 450px" value="#{welcomeController.link}">  
+                                <f:selectItem itemLabel="-เลือก-" itemValue="" />  
+                                <f:selectItems itemLabel="#{item.name}" itemValue="#{item.value}" var="item" value="#{welcomeController.dropdownFactory.ddlDepEct()}"/>
+                                <p:ajax listener="#{welcomeController.redirect}" /> 
+                            </p:selectOneMenu> 
+                            
+                            <h:outputLabel value="Manage Assign Tracing  สนง.กกต. ส่วนกลาง" for="lb2" rendered="#{param.user==null}"/>
+                            <p:selectOneMenu id="ectDll2" label="lb2" style="width: 450px" rendered="#{param.user==null}">  
+                                <f:selectItem itemLabel="-เลือก-" itemValue="" />  
+                                <f:selectItems itemLabel="#{item.name}" itemValue="#{item.value}" var="item" value="#{welcomeController.dropdownFactory.ddlDepEctCenter()}"/>  
+                            </p:selectOneMenu> 
+                        </h:panelGrid>
+
+                        <p:separator />  
+                    </p:panel>  
+
+                </h:form>  
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+
+      xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+    </head>
+    <body>
+        <ui:composition>
+            <style type="text/css">
+
+            </style>
+            <h:form>
+                <p:menubar>  
+                    <p:menuitem value="Home" url="${pageContext.request.contextPath}/pages/form/index.xhtml" icon="ui-icon-home"/>
+                    <p:menuitem value="Report" url="${pageContext.request.contextPath}/pages/report/formReport.xhtml" icon="ui-icon-print" rendered="false"/>  
+                    <p:submenu label="Administrator" icon="ui-icon-person" rendered="#{userManagementController.userAuthen.userGroupLvl == 1}">
+                        <p:menuitem value="#{msg.menu_manage_user}" url="/pages/user/userManagement.xhtml" icon="ui-icon-key">
+                        </p:menuitem>
+                    </p:submenu>
+                    <p:menuitem value="Printing" icon="ui-icon-comment" url="${pageContext.request.contextPath}/pages/form/printing.xhtml" rendered="false">  
+                    </p:menuitem>
+                    
+                    <f:facet name="options">
+                        <h:panelGrid columns="3">
+                            <p:button value="Group #{loginController.userAuthen.userGroupName}" onclick="return;" icon="ui-icon-contact"/>
+                            <p:button value="Welcome #{loginController.userAuthen.fname} #{loginController.userAuthen.lname}" onclick="return;" icon="ui-icon-person"/>
+                            <p:button value="#{msg.logout}" icon="ui-icon-extlink" onclick="return logout()"/>  
+                        </h:panelGrid>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+            
+            <script>
+                function logout(){
+                    if(confirm('#{msg.msg_confirm_logout}')){
+                        console.log("${request.contextPath}");
+                        window.location = '${request.contextPath}/LogoutController';
+                        return true;
+                    }
+                    return false;
+                }
+            </script>
+        </ui:composition>
+    </body>
+</html>

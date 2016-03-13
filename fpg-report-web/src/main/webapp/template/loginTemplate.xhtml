@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <ui:insert name="scriptHeader">
+            <script src="${request.contextPath}/resources/js/jquery.js"/>
+            <ui:include src="scriptHeader.xhtml"/>
+        </ui:insert>
+        <ui:insert name="javascript">
+
+        </ui:insert>
+    </h:head>
+
+    <h:body>
+        <div id="art-main">
+            <header class="art-header">
+                <div class="art-shapes">
+                    <div class="art-object496222280" data-left="2.13%"></div>
+                </div>
+                <h1 class="art-headline" data-left="21.29%">
+                    <a href="#">Connection System</a>
+                </h1>
+                <h2 class="art-slogan" data-left="18.48%">Connection System</h2>
+            </header>
+            <nav>
+                <ui:insert name="menuTop">
+
+                </ui:insert>
+            </nav>
+            <div class="art-sheet clearfix">
+                <div class="art-layout-wrapper">
+                    <div class="art-content-layout">
+                        <div class="art-content-layout-row">
+                            <div class="art-layout-cell art-sidebar1" style="display: none">
+                                <ui:insert name="leftMenu">
+
+                                </ui:insert>
+                            </div>
+                            <div class="art-layout-cell art-content"><article class="art-post art-article">
+                                        <ui:insert name="content">
+                                            
+                                        </ui:insert>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="art-footer">
+                <div class="art-footer-inner">
+                    <ui:insert name="footer">
+                        <ui:include src="footer.xhtml"/>
+                    </ui:insert>
+                </div>
+            </footer>
+        </div>
+        <ui:insert name="modalDialog">
+        </ui:insert>
+    </h:body>
+
+</html>

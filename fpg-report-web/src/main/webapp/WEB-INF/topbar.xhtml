@@ -1,0 +1,109 @@
+<ui:composition 
+
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:form>
+        <!-- TOPBAR START -->
+        <div id="layout-topbar">
+            <a id="menu-button" class="Animated1">
+                <span id="menuline1" class="Animated05"></span>
+                <span id="menuline2" class="Animated05"></span>
+                <span id="menuline3" class="Animated05"></span>
+            </a>
+            <a href="#"><h:graphicImage name="logo.png" id="logo" library="images" /></a>
+
+            <a id="topmenu-button" class="Animated1">
+                <i class="icon-list2"></i>
+            </a>
+
+            <ul id="top-menu">
+                <!--            <li>
+                                <a class="menulink Animated05"><i class="icon-search"></i> <span>Search</span></a>
+                                <ul style="margin-left:-150px;">
+                                    <li><span class="PadWithBorder10 DispBlock"><p:inputText placeholder="Search here" styleClass="Wid60"/> <p:button icon="fa fa-search" styleClass="Fright"/></span></li>
+                                </ul>
+                            </li>-->
+                <li>
+                    <a class="menulink Animated05"><i class="icon-chat"></i> <span>Messages</span></a>
+                    <ul style="margin-left:-130px;">
+                        <li><a href="#"><i class="icon-comment-alt2-stroke Fs18 Blue Fright"></i> <span class="FontAdamantiumBold">Clark Davenport</span><br/><span class="Fs12">Hi, How is going ?</span></a></li>
+                        <li><a href="#"><i class="icon-comment-alt2-stroke Fs18 Red Fright"></i> <span class="FontAdamantiumBold">Jack Sparrow</span><br/><span class="Fs12">Test Results</span></a></li>
+                        <li><a href="#"><i class="icon-comment-alt2-stroke Fs18 Fright"></i> <span class="FontAdamantiumBold">Jack Sparrow</span><br/><span class="Fs12">Test Results</span></a></li>
+                        <li><a href="#"><i class="icon-comment-alt2-stroke Purple Fs18 Fright"></i> <span class="FontAdamantiumBold">George Flinn</span><br/><span class="Fs12">MapX Test Cases</span></a></li>
+                    </ul>
+                </li>
+                <!--            <li>
+                                <a class="menulink Animated05"><i class="icon-calendar"></i> <span>Calendar</span></a>
+                                <ul style="margin-left:-135px;">
+                                    <li><a href="#"><i class="icon-alarmclock Fs18 Red Fright"></i> <span class="FontAdamantiumBold">Meeting With John</span><br/><span class="Fs12">13:30 - 18.08.2015</span></a></li>
+                                    <li><a href="#"><i class="icon-alarmclock Fs18 Red Fright"></i> <span class="FontAdamantiumBold">Dinner With Boss</span><br/><span class="Fs12">14:45 - 18.08.2015</span></a></li>
+                                    <li><a href="#"><i class="icon-document-stroke Fs18 Fright"></i> <span class="FontAdamantiumBold">Send Reports</span><br/><span class="Fs12">15:30 - 18.08.2015</span></a></li>
+                                    <li><a href="#"><i class="icon-folder-stroke Fs18 Blue Fright"></i> <span class="FontAdamantiumBold">Arrange Reports</span><br/><span class="Fs12">18:30 - 18.08.2015</span></a></li>
+                                </ul>
+                            </li>-->
+                <!--            <li>
+                                <a class="menulink Animated05"><i class="icon-alarm animated swing infinite"></i> <span>Alerts</span></a>
+                                <ul style="margin-left:-155px;">
+                                    <li><a href="#"><i class="icon-cd Fs20 Blue Fright"></i> <span class="FontAdamantiumBold Blue">Reports Exported</span><br/><span class="Fs12">Recorded To File System</span></a></li>
+                                    <li><a href="#"><i class="icon-cd Fs20 Red Fright"></i> <span class="FontAdamantiumBold Red">Bug Alert</span><br/><span class="Fs12">SportX Tools</span></a></li>
+                                    <li><a href="#"><i class="icon-cd Fs20 Red Fright"></i> <span class="FontAdamantiumBold Red">Bug Alert</span><br/><span class="Fs12">MapX Tools</span></a></li>
+                                    <li><a href="#"><i class="icon-cd Fs20 Orange Fright"></i> <span class="FontAdamantiumBold Orange">Download Completed</span><br/><span class="Fs12">SportX Tools</span></a></li>
+                                </ul>
+                            </li>-->
+                <li>
+                    <a class="menulink Animated05"><i class="icon-settings"></i> <span>Settings</span></a>
+                    <ul style="margin-left:-145px;">
+                        <!--<li><a href="#"><i class="icon-brightness Fs18 Fleft MarRight10"></i> <span class="FontAdamantiumBold"> Brightness</span></a></li>-->
+                        <li><a href="javascript:PF('dlg3').show()"><i class="icon-users Fs18 Fleft MarRight10"></i> <span class="FontAdamantiumBold"> #{msg.menu_manage_user}</span></a></li>
+                        <!--<li><a href="#"><i class="icon-attachment Fs18 Fleft MarRight10"></i> <span class="FontAdamantiumBold"> Attachments</span></a></li>-->
+                        <li><a href="javascript:PF('cmLogout').show()"><i class="icon-lock-stroke Fs18 Fleft MarRight10"></i> <span class="FontAdamantiumBold"> #{msg.logout}</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+            <p:dialog header="#{msg.change_password_header}" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="250" minimizable="true" maximizable="true" responsive="true">
+                <div class="Container100">
+                    <div class="ContainerIndent">
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="2"
+                                             style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                    <h:outputLabel value="#{msg.old_password}"/>
+                                    <p:password/>
+                                    <h:outputLabel value="#{msg.new_password}"/>
+                                    <p:password/>
+                                    <h:outputLabel value="#{msg.confirm_new_password}"/>
+                                    <p:password/>
+                                    <p:separator/>
+                                    <p:commandButton value="#{msg.btn_save}"/>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="cmLogout" showEffect="fade"
+                      header="#{msg.msg_confirm_logout}">
+                <p:commandButton value="#{msg.yes}" type="button" styleClass="ui-confirmdialog-yes GreenButton" onclick="window.location = '${request.contextPath}/LogoutController';" icon="ui-icon-check fa fa-check Fs14 white" />
+                <p:commandButton value="#{msg.btn_close}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+            </p:dialog>
+            <script>
+                function logout() {
+                    if (confirm('#{msg.msg_confirm_logout}')) {
+                        console.log("${request.contextPath}");
+                        window.location = '${request.contextPath}/LogoutController';
+                        return true;
+                    }
+                    return false;
+                }
+            </script>
+        </div>
+        <!-- TOPBAR END -->
+    </h:form>
+</ui:composition>

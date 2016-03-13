@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:totoland="http://java.sun.com/jsf/composite/components">
+    <h:head>               
+    </h:head>
+    <h:body>
+        <ui:composition template="../../template/etcTemplateGreen.xhtml">
+            <ui:define name="content">
+                <h:form id="form1" prependId="false">
+                    <p:messages id="msg" closable="true"/>
+                    <p:panel header="จัดการกิจกรรม">
+                        <p:panelGrid columns="4" style="width: 100%;" id="searchCriteria">
+                            <p:outputLabel value="เลือกยุทธศาสตร์ที่ : *"/>
+                            <p:selectOneMenu style="width: 220px;" id="REPORT_001strategicId"  value="#{activityManagementController.activityCriteria.strategic}" >  
+                                <f:selectItem itemLabel="#{msg.ddl_select}" itemValue=""/>
+                                <f:selectItems itemLabel="#{item.name}" itemValue="#{item.value}" var="item" 
+                                               value="#{activityManagementController.dropdownFactory.ddlStrategic()}">
+                                </f:selectItems>
+                                <p:ajax update="subStrategicId"/>  
+                            </p:selectOneMenu>
+                            <p:outputLabel value="เลือกกลยุทธ์ : *" id="REPORT_001subStrategicId" />
+                            <p:selectOneMenu style="width: 220px;" id="subStrategicId"  value="#{activityManagementController.activityCriteria.subStrategic}" >  
+                                <f:selectItem itemLabel="#{msg.ddl_select}" itemValue="" />  
+                                <f:selectItems itemLabel="#{item.name}" itemValue="#{item.value}" var="item" value="#{activityManagementController.dropdownFactory.ddlSubStrategic(activityManagementController.activityCriteria.strategic)}"></f:selectItems>
+                                <p:ajax update="REPORT_001planId"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="เลือกแผนงาน : *" />
+                            <p:selectOneMenu style="width: 220px;" id="REPORT_001planId"  value="#{activityManagementController.activityCriteria.plan}" >  
+                                <f:selectItem itemLabel="#{msg.ddl_select}" itemValue="" />  
+                                <f:selectItems itemLabel="#{item.name}" itemValue="#{item.value}" var="item" value="#{activityManagementController.dropdownFactory.ddlPlan(activityManagementController.activityCriteria.subStrategic)}"></f:selectItems>  
+                                <p:ajax update="REPORT_001projectId"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="เลือกโครงการ : *" />
+                            <p:selectOneMenu style="width: 220px;" id="REPORT_001projectId"  value="#{activityManagementController.activityCriteria.project}" >  
+                                <f:selectItem itemLabel="#{msg.ddl_select}" itemValue="" />  
+                                <f:selectItems itemLabel="#{item.name}" itemValue="#{item.value}" var="item" value="#{activityManagementController.dropdownFactory.ddlProject(activityManagementController.activityCriteria.plan)}"></f:selectItems> 
+                                <p:ajax update="REPORT_001Activity"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="เลือกกิจกรรม : " />
+                            <p:selectOneMenu style="width: 220px;" id="REPORT_001Activity" value="#{activityManagementController.activityCriteria.activity}">  
+                                <f:selectItem itemLabel="#{msg.ddl_select}" itemValue="" />  
+                                <f:selectItems itemLabel="#{item.name}" itemValue="#{item.value}" var="item" value="#{activityManagementController.dropdownFactory.ddlActivity(activityManagementController.activityCriteria.project)}"></f:selectItems> 
+                            </p:selectOneMenu>
+
+                            <f:facet name="footer">
+                                <div align="center">
+                                    <p:commandButton id="btnShowRpt" action="#{activityManagementController.search()}" update="msg,:form1:resultGrid" value="ค้นหา" process="searchCriteria"/>
+                                    <p:commandButton id="btnResetwRpt" action="#{activityManagementController.resetForm()}" update="msg,searchCriteria,:form1:resultGrid" value="เริ่มใหม่"/>
+                                    <p:commandButton value="สร้างกิจกรรมใหม่" icon="ui-icon-plusthick" action="#{activityManagementController.initCreateActivity()}"  update="msg,modalDialogCreate"/>
+                                </div>
+                            </f:facet>
+                        </p:panelGrid>
+                        <br/>
+                        <p:dataTable id="resultGrid" var="item" value="#{activityManagementController.listActivity}"
+                                     paginator="true" rows="10" emptyMessage="#{msg.no_data_found}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,15,20">
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ชื่อกิจกรรม" />
+                                </f:facet>
+                                <h:outputText value="#{item.activityName}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="รายละเอียดกิจกรรม" />
+                                </f:facet>
+                                <h:outputText value="#{item.activityDesc}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value=""/>
+                                </f:facet>
+                                <p:commandButton value="#{msg.btn_edit}" icon="ui-icon-disk" action="#{activityManagementController.initEdit(item)}" update=":form1:modalDialogEdit"/>
+                            </p:column>
+                            <f:facet name="footer">
+
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+
+                    <p:dialog id="modalDialogCreate" header="เพิ่มกิจกรรม" widgetVar="modalDialogCreate" modal="true">  
+                        <p:panelGrid columns="2">  
+                            <h:outputLabel for="activityName" value="ชื่อกิจกรรม" />
+                            <p:inputText id="activityName" value="#{activityManagementController.ectActivity.activityName}"/>
+                            <h:outputLabel for="activityDetail" value="รายละเอียดกิจกรรม" />
+                            <p:inputText id="activityDetail" value="#{activityManagementController.ectActivity.activityDesc}"/>
+                            <h:outputLabel value=""/>
+                            <h:panelGroup>
+                                <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{activityManagementController.save()}" process="modalDialogCreate" update="resultGrid"/>
+                                <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="modalDialogCreate.hide()"/>
+                            </h:panelGroup>
+                        </p:panelGrid>  
+                    </p:dialog>
+
+                    <p:dialog id="modalDialogEdit" header="แก้ไขกิจกรรม" widgetVar="modalDialogEdit" modal="true">  
+                        <p:panelGrid columns="2">  
+                            <h:outputLabel value="ชื่อกิจกรรม" />
+                            <p:inputText id="activityNameEdit" value="#{activityManagementController.ectActivity.activityName}"/>
+                            <h:outputLabel value="รายละเอียดกิจกรรม" />
+                            <p:inputText id="activityDetailEdit" value="#{activityManagementController.ectActivity.activityDesc}"/>
+                            <h:outputLabel value=""/>
+                            <h:panelGroup>
+                                <p:commandButton value="#{msg.btn_edit}"  icon="ui-icon-disk" action="#{activityManagementController.edit()}" process="modalDialogEdit" update="resultGrid"/>
+                                <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="modalDialogEdit.hide()"/>
+                            </h:panelGroup>
+                        </p:panelGrid>  
+                    </p:dialog>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

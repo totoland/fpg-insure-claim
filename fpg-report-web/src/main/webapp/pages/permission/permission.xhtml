@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+author : chain
+create date : 19/01/2556
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition template="../../template/etcTemplateGreen.xhtml">
+            <ui:define name="content">
+                <h:form id="form2" prependId="false">                    
+                    <p:tabView id="tabView1">
+                        <p:tab id="tab1" title="จัดการกลุ่มผู้ใช้งานในแต่ละจังหวัด">
+                            <p:panel id="pnlGroup">
+                                <h:panelGrid columns="1" cellpadding="10" id="panelGrid1">
+                                    <p:commandButton actionListener="#{permisstion.preActionGroup()}" value="สร้างกลุ่มผู้ใช้งาน" onsuccess="action_usergroup(1)" update="@(.pnl_dlg_group)">
+                                        <f:param name="mode" value="create"/>
+                                    </p:commandButton>
+                                    <p:dataTable var="groupList" value="#{permisstion.ectUserGroupList}"
+                                                 paginator="true" rows="10" id="dtbGroupList"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ชื่อกลุ่มผู้ใช้งาน" />
+                                            </f:facet>
+                                            <h:outputText value="#{groupList.userGroupName}" />
+                                        </p:column>                                   
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="รายละเอียด" />
+                                            </f:facet>
+                                            <h:outputText value="#{groupList.userGroupDesc}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="สถานะ" />
+                                            </f:facet>
+                                            <h:outputText value="#{groupList.status==1?'ทำงาน':'หยุดการทำงาน'}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="วันที่สร้าง" />
+                                            </f:facet>
+                                            <h:outputText value="#{groupList.create_dateTh}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ชื่อผู้สร้าง" />
+                                            </f:facet>
+                                            <h:outputText value="#{groupList.create_user}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Action" />
+                                            </f:facet>
+                                            <p:commandLink  actionListener="#{permisstion.preActionGroup()}" onsuccess="action_usergroup(2)" update="@(.pnl_dlg_group)">
+                                                <f:param name="id" value="#{groupList.userGroupId}"/>
+                                                <f:param name="mode" value="edit"/>
+                                                <p:graphicImage library="images" name="Edit.png" style="margin: 1px;border: 1px #CED1B8 groove;cursor: pointer" /> 
+                                            </p:commandLink>                                            
+                                            <p:commandLink  actionListener="#{permisstion.deleteGroup}" update="@form">
+                                                <f:param name="id" value="#{groupList.userGroupId}"/>
+                                                <f:param name="mode" value="delete"/>
+                                                <p:confirm header="ลบข้อมูล" message="ต้องการลบข้อมูลหรือไม่ ?" icon="ui-icon-alert" />  
+                                                <p:graphicImage library="images" name="Delete.png" style="margin: 1px;border: 1px #CED1B8 groove;cursor: pointer" /> 
+                                            </p:commandLink>
+                                            <p:confirmDialog global="true">  
+                                                <p:commandButton value="ใช่" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                                                <p:commandButton value="ยกเลิก" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+                                            </p:confirmDialog>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGrid>
+                                <script>
+                                    function action_usergroup(mode) {
+                                        var title = '';
+                                        var label = '';
+                                        if (mode == 1) {
+                                            title = 'สร้างชื่อกลุ่มผู้ใช้งาน';
+                                            label = 'สร้าง';
+                                        } else if (mode == 2) {
+                                            title = 'แก้ไขชื่อกลุ่มผู้ใช้งาน';
+                                            label = 'แก้ไข';
+                                        }
+                                        dlg_group.titlebar.children('span.ui-dialog-title').html(title);
+                                        dlg_group.content.find('#btn_action.ui-button-text').html(label);
+                                        dlg_group.show();
+                                    }
+                                </script>
+                                <p:dialog header="สร้างกลุ่มผู้ใช้งาน" widgetVar="dlg_group" modal="true">
+                                    <p:panelGrid columns="2" styleClass="pnl_dlg_group" id="pnlFrm">
+                                        <f:facet name="header"  class="txtLeft">กรอกข้อมูล</f:facet>                                                                    
+                                        <p:outputLabel value="รหัสกลุ่มผู้ใช้งาน : "/>
+                                        <p:outputLabel value="#{permisstion.ectUserGroup.userGroupId}"/>
+                                        <p:outputLabel value="ชื่อกลุ่มผู้ใช้งาน : "/>
+                                        <p:inputText id="gname" value="#{permisstion.ectUserGroup.userGroupName}"/>
+                                        <p:outputLabel value="รายละเอียด : "/>
+                                        <p:inputText value="#{permisstion.ectUserGroup.userGroupDesc}"/>
+                                        <p:outputLabel value="สถานะการทำงาน : "/>
+                                        <p:selectOneRadio value="#{permisstion.ectUserGroup.status}">  
+                                            <f:selectItem itemLabel="ทำงาน" itemValue="1" />  
+                                            <f:selectItem itemLabel="หยุดการทำงาน" itemValue="0" />  
+                                        </p:selectOneRadio>                                        
+                                        <p:outputLabel/>    
+                                        <p:panel>
+                                            <p:commandButton value="#{msg.btn_save}" 
+                                                             id="btn_action"
+                                                             update="@form"
+                                                             validateClient="true"
+                                                             onsuccess="dlg_group.hide();" 
+                                                             actionListener="#{permisstion.actionGroup()}" 
+                                                             styleClass="ui-priority-primary">  
+                                                <f:param name="id" value="#{permisstion.ectUserGroup.userGroupId}"/>
+                                                <f:param name="mode" value="#{permisstion.mode}"/>
+                                            </p:commandButton>
+                                            <p:commandButton type="reset" value="#{msg.btn_reset}" />
+                                        </p:panel>
+                                    </p:panelGrid>   
+                                </p:dialog> 
+                            </p:panel>
+                        </p:tab>
+                        <p:tab id="tab2" title="จัดการสิทธิผู้ใช้งาน">
+
+                            <p:panelGrid columns="4">
+
+                                <f:facet name="header">
+                                    ค้นหาผู้ใช้งาน
+                                </f:facet>
+                                <h:outputLabel value="ชื่อในระบบ : "/>
+                                <p:inputText/>
+                                <h:outputLabel value="ชื่อผู้ใช้งาน : "/>
+                                <p:inputText/>
+                                <h:outputLabel value="ประเภทสิทธิ : "/>
+                                <p:inputText/>
+                                <h:outputLabel value="กลุ่มผู้ใช้งาน : "/>
+                                <p:inputText/>
+                                <h:outputLabel value=""/>
+                                <f:facet name="footer">
+                                    <div align="center">
+
+                                        <p:commandButton type="button" value="#{msg.btn_search}"/>
+                                        <p:commandButton type="button" value="#{msg.btn_reset}"/>
+                                    </div>
+                                </f:facet>
+
+                            </p:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="10" id="panelGrid2">                                    
+                                <p:dataTable var="userList" value="#{permisstion.ectUserList}"
+                                             paginator="true" rows="10" id="dtbUserList"  editable="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15">     
+                                    <p:ajax event="rowEdit" listener="#{permisstion.onEdit}">  
+                                        <f:param name="userid" value="#{userList.userId}"/>
+                                    </p:ajax>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="ชื่อในระบบ" />
+                                        </f:facet>
+                                        <h:outputText value="#{userList.username}" />
+                                    </p:column>      
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="ชื่อผู้ใช้งาน" />
+                                        </f:facet>
+                                        <h:outputText value="#{userList.fname}" />
+                                    </p:column>                                   
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="นามสกุลผู้ใช้งาน" />
+                                        </f:facet>
+                                        <h:outputText value="#{userList.lname}" />
+                                    </p:column>  
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="สถานะ" />
+                                        </f:facet>
+                                        <h:outputText value="#{userList.status}" />
+                                    </p:column> 
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="วันที่สร้าง" />
+                                        </f:facet>
+                                        <h:outputText value="#{userList.create_dateTh}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="ชื่อผู้สร้าง" />
+                                        </f:facet>
+                                        <h:outputText value="#{userList.create_user}" />
+                                    </p:column>       
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="ประเภทสิทธิ" />
+                                        </f:facet>
+                                        <p:cellEditor>  
+                                            <f:facet name="output"> 
+                                                <p:outputLabel value="#{permisstion.findLvlDesc(userList.group_lvl_id)}" />  
+                                            </f:facet>
+                                            <f:facet name="input"> 
+                                                <h:selectOneMenu value="#{permisstion.sld_lvl}">
+                                                    <f:selectItem itemValue="0" itemLabel="ยังไม่ได้เลือก"/>
+                                                    <f:selectItems value="#{permisstion.ectGroupLevelList}" var="i"
+                                                                   itemValue="#{i.group_lvl_id}" itemLabel="#{i.group_lvl_desc}" />                                                
+                                                </h:selectOneMenu >
+                                            </f:facet>
+                                        </p:cellEditor> 
+                                    </p:column>    
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="กลุ่มผู้ใช้งาน" />
+                                        </f:facet>
+                                        <p:cellEditor>  
+                                            <f:facet name="output">                                                     
+                                                <p:outputLabel value="#{permisstion.findGroupDesc(userList.userGroupId)}" />  
+                                            </f:facet>
+                                            <f:facet name="input"> 
+                                                <h:selectOneMenu value="#{permisstion.sld_user_group}">
+                                                    <f:selectItem itemValue="0" itemLabel="ยังไม่ได้เลือก"/>
+                                                    <f:selectItems value="#{permisstion.ectUserGroupList}" var="i"
+                                                                   itemValue="#{i.userGroupId}" itemLabel="#{i.userGroupName}" />
+                                                </h:selectOneMenu >
+                                            </f:facet>
+                                        </p:cellEditor> 
+                                    </p:column>    
+                                    <p:column>  
+                                        <p:rowEditor />  
+                                    </p:column> 
+                                </p:dataTable>
+                            </h:panelGrid>                                                                
+
+                        </p:tab>                        
+                    </p:tabView>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+              xmlns="http://java.sun.com/xml/ns/javaee" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <application>
+        <resource-bundle>
+            <base-name>com.totoland.web.resources.messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>conf</base-name>
+            <var>config</var>
+        </resource-bundle>
+        <locale-config>  
+            <default-locale>en_US</default-locale>  
+            <supported-locale>en_US</supported-locale>  
+            <supported-locale>th_TH</supported-locale>  
+        </locale-config>
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+        <!--        <resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>-->
+
+    </application>
+    <factory>
+        <exception-handler-factory>org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory</exception-handler-factory>
+    </factory>
+    <component>
+        <component-type>org.primefaces.component.AdamantiumMenu</component-type>
+        <component-class>org.primefaces.adamantium.component.menu.AdamantiumMenu</component-class>
+    </component>
+    
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.AdamantiumMenuRenderer</renderer-type>
+            <renderer-class>org.primefaces.adamantium.component.menu.AdamantiumMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
+</faces-config>

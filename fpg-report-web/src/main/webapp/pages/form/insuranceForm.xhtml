@@ -1,0 +1,370 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                >
+
+    <ui:define name="subheader">
+        Forms
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="icon-document-stroke Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            #{msg.menu_marine_insure} 
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            <p:commandButton value="#{msg.option_truck}" icon="fa fa-cab" styleClass="Fright PurpleButton FloatNoneOnMobile" 
+                                             update="selectInsureType" action="#{insuranceFormController.selectInsureType(msg.option_truck)}"/>
+                            <p:commandButton value="#{msg.option_vessel}" icon="fa fa-ship" styleClass="Fright GreenButton FloatNoneOnMobile" 
+                                             update="selectInsureType" action="#{insuranceFormController.selectInsureType(msg.option_vessel)}"/>
+                            <p:commandButton value="#{msg.option_air}" icon="fa fa-plane" styleClass="Fright FloatNoneOnMobile" 
+                                             update="selectInsureType" action="#{insuranceFormController.selectInsureType(msg.option_air)}"/> 
+                            <br/>
+                        </div>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                    <h:outputLabel value="#{msg.label_company_code}"/>
+                                    <h:outputLabel value="#{msg.label_Policy_number}"/>
+                                    <h:outputLabel value=""/>
+                                    <p:inputText value="2053" disabled="true"/>
+                                    <p:inputText />
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <!--<h2 class="BigTopic">TextArea</h2>-->
+                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="icon-newspaper Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            #{msg.label_general} 
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+
+                            <br/>
+                        </div>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="Responsive50">
+                            <div>
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid id="pnGrid" columns="4" 
+                                             columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                             layout="grid" styleClass="ui-panelgrid-blank" 
+                                             style="border:0px none; background-color:transparent;">
+                                    <h:outputLabel value="#{msg.label_method_of_transport}"/>
+                                    <h:outputLabel id="selectInsureType" value="#{insuranceFormController.insureType}"/>
+                                    <h:outputLabel value="#{msg.label_issue_date}"/>
+                                    <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}"/>
+
+                                    <!--<h:outputLabel value="ลำดับที่สลักหลัง"/>-->
+                                    <!--<p:inputText placeholder="#{msg.require_field}"/>-->
+                                    <!--<h:outputLabel value="ประเภทรายการข้อมูล"/>-->
+                                    <!--<p:inputText value="ข้อมูลกรมธรรม์ประกันภัย" disabled="true"/>-->
+
+                                    <!--<h:outputLabel value="ประเภทกลุ่มกรมธรรม์"/>-->
+                                    <!--<p:inputText value="ทั่วไป" disabled="true"/>-->
+
+                                    <h:outputLabel value="#{msg.label_inception_date}"/>
+                                    <h:outputLabel value="01/02/2016"/>
+
+                                    <!--<h:outputLabel value="ประเภทการรับประกันภัย"/>-->
+                                    <!--<p:inputText value="กรมธรรม์ประกันโดย" disabled="true"/>-->
+
+                                    <h:outputLabel value="#{msg.label_expiry_date}"/>
+                                    <h:outputLabel value="02/02/2016"/>
+
+                                    <h:outputLabel value="#{msg.label_status_of_goods}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.label_broker_agent_license}"/>
+                                    <h:outputLabel value="570-1020-1202-30"/>
+
+                                    <h:outputLabel value="#{msg.label_distrition}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="ตัวแทน" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.label_reference_number}"/>
+                                    <p:inputText/>
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <!--<h2 class="BigTopic">TextArea</h2>-->
+                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="icon-document-alt-stroke Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            #{msg.label_detail_header} 
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+
+                            <br/>
+                        </div>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="Responsive50">
+                            <div>
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="4" 
+                                             layout="grid" columnClasses="ui-grid-col-4"
+                                             style="border:0px none;padding-top: 10px; background-color:transparent;">
+                                    <h:outputLabel value="#{msg.label_shipment_date}"/>
+                                    <p:calendar mask="99/99/9999"/>
+                                    <h:outputLabel value="#{msg.label_deductible_amount}"/>
+                                    <h:outputLabel value="0.00"/>
+
+                                    <h:outputLabel value="#{msg.label_invoice}"/>
+                                    <p:inputText value="0.00"/>
+
+                                    <h:outputLabel value="#{msg.label_premium_rate}"/>
+                                    <h:outputLabel value="10"/>
+
+                                    <h:outputLabel value="#{msg.label_currency_type}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="US DOLLAR - USD" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.label_premium}"/>
+                                    <p:inputText value="0.00"/>
+
+                                    <h:outputLabel value="#{msg.label_exchange_rate}"/>
+                                    <p:inputText value="35.64"/>
+
+                                    <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
+                                    <h:outputLabel value="invoice*exchange rate*valuation"/>
+
+                                    <h:outputLabel value="#{msg.label_valuation}"/>
+                                    <p:inputText value="0.00"/>
+
+                                    <h:outputLabel value=""/>
+                                    <h:outputLabel value=""/>
+
+                                    <h:outputLabel value="#{msg.label_commodity_type}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.label_commodity_description}"/>
+                                    <p:inputText/>
+
+                                    <!--<h:outputLabel value="ความรับผิดชอบส่วนแรก"/>
+                                    <h:outputLabel value="-"/>-->
+
+                                    <h:outputLabel value="#{msg.label_packaging_type}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value=""/>
+                                    <h:outputLabel value=""/>
+
+                                    <h:outputLabel value="#{msg.label_origin_country}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.label_destination_status_prov}"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="#{msg.label_origin_status_prov}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.label_destination_country}"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="#{msg.label_vessel}"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="#{msg.label_voyage}"/>
+                                    <p:inputText/>
+
+                                    <!--                                    <h:outputLabel value="ชนิดของเรือ"/>
+                                                                        <p:selectOneMenu styleClass="selectOne150">
+                                                                            <f:selectItem itemLabel="" itemValue="1" />
+                                                                        </p:selectOneMenu>-->
+
+                                    <!--                                    <h:outputLabel value="ชื่อเรือลำที่ 2"/>
+                                                                        <p:inputText/>-->
+
+                                    <!--                                    <h:outputLabel value="Issue date"/>
+                                                                        <p:calendar mask="99/99/9999"/>-->
+
+                                    <!--                                    <h:outputLabel value="วันที่ออกเอกสาร"/>
+                                                                        <p:calendar mask="99/99/9999"/>-->
+
+                                    <h:outputLabel value="#{msg.label_bill_of_lading_number}"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="Insuring terms"/>
+                                    <h:outputLabel value="-"/>
+
+                                    <h:outputLabel value="#{msg.label_claim_payable_at}"/>
+                                    <h:outputLabel value="#{msg.fpg_company_name}"/>
+
+                                    <h:outputLabel value="#{msg.label_claim_surveyor}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value=""/>
+                                    <h:outputLabel value=""/>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <!--<h2 class="BigTopic">TextArea</h2>-->
+                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="icon-user Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            ผู้เอาประกัน 
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+
+                            <br/>
+                        </div>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="Responsive50">
+                            <div>
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="4" 
+                                             layout="grid"
+                                             style="border:0px none;padding-top: 10px; background-color:transparent">
+                                    <h:outputLabel value="ผู้รับประโยชน์เป็นผู้เอาประกัน"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="ผู้เอาประกัน" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="ที่อยู่ผู้เอาประกันภัย"/>
+                                    <h:outputLabel value="-"/>
+
+                                    <h:outputLabel value="ประเภทผู้เอาประกันภัย"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="ผู้รับประโยชน์คนที่ 1"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="ผู้รับประโยชน์คนที่ 2"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="ชื่อผู้เอาประกันภัย"/>
+                                    <h:outputLabel value="-"/>
+
+                                    <h:outputLabel value="จังหวัด"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="อำเภอ"/>
+                                    <h:outputLabel value=""/>
+
+                                    <h:outputLabel value="ตำบล"/>
+                                    <h:outputLabel/>
+
+                                    <h:outputLabel value="รหัสไปรษณีย์"/>
+                                    <h:outputLabel/>
+
+                                    <h:outputLabel value="ประเทศ"/>
+                                    <h:outputLabel value="ไทย"/>
+
+                                    <h:outputLabel value="เลขที่บัตรประจำตัวผู้เอาประกันภัย"/>
+                                    <p:inputText/>
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <!--<h2 class="BigTopic">TextArea</h2>-->
+                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Container100">
+                <div class="ContainerIndent">
+
+                    <div class="Responsive50">
+
+                        <p:toolbar>
+                            <f:facet name="right">
+                                <p:commandButton type="button" value="#{msg.btn_save_draft}" icon="fa fa-save Fs14 White" />
+
+                                <p:commandButton type="button" value="#{msg.btn_discard}" icon="fa fa-trash Fs14 Resd" styleClass="RedButton">
+                                    <p:confirm header="#{msg.confirmation_head}" message="#{msg.confirmation_message_delete}?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                                <p:commandButton type="button" value="#{msg.btn_save}" icon="fa fa-save Fs14 White" styleClass="GreenButton">
+                                    <p:confirm header="#{msg.confirmation_head}" message="#{msg.msg_confirm_save}" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="#{msg.yes}" type="button" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white" />
+                                    <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                </p:confirmDialog>
+                            </f:facet>
+
+                        </p:toolbar>
+
+                    </div>
+
+                </div>
+                <p:stack icon="/resources/images/dock/stack.png" expanded="false">
+                    <p:menuitem value="#{msg.btn_discard}" icon="/resources/images/dock/Cancel-48.png" url="#"/>
+                    <p:menuitem value="#{msg.btn_save}" icon="/resources/images/dock/Checked-48.png" url="#"/>
+                    <p:menuitem value="Draft" icon="/resources/images/dock/Document-48.png" url="#"/>
+                </p:stack>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

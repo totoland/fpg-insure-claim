@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+
+      xmlns:components="http://java.sun.com/jsf/composite/components">
+
+    <composite:interface>
+
+        <composite:attribute name="value" />
+        <composite:attribute name="id" />
+        <composite:attribute name="maxlength" />
+        <composite:attribute name="disabled" />
+        <composite:attribute name="rendered"/>
+        <composite:attribute name="readonly"/>
+        <composite:attribute name="onkeyup"/>
+        <composite:attribute name="onchange"/>
+        <composite:attribute name="onblur"/>
+        <composite:attribute name="size"/>
+        <composite:attribute name="style"/>
+        <composite:attribute name="tabindex"/>
+
+    </composite:interface>
+
+    <composite:implementation>
+
+        <p:inputText id="#{cc.attrs.id}" style="#{cc.attrs.style==null?'':cc.attrs.style}" tabindex="#{cc.attrs.tabindex==''?0:cc.attrs.tabindex}" size="#{cc.attrs.size==null?10:cc.attrs.size}" onkeyup="#{cc.attrs.onkeyup==null?'':cc.attrs.onkeyup}" onblur="#{cc.attrs.onblur==null?'':cc.attrs.onblur}" onchange="#{cc.attrs.onchange==null?'':cc.attrs.onchange}" styleClass="inputNumber" disabled="#{cc.attrs.disabled==null?'false':cc.attrs.disabled}" readonly="#{cc.attrs.readonly==null?'false':cc.attrs.readonly}" rendered="#{cc.attrs.rendered==null?'true':cc.attrs.rendered}"  maxlength="#{cc.attrs.maxlength==null?'10':cc.attrs.maxlength}" value="#{cc.attrs.value}">
+            <composite:insertChildren/>
+            <pe:keyFilter regEx="/[\d]/"/>
+        </p:inputText>
+    </composite:implementation>
+
+</html>

@@ -1,0 +1,22 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pm="http://primefaces.org/adamantium">
+
+    <div class="layout-menu-cover-top Animated05" id="layout-menu-cover">
+        <h:form id="menuform">
+            <pm:menu>
+                <p:menuitem id="rm_dashboard" value="#{msg.menu_marine_insure}" icon="icon-compose" url="/pages/form/insuranceForm.xhtml"/>
+                <p:menuitem id="rm_promotion" value="#{msg.menu_user_mgr}" icon="icon-users" url="/pages/user/userManagement.xhtml"/>
+                <p:submenu id="rm_orientation" label="#{msg.menum_report}" icon="icon-menu">
+                    <p:menuitem id="rm_top" value="Certificate Active Report" icon="icon-layout7" url="/pages/report/certificateActiveReport.xhtml" />
+                </p:submenu>
+            </pm:menu>
+        </h:form>
+
+    </div>
+
+</ui:composition>

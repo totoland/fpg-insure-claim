@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!--[if lt IE 9]><script src="${request.contextPath}/resources/js/html5.js"></script><![endif]-->
+        <link rel="stylesheet" href="${request.contextPath}/resources/css/style.css" media="screen"/>
+        <!--[if lte IE 7]><link rel="stylesheet" href="${request.contextPath}/resources/css/style.ie7.css" media="screen" /><![endif]-->
+        <link rel="stylesheet" href="${request.contextPath}/resources/css/style.responsive.css" media="all"/>
+
+        <style>
+            body
+            {
+                background-image:url('${request.contextPath}/resources/images/dock/Cosmic-OSX-Wallpaper.jpg');
+                background-color:#cccccc;
+            }
+        </style>
+    </h:head>
+
+    <h:body id="body">
+        <p:growl showDetail="true" sticky="true"/>
+        <ui:include src="/template/menuTop.xhtml"/>
+
+        <p:dialog header="About This Mac" draggable="true" widgetVar="info" showEffect="fade" hideEffect="fade">
+            <h:form>
+                <h:panelGrid columns="1" style="width:100%;text-align:center;">
+                    <p:graphicImage value="/resources/images/dock/apple_logo.png" />
+                    <h:outputText value="MOCK OS X" style="font-size:16px"/>
+                    <h:outputText value="Version 10.5.7" />
+                    <p:commandButton value="Software Update" async="true" onclick="return false;"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputText value="Processor" style="font-weight:bold"/>
+                    <h:outputText value="2.4 GHz Intel Core 2 Duo" />
+
+                    <h:outputText value="Memory" style="font-weight:bold"/>
+                    <h:outputText value="4 GB 667 MHz DDR2 SDRAM" />
+
+                    <h:outputText value="Startup Disk" style="font-weight:bold"/>
+                    <h:outputText value="Macintosh HD" />
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
+
+<!--        <p:dialog header="PrimeFaces Mock OS X" draggable="true" visible="true" modal="true" showEffect="fade" hideEffect="fade">
+            <h:outputText value="Welcome! Everything here is a PrimeFaces component." />
+        </p:dialog>-->
+
+        <p:dialog widgetVar="terminal" width="600" height="400" header="Terminal" resizable="false" showEffect="fade" hideEffect="fade"
+                  styleClass="terminalDialog">
+            <h:form>
+                <p:terminal commandHandler="#{terminalView.handleCommand}" style="width:590px"
+                            welcomeMessage="Welcome to PrimeFaces Terminal, how are you today? Try date and greet  commands."/>
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog widgetVar="map" width="600" height="400" header="Map" resizable="true" showEffect="fade" hideEffect="fade">
+            <h:form>
+                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+                <p:gmap id="gmap" center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:600px;height:400px" />
+            </h:form>
+        </p:dialog>
+
+        <p:dock>
+            <p:menuitem value="Finder" icon="/resources/images/dock/finder.png" url="#" />
+            <p:menuitem value="Terminal" icon="/resources/images/dock/terminal.png" url="#" onclick="PF('terminal').show();"/>
+            <p:menuitem value="Safari" icon="/resources/images/dock/safari.png" url="#" />
+            <p:menuitem value="Map" icon="/resources/images/dock/google_maps_icon.png" url="#" onclick="PF('map').show();"/>
+            <p:menuitem value="iChat" icon="/resources/images/dock/ichat.png" url="#"/>
+            <p:menuitem value="Trash" icon="/resources/images/dock/trash.png" url="#"/>
+        </p:dock>
+
+    </h:body>
+
+</html>

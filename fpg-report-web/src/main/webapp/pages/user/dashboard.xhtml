@@ -1,0 +1,669 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#FF4081', '#FB8C00', '#43A047', '#8E24AA'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #546E7A;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="subheader">
+        Dashboard
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <h:form>
+                    <p:splitButton value="Welcome, Jack Edwin" icon="fa fa-slideshare" styleClass="Fleft">
+                        <p:menuitem value="My Settings" icon="fa fa-cogs" />
+                        <p:menuitem value="Uploaded Codes" icon="fa fa-cloud-upload" />
+                        <p:menuitem value="Download Codes" icon="fa fa-cloud-download" />
+                    </p:splitButton> 
+                </h:form>
+                <div class="EmptyBox10 ShowOnMobile"></div>
+                <p:button value="Code Editor" icon="fa fa-cubes" styleClass="Fright BrownButton FloatNoneOnMobile"/>
+                <p:button value="Cloud System" icon="fa fa-cloud-download" styleClass="Fright GreenButton FloatNoneOnMobile"/>
+                <p:button value="Git Forks" icon="fa fa-code-fork" styleClass="Fright FloatNoneOnMobile"/>              
+            </div>
+        </div>
+
+        <!-- Left -->
+        <div class="Container50 Responsive100">
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> <i class="icon-share Fs30 Fleft MarRight10"></i>
+                            <p:selectOneButton styleClass="Fright">
+                                <f:selectItem itemLabel="Daily" itemValue="Daily"/>
+                                <f:selectItem itemLabel="Monthly" itemValue="Monthly"/>
+                            </p:selectOneButton>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            Development Cycles <br/>
+                            <span class="CardSubTopic">Charts Of All Cycles</span> </div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="Container33 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card SoftGrayBack">
+                                    <i class="icon-store Fs40 Fleft Orange MarRight10"></i>
+                                    <div class="Fleft DispInlBlock">
+                                        <span class="Fs12 FontAdamantiumBold Gray">DEPLOYED TOOLS</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">385</span><br/>
+                                        <span class="Fs11 FontAdamantiumRegular Green">65% Deployed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Container33 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card SoftGrayBack">
+                                    <i class="icon-umbrella Fs40 Fleft Pink MarRight10"></i>
+                                    <div class="Fleft DispInlBlock">
+                                        <span class="Fs12 FontAdamantiumBold Gray">IN DEVELOPMENT</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">2.567</span><br/>
+                                        <span class="Fs11 FontAdamantiumRegular Red">42% Remaining</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Container33 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card SoftGrayBack">
+                                    <i class="icon-portfolio Fs40 Fleft LeadenGreen MarRight10"></i>
+                                    <div class="Fleft DispInlBlock">
+                                        <span class="Fs12 FontAdamantiumBold Gray">NEXT TOOLS</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">3.204 +</span><br/>
+                                        <span class="Fs11 FontAdamantiumRegular Blue">29% Ready</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="EmptyBox20"></div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> <i class="icon-cloud-download Fs30 Fleft MarRight10"></i>
+                            <p:button icon="fa fa-bug White" styleClass="Fright GreenButton"/>
+                            <p:button icon="fa fa-bars White" styleClass="Fright GreenButton"/>
+                            Download Reports <br/>
+                            <span class="CardSubTopic">Daily, Weekly And Monthly Downloads </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Container50 Responsive50">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="Wid40 TexAlCenter Fleft">
+                            <i class="icon-pin-alt Pink Fs50 DispBlock MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Pink DispBlock">Adamantium MapX</span>
+                        </div>
+                        <div class="Wid50 Fright">
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Downloads</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Pink">4.389</span>
+                            <div class="EmptyBox20"></div>
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Payment</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Pink">$ 32.567</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100 TexAlCenter"><p:button value="See On Charts" styleClass="PinkButton"/></div>
+                    </div>
+                </div>
+            </div>
+            <div class="Container50 Responsive50">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="Wid40 TexAlCenter Fleft">
+                            <i class="icon-instagram Purple Fs50 DispBlock MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Purple DispBlock">Adamantium InstaX</span>
+                        </div>
+                        <div class="Wid50 Fright">
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Downloads</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Purple">3.345</span>
+                            <div class="EmptyBox20"></div>
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Payment</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Purple">$ 26.187</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100 TexAlCenter"><p:button value="See On Charts" styleClass="PurpleButton"/></div>
+                    </div>
+                </div>
+            </div>
+            <div class="Container50 Responsive50">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="Wid40 TexAlCenter Fleft">
+                            <i class="icon-iphone Red Fs50 DispBlock MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Red DispBlock">Adamantium AppX</span>
+                        </div>
+                        <div class="Wid50 Fright">
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Downloads</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Red">2.447</span>
+                            <div class="EmptyBox20"></div>
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Payment</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Red">$ 12.335</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100 TexAlCenter"><p:button value="See On Charts" styleClass="RedButton"/></div>
+                    </div>
+                </div>
+            </div>
+            <div class="Container50 Responsive50">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="Wid40 TexAlCenter Fleft">
+                            <i class="icon-dribbble Orange Fs50 DispBlock MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Orange DispBlock">Adamantium SportX</span>
+                        </div>
+                        <div class="Wid50 Fright">
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Downloads</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Orange">3.668</span>
+                            <div class="EmptyBox20"></div>
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Payment</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Orange">$ 21.434</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100 TexAlCenter"><p:button value="See On Charts" styleClass="OrangeButton"/></div>
+                    </div>
+                </div>
+            </div>
+            <div class="Container50 Responsive50">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="Wid40 TexAlCenter Fleft">
+                            <i class="icon-lightbulb Green Fs50 DispBlock MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Green DispBlock">Adamantium LightX</span>
+                        </div>
+                        <div class="Wid50 Fright">
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Downloads</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Green">4.559</span>
+                            <div class="EmptyBox20"></div>
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Payment</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Green">$ 33.534</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100 TexAlCenter"><p:button value="See On Charts" styleClass="GreenButton"/></div>
+                    </div>
+                </div>
+            </div>
+            <div class="Container50 Responsive50">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="Wid40 TexAlCenter Fleft">
+                            <i class="icon-cmd Blue Fs50 DispBlock MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Blue DispBlock">Adamantium SecuX</span>
+                        </div>
+                        <div class="Wid50 Fright">
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Downloads</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Blue">2.447</span>
+                            <div class="EmptyBox20"></div>
+                            <span class="FontAdamantiumBold Fs14 DispBlock MarBot10">Total Payment</span>
+                            <span class="FontAdamantiumBold Fs24 DispBlock Blue">$ 12.335</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100 TexAlCenter"><p:button value="See On Charts"/></div>
+                    </div>
+                </div>
+            </div>
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> <i class="icon-cloud-upload Fs30 Fleft MarRight10"></i> Data Usage Of Applications On Cloud <br/>
+                            <span class="CardSubTopic">Data Usage Chart Of Adamantium Applications On Amazon Cloud Servers </span> </div>
+                        <div class="SeparatorFull"></div>
+                        
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+        <!-- Right -->
+        <div class="Container50 Responsive100">
+            <div class="Container50 Responsive100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> <i class="icon-book-alt Fs30 Fleft MarRight10"></i> 
+                            <p:button icon="fa fa-plus White" styleClass=" Fright GreenButton"/>
+                            Address Book <br/>
+                            <span class="CardSubTopic">Contacts List</span>
+                        </div>
+                        <div class="SeparatorFull"></div>
+                        <div class="CardTopicMini">Latest Contacts</div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Wid45 Fleft OvHidden">
+                            <p:button icon="fa fa-phone White" styleClass="Fright OrangeButton"/>
+                            <span class="Fs12 FontAdamantiumBold">John Carpenter</span><br/>
+                            <span class="Fs12 FontAdamantiumLight DispInherit">+90555 123 4 567</span>
+                        </div>
+                        <div class="Wid45 Fright OvHidden">
+                            <p:button icon="fa fa-phone White" styleClass="Fright OrangeButton"/>
+                            <span class="Fs12 FontAdamantiumBold">John Carpenter</span><br/>
+                            <span class="Fs12 FontAdamantiumLight DispInherit">+90555 123 4 567</span>
+                        </div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Wid45 Fleft OvHidden">
+                            <p:button icon="fa fa-phone White" styleClass="Fright OrangeButton"/>
+                            <span class="Fs12 FontAdamantiumBold">John Carpenter</span><br/>
+                            <span class="Fs12 FontAdamantiumLight DispInherit">+90555 123 4 567</span>
+                        </div>
+                        <div class="Wid45 Fright OvHidden">
+                            <p:button icon="fa fa-phone White" styleClass="Fright OrangeButton"/>
+                            <span class="Fs12 FontAdamantiumBold">John Carpenter</span><br/>
+                            <span class="Fs12 FontAdamantiumLight DispInherit">+90555 123 4 567</span>
+                        </div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Wid45 Fleft OvHidden">
+                            <p:button icon="fa fa-phone White" styleClass="Fright OrangeButton"/>
+                            <span class="Fs12 FontAdamantiumBold">John Carpenter</span><br/>
+                            <span class="Fs12 FontAdamantiumLight DispInherit">+90555 123 4 567</span>
+                        </div>
+                        <div class="Wid45 Fright OvHidden">
+                            <p:button icon="fa fa-phone White" styleClass="Fright OrangeButton"/>
+                            <span class="Fs12 FontAdamantiumBold">John Carpenter</span><br/>
+                            <span class="Fs12 FontAdamantiumLight DispInherit">+90555 123 4 567</span>
+                        </div>
+                        <div class="EmptyBox10"></div>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="CardTopicMini">Mostly Used Contacts</div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Wid45 Fleft OvHidden">
+                            <p:button icon="fa fa-phone White" styleClass="Fright OrangeButton"/>
+                            <span class="Fs12 FontAdamantiumBold">John Carpenter</span><br/>
+                            <span class="Fs12 FontAdamantiumLight DispInherit">+90555 123 4 567</span>
+                        </div>
+                        <div class="Wid45 Fright OvHidden">
+                            <p:button icon="fa fa-phone White" styleClass="Fright OrangeButton"/>
+                            <span class="Fs12 FontAdamantiumBold">John Carpenter</span><br/>
+                            <span class="Fs12 FontAdamantiumLight DispInherit">+90555 123 4 567</span>
+                        </div>
+
+                        <div class="EmptyBox10"></div>
+                        <div class="SeparatorFull"></div>
+                        <p:button value="Get All Contacts" styleClass="CyanButton Fright"/>
+                        <span class="Red FontAdamantiumBold Fs18">3745</span><br/>
+                        <span class="Fs12 FontAdamantiumRegular">More Records</span>
+                    </div>
+                </div>
+            </div>
+            <div class="Container50 Responsive100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> <i class="icon-task Fs30 Fleft MarRight10"></i>
+                            <p:button icon="fa fa-plus White" styleClass="Fright GreenButton"/>
+                            Tasks And Reminder <br/>
+                            <span class="CardSubTopic">Create New Tasks And Set Reminders</span>
+                        </div>
+                        <div class="SeparatorFull"></div>
+                        <div class="CardTopicMini">Reminders</div>
+                        <div class="EmptyBox20"></div>
+                        <div class="ui-fluid">
+                            <p:selectManyCheckbox layout="responsive" columns="1">
+                                <f:selectItem itemLabel="Call Heather" itemValue="Call Heather" />
+                                <f:selectItem itemLabel="Send Mail To Samuel" itemValue="Send Mail To Samuel" />
+                                <f:selectItem itemLabel="Hangout with Manager" itemValue="Hangout with Manager" />
+                                <f:selectItem itemLabel="Dinner With John" itemValue="Dinner With John" />
+                            </p:selectManyCheckbox>
+                        </div>
+
+                        <div class="EmptyBox20"></div>
+                        <p:button value="Show All" styleClass="CyanButton Fright"/>
+                        <span class="Red FontAdamantiumBold Fs18">35</span><br/>
+                        <span class="Fs12 FontAdamantiumRegular">More Reminders</span>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="CardTopicMini">Tasks</div>
+                        <div class="EmptyBox20"></div>
+                        <div class="ui-fluid">
+                            <p:selectManyCheckbox layout="responsive" columns="1">
+                                <f:selectItem itemLabel="Call Heather" itemValue="Call Heather" />
+                                <f:selectItem itemLabel="Send Mail To Samuel" itemValue="Send Mail To Samuel" />
+                                <f:selectItem itemLabel="Hangout with Manager" itemValue="Hangout with Manager" />
+                                <f:selectItem itemLabel="Dinner With John" itemValue="Dinner With John" />
+                            </p:selectManyCheckbox>
+                        </div>
+
+                        <div class="EmptyBox20"></div>
+                        <p:button value="Show All" styleClass="CyanButton Fright"/>
+                        <span class="Red FontAdamantiumBold Fs18">29</span><br/>
+                        <span class="Fs12 FontAdamantiumRegular">More Tasks</span>
+                    </div>
+                </div>
+            </div>
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic">
+                            <p:selectCheckboxMenu label="Select Applications" filter="true" filterMatchMode="startsWith" style="width:170px;" styleClass="Fright">
+                                <f:selectItem itemLabel="MapX" itemValue="1" />
+                                <f:selectItem itemLabel="InstaX" itemValue="2" />
+                                <f:selectItem itemLabel="AppX" itemValue="3" />
+                                <f:selectItem itemLabel="SportX" itemValue="4" />
+                                <f:selectItem itemLabel="LightX" itemValue="5" />
+                                <f:selectItem itemLabel="SecuX" itemValue="6" />
+                            </p:selectCheckboxMenu>
+                            <i class="icon-dial Fs30 Fleft MarRight10"></i> Usage Metrics Of Applications <br/>
+                            <span class="CardSubTopic">All Usage Metrics And Analysis </span> 
+                        </div>
+                        <div class="SeparatorFull"></div>
+                        <div class="EmptyBox10"></div>
+
+                        <div class="Container100">
+                            <div class="Container40">
+                                <i class="icon-pin-alt Pink Fs50 Fleft MarRight10"></i>
+                                <span class="Fs16 Pink FontAdamantiumBold">Adamantium <br/> MapX</span>
+                            </div>
+                            <div class="Container60">
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="LeadenGreenBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">25<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Europe</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="PurpleBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">8<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Asia</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="LeadenGreenBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">23<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Pasific</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="RedBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">12<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">America</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarBot10">
+                                    <div class="OrangeBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">78<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Middle East</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Separator"></div>
+
+                        <div class="Container100">
+                            <div class="Container40">
+                                <i class="icon-cmd Blue Fs50 Fleft MarRight10"></i>
+                                <span class="Fs16 Blue FontAdamantiumBold">Adamantium <br/> SecuX</span>
+                            </div>
+                            <div class="Container60">
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="LeadenGreenBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">25<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Europe</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="PurpleBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">8<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Asia</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="LeadenGreenBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">23<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Pasific</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="RedBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">12<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">America</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarBot10">
+                                    <div class="OrangeBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">78<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Middle East</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Separator"></div>
+
+                        <div class="Container100">
+                            <div class="Container40">
+                                <i class="icon-dribbble Orange Fs50 Fleft MarRight10"></i>
+                                <span class="Fs16 Orange FontAdamantiumBold">Adamantium <br/> SportX</span>
+                            </div>
+                            <div class="Container60">
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="LeadenGreenBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">25<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Europe</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="PurpleBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">8<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Asia</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="LeadenGreenBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">23<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Pasific</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="RedBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">12<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">America</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarBot10">
+                                    <div class="OrangeBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">78<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Middle East</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Separator"></div>
+
+                        <div class="Container100">
+                            <div class="Container40">
+                                <i class="icon-instagram Purple Fs50 Fleft MarRight10"></i>
+                                <span class="Fs16 Purple FontAdamantiumBold">Adamantium <br/> InstaX</span>
+                            </div>
+                            <div class="Container60">
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="LeadenGreenBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">25<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Europe</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="PurpleBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">8<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Asia</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="LeadenGreenBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">23<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Pasific</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarRight20 MarBot10">
+                                    <div class="RedBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">12<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">America</span>
+                                </div>
+                                <div class="Fleft DispInlBlock TexAlCenter MarBot10">
+                                    <div class="OrangeBack White FontAdamantiumBold Fs20 BordRadHalf MarBot10" style="width:60px; height:42px; padding-top:18px;">78<span class="Fs12">%</span></div>
+                                    <span class="FontAdamantiumBold FontItalic Fs12">Middle East</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> <i class="icon-chat-alt-stroke Fs30 Fleft MarRight10"></i>
+                            <p:button icon="fa fa-comment-o White" styleClass="Fright GreenButton"/>
+                            <p:button icon="fa fa-bars White" styleClass="Fright GreenButton"/>
+                            Developers Network <br/>
+                            <span class="CardSubTopic">Test Commits And Application Development Teams Management </span> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Container40 Responsive50">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopicMini">Latest Application Test Commits</div>
+                        <div class="SeparatorFull"></div>
+                        <div class="EmptyBox10"></div>
+                        <div class="Container100">
+                            <i class="icon-pin-alt Pink Fs24 Fleft MarRight20 MarBot10"></i>
+                            <span class="FontAdamantiumBold Fs12">Clark Davenport</span><br/>
+                            <span class="FontAdamantiumLight Fs12 DispInherit">“MapX Menu Bugs Fixed <br/> -18.08.2015”</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100">
+                            <i class="icon-instagram Purple Fs24 Fleft MarRight20 MarBot10"></i>
+                            <span class="FontAdamantiumBold Fs12">Jack Sparrow</span><br/>
+                            <span class="FontAdamantiumLight Fs12 DispInherit">“InstaX Tools Bugs Fixed <br/> -18.08.2015”</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100">
+                            <i class="icon-lightbulb Green Fs24 Fleft MarRight20 MarBot10"></i>
+                            <span class="FontAdamantiumBold Fs12">George Flinn</span><br/>
+                            <span class="FontAdamantiumLight Fs12 DispInherit">“LightX Bugs Fixed <br/> -18.08.2015”</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100">
+                            <i class="icon-cmd Blue Fs24 Fleft MarRight20 MarBot10"></i>
+                            <span class="FontAdamantiumBold Fs12">Clark Davenport</span><br/>
+                            <span class="FontAdamantiumLight Fs12 DispInherit">“SecuX Menu Bugs Fixed <br/> -18.08.2015”</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100">
+                            <i class="icon-instagram Purple Fs24 Fleft MarRight20 MarBot10"></i>
+                            <span class="FontAdamantiumBold Fs12">Jack Sparrow</span><br/>
+                            <span class="FontAdamantiumLight Fs12 DispInherit">“InstaX Tools Bugs Fixed <br/> -18.08.2015”</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100">
+                            <i class="icon-lightbulb Green Fs24 Fleft MarRight20 MarBot10"></i>
+                            <span class="FontAdamantiumBold Fs12">George Flinn</span><br/>
+                            <span class="FontAdamantiumLight Fs12 DispInherit">“LightX Bugs Fixed <br/> -18.08.2015”</span>
+                        </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100">
+                            <i class="icon-cmd Blue Fs24 Fleft MarRight20 MarBot10"></i>
+                            <span class="FontAdamantiumBold Fs12">Clark Davenport</span><br/>
+                            <span class="FontAdamantiumLight Fs12 DispInherit">“SecuX Menu Bugs Fixed <br/> -18.08.2015”</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Container60 Responsive50 ui-fluid">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopicMini">Application Development Teams</div>
+                        <div class="SeparatorFull"></div>
+                        <div class="EmptyBox10"></div>
+                        <div class="Container50 Responsive50 MarBot20">
+                            <i class="icon-pin-alt Pink Fs40 Fleft MarRight10 MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Pink DispBlock MarBot10">MapX Team</span>
+                            <span class="FontAdamantiumBold Fs12 DispInherit">3 Developer <br/> 2 Intern</span>
+                        </div>
+                        <div class="Container50 Responsive50 MarBot20">
+                            <i class="icon-instagram Purple Fs40 Fleft MarRight10 MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Purple DispBlock MarBot10">InstaX Team</span>
+                            <span class="FontAdamantiumBold Fs12 DispInherit">2 Developer <br/> 1 Intern</span>
+                        </div>
+                        <div class="Container50 Responsive50 MarBot20">
+                            <i class="icon-iphone Red Fs40 Fleft MarRight10 MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Red DispBlock MarBot10">AppX Team</span>
+                            <span class="FontAdamantiumBold Fs12 DispInherit">2 Developer <br/> 2 Intern</span>
+                        </div>
+                        <div class="Container50 Responsive50 MarBot20">
+                            <i class="icon-dribbble Orange Fs40 Fleft MarRight10 MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Orange DispBlock MarBot10">SportX Team</span>
+                            <span class="FontAdamantiumBold Fs12 DispInherit">3 Developer <br/> 2 Intern</span>
+                        </div>
+                        <div class="Container50 Responsive50 MarBot20">
+                            <i class="icon-lightbulb Green Fs40 Fleft MarRight10 MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Green DispBlock MarBot10">LightX Team</span>
+                            <span class="FontAdamantiumBold Fs12 DispInherit">2 Developer <br/> 4 Intern</span>
+                        </div>
+                        <div class="Container50 Responsive50 MarBot20">
+                            <i class="icon-pin-alt Pink Fs40 Fleft MarRight10 MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Pink DispBlock MarBot10">MapX Team</span>
+                            <span class="FontAdamantiumBold Fs12 DispInherit">3 Developer <br/> 2 Intern</span>
+                        </div>
+                        <div class="Container50 Responsive50 MarBot20">
+                            <i class="icon-lightbulb Green Fs40 Fleft MarRight10 MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Green DispBlock MarBot10">LightX Team</span>
+                            <span class="FontAdamantiumBold Fs12 DispInherit">2 Developer <br/> 4 Intern</span>
+                        </div>
+                        <div class="Container50 Responsive50 MarBot20">
+                            <i class="icon-pin-alt Pink Fs40 Fleft MarRight10 MarBot20"></i>
+                            <span class="FontAdamantiumBold Fs14 Pink DispBlock MarBot10">MapX Team</span>
+                            <span class="FontAdamantiumBold Fs12 DispInherit">3 Developer <br/> 2 Intern</span>
+                        </div>
+                        <div class="SeparatorFull"></div>
+                        <div class="Container50 Responsive100">
+                            <div class="ContainerIndent">
+                                <p:selectOneMenu id="dev" style="">
+                                    <f:selectItem itemLabel="Select Developer" itemValue="" />
+                                    <f:selectItem itemLabel="Jack Sparrow" itemValue="Xbox One" />
+                                    <f:selectItem itemLabel="George Flinn" itemValue="PS4" />
+                                    <f:selectItem itemLabel="Clark Davenport" itemValue="Wii U" />
+                                </p:selectOneMenu>
+                                <div class="EmptyBox10"></div>
+                                <p:selectOneMenu id="team" style="">
+                                    <f:selectItem itemLabel="Select Team" itemValue="" />
+                                    <f:selectItem itemLabel="Jack Sparrow" itemValue="Xbox One" />
+                                    <f:selectItem itemLabel="George Flinn" itemValue="PS4" />
+                                    <f:selectItem itemLabel="Clark Davenport" itemValue="Wii U" />
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="EmptyBox10 ShowOnMobile"></div>
+                        <div class="Container50 Responsive100">
+                            <div class="ContainerIndent">
+                                <p:button value="Add To Team" styleClass="Fright FloatNoneOnMobile"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div>
+
+    </ui:define>
+
+</ui:composition>

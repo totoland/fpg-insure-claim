@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <ui:insert name="scriptHeader">
+            <ui:include src="scriptHeader.xhtml"/>
+        </ui:insert>
+        <ui:insert name="javascript">
+            <script>
+                //<![CDATA[
+                secLogin = 6000;
+
+                var countSession = function() {
+
+                    secLogin = secLogin - 1;
+
+                    //console.log(secLogin);
+
+                    if (secLogin < 1) {
+                        alert("#{msg.session_timeout}");
+                        window.location = '${request.contextPath}/pages/login/login.xhtml';
+                    } else {
+                        setTimeout(countSession, 1000);
+                    }
+
+                }
+
+
+
+                function checkAuthen() {
+                    logger("checkAuthen");
+                    secLogin = 6000;
+//                    var user = '${formSelectReport.userAuthen.isActive}';
+//
+//                    if (user == null || user == '') {
+//                        alert("#{msg.session_timeout}");
+//                        window.location = '${request.contextPath}/pages/login/login.xhtml';
+//                    }
+                }
+                $(function() {
+                    countSession();
+                    checkAuthen();
+                });
+                //]]>
+            </script>
+        </ui:insert>
+
+
+    </h:head>
+
+    <h:body id="body">
+        <p:blockUI  block="body" widgetVar="blogui">
+            LOADING<br />
+            <img src="${request.contextPath}/resources/images/preloader-01.gif"/>
+        </p:blockUI>
+        <p:ajaxStatus id="ajaxStatus1" onstart="blogui.show();" oncomplete="blogui.hide()">
+        </p:ajaxStatus>
+        <div id="art-main">
+            <header class="art-header">
+                <div class="art-shapes">
+                    <div class="art-object496222280" data-left="2.13%"></div>
+                </div>
+                <h1 class="art-headline" data-left="21.29%">
+                    <a href="#">Connection System</a>
+                </h1>
+                <h2 class="art-slogan" data-left="18.48%">Connection System</h2>
+            </header>
+            <nav>
+                <ui:insert name="menuTop">
+                    <ui:include src="menuTop.xhtml"/>
+                </ui:insert>
+            </nav>
+            <div class="art-sheet clearfix">
+                <div class="art-layout-wrapper">
+                    <div class="art-content-layout">
+                        <div class="art-content-layout-row">
+                            <div class="art-layout-cell art-sidebar1">
+                                <ui:insert name="leftMenu">
+
+                                </ui:insert>
+                            </div>
+                            
+                                
+                                    <h:panelGroup id="contentBody">
+                                        <ui:insert name="content">
+
+                                        </ui:insert>
+                                    </h:panelGroup>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="art-footer">
+                <div class="art-footer-inner">
+                    <ui:insert name="footer">
+                        <ui:include src="footer.xhtml"/>
+                    </ui:insert>
+                </div>
+            </footer>
+        </div>
+        <ui:insert name="modalDialog">
+        </ui:insert>
+
+        <h:outputScript library="js" name="i18N.js" target="head" />
+
+    </h:body>
+
+</html>

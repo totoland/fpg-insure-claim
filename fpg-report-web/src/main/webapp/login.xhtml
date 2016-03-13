@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>FPG Report</title>
+        <ui:insert name="head" />
+    </h:head>
+
+    <h:body>
+
+        <h:form>
+        <div class="Container100 BordBottom BlueBack loginback">
+            <div class="EmptyBox50"></div>
+
+            <div class="Wid90 MarAuto">
+                
+                <div style="margin: 0 auto;width: 400px">
+                    <p:messages id="messages" closable="true" escape="true"/>
+                </div>
+                <div class="Wid30 DispBlock MarAuto WidAutoOnMobile">
+                    <div class="Card TexAlCenter" style="margin-bottom:-650px;">
+                        <h:graphicImage value="http://www.itip.ph/uploads/member-sponsors/28.jpg" style="max-width:180px;"/>
+                        <div class="SeparatorFull"></div>
+                        <div class="Wid100 OvHidden BigTopic"><i class="icon-security DispBlock"></i> Login / Sign Up</div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Card SoftGrayBack">
+                            <p:inputText id="txtUsername" placeholder="username" styleClass="Wid90 TexAlCenter" value="#{loginController.userName}" 
+                                         required="true" requiredMessage="Please enter username"/>
+                            <div class="EmptyBox10"></div>
+                            <p:inputText id="txtPassword" type="password" placeholder="Password" styleClass="Wid90 TexAlCenter" value="#{loginController.passWord}"
+                                         required="true" requiredMessage="Please enter password" label="password"/>
+                            <div class="EmptyBox30"></div>
+                            <p:selectBooleanCheckbox value="accept" itemLabel="I Accept Terms And Policies"/>
+                            <div class="EmptyBox30"></div>
+                            <p:commandButton value="Sign In" 
+                                             icon="fa fa-sign-in" 
+                                             update="messages" 
+                                             action="#{loginController.loginProcess()}" 
+                                             styleClass="CyanButton"/>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            <p:button value="Forgot Password ?" icon="fa fa-lock" styleClass="RedButton"/>
+                        </div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Separator"></div>
+                        <div class="Wid100 OvHidden BigTopic">Access Permission</div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Card SoftGrayBack">
+                            <div class="Wid100"><p:inputText placeholder="Email" styleClass="Wid90 TexAlCenter"/></div>
+                            <div class="EmptyBox10"></div>
+                            <p:button value="Send Access Request" styleClass="OrangeButton"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="EmptyBox10"></div>
+        </div>
+        </h:form>
+        <h:outputStylesheet name="css/core-layout.css" library="adamantium-layout" />
+        <h:outputStylesheet name="css/animate.css" library="adamantium-layout" />
+        <h:outputStylesheet name="css/adamantium-font.css" library="adamantium-layout" />
+        <h:outputStylesheet name="css/ripple-effect.css" library="adamantium-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="adamantium-layout" />
+        <h:outputStylesheet name="css/adamantium-layout.css" library="adamantium-layout" />
+        <style>
+            .BlueBack {
+                background-color: #ffd27f;
+            }
+        </style>
+    </h:body>
+
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      >
+
+    <composite:interface>
+
+        <composite:attribute name="value" />
+        <composite:attribute name="style" />
+        <composite:attribute name="id" />
+        <composite:attribute name="showOn" />
+        <composite:attribute name="pattern" />
+        <composite:attribute name="lang" />
+        <composite:attribute name="locale" />
+        <composite:attribute name="disabled" />
+        <composite:attribute name="rendered" />
+
+    </composite:interface>
+
+    <composite:implementation>
+        <h:outputScript library="js" name="main-datepicker.js" target="head"/>
+        <p:inputMask mask="99/99/9999"
+                     autocomplete="false"
+                     id="#{cc.attrs.id}" size="10"
+                     value="#{cc.attrs.value}"
+                     styleClass="datepicker_th"
+                     style="width:150px;#{cc.attrs.style}"
+                     disabled="#{cc.attrs.disabled==null?false:disabled}">
+                <script>
+                    $(function(){
+                        calendarTH.datePick('th', '');
+                    });
+                </script>
+            <f:convertDateTime pattern="#{cc.attrs.pattern==null?'dd/MM/yyyy':cc.attrs.pattern}" timeZone="GMT+7" locale="th_TH" />
+        </p:inputMask>
+    </composite:implementation>
+
+</html>

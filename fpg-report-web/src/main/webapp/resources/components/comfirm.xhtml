@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      >
+
+    <composite:interface>
+
+        <composite:attribute name="header" />
+        <composite:attribute name="message" />
+        <composite:attribute name="update" />
+        <composite:attribute name="actionListener" />
+
+        <composite:attribute name="widgetVar" />
+        <composite:attribute name="actionListener" 
+                             method-signature="void action()" />
+
+    </composite:interface>
+
+    <composite:implementation>
+
+
+        <p:confirmDialog showEffect="fade" header="#{cc.attrs.header}" hideEffect="explode" message="#{cc.attrs.message}" widgetVar="#{cc.attrs.widgetVar}">  
+            <p:commandButton value="ยืนยัน" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{cc.attrs.actionListener}" update="#{cc.attrs.update}"/>  
+            <p:commandButton value="ยกเลิก" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="#{cc.attrs.widgetVar}.hide()"/>       
+        </p:confirmDialog>
+        <p:commandButton value="ส่งพิจารณา" onclick="#{cc.attrs.widgetVar}.show()" icon="ui-icon-check"/>
+    </composite:implementation>
+
+</html>

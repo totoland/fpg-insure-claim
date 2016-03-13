@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition template="../../template/etcTemplateGreen.xhtml">
+            <ui:define name="content">
+                <h:form id="form1">
+                    <blockquote>
+                        <div>
+                            การบันทึกข้อมูล/พิมพ์รายงาน
+                        </div>
+                    </blockquote>
+
+                    <p:selectOneMenu value="#{formSavePrintReportController.listDropDownValue}">  
+                        <f:selectItem itemLabel="-กรุณาเลือก-" itemValue="" />  
+                        <f:selectItems value="#{formSavePrintReportController.listDropDown}" var="p" itemLabel="#{p.name}" itemValue="#{p.value}" />
+                    </p:selectOneMenu>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

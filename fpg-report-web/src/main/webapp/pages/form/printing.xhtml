@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+author : chain
+create date : 19/01/2556
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition template="/template/etcTemplateGreen.xhtml">
+            <ui:define name="content">
+                <style>
+                    div[id="formUser:growlRight_container"] {
+                        position:absolute;
+                        top:20px;
+                    }
+                    div[id="formUser:msgs_container"] {
+                        position:absolute;
+                        top:20px;
+                        left:40%;
+                    }
+                </style>
+                <h:form id="formUser">                    
+                    <p:growl id="msgs" showDetail="true"/>
+
+                    <p:panel header="ค้นหาข้อมูลนักศึกษา">
+                        <h:panelGrid columns="3">
+                            <h:outputText value="คำค้น"/>
+                            <p:inputText value="#{captureInfoController.searching}" size="30" maxlength="100"/>
+                            <p:commandButton value="ค้นหา" action="#{captureInfoController.searchInfo()}" update="formUser"/>
+                        </h:panelGrid>
+                    </p:panel>
+
+                    <p:panel header="ถ่ายภาพ" id="gridCapture" rendered="#{captureInfoController.allowCapture}">
+                        <h:panelGrid columns="5" cellpadding="5">
+                            <p:photoCam widgetVar="pc" listener="#{captureInfoController.oncapture}" update="formUser:photo"/>
+                            <p:commandButton type="button" value="ถ่ายรูป" onclick="PF('pc').capture()"/>
+                            <p:imageCropper id="photo" value="#{captureInfoController.croppedImage}" image="#{captureInfoController.filename}" rendered="#{captureInfoController.filename!=null}"  maxSize="150,150" minSize="150,150" initialCoords="70,75,300,125"/>
+
+                            <p:commandButton id="btCrop" value="ตัด" action="#{captureInfoController.crop}" update="cropped msgs" icon="ui-icon-scissors"/>
+                            <p:graphicImage id="cropped" url="#{captureInfoController.newImageName}" rendered="#{captureInfoController.newImageName!=null}"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

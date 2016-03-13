@@ -1,0 +1,143 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="subheader">
+        Forms
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="icon-comments Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            Certificate Active Report 
+
+                        </div>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="4" 
+                                             style="border:0px !important; background:none;" 
+                                             styleClass="ui-panelgrid-blank">
+                                    <h:outputLabel value="วันที่"/>
+                                    <p:calendar pattern="dd/MM/yyyy" showButtonPanel="true" showOn="button"/>
+                                    <h:outputLabel value="ถึง"/>
+                                    <p:calendar pattern="dd/MM/yyyy" showButtonPanel="true" showOn="button"/>
+
+                                    <h:outputLabel value="สถานะ"/>
+                                    <p:selectManyMenu showCheckbox="true" style="width:200px;">
+                                        <f:selectItem itemLabel="บันทึกร่าง" itemValue="1" />
+                                        <f:selectItem itemLabel="บันทึก" itemValue="2" />
+                                        <f:selectItem itemLabel="ยกเลิก" itemValue="3" />
+                                    </p:selectManyMenu>
+                                    <h:outputLabel/>
+
+                                    <h:outputLabel/>
+                                    <h:outputLabel/>
+                                    <h:panelGroup>
+                                        <p:commandButton value="ค้นหา" icon="fa fa-search Fs14 White" action="#{dtSelectionView.search()}" update=":form:pnResult"/>
+                                        <p:commandButton value="เริ่มใหม่" icon="fa fa-refresh  Fs14 White" action="#{dtSelectionView.resetForm()}" update=":form:pnResult"/>
+                                    </h:panelGroup>
+                                </p:panelGrid>
+
+                            </div>
+                        </div>
+
+                        <div class="Container100">
+                            <div class="ContainerIndent">
+                                <p:panel id="pnResult">
+                                    <h:commandLink rendered="#{dtSelectionView.renderDataTable}">
+                                        <p:button icon="fa fa-file-excel-o" value="ส่งออก excel" styleClass="GreenButton"/>
+                                        <p:dataExporter type="xls" target="singleDT" fileName="cars" />
+                                    </h:commandLink>
+                                    <p:dataTable id="singleDT" var="car" value="#{dtSelectionView.cars7}" rendered="#{dtSelectionView.renderDataTable}" selectionMode="single" selection="#{dtSelectionView.selectedCar}" rowKey="#{car.id}"
+                                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" reflow="true">
+                                        <f:facet name="header">
+                                            Period : 01/01/2015 - 31/12/2015
+                                        </f:facet>
+
+                                        <p:ajax event="rowSelect" update=":form:carDetail" oncomplete="PF('carDialog').show()" />
+
+                                        <p:column headerText="Shipment Date" sortBy="#{car.id}" footerText="Id">
+                                            <h:outputText value="#{car.id}" />
+                                        </p:column>
+                                        <p:column headerText="Date issue" sortBy="#{car.year}" footerText="Date issue">
+                                            <h:outputText value="#{car.year}" />
+                                        </p:column>
+                                        <p:column headerText="Print Date" sortBy="#{car.brand}" footerText="Print Date">
+                                            <h:outputText value="#{car.brand}" />
+                                        </p:column>
+                                        <p:column headerText="Origin" sortBy="#{car.color}" footerText="Origin">
+                                            <h:outputText value="#{car.color}" />
+                                        </p:column>
+                                        <p:column headerText="Destination" sortBy="#{car.color}" footerText="Destination">
+                                            <h:outputText value="#{car.color}" />
+                                        </p:column>
+                                        <p:column headerText="Destination" sortBy="#{car.color}" footerText="Color">
+                                            <h:outputText value="#{car.color}" />
+                                        </p:column>
+                                        <p:column headerText="Commodity" sortBy="#{car.color}" footerText="Commodity">
+                                            <h:outputText value="#{car.color}" />
+                                        </p:column>
+                                        <p:column headerText="Amt. of Insurance" sortBy="#{car.color}" footerText="Amt. of Insurance">
+                                            <h:outputText value="#{car.color}" />
+                                        </p:column>
+                                        <p:column headerText="Mar Rate" sortBy="#{car.color}" footerText="Mar Rate">
+                                            <h:outputText value="#{car.color}" />
+                                        </p:column>
+                                        <p:column headerText="War Rate" sortBy="#{car.color}" footerText="War Rate">
+                                            <h:outputText value="#{car.color}" />
+                                        </p:column>
+                                        <p:column headerText="Mar Prem" sortBy="#{car.color}" footerText="Mar Prem">
+                                            <h:outputText value="#{car.color}" />
+                                        </p:column>
+                                        <p:column headerText="War Prem" sortBy="#{car.color}" footerText="War Prem">
+                                            <h:outputText value="#{car.color}" />
+                                        </p:column>
+                                        <p:column headerText="Total Prem" sortBy="#{car.color}" footerText="Total Prem">
+                                            <h:outputText value="#{car.color}" />
+                                        </p:column>
+                                    </p:dataTable>
+
+                                    <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">
+                                        <p:outputPanel id="carDetail" style="text-align:center;">
+                                            <p:panelGrid  columns="2" rendered="#{not empty dtSelectionView.selectedCar}" layout="grid" styleClass="ui-panelgrid-blank">
+                                                <f:facet name="header">
+                                                    <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> 
+                                                </f:facet>
+
+                                                <h:outputText value="Id:" style="font-weight: bold"/>
+                                                <h:outputText value="#{dtSelectionView.selectedCar.id}" />
+
+                                                <h:outputText value="Year" style="font-weight: bold"/>
+                                                <h:outputText value="#{dtSelectionView.selectedCar.year}" />
+
+                                                <h:outputText value="Color:" style="font-weight: bold"/>
+                                                <h:outputText value="#{dtSelectionView.selectedCar.color}" style="color:#{dtSelectionView.selectedCar.color}"/>
+
+                                                <h:outputText value="Price" style="font-weight: bold"/>
+                                                <h:outputText value="\$#{dtSelectionView.selectedCar.price}" />
+                                            </p:panelGrid>
+                                        </p:outputPanel>
+                                    </p:dialog>
+                                </p:panel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

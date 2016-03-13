@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>ISurvey System</title>
+        <style>
+            .art-header:before, #art-header-bg:before, .art-layout-cell:before, .art-layout-wrapper:before, .art-footer:before, .art-nav:before, #art-hmenu-bg:before, .art-sheet:before {
+                content: " ";
+                display: table;
+                width: 100%;
+            }
+            .art-header:after, #art-header-bg:after, .art-layout-cell:after, .art-layout-wrapper:after, .art-footer:after, .art-nav:after, #art-hmenu-bg:after, .art-sheet:after, .cleared, .clearfix:after {
+                clear: both;
+                content: " ";
+                display: block;
+                font: 0px/0 serif;
+            }
+            .art-header {
+                background-image: url("${request.contextPath}/resources/images/header.jpg");
+                background-position: center top;
+                background-repeat: no-repeat;
+                border: 1px solid rgba(157, 162, 113, 0.1);
+                border-radius: 0 0 4px 4px;
+                height: 150px;
+                margin: 0 auto;
+                max-width: 1920px;
+                min-width: 700px;
+                position: relative;
+                width: 100%;
+                z-index: auto !important;
+            }
+            header, footer, article, nav, #art-hmenu-bg, .art-sheet, .art-slidenavigator > a, .art-checkbox:before, .art-radiobutton:before {
+                -moz-box-sizing: border-box;
+                display: block;
+            }
+            header, footer, article, nav, #art-hmenu-bg, .art-sheet, .art-hmenu a, .art-vmenu a, .art-slidenavigator > a, .art-checkbox:before, .art-radiobutton:before {
+                background-origin: border-box !important;
+            }
+            #art-main {
+                cursor: default;
+                font-family: Tahoma,Arial,Helvetica,Sans-Serif;
+                font-size: 13px;
+                font-style: normal;
+                font-weight: normal;
+            }
+            body {
+                color: #181910;
+            }
+            .art-shapes {
+                bottom: 0;
+                left: 0;
+                overflow: hidden;
+                position: absolute;
+                right: 0;
+                top: 0;
+                z-index: 0;
+            }
+            #art-main {
+                cursor: default;
+                font-family: Tahoma,Arial,Helvetica,Sans-Serif;
+                font-size: 13px;
+                font-style: normal;
+                font-weight: normal;
+            }
+            .art-object496222280 {
+                background-image: url("${request.contextPath}/resources/images/object496222280.png");
+                background-position: 0 0;
+                background-repeat: no-repeat;
+                display: block;
+                height: 136px;
+                left: 2.13%;
+                margin-left: -2px;
+                position: absolute;
+                top: 8px;
+                width: 126px;
+                z-index: 1;
+            }
+            .art-headline, .art-headline a, .art-headline a:link, .art-headline a:visited, .art-headline a:hover {
+                color: #000000 !important;
+                font-family: Tahoma,Arial,Helvetica,Sans-Serif;
+                font-size: 28px;
+                font-style: normal;
+                font-weight: bold;
+                margin: 0;
+                padding: 0;
+                text-align: left;
+                text-decoration: none;
+                white-space: nowrap;
+            }
+            .art-headline {
+                display: inline-block;
+                left: 21.29%;
+                line-height: 100%;
+                margin-left: -84px !important;
+                min-width: 50px;
+                position: absolute;
+                top: 30px;
+                transform: rotate(0deg);
+                z-index: 101;
+            }
+            .art-slogan, .art-slogan a, .art-slogan a:link, .art-slogan a:visited, .art-slogan a:hover {
+                color: #000000 !important;
+                font-family: Tahoma,Arial,Helvetica,Sans-Serif;
+                font-size: 18px;
+                margin: 0;
+                padding: 0;
+                text-align: left;
+                text-decoration: none;
+            }
+            .art-slogan {
+                display: inline-block;
+                left: 18.48%;
+                line-height: 100%;
+                margin-left: -44px !important;
+                min-width: 50px;
+                position: absolute;
+                top: 75px;
+                transform: rotate(0deg);
+                white-space: nowrap;
+                z-index: 102;
+            }
+        </style>
+    </h:head>
+    <h:body style="font-size: 10px">
+        <p:layout fullPage="true">  
+            <p:layoutUnit position="north" size="160">  
+                <header class="art-header">
+                    <div class="art-shapes">
+                        <div data-left="2.13%" class="art-object496222280"></div>
+                    </div>
+                    <h1 data-left="21.29%" class="art-headline">
+                        <a href="#">ISurvey System</a>
+                    </h1>
+                    <h2 data-left="18.48%" class="art-slogan">Manage Assign Tracing </h2>
+                </header>
+            </p:layoutUnit>
+            <p:layoutUnit position="center">  
+                <ui:include src="menuTop.xhtml"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" style="height: 100px">  
+                <footer class="art-footer">
+                    <div class="art-footer-inner">
+                        <style>
+                            .art-header:before, #art-header-bg:before, .art-layout-cell:before, .art-layout-wrapper:before, .art-footer:before, .art-nav:before, #art-hmenu-bg:before, .art-sheet:before {
+                                content: " ";
+                                display: table;
+                                width: 100%;
+                            }
+                            .art-header:after, #art-header-bg:after, .art-layout-cell:after, .art-layout-wrapper:after, .art-footer:after, .art-nav:after, #art-hmenu-bg:after, .art-sheet:after, .cleared, .clearfix:after {
+                                clear: both;
+                                content: " ";
+                                display: block;
+                                font: 0px/0 serif;
+                            }
+                            .art-footer {
+                                background: none repeat scroll 0 0 rgba(206, 209, 184, 0.2);
+                                border-top: 1px dotted #CED1B8;
+                                color: #45472E;
+                                font-family: Tahoma,Arial,Helvetica,Sans-Serif;
+                                font-size: 13px;
+                                margin: 10px auto 0;
+                                padding: 0;
+                                position: relative;
+                                text-align: center;
+                            }
+                            header, footer, article, nav, #art-hmenu-bg, .art-sheet, .art-slidenavigator > a, .art-checkbox:before, .art-radiobutton:before {
+                                -moz-box-sizing: border-box;
+                                display: block;
+                            }
+                            header, footer, article, nav, #art-hmenu-bg, .art-sheet, .art-hmenu a, .art-vmenu a, .art-slidenavigator > a, .art-checkbox:before, .art-radiobutton:before {
+                                background-origin: border-box !important;
+                            }
+                        </style>
+                        <p>Copyright &copy; 2556. All Rights Reserved.</p>
+                        <p class="art-page-footer">
+                            <span id="art-footnote-links">ISurvey System</span>
+                        </p>
+                        <p>version 1.0 10/10/2556 06:40 PM</p>
+
+                        <script type="text/javascript">
+                            $('body').bind('ajaxError', function(event, xhr) {
+                                logger(xhr);
+                                if (xhr.status == 401) {
+                                    window.location = "/ETCReport/pages/login.xhtml";
+                                }
+                            });
+                        </script>
+
+                    </div>
+                </footer>
+            </p:layoutUnit>
+
+        </p:layout>
+    </h:body>
+</html>
