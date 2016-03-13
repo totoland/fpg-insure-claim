@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="com.totoland_db-mrg-dao_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.totoland.test.entity.Contract</class>
+    <class>com.totoland.db.entity.EctUser</class>
+    <class>com.totoland.db.entity.EctProvince</class>
+    <class>com.totoland.db.entity.EctTaskDetail</class>
+    <class>com.totoland.db.entity.EctGeography</class>
+    <class>com.totoland.db.entity.EctRoleAction</class>
+    <class>com.totoland.db.entity.EctRoleScreen</class>
+    <class>com.totoland.db.entity.EctPermission</class>
+    <class>com.totoland.db.entity.EctAmphur</class>
+    <class>com.totoland.db.entity.EctDistrict</class>
+    <class>com.totoland.db.entity.EctUserGroup</class>
+    <class>com.totoland.db.entity.EctFlowStatus</class>
+    <class>com.totoland.db.entity.EctTask</class>
+    <class>com.totoland.db.entity.EctConstant</class>
+    <class>com.totoland.db.common.entity.Report001Detail</class>
+    <class>com.totoland.db.entity.Report001</class>
+    <class>com.totoland.db.entity.Report001Detail</class>
+    <class>com.totoland.db.entity.ReportName</class>
+    <class>com.totoland.db.entity.EctConf</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost\MSSQLSERVER:1433;databaseName=thaihua"/>
+      <property name="javax.persistence.jdbc.password" value="1951465"/>
+      <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="javax.persistence.jdbc.user" value="sa"/>
+    </properties>
+  </persistence-unit>
+</persistence>

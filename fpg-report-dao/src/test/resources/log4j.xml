@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+<!--for print out to log file-->
+    <appender name="LOGFILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="db-mrg-dao.log"/>
+        <param name="Append" value="true"/>
+
+        <param name="encoding" value="UTF-8" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[ectDao][%p] %d{yyyy-MM-dd HH:mm:ss.SSS} %t [%c:%L]%m%n"/>
+        </layout>
+    </appender>
+
+<!--for print out to console-->
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[ectDao][%p] %d{dd MMM hh:mm:ss.SSS} %t [%c:%L]%m%n"/>
+        </layout>
+    </appender>
+    <logger name="com.totoland">
+        <level value="info"/>
+        <level value="debug"/>
+        <level value="warn"/>
+        <level value="error"/>
+    </logger>
+   <logger name="org.springframework.orm">
+        <level value="debug"/>
+    </logger>
+    <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <level value="debug"/>
+    </logger>
+<!--    <logger name="org.apache.struts.actions.DispatchAction">
+        <level value="debug"/>
+    </logger>-->
+    <root>
+        <level value="WARN" />
+        <appender-ref ref="LOGFILE" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</log4j:configuration>
