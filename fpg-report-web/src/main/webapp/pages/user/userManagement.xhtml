@@ -61,132 +61,167 @@
 
     <ui:define name="content">
         <h:form id="formUser">  
-            <div class="Card">
-                <div class="CardTopic"> 
-                    <i class="icon-user Fs30 Fleft MarRight10"></i>
-                    <p:selectOneButton styleClass="Fright">
-                        <f:selectItem itemLabel="All user" itemValue="Monthly"/>
-                        <f:selectItem itemLabel="Online user" itemValue="Daily"/>
-                    </p:selectOneButton>
-                    <div class="EmptyBox10 ShowOnMobile"></div>
-                    <h:outputText value="#{msg.menu_manage_user}"/> <br/>
-                    <span class="CardSubTopic">For create/edit user</span> 
-                </div>
-                <div class="SeparatorFull"></div>
+            <div class="Container100">
+                <div class="ContainerIndent"> 
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="icon-user Fs30 Fleft MarRight10"></i>
+                            <p:selectOneButton styleClass="Fright">
+                                <f:selectItem itemLabel="All user" itemValue="Monthly"/>
+                                <f:selectItem itemLabel="Online user" itemValue="Daily"/>
+                            </p:selectOneButton>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            <h:outputText value="#{msg.menu_manage_user}"/> <br/>
+                            <span class="CardSubTopic">For create/edit user</span> 
+                        </div>
+                        <div class="SeparatorFull"></div>
 
-                <div class="Container33 Responsive50">
-                    <div class="ContainerIndent">
-                        <div class="Card SoftGrayBack">
-                            <i class="icon-store Fs40 Fleft Orange MarRight10"></i>
-                            <div class="Fleft DispInlBlock">
-                                <span class="Fs15 FontAdamantiumBold Gray">Customer Accounts</span><br/>
-                                <span class="Fs30 FontAdamantiumBold">385</span><br/>
-                                <span class="Fs11 FontAdamantiumRegular Green">65% Deployed</span>
+                        <div class="Container33 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card SoftGrayBack">
+                                    <i class="icon-store Fs40 Fleft Orange MarRight10"></i>
+                                    <div class="Fleft DispInlBlock">
+                                        <span class="Fs15 FontAdamantiumBold Gray">Customer Accounts</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">385</span><br/>
+                                        <span class="Fs11 FontAdamantiumRegular Green">65% Deployed</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="Container33 Responsive50">
-                    <div class="ContainerIndent">
-                        <div class="Card SoftGrayBack">
-                            <i class="icon-umbrella Fs40 Fleft Pink MarRight10"></i>
-                            <div class="Fleft DispInlBlock">
-                                <span class="Fs15 FontAdamantiumBold Gray">Admin Accounts</span><br/>
-                                <span class="Fs30 FontAdamantiumBold">2</span><br/>
-                                <span class="Fs11 FontAdamantiumRegular Red">42% Remaining</span>
+                        <div class="Container33 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card SoftGrayBack">
+                                    <i class="icon-umbrella Fs40 Fleft Pink MarRight10"></i>
+                                    <div class="Fleft DispInlBlock">
+                                        <span class="Fs15 FontAdamantiumBold Gray">Admin Accounts</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">2</span><br/>
+                                        <span class="Fs11 FontAdamantiumRegular Red">42% Remaining</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="Container33 Responsive50">
-                    <div class="ContainerIndent">
-                        <div class="Card SoftGrayBack">
-                            <i class="icon-portfolio Fs40 Fleft LeadenGreen MarRight10"></i>
-                            <div class="Fleft DispInlBlock">
-                                <span class="Fs15 FontAdamantiumBold Gray">ETC Accounts</span><br/>
-                                <span class="Fs30 FontAdamantiumBold">3</span><br/>
-                                <span class="Fs11 FontAdamantiumRegular Blue">29% Ready</span>
+                        <div class="Container33 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card SoftGrayBack">
+                                    <i class="icon-portfolio Fs40 Fleft LeadenGreen MarRight10"></i>
+                                    <div class="Fleft DispInlBlock">
+                                        <span class="Fs15 FontAdamantiumBold Gray">ETC Accounts</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">3</span><br/>
+                                        <span class="Fs11 FontAdamantiumRegular Blue">29% Ready</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="EmptyBox20"></div>
+
                     </div>
                 </div>
-
-                <div class="EmptyBox20"></div>
-
             </div>
-            <p:panel id="panel" header="#{msg.panel_search}" style="margin-bottom:10px;">
 
-                <h:panelGrid columns="2" id="pnCriteria">  
-                    <h:outputLabel for="groupLvl" value="#{msg.groupLvl}" />
-                    <p:selectOneMenu id="groupLvl" style="width:200px" value="#{userManagementController.userCriteria.groupLvl}">
-                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                    </p:selectOneMenu>
-                    <h:outputLabel for="groupId" value="#{msg.userGroup}" />
-                    <p:selectOneMenu id="groupId" style="width:200px" value="#{userManagementController.userCriteria.groupId}">
-                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                    </p:selectOneMenu>
-                    <h:outputLabel for="criteria_username" value="#{msg.search_first_or_last_name}" style="width:200px"/>
-                    <p:inputText id="criteria_username" value="#{userManagementController.userCriteria.userName}" style="width:235px"/>
-                    <h:outputLabel/>
-                    <h:panelGroup>
-                        <p:commandButton value="#{msg.btn_search}" id="search" icon="ui-icon-search" action="#{userManagementController.search()}" update="gridUser"/>
-                        <p:commandButton value="#{msg.btn_reset}" icon="ui-icon-arrowrefresh-1-w" action="#{userManagementController.resetForm()}" update="pnCriteria,gridUser"/>
-                        <p:commandButton value="#{msg.btn_create_new}" icon="ui-icon-plusthick" action="#{userManagementController.initCreateUser()}" update="modalDialogCreate"/>
-                    </h:panelGroup>
-                </h:panelGrid>  
-            </p:panel>
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="icon-document-stroke Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            #{msg.panel_search}
+                            <div class="EmptyBox10 ShowOnMobile"></div>
 
-            <p:dataTable id="gridUser" var="item" value="#{userManagementController.svUsers}"
-                         paginator="true" rows="10" emptyMessage="#{msg.no_data_found}"
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="10,15,20">
+                            <br/>
+                        </div>
 
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="username" />
-                    </f:facet>
-                    <h:outputText value="#{item.username}" />
-                </p:column>
+                        <div class="SeparatorFull"></div>
+                        <div class="Container100 Responsive50">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
 
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Full name" />
-                    </f:facet>
-                    <h:outputText value="#{item.fname} #{item.lname}" />
-                </p:column>
+                                    <h:panelGrid columns="2" id="pnCriteria">  
+                                        <h:outputLabel for="groupLvl" value="#{msg.groupLvl}" />
+                                        <p:selectOneMenu id="groupLvl" style="width:200px" value="#{userManagementController.userCriteria.groupLvl}">
+                                            <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
+                                            <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                        </p:selectOneMenu>
+                                        <h:outputLabel for="groupId" value="#{msg.userGroup}" />
+                                        <p:selectOneMenu id="groupId" style="width:200px" value="#{userManagementController.userCriteria.groupId}">
+                                            <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
+                                            <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                        </p:selectOneMenu>
+                                        <h:outputLabel for="criteria_username" value="#{msg.search_first_or_last_name}" style="width:200px"/>
+                                        <p:inputText id="criteria_username" value="#{userManagementController.userCriteria.userName}" style="width:235px"/>
+                                        <h:outputLabel/>
+                                        <h:panelGroup>
+                                            <p:commandButton value="#{msg.btn_search}" id="search" icon="ui-icon-search" action="#{userManagementController.search()}" update="gridUser"/>
+                                            <p:commandButton value="#{msg.btn_reset}" icon="ui-icon-arrowrefresh-1-w" action="#{userManagementController.resetForm()}" update="pnCriteria,gridUser"/>
+                                            <p:commandButton value="#{msg.btn_create_new}" icon="ui-icon-plusthick" action="#{userManagementController.initCreateUser()}" update="modalDialogCreate"/>
+                                        </h:panelGroup>
+                                    </h:panelGrid>  
 
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="User Group" />
-                    </f:facet>
-                    <h:outputText value="#{item.userGroupName}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Group Level" />
-                    </f:facet>
-                    <h:outputText value="#{item.userGroupLvlName}" />
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Status" />
-                    </f:facet>
-                    <h:outputText value="#{item.isActive?'Active':'In active'}" />
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputLabel value=""/>
-                    </f:facet>
-                    <p:commandButton value="#{msg.btn_edit}" action="#{userManagementController.initEditUser(item)}" update=":formUser:modalDialogEdit"/>
-                </p:column>
-                <f:facet name="footer">
+                                    <div class="SeparatorFull"></div>
+                                
+                                    <p:dataTable id="gridUser" var="item" value="#{userManagementController.svUsers}"
+                                             paginator="true" rows="10" emptyMessage="#{msg.no_data_found}"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="10,15,20">
 
-                </f:facet>
-            </p:dataTable>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="username" />
+                                        </f:facet>
+                                        <h:outputText value="#{item.username}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Full name" />
+                                        </f:facet>
+                                        <h:outputText value="#{item.fname} #{item.lname}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="User Group" />
+                                        </f:facet>
+                                        <h:outputText value="#{item.userGroupName}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Group Level" />
+                                        </f:facet>
+                                        <h:outputText value="#{item.userGroupLvlName}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Status" />
+                                        </f:facet>
+                                        <h:outputText value="#{item.isActive?'Active':'In active'}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputLabel value=""/>
+                                        </f:facet>
+                                        <p:commandButton value="#{msg.btn_edit}" action="#{userManagementController.initEditUser(item)}" update=":formUser:modalDialogEdit"/>
+                                    </p:column>
+                                    <f:facet name="footer">
+
+                                    </f:facet>
+                                </p:dataTable>
+
+                            </div>
+                        </div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <!--<h2 class="BigTopic">TextArea</h2>-->
+                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
             <p:dialog id="modalDialogCreate" header="Create new user" widgetVar="modalDialogCreate" modal="true">  
                 <p:panelGrid columns="2">  

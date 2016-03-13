@@ -333,28 +333,28 @@ public class UserManagementController extends BaseController {
         };
         
         if (StringUtils.isBlank(svUser.getUsername())) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "ชื่อผู้ใช้")) + ("\\n");
+            msg += (MessageUtils.getResourceBundleString("require_message", "Username")) + ("\\n");
         }
         if (StringUtils.isBlank(svUser.getPassword())) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "รหัสผ่าน")) + ("\\n");
+            msg += (MessageUtils.getResourceBundleString("require_message", "Password")) + ("\\n");
         }
         if (StringUtils.isBlank(svUser.getFname())) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "ชื่อ")) + ("\\n");
+            msg += (MessageUtils.getResourceBundleString("require_message", "First name")) + ("\\n");
         }
         if (StringUtils.isBlank(svUser.getLname())) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "นามสกุล")) + ("\\n");
+            msg += (MessageUtils.getResourceBundleString("require_message", "Last name")) + ("\\n");
         }
         if (svUser.getSex() == null) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "เพศ")) + ("\\n");
+            msg += (MessageUtils.getResourceBundleString("require_message", "Gender")) + ("\\n");
         }
         if (svUser.getUserGroupLvl() == null || svUser.getUserGroupLvl().intValue() == -1) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "ระดับผู้ใช้")) + ("\\n");
+            msg += (MessageUtils.getResourceBundleString("require_message", "User Group Level")) + ("\\n");
         }
         if (svUser.getUserGroupId() == null || svUser.getUserGroupId().intValue() == -1) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "กลุ่มผู้ใช้")) + ("\\n");
+            msg += (MessageUtils.getResourceBundleString("require_message", "User Group")) + ("\\n");
         }
         if (svUser.getIsActive() == null) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "สถานนะ")) + ("\\n");
+            msg += (MessageUtils.getResourceBundleString("require_message", "Status")) + ("\\n");
         }
 
         if (!StringUtils.isBlank(msg.toString())) {
@@ -363,7 +363,7 @@ public class UserManagementController extends BaseController {
         }
 
         if (!svUser.getPassword().equals(rePassword)) {
-            JsfUtil.alertJavaScript(MessageUtils.getResourceBundleString("password_not_same"));
+            JsfUtil.alertJavaScript(MessageUtils.getString("password_not_same"));
             return false;
         }
 

@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                >
+
+    <ui:define name="subheader">
+        Forms
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="fa fa-edit Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            #{msg.menu_create_edit_claim} 
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            <p:commandButton icon="fa fa-plus White" styleClass="Fright GreenButton" title="#{msg.menu_create_new_claim}">
+                                <p:confirm header="#{msg.confirmation_head}" message="#{msg.confirmation_message_create_page}?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:button value="#{msg.yes}" href="insuranceForm.xhtml" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white" />
+                                <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                            </p:confirmDialog>
+                            <br/>
+                        </div>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="4" layout="grid" style="border:0px !important; background:none;">
+                                    <h:outputLabel value="#{msg.label_company_code}"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="#{msg.label_Policy_number}"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="#{msg.label_insured_name}"/>
+                                    <p:selectOneMenu styleClass="selectOne115">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.label_method_of_transport}"/>
+                                    <p:selectOneMenu styleClass="selectOne115">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{insuranceFormController.insureTypeList}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.label_issue_date_from}"/>
+                                    <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy"/>
+
+                                    <h:outputLabel value="#{msg.label_issue_date_to}"/>
+                                    <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy"/>
+
+
+                                    <h:panelGroup>
+                                        <p:commandButton value="#{msg.panel_search}" action="#{dtSelectionView.search()}"
+                                                         update="pnResult"/>
+                                        <p:commandButton value="#{msg.btn_reset}" action="#{dtSelectionView.init()}"
+                                                         update="pnResult"/>
+                                    </h:panelGroup>
+                                    <h:outputLabel value=""/>
+                                    <h:outputLabel value=""/>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <!--<h2 class="BigTopic">TextArea</h2>-->
+                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ContainerIndent">
+                <p:panel id="pnResult">
+                    <p:dataTable id="singleDT" var="car" value="#{dtSelectionView.cars7}" rendered="#{dtSelectionView.renderDataTable}" selectionMode="single" selection="#{dtSelectionView.selectedCar}" rowKey="#{car.id}"
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" reflow="true">
+                        <f:facet name="header">
+                            Search Result
+                        </f:facet>
+
+                        <p:ajax event="rowSelect" update=":form:carDetail" oncomplete="PF('carDialog').show()" />
+
+                        <p:column headerText="#{msg.label_company_code}" sortBy="#{car.id}" footerText="#{msg.label_company_code}">
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
+                        <p:column headerText="#{msg.label_Policy_number}" sortBy="#{car.year}" footerText="#{msg.label_Policy_number}">
+                            <h:outputText value="#{car.year}" />
+                        </p:column>
+                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{car.brand}" footerText="#{msg.label_insured_name}">
+                            <h:outputText value="#{car.brand}" />
+                        </p:column>
+                        <p:column headerText="#{msg.label_method_of_transport}" sortBy="#{car.color}" footerText="#{msg.label_method_of_transport}">
+                            <h:outputText value="Air" />
+                        </p:column>
+                        <p:column headerText="#{msg.label_issue_date}" sortBy="#{car.color}" footerText="#{msg.label_issue_date}">
+                            <h:outputText value="#{dtSelectionView.sysDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton"/>
+                            <p:commandButton value="#{msg.btn_reject}" styleClass="PinkButton RaisedButton"/>
+                        </p:column>
+                    </p:dataTable>
+
+                </p:panel>
+            </div>
+
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

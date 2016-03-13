@@ -1,21 +1,21 @@
 @font-face {
   font-family: 'latobold';
-  src: url("/javax.faces.resource/fonts/lato-bold-webfont.eot.xhtml?ln=primefaces-adamantium");
-  src: url("/javax.faces.resource/fonts/lato-bold-webfont.eot.xhtml?ln=primefaces-adamantium#iefix") format('embedded-opentype'), url("/javax.faces.resource/fonts/lato-bold-webfont.woff2.xhtml?ln=primefaces-adamantium") format('woff2'), url("/javax.faces.resource/fonts/lato-bold-webfont.woff.xhtml?ln=primefaces-adamantium") format('woff'), url("/javax.faces.resource/fonts/lato-bold-webfont.ttf.xhtml?ln=primefaces-adamantium") format('truetype'), url("/javax.faces.resource/fonts/lato-bold-webfont.svg.xhtml?ln=primefaces-adamantium#latobold") format('svg');
+  src: url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.eot']}");
+  src: url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.woff']}") format('woff'), url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.svg']}#latobold") format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'latolight';
-  src: url("/javax.faces.resource/fonts/lato-light-webfont.eot.xhtml?ln=primefaces-adamantium");
-  src: url("/javax.faces.resource/fonts/lato-light-webfont.eot.xhtml?ln=primefaces-adamantium#iefix") format('embedded-opentype'), url("/javax.faces.resource/fonts/lato-light-webfont.woff2.xhtml?ln=primefaces-adamantium") format('woff2'), url("/javax.faces.resource/fonts/lato-light-webfont.woff.xhtml?ln=primefaces-adamantium") format('woff'), url("/javax.faces.resource/fonts/lato-light-webfont.ttf.xhtml?ln=primefaces-adamantium") format('truetype'), url("/javax.faces.resource/fonts/lato-light-webfont.svg.xhtml?ln=primefaces-adamantium#latolight") format('svg');
+  src: url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.eot']}");
+  src: url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.woff']}") format('woff'), url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.svg']}#latolight") format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'latoregular';
-  src: url("/javax.faces.resource/fonts/lato-regular-webfont.eot.xhtml?ln=primefaces-adamantium");
-  src: url("/javax.faces.resource/fonts/lato-regular-webfont.eot.xhtml?ln=primefaces-adamantium#iefix") format('embedded-opentype'), url("/javax.faces.resource/fonts/lato-regular-webfont.woff2.xhtml?ln=primefaces-adamantium") format('woff2'), url("/javax.faces.resource/fonts/lato-regular-webfont.woff.xhtml?ln=primefaces-adamantium") format('woff'), url("/javax.faces.resource/fonts/lato-regular-webfont.ttf.xhtml?ln=primefaces-adamantium") format('truetype'), url("/javax.faces.resource/fonts/lato-regular-webfont.svg.xhtml?ln=primefaces-adamantium#latoregular") format('svg');
+  src: url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.eot']}");
+  src: url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.woff']}") format('woff'), url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.svg']}#latoregular") format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -145,30 +145,30 @@ label.ui-state-error {
 }
 .ui-icon,
 .ui-widget-content .ui-icon {
-  background-image: url("/javax.faces.resource/images/ui-icons_72b42d_256x240.png.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/ui-icons_72b42d_256x240.png']}");
 }
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
-  background-image: url("/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/ui-icons_ffffff_256x240.png']}");
 }
 .ui-state-active .ui-icon {
-  background-image: url("/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/ui-icons_ffffff_256x240.png']}");
 }
 .ui-state-highlight .ui-icon {
-  background-image: url("/javax.faces.resource/images/ui-icons_4eb305_256x240.png.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/ui-icons_4eb305_256x240.png']}");
 }
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {
-  background-image: url("/javax.faces.resource/images/ui-icons_cd0a0a_256x240.png.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/ui-icons_cd0a0a_256x240.png']}");
 }
 /* positioning */
 .ui-icon-default {
-  background-image: url("/javax.faces.resource/images/default.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/default.svg']}") !important;
   background-position: center;
   background-size: 100%;
 }
 .ui-icon-blank {
-  background-image: url("/javax.faces.resource/images/blank.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/blank.svg']}") !important;
   background-position: center;
   background-size: 100%;
 }
@@ -404,7 +404,7 @@ label.ui-state-error {
   background-position: -48px -96px;
 }
 .ui-icon-note {
-  background-image: url("/javax.faces.resource/images/note.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/note.svg']}");
   background-position: center;
   background-size: 100%;
 }
@@ -784,7 +784,7 @@ label {
   margin-right: 10px !important;
 }
 .ui-breadcrumb .ui-icon-home {
-  background-image: url("/javax.faces.resource/images/breadcrumb-home.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/breadcrumb-home.svg']}") !important;
   background-position: center 5px !important;
   background-size: 70% !important;
   height: 27px;
@@ -793,7 +793,7 @@ label {
 }
 .ui-breadcrumb-chevron {
   height: 16px !important;
-  background-image: url("/javax.faces.resource/images/breadcrumb-arrow.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/breadcrumb-arrow.svg']}") !important;
   background-position: center !important;
   background-size: 50% !important;
   margin-top: 3px !important;
@@ -826,13 +826,13 @@ label {
 /*.ui-datatable-scrollable{border:0px; background-color:transparent;}
 .ui-datatable-scrollable:hover{border:0px !important; background-color:transparent;}*/
 .ui-datatable .ui-icon-arrowthick-1-s {
-  background-image: url("/javax.faces.resource/images/right-one-arrow-for-data.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-one-arrow-for-data.svg']}");
   background-position: center !important;
   background-size: 110%;
   background-repeat: no-repeat;
 }
 .ui-datatable .ui-icon-arrowthick-1-s {
-  background-image: url("/javax.faces.resource/images/right-one-arrow-for-data.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-one-arrow-for-data.svg']}");
   background-position: center !important;
   background-size: 110%;
   background-repeat: no-repeat;
@@ -949,7 +949,7 @@ label {
   margin-top: -8px !important;
 }
 .ui-datatable table tbody tr td {
-  color: #141823;
+  color: #546e7a;
   border: solid 1px #d9e3e8;
   font-size: 14px;
   font-family: 'latoregular';
@@ -960,27 +960,27 @@ label {
   transition: all 0.5s ease;
 }
 .ui-datatable table tbody tr td .ui-row-toggler.ui-icon-circle-triangle-s {
-  background-image: url("/javax.faces.resource/images/downarrow-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-gray.svg']}");
   background-position: center !important;
   background-size: 110%;
 }
 .ui-datatable table tbody tr td .ui-row-toggler.ui-icon-circle-triangle-e {
-  background-image: url("/javax.faces.resource/images/rightarrow-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/rightarrow-gray.svg']}");
   background-position: center !important;
   background-size: 110%;
 }
 .ui-datatable table tbody tr td .ui-row-editor .ui-icon-pencil {
-  background-image: url("/javax.faces.resource/images/pen-blue.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/pen-blue.svg']}");
   background-position: center !important;
   background-size: 120%;
 }
 .ui-datatable table tbody tr td .ui-row-editor .ui-icon-check {
-  background-image: url("/javax.faces.resource/images/check-blue.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/check-blue.svg']}");
   background-position: center !important;
   background-size: 120%;
 }
 .ui-datatable table tbody tr td .ui-row-editor .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete-red.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete-red.svg']}");
   background-position: center !important;
   background-size: 120%;
 }
@@ -996,13 +996,13 @@ label {
   color: #f1f6f9;
 }
 .ui-datatable table tbody tr td .ui-icon-arrow-4 {
-  background-image: url("/javax.faces.resource/images/movearrow-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/movearrow-gray.svg']}");
   background-position: center !important;
   background-size: 100%;
 }
 .ui-datatable table thead tr .ui-state-default .ui-icon-carat-2-n-s,
 .ui-datatable .ui-datatable-sticky table thead tr .ui-state-default .ui-icon-carat-2-n-s {
-  background-image: url("/javax.faces.resource/images/updown-navy-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/updown-navy-arrow.svg']}");
   background-position: center !important;
   background-size: 110%;
   background-repeat: no-repeat;
@@ -1010,7 +1010,7 @@ label {
 }
 .ui-datatable table thead tr .ui-state-hover .ui-icon-carat-2-n-s,
 .ui-datatable .ui-datatable-sticky table thead tr .ui-state-hover .ui-icon-carat-2-n-s {
-  background-image: url("/javax.faces.resource/images/updown-navy-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/updown-navy-arrow.svg']}");
   background-position: center !important;
   background-size: 110%;
   background-repeat: no-repeat;
@@ -1018,7 +1018,7 @@ label {
 }
 .ui-datatable table thead tr .ui-state-active .ui-icon-triangle-1-n,
 .ui-datatable .ui-datatable-sticky table thead tr .ui-state-active .ui-icon-triangle-1-n {
-  background-image: url("/javax.faces.resource/images/uparrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/uparrow-navy.svg']}");
   background-position: center !important;
   background-size: 110%;
   background-repeat: no-repeat;
@@ -1026,7 +1026,7 @@ label {
 }
 .ui-datatable table thead tr .ui-state-active .ui-icon-triangle-1-s,
 .ui-datatable .ui-datatable-sticky table thead tr .ui-state-active .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-navy.svg']}");
   background-position: center !important;
   background-size: 110%;
   background-repeat: no-repeat;
@@ -1086,14 +1086,14 @@ label {
   background-image: none;
 }
 .ui-datatable > .ui-icon-arrowthick-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-blue.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-blue.svg']}");
   background-position: center !important;
   background-size: 100%;
   background-repeat: no-repeat;
   margin-left: 5px;
 }
 .ui-datatable > .ui-icon-arrowthick-1-n {
-  background-image: url("/javax.faces.resource/images/uparrow-blue.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/uparrow-blue.svg']}");
   background-position: center !important;
   background-size: 100%;
   background-repeat: no-repeat;
@@ -1253,25 +1253,25 @@ label {
   outline: none;
 }
 .ui-paginator .ui-paginator-first .ui-icon {
-  background-image: url("/javax.faces.resource/images/left-double-arrow-for-data.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/left-double-arrow-for-data.svg']}");
   background-position: center !important;
   background-size: 100%;
   background-repeat: no-repeat;
 }
 .ui-paginator .ui-paginator-last .ui-icon {
-  background-image: url("/javax.faces.resource/images/right-double-arrow-for-data.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-double-arrow-for-data.svg']}");
   background-position: center !important;
   background-size: 100%;
   background-repeat: no-repeat;
 }
 .ui-paginator .ui-paginator-prev .ui-icon {
-  background-image: url("/javax.faces.resource/images/left-one-arrow-for-data.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/left-one-arrow-for-data.svg']}");
   background-position: center !important;
   background-size: 100%;
   background-repeat: no-repeat;
 }
 .ui-paginator .ui-paginator-next .ui-icon {
-  background-image: url("/javax.faces.resource/images/right-one-arrow-for-data.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-one-arrow-for-data.svg']}");
   background-position: center !important;
   background-size: 100%;
   background-repeat: no-repeat;
@@ -1310,7 +1310,7 @@ label {
   box-sizing: border-box;
 }
 .ui-picklist .ui-picklist-filter-container .ui-icon {
-  background-image: url("/javax.faces.resource/images/search-icon.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/search-icon.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -1388,7 +1388,7 @@ label {
 }
 .ui-picklist .ui-picklist-buttons-cell .ui-picklist-button-move-up .ui-icon,
 .ui-picklist .ui-picklist-source-controls .ui-picklist-button-move-up .ui-icon {
-  background-image: url("/javax.faces.resource/images/uparrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/uparrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 75%;
@@ -1401,7 +1401,7 @@ label {
 }
 .ui-picklist .ui-picklist-buttons-cell .ui-picklist-button-move-top .ui-icon,
 .ui-picklist .ui-picklist-source-controls .ui-picklist-button-move-top .ui-icon {
-  background-image: url("/javax.faces.resource/images/toparrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/toparrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1414,7 +1414,7 @@ label {
 }
 .ui-picklist .ui-picklist-buttons-cell .ui-picklist-button-move-down .ui-icon,
 .ui-picklist .ui-picklist-source-controls .ui-picklist-button-move-down .ui-icon {
-  background-image: url("/javax.faces.resource/images/downarrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 75%;
@@ -1427,7 +1427,7 @@ label {
 }
 .ui-picklist .ui-picklist-buttons-cell .ui-picklist-button-move-bottom .ui-icon,
 .ui-picklist .ui-picklist-source-controls .ui-picklist-button-move-bottom .ui-icon {
-  background-image: url("/javax.faces.resource/images/bottomarrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/bottomarrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1440,7 +1440,7 @@ label {
 }
 .ui-picklist .ui-picklist-buttons-cell .ui-picklist-button-add .ui-icon,
 .ui-picklist td .ui-picklist-button-add .ui-icon {
-  background-image: url("/javax.faces.resource/images/right-arrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 75%;
@@ -1453,7 +1453,7 @@ label {
 }
 .ui-picklist .ui-picklist-buttons-cell .ui-picklist-button-add-all .ui-icon,
 .ui-picklist td .ui-picklist-button-add-all .ui-icon {
-  background-image: url("/javax.faces.resource/images/right-end-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-end-arrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1466,7 +1466,7 @@ label {
 }
 .ui-picklist .ui-picklist-buttons-cell .ui-picklist-button-remove .ui-icon,
 .ui-picklist td .ui-picklist-button-remove .ui-icon {
-  background-image: url("/javax.faces.resource/images/left-arrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/left-arrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 75%;
@@ -1479,7 +1479,7 @@ label {
 }
 .ui-picklist .ui-picklist-buttons-cell .ui-picklist-button-remove-all .ui-icon,
 .ui-picklist td .ui-picklist-button-remove-all .ui-icon {
-  background-image: url("/javax.faces.resource/images/left-end-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/left-end-arrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1492,7 +1492,7 @@ label {
 }
 .ui-picklist-vertical .ui-picklist-buttons-cell .ui-picklist-button-move-up .ui-icon,
 .ui-picklist .ui-picklist-target-controls .ui-picklist-button-move-up .ui-icon {
-  background-image: url("/javax.faces.resource/images/uparrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/uparrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1505,7 +1505,7 @@ label {
 }
 .ui-picklist-vertical .ui-picklist-buttons-cell .ui-picklist-button-move-top .ui-icon,
 .ui-picklist .ui-picklist-target-controls .ui-picklist-button-move-top .ui-icon {
-  background-image: url("/javax.faces.resource/images/toparrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/toparrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1518,7 +1518,7 @@ label {
 }
 .ui-picklist-vertical .ui-picklist-buttons-cell .ui-picklist-button-move-down .ui-icon,
 .ui-picklist .ui-picklist-target-controls .ui-picklist-button-move-down .ui-icon {
-  background-image: url("/javax.faces.resource/images/downarrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 75%;
@@ -1531,7 +1531,7 @@ label {
 }
 .ui-picklist-vertical .ui-picklist-buttons-cell .ui-picklist-button-move-bottom .ui-icon,
 .ui-picklist .ui-picklist-target-controls .ui-picklist-button-move-bottom .ui-icon {
-  background-image: url("/javax.faces.resource/images/bottomarrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/bottomarrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1543,7 +1543,7 @@ label {
   height: 26px;
 }
 .ui-picklist-vertical .ui-picklist-buttons-cell .ui-picklist-button-add .ui-icon {
-  background-image: url("/javax.faces.resource/images/downarrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 75%;
@@ -1555,7 +1555,7 @@ label {
   height: 26px;
 }
 .ui-picklist-vertical .ui-picklist-buttons-cell .ui-picklist-button-add-all .ui-icon {
-  background-image: url("/javax.faces.resource/images/bottomarrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/bottomarrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1567,7 +1567,7 @@ label {
   height: 26px;
 }
 .ui-picklist-vertical .ui-picklist-buttons-cell .ui-picklist-button-remove .ui-icon {
-  background-image: url("/javax.faces.resource/images/uparrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/uparrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1579,7 +1579,7 @@ label {
   height: 26px;
 }
 .ui-picklist-vertical .ui-picklist-buttons-cell .ui-picklist-button-remove-all .ui-icon {
-  background-image: url("/javax.faces.resource/images/toparrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/toparrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1614,7 +1614,7 @@ label {
 .ui-orderlist .ui-orderlist-list .ui-orderlist-item {
   padding: 10px 8px !important;
   font-size: 14px;
-  background-image: url("/javax.faces.resource/images/move-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/move-gray.svg']}");
   background-position: center right !important;
   background-repeat: no-repeat;
   background-size: 20px;
@@ -1640,7 +1640,7 @@ label {
   border-radius: 2px !important;
 }
 .ui-orderlist .ui-orderlist-controls .ui-orderlist-button-move-up .ui-icon {
-  background-image: url("/javax.faces.resource/images/uparrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/uparrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1652,7 +1652,7 @@ label {
   height: 26px;
 }
 .ui-orderlist .ui-orderlist-controls .ui-orderlist-button-move-top .ui-icon {
-  background-image: url("/javax.faces.resource/images/toparrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/toparrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1664,7 +1664,7 @@ label {
   height: 26px;
 }
 .ui-orderlist .ui-orderlist-controls .ui-orderlist-button-move-down .ui-icon {
-  background-image: url("/javax.faces.resource/images/downarrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1676,7 +1676,7 @@ label {
   height: 26px;
 }
 .ui-orderlist .ui-orderlist-controls .ui-orderlist-button-move-bottom .ui-icon {
-  background-image: url("/javax.faces.resource/images/bottomarrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/bottomarrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 70%;
@@ -1717,7 +1717,7 @@ label {
   padding-top: 8px !important;
 }
 .ui-carousel .ui-carousel-header .ui-carousel-next-button {
-  background-image: url("/javax.faces.resource/images/right-arrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 85%;
@@ -1728,7 +1728,7 @@ label {
   border-radius: 30px;
 }
 .ui-carousel .ui-carousel-header .ui-carousel-prev-button {
-  background-image: url("/javax.faces.resource/images/left-arrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/left-arrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 85%;
@@ -1747,7 +1747,7 @@ label {
   margin-top: 11px;
 }
 .ui-carousel .ui-carousel-header .ui-carousel-page-links .ui-carousel-page-link {
-  background-image: url("/javax.faces.resource/images/blank.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/blank.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 140%;
@@ -1756,7 +1756,7 @@ label {
   border: 1px solid transparent;
 }
 .ui-carousel .ui-carousel-header .ui-carousel-page-links .ui-icon-radio-on {
-  background-image: url("/javax.faces.resource/images/blank-active.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/blank-active.svg']}");
 }
 .ui-carousel .ui-carousel-viewport {
   padding-top: 5px;
@@ -1839,13 +1839,13 @@ label {
   margin: 5px;
 }
 .fc-header tbody tr td .fc-button-next .fc-icon-wrap .ui-icon {
-  background-image: url("/javax.faces.resource/images/right-one-arrow-for-data.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/right-one-arrow-for-data.svg']}") !important;
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 130%;
 }
 .fc-header tbody tr td .fc-button-prev .fc-icon-wrap .ui-icon {
-  background-image: url("/javax.faces.resource/images/left-one-arrow-for-data.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/left-one-arrow-for-data.svg']}") !important;
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 130%;
@@ -1951,7 +1951,7 @@ label {
   background-color: #26a69a;
 }
 .fc-toolbar .fc-prev-button .ui-icon {
-  background-image: url("/javax.faces.resource/images/left-one-arrow-for-data.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/left-one-arrow-for-data.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -1959,7 +1959,7 @@ label {
   height: 22px;
 }
 .fc-toolbar .fc-next-button .ui-icon {
-  background-image: url("/javax.faces.resource/images/right-one-arrow-for-data.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-one-arrow-for-data.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2103,7 +2103,7 @@ hr.ui-widget-header {
   color: #778d9b;
 }
 .fc-popover .fc-header .fc-close {
-  background-image: url("/javax.faces.resource/images/delete-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete-gray.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2137,13 +2137,13 @@ hr.ui-widget-header {
   color: #03a9f4;
 }
 .ui-tree .ui-treenode .ui-treenode-leaf-icon {
-  /*background-image:url("/javax.faces.resource/images/treenode-gray.svg.xhtml?ln=primefaces-adamantium");*/
+  /*background-image:url("#{resource['primefaces-adamantium:images/treenode-gray.svg']}");*/
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 90%;
 }
 .ui-tree .ui-treenode .ui-icon-grip-dotted-vertical {
-  background-image: url("/javax.faces.resource/images/treenode-dots-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/treenode-dots-gray.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2161,7 +2161,7 @@ hr.ui-widget-header {
   border-radius: 3px;
 }
 .ui-tree .ui-treenode-content .ui-chkbox-box .ui-icon-minus {
-  background-image: url("/javax.faces.resource/images/minus-sign-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/minus-sign-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2175,61 +2175,61 @@ hr.ui-widget-header {
   margin-right: 3px;
 }
 .ui-tree .ui-icon-triangle-1-e {
-  background-image: url("/javax.faces.resource/images/rightarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/rightarrow-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 120%;
 }
 .ui-tree .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 130%;
 }
 .ui-tree .ui-icon-triangle-1-w {
-  background-image: url("/javax.faces.resource/images/leftarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/leftarrow-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 120%;
 }
 .ui-tree .ui-icon-folder-collapsed {
-  background-image: url("/javax.faces.resource/images/folder-close-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/folder-close-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 140%;
 }
 .ui-tree .ui-icon-folder-open {
-  background-image: url("/javax.faces.resource/images/folder-open-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/folder-open-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 160%;
 }
 .ui-tree .ui-icon-document {
-  background-image: url("/javax.faces.resource/images/document-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/document-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 160%;
 }
 .ui-tree .ui-icon-note {
-  background-image: url("/javax.faces.resource/images/note-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/note-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 150%;
 }
 .ui-tree .ui-icon-image {
-  background-image: url("/javax.faces.resource/images/image-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/image-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 150%;
 }
 .ui-tree .ui-icon-video {
-  background-image: url("/javax.faces.resource/images/video-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/video-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 160%;
 }
 .ui-tree .ui-icon-music {
-  background-image: url("/javax.faces.resource/images/music-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/music-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 160%;
@@ -2332,49 +2332,49 @@ hr.ui-widget-header {
   margin-right: 7px;
 }
 .ui-treetable .ui-icon-triangle-1-e {
-  background-image: url("/javax.faces.resource/images/rightarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/rightarrow-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
 }
 .ui-treetable .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
 }
 .ui-treetable .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
 }
 .ui-treetable .ui-chkbox-box .ui-icon-minus {
-  background-image: url("/javax.faces.resource/images/minus-sign-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/minus-sign-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
 }
 .ui-treetable table thead tr th .ui-icon-triangle-1-n {
-  background-image: url("/javax.faces.resource/images/uparrow.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/uparrow.svg']}") !important;
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
 }
 .ui-treetable table thead tr th .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-white.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-white.svg']}") !important;
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
 }
 .ui-treetable table thead tr th .ui-icon-carat-2-n-s {
-  background-image: url("/javax.faces.resource/images/updown-navy-arrow-softgreen.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/updown-navy-arrow-softgreen.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
 }
 .ui-treetable table thead tr th.ui-state-hover .ui-icon-carat-2-n-s {
-  background-image: url("/javax.faces.resource/images/updown-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/updown-arrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
@@ -2406,14 +2406,14 @@ hr.ui-widget-header {
   font-size: 14px;
 }
 .ui-tree-horizontal .ui-icon-plus {
-  background-image: url("/javax.faces.resource/images/plus-sign-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/plus-sign-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 115%;
   float: left;
 }
 .ui-tree-horizontal .ui-icon-minus {
-  background-image: url("/javax.faces.resource/images/minus-sign-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/minus-sign-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2473,13 +2473,13 @@ hr.ui-widget-header {
   color: #ffffff;
 }
 .ui-accordion-header .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
 }
 .ui-accordion-header .ui-icon-triangle-1-e {
-  background-image: url("/javax.faces.resource/images/right-arrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2611,7 +2611,7 @@ hr.ui-widget-header {
   border-right: solid 1px #e0e0e0;
 }
 .ui-tabs-top .ui-tabs-navscroller .ui-tabs-navscroller-btn-left .ui-icon {
-  background-image: url("/javax.faces.resource/images/left-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/left-arrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
@@ -2625,7 +2625,7 @@ hr.ui-widget-header {
   border-left: solid 1px #e0e0e0;
 }
 .ui-tabs-top .ui-tabs-navscroller .ui-tabs-navscroller-btn-right .ui-icon {
-  background-image: url("/javax.faces.resource/images/right-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
@@ -2651,7 +2651,7 @@ hr.ui-widget-header {
   transition: none;
 }
 .ui-tabs-top .ui-tabs-nav li .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete-soft-blue.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete-soft-blue.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2659,7 +2659,7 @@ hr.ui-widget-header {
 }
 .ui-tabs-top .ui-tabs-nav li.ui-state-hover .ui-icon-close,
 .ui-tabs-top .ui-tabs-nav li.ui-state-active .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2818,7 +2818,7 @@ hr.ui-widget-header {
   padding: 14px 14px !important;
 }
 .ui-tabs-left .ui-tabs-nav li .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete-soft-blue.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete-soft-blue.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2827,7 +2827,7 @@ hr.ui-widget-header {
 }
 .ui-tabs-left .ui-tabs-nav li.ui-state-hover .ui-icon-close,
 .ui-tabs-left .ui-tabs-nav li.ui-state-active .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2884,7 +2884,7 @@ hr.ui-widget-header {
   padding: 14px 14px !important;
 }
 .ui-tabs-right .ui-tabs-nav li .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete-soft-blue.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete-soft-blue.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2892,7 +2892,7 @@ hr.ui-widget-header {
 }
 .ui-tabs-right .ui-tabs-nav li.ui-state-hover .ui-icon-close,
 .ui-tabs-right .ui-tabs-nav li.ui-state-active .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -2965,7 +2965,7 @@ hr.ui-widget-header {
   border-right: solid 1px #e0e0e0;
 }
 .ui-tabs-bottom .ui-tabs-navscroller .ui-tabs-navscroller-btn-left .ui-icon {
-  background-image: url("/javax.faces.resource/images/left-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/left-arrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
@@ -2980,7 +2980,7 @@ hr.ui-widget-header {
   border-left: solid 1px #e0e0e0;
 }
 .ui-tabs-bottom .ui-tabs-navscroller .ui-tabs-navscroller-btn-right .ui-icon {
-  background-image: url("/javax.faces.resource/images/right-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
@@ -3004,7 +3004,7 @@ hr.ui-widget-header {
   transition: none;
 }
 .ui-tabs-bottom .ui-tabs-nav li .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete-soft-blue.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete-soft-blue.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -3012,7 +3012,7 @@ hr.ui-widget-header {
 }
 .ui-tabs-bottom .ui-tabs-nav li.ui-state-hover .ui-icon-close,
 .ui-tabs-bottom .ui-tabs-nav li.ui-state-active .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -3101,31 +3101,31 @@ hr.ui-widget-header {
   margin-top: 6px;
 }
 .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon .ui-icon-closethick {
-  background-image: url("/javax.faces.resource/images/delete-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete-gray.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
 }
 .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon .ui-icon-minus {
-  background-image: url("/javax.faces.resource/images/minus-sign-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/minus-sign-gray.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
 }
 .ui-dialog-docking-zone .ui-icon-plus {
-  background-image: url("/javax.faces.resource/images/plus-sign-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/plus-sign-gray.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 90%;
 }
 .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon .ui-icon-extlink {
-  background-image: url("/javax.faces.resource/images/external-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/external-gray.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
 }
 .ui-dialog .ui-dialog-titlebar .ui-icon-newwin {
-  background-image: url("/javax.faces.resource/images/external-gray-revert.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/external-gray-revert.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -3135,11 +3135,11 @@ hr.ui-widget-header {
 }
 .ui-dialog .ui-dialog-content {
   padding: 20px !important;
-  color: #141823;
+  color: #546e7a;
   font-size: 14px;
 }
 .ui-dialog .ui-dialog-content .ui-icon-alert {
-  background-image: url("/javax.faces.resource/images/warn-red.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/warn-red.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 140%;
@@ -3156,7 +3156,7 @@ hr.ui-widget-header {
   text-align: right !important;
 }
 .ui-dialog .ui-resizable-se {
-  background-image: url("/javax.faces.resource/images/handle-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/handle-gray.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -3168,7 +3168,7 @@ hr.ui-widget-header {
   background-color: #003d50;
 }
 .ui-overlaypanel .ui-overlaypanel-close .ui-icon-closethick {
-  background-image: url("/javax.faces.resource/images/delete.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 90%;
@@ -3196,7 +3196,7 @@ hr.ui-widget-header {
   right: 5px;
 }
 .ui-lightbox .ui-lightbox-content-wrapper .ui-lightbox-nav-left .ui-icon {
-  background-image: url("/javax.faces.resource/images/left-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/left-arrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 130%;
@@ -3210,7 +3210,7 @@ hr.ui-widget-header {
   filter: alpha(opacity=100);
 }
 .ui-lightbox .ui-lightbox-content-wrapper .ui-lightbox-nav-right .ui-icon {
-  background-image: url("/javax.faces.resource/images/right-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 130%;
@@ -3240,7 +3240,7 @@ hr.ui-widget-header {
   margin-top: 8px;
 }
 .ui-lightbox .ui-lightbox-caption .ui-lightbox-close .ui-icon {
-  background-image: url("/javax.faces.resource/images/delete-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/delete-gray.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -3279,7 +3279,7 @@ hr.ui-widget-header {
   background-color: #1797dd;
 }
 .ui-fieldset-legend .ui-icon-plusthick {
-  background-image: url("/javax.faces.resource/images/plus-sign-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/plus-sign-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 90%;
@@ -3287,7 +3287,7 @@ hr.ui-widget-header {
   margin-top: 0px !important;
 }
 .ui-fieldset-legend .ui-icon-minusthick {
-  background-image: url("/javax.faces.resource/images/minus-sign-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/minus-sign-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 90%;
@@ -3319,8 +3319,8 @@ hr.ui-widget-header {
 .ui-inputfield.ui-state-hover,
 .ui-inputfield.ui-state-focus {
   border: solid 0px #c6d6df;
-  /*border-bottom: solid 1px #03a9f4;*/
-  /*color: #03a9f4 !important;*/
+  border-bottom: solid 1px #03a9f4;
+  color: #03a9f4 !important;
   background-color: #f5f5f5;
 }
 .ui-inputfield.ui-inputtextarea {
@@ -3430,7 +3430,7 @@ hr.ui-widget-header {
 }
 /*Style For UI SplitButton ------------------------------------------------------------------------------------- */
 .ui-splitbutton .ui-splitbutton-menubutton .ui-icon {
-  background-image: url("/javax.faces.resource/images/menu-dots.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/menu-dots.svg']}") !important;
   background-size: 100%;
   background-position: center;
 }
@@ -3531,13 +3531,13 @@ hr.ui-widget-header {
   padding-left: 8% !important;
 }
 .ui-menu .ui-menu-list .ui-widget-header .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
 }
 .ui-menu .ui-menu-list .ui-widget-header .ui-icon-triangle-1-e {
-  background-image: url("/javax.faces.resource/images/right-arrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -3589,13 +3589,13 @@ hr.ui-widget-header {
   margin: 0px 10px;
 }
 .ui-menu .ui-menuitem .ui-menuitem-link .ui-icon-triangle-1-e {
-  background-image: url("/javax.faces.resource/images/rightarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/rightarrow-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
 }
 .ui-menu .ui-menuitem .ui-menuitem-link .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -3625,7 +3625,7 @@ hr.ui-widget-header {
   color: #03a9f4;
 }
 .ui-menu .ui-slidemenu-wrapper .ui-slidemenu-backward .ui-icon-triangle-1-w {
-  background-image: url("/javax.faces.resource/images/leftarrow-gray.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/leftarrow-gray.svg']}");
   margin: 0px 5px 0px 0px;
   background-position: center !important;
   background-repeat: no-repeat;
@@ -3655,13 +3655,13 @@ hr.ui-widget-header {
   background-color: #039be5;
 }
 .ui-panelmenu .ui-panelmenu-panel .ui-panelmenu-header .ui-icon-triangle-1-e {
-  background-image: url("/javax.faces.resource/images/right-arrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 105%;
 }
 .ui-panelmenu .ui-panelmenu-panel .ui-panelmenu-header .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-white.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-white.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 110%;
@@ -3692,13 +3692,13 @@ hr.ui-widget-header {
   float: none !important;
 }
 .ui-panelmenu .ui-panelmenu-panel .ui-panelmenu-content .ui-menuitem .ui-menuitem-link .ui-icon-triangle-1-e {
-  background-image: url("/javax.faces.resource/images/rightarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/rightarrow-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 90%;
 }
 .ui-panelmenu .ui-panelmenu-panel .ui-panelmenu-content .ui-menuitem .ui-menuitem-link .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-navy.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 90%;
@@ -3767,7 +3767,7 @@ hr.ui-widget-header {
 .ui-messages-warn .ui-icon-close,
 .ui-messages-error .ui-icon-close,
 .ui-messages-fatal .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete-gray.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/delete-gray.svg']}") !important;
   background-size: 110%;
   background-position: center;
 }
@@ -3812,32 +3812,32 @@ hr.ui-widget-header {
   background-size: 100%  !important;
 }
 .ui-message-error-icon {
-  background-image: url("/javax.faces.resource/images/warn-pink.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn-pink.svg']}") !important;
   background-size: 120% !important;
 }
 .ui-messages-error-icon {
-  background-image: url("/javax.faces.resource/images/warn-pink.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn-pink.svg']}") !important;
   background-size: 90% !important;
   width: 30px !important;
   height: 30px !important;
   margin: 2px !important;
 }
 .ui-messages-info-icon {
-  background-image: url("/javax.faces.resource/images/warn-blue.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn-blue.svg']}") !important;
   background-size: 90% !important;
   width: 30px !important;
   height: 30px !important;
   margin: 2px !important;
 }
 .ui-messages-warn-icon {
-  background-image: url("/javax.faces.resource/images/warn-hardal.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn-hardal.svg']}") !important;
   background-size: 90% !important;
   width: 30px !important;
   height: 30px !important;
   margin: 2px !important;
 }
 .ui-messages-fatal-icon {
-  background-image: url("/javax.faces.resource/images/warn-red.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn-red.svg']}") !important;
   background-size: 90% !important;
   width: 30px !important;
   height: 30px !important;
@@ -3895,29 +3895,29 @@ hr.ui-widget-header {
   margin-top: 0px;
 }
 .ui-panel .ui-panel-titlebar .ui-icon-closethick {
-  background-image: url("/javax.faces.resource/images/delete-white.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/delete-white.svg']}") !important;
   background-position: center !important;
   background-size: 110% !important;
 }
 .ui-panel .ui-panel-titlebar .ui-icon-minusthick {
-  background-image: url("/javax.faces.resource/images/minus-sign-white.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/minus-sign-white.svg']}") !important;
   background-position: center !important;
   background-size: 110% !important;
 }
 .ui-panel .ui-panel-titlebar .ui-icon-plusthick {
-  background-image: url("/javax.faces.resource/images/plus-sign-white.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/plus-sign-white.svg']}") !important;
   background-position: center !important;
   background-size: 110% !important;
 }
 .ui-panel .ui-panel-titlebar .ui-icon-gear {
-  background-image: url("/javax.faces.resource/images/gear.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/gear.svg']}") !important;
   background-position: center !important;
   background-size: 140% !important;
 }
 .ui-panel .ui-panel-content {
   padding: 5px !important;
   font-size: 14px;
-  color: #141823;
+  color: #546e7a;
   font-family: 'latoregular';
 }
 .ui-panel .ui-panel-footer {
@@ -4032,7 +4032,7 @@ hr.ui-widget-header {
 }
 .ui-selectonemenu-trigger .ui-icon-triangle-1-s,
 .ui-selectcheckboxmenu-trigger .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow.svg']}") !important;
   margin-top: 11px !important;
   background-size: 130%;
   background-position: center;
@@ -4047,7 +4047,7 @@ hr.ui-widget-header {
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("/javax.faces.resource/images/search-icon.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/search-icon.svg']}");
   left: 5px !important;
   top: 8px !important;
 }
@@ -4146,7 +4146,7 @@ hr.ui-widget-header {
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("/javax.faces.resource/images/search-icon.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/search-icon.svg']}");
   left: 0px;
 }
 .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
@@ -4161,7 +4161,7 @@ hr.ui-widget-header {
   margin-top: 0px;
 }
 .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-close .ui-icon-circle-close {
-  background-image: url("/javax.faces.resource/images/delete-gray.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/delete-gray.svg']}") !important;
   background-size: 100%;
   background-position: center;
 }
@@ -4193,25 +4193,25 @@ hr.ui-widget-header {
   height: 30px !important;
 }
 .ui-growl-image-error {
-  background-image: url("/javax.faces.resource/images/warn-pink.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn-pink.svg']}") !important;
   background-position: center !important;
   background-size: 140% !important;
   margin-top: 5px;
 }
 .ui-growl-image-warn {
-  background-image: url("/javax.faces.resource/images/warn-hardal.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn-hardal.svg']}") !important;
   background-position: center !important;
   background-size: 140% !important;
   margin-top: 5px;
 }
 .ui-growl-image-info {
-  background-image: url("/javax.faces.resource/images/warn-blue.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn-blue.svg']}") !important;
   background-position: center !important;
   background-size: 140% !important;
   margin-top: 5px;
 }
 .ui-growl-image-fatal {
-  background-image: url("/javax.faces.resource/images/warn-red.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn-red.svg']}") !important;
   background-position: center !important;
   background-size: 140% !important;
   margin-top: 5px;
@@ -4219,7 +4219,7 @@ hr.ui-widget-header {
 .ui-growl-icon-close {
   width: 10px !important;
   height: 10px !important;
-  background-image: url("/javax.faces.resource/images/delete-pink.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/delete-pink.svg']}") !important;
   background-position: center !important;
   background-size: 130% !important;
 }
@@ -4256,58 +4256,58 @@ hr.ui-widget-header {
   background-color: #E53935;
 }
 .ui-log-header .ui-log-clear .ui-icon {
-  background-image: url("/javax.faces.resource/images/clear.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/clear.svg']}") !important;
   background-position: center !important;
   background-size: 140%;
 }
 .ui-log-header .ui-log-all .ui-icon {
-  background-image: url("/javax.faces.resource/images/all-doc.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/all-doc.svg']}") !important;
   background-position: center !important;
   background-size: 140%;
 }
 .ui-log-header .ui-log-info .ui-icon {
-  background-image: url("/javax.faces.resource/images/info.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/info.svg']}") !important;
   background-position: center !important;
   background-size: 140%;
 }
 .ui-log-item-info .ui-icon {
-  background-image: url("/javax.faces.resource/images/info-gray.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/info-gray.svg']}") !important;
   background-position: center !important;
   background-size: 140%;
   width: 20px;
   height: 20px;
 }
 .ui-log-header .ui-log-warn .ui-icon {
-  background-image: url("/javax.faces.resource/images/warn.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn.svg']}") !important;
   background-position: center !important;
   background-size: 140%;
 }
 .ui-log-item-warn .ui-icon {
-  background-image: url("/javax.faces.resource/images/warn-gray.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/warn-gray.svg']}") !important;
   background-position: center !important;
   background-size: 140%;
   width: 20px;
   height: 20px;
 }
 .ui-log-header .ui-log-debug .ui-icon {
-  background-image: url("/javax.faces.resource/images/debug.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/debug.svg']}") !important;
   background-position: center !important;
   background-size: 140%;
 }
 .ui-log-item-debug .ui-icon {
-  background-image: url("/javax.faces.resource/images/debug-gray.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/debug-gray.svg']}") !important;
   background-position: center !important;
   background-size: 140%;
   width: 20px;
   height: 20px;
 }
 .ui-log-header .ui-log-error .ui-icon {
-  background-image: url("/javax.faces.resource/images/error.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/error.svg']}") !important;
   background-position: center !important;
   background-size: 140%;
 }
 .ui-log-item-error .ui-icon {
-  background-image: url("/javax.faces.resource/images/error-gray.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/error-gray.svg']}") !important;
   background-position: center !important;
   background-size: 140%;
   width: 20px;
@@ -4524,7 +4524,7 @@ hr.ui-widget-header {
   border: solid 1px #b0bec5;
 }
 .ui-password-panel .ui-password-meter {
-  background-image: url("/javax.faces.resource/images/password-meter.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/password-meter.svg']}") !important;
   background-size: 100% !important;
 }
 /*Style For Input Switch --------------------------------------------------------------------------------------*/
@@ -4632,7 +4632,7 @@ hr.ui-widget-header {
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("/javax.faces.resource/images/search-icon.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/search-icon.svg']}");
   left: 14px;
   top: 16px;
 }
@@ -4656,7 +4656,7 @@ hr.ui-widget-header {
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("/javax.faces.resource/images/search-icon.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/search-icon.svg']}");
   left: 13px;
   top: 16px;
 }
@@ -4738,7 +4738,7 @@ hr.ui-widget-header {
   background-size: 90%;
 }
 .ui-rating-cancel a {
-  background-image: url("/javax.faces.resource/images/dislike-on.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/dislike-on.svg']}") !important;
   opacity: 1;
   background-position: center !important;
   background-size: 110% !important;
@@ -4748,19 +4748,19 @@ hr.ui-widget-header {
   color: #778d9b;
 }
 .ui-rating-cancel-hover a {
-  background-image: url("/javax.faces.resource/images/dislike-on.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/dislike-on.svg']}") !important;
   opacity: 0.5;
   background-position: center !important;
   background-size: 100% !important;
 }
 .ui-rating-star a {
-  background-image: url("/javax.faces.resource/images/star.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/star.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
   margin: 0px 1px;
 }
 .ui-rating-star-on a {
-  background-image: url("/javax.faces.resource/images/star-on.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/star-on.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
@@ -4812,14 +4812,14 @@ hr.ui-widget-header {
   padding: 4px 20px 4px 20px !important;
 }
 .ui-spinner .ui-spinner-up .ui-button-text .ui-icon {
-  background-image: url("/javax.faces.resource/images/plus-sign.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/plus-sign.svg']}") !important;
   background-position: center !important;
   background-size: 80% !important;
   margin-left: 12px;
   margin-top: -8px;
 }
 .ui-spinner .ui-spinner-down .ui-button-text .ui-icon {
-  background-image: url("/javax.faces.resource/images/minus-sign.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/minus-sign.svg']}") !important;
   background-position: center !important;
   background-size: 80% !important;
   margin-left: 12px;
@@ -4876,14 +4876,14 @@ hr.ui-widget-header {
   top: 3px;
 }
 .ui-datepicker-header .ui-datepicker-prev .ui-icon {
-  background-image: url("/javax.faces.resource/images/left-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/left-arrow.svg']}");
   background-position: center !important;
   background-size: 130% !important;
   top: 50%;
   left: 48%;
 }
 .ui-datepicker-header .ui-datepicker-next .ui-icon {
-  background-image: url("/javax.faces.resource/images/right-arrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow.svg']}");
   background-position: center !important;
   background-size: 130% !important;
   top: 50%;
@@ -4952,7 +4952,7 @@ hr.ui-widget-header {
   margin: 0px !important;
 }
 .ui-datepicker-trigger .ui-icon {
-  background-image: url("/javax.faces.resource/images/calendar.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/calendar.svg']}");
   background-position: center !important;
   background-size: 145% !important;
 }
@@ -5046,13 +5046,13 @@ hr.ui-widget-header {
 }
 .ui-galleria-nav-prev {
   left: 2px !important;
-  background-image: url("/javax.faces.resource/images/leftarrow-navy.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/leftarrow-navy.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
 .ui-galleria-nav-next {
   right: 2px !important;
-  background-image: url("/javax.faces.resource/images/rightarrow-navy.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/rightarrow-navy.svg']}") !important;
   background-position: center !important;
   background-size: 120% !important;
 }
@@ -5119,7 +5119,7 @@ hr.ui-widget-header {
   border-top-left-radius: 0px !important;
 }
 .ui-autocomplete .ui-autocomplete-dropdown .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow.svg.xhtml?ln=primefaces-adamantium");
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow.svg']}");
   background-position: center !important;
   background-size: 130% !important;
   z-index: 998;
@@ -5175,7 +5175,7 @@ hr.ui-widget-header {
   padding: 5px;
 }
 .ui-autocomplete-multiple .ui-autocomplete-multiple-container .ui-autocomplete-token .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete-gray.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/delete-gray.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
@@ -5254,7 +5254,7 @@ hr.ui-widget-header {
 }
 /* Style For UI MenuButton --------------------------------------------------------------------------------------*/
 .ui-menubutton .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow-white.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow-white.svg']}") !important;
   background-position: center !important;
   background-size: 120% !important;
 }
@@ -5295,27 +5295,27 @@ hr.ui-widget-header {
 }
 .ui-fileupload-choose .ui-icon-plusthick,
 .ui-fileupload-simple .ui-icon-plusthick {
-  background-image: url("/javax.faces.resource/images/plus-sign-white.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/plus-sign-white.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
 .ui-fileupload-upload .ui-icon-arrowreturnthick-1-n {
-  background-image: url("/javax.faces.resource/images/upload.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/upload.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
 .ui-fileupload-cancel .ui-icon-cancel {
-  background-image: url("/javax.faces.resource/images/delete.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/delete.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
 .ui-fileupload-content .ui-fileupload-cancel .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/delete.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
 .ui-fileupload-content .ui-messages-error .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete-pink.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/delete-pink.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
@@ -5369,12 +5369,12 @@ hr.ui-widget-header {
 }
 /*Style For UI Inplace --------------------------------------------------------------------------------------*/
 .ui-inplace .ui-inplace-editor .ui-button .ui-icon-check {
-  background-image: url("/javax.faces.resource/images/check-white.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/check-white.svg']}") !important;
   background-position: center !important;
   background-size: 110% !important;
 }
 .ui-inplace .ui-inplace-editor .ui-button .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/delete.svg']}") !important;
   background-position: center !important;
   background-size: 110% !important;
 }
@@ -5422,37 +5422,37 @@ hr.ui-widget-header {
   font-family: 'latoregular';
 }
 .ui-layout-unit .ui-layout-unit-header .ui-layout-unit-header-icon .ui-icon-close {
-  background-image: url("/javax.faces.resource/images/delete.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/delete.svg']}") !important;
   background-position: center !important;
   background-size: 110% !important;
   margin-top: 3px;
 }
 .ui-layout-unit .ui-layout-unit-header .ui-layout-unit-header-icon .ui-icon-triangle-1-n {
-  background-image: url("/javax.faces.resource/images/uparrow.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/uparrow.svg']}") !important;
   background-position: center !important;
   background-size: 120% !important;
   margin-top: 3px;
 }
 .ui-layout-unit .ui-layout-unit-header .ui-layout-unit-header-icon .ui-icon-triangle-1-w {
-  background-image: url("/javax.faces.resource/images/left-arrow.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/left-arrow.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
   margin-top: 3px;
 }
 .ui-layout-unit .ui-layout-unit-header .ui-layout-unit-header-icon .ui-icon-triangle-1-e {
-  background-image: url("/javax.faces.resource/images/right-arrow.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;
   margin-top: 3px;
 }
 .ui-layout-unit .ui-layout-unit-header .ui-layout-unit-header-icon .ui-icon-triangle-1-s {
-  background-image: url("/javax.faces.resource/images/downarrow.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/downarrow.svg']}") !important;
   background-position: center !important;
   background-size: 120% !important;
   margin-top: 3px;
 }
 .ui-layout-resizer .ui-layout-toggler .ui-icon-arrow-4-diag {
-  background-image: url("/javax.faces.resource/images/expand-gray.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/expand-gray.svg']}") !important;
   background-position: center !important;
   background-size: 110% !important;
 }
@@ -5471,12 +5471,12 @@ hr.ui-widget-header {
   background-color: #29a1ec;
 }
 .ui-wizard .ui-wizard-nav-back .ui-icon-arrowthick-1-w {
-  background-image: url("/javax.faces.resource/images/left-arrow.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/left-arrow.svg']}") !important;
   background-position: center !important;
   background-size: 110% !important;
 }
 .ui-wizard .ui-wizard-nav-next .ui-icon-arrowthick-1-e {
-  background-image: url("/javax.faces.resource/images/right-arrow.svg.xhtml?ln=primefaces-adamantium") !important;
+  background-image: url("#{resource['primefaces-adamantium:images/right-arrow.svg']}") !important;
   background-position: center !important;
   background-size: 110% !important;
 }
@@ -5614,16 +5614,16 @@ hr.ui-widget-header {
 }
 @media (max-width: 640px) {
   .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .ui-icon-arrow-1-e {
-    background-image: url("/javax.faces.resource/images/downarrow-white.svg.xhtml?ln=primefaces-adamantium");
+    background-image: url("#{resource['primefaces-adamantium:images/downarrow-white.svg']}");
   }
   .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .ui-icon-arrow-1-w {
-    background-image: url("/javax.faces.resource/images/uparrow.svg.xhtml?ln=primefaces-adamantium");
+    background-image: url("#{resource['primefaces-adamantium:images/uparrow.svg']}");
   }
   .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .ui-icon-arrowstop-1-e {
-    background-image: url("/javax.faces.resource/images/bottomarrow.svg.xhtml?ln=primefaces-adamantium");
+    background-image: url("#{resource['primefaces-adamantium:images/bottomarrow.svg']}");
   }
   .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .ui-icon-arrowstop-1-w {
-    background-image: url("/javax.faces.resource/images/toparrow.svg.xhtml?ln=primefaces-adamantium");
+    background-image: url("#{resource['primefaces-adamantium:images/toparrow.svg']}");
   }
   .ui-picklist.ui-picklist-responsive .ui-picklist-buttons button {
     max-width: 50px;

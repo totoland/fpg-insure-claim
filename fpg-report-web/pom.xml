@@ -295,44 +295,6 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+        <finalName>fpg-insurance-web</finalName>
     </build>
-    <!--    <profiles>
-        <profile>
-            <id>local</id>
-            <properties>
-                <env>local</env>
-                <contextRoot>/ETCReport</contextRoot>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources/totoland</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources/com/etc/web/resources</directory>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-        <profile>
-            <id>vps</id>
-            <properties>
-                <env>vps</env>
-                <contextRoot>/ETCReport</contextRoot>
-            </properties>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources/vps</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources/com/etc/web/resources</directory>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-    </profiles>-->
 </project>

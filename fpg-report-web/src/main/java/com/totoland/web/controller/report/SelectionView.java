@@ -18,6 +18,7 @@ package com.totoland.web.controller.report;
 import com.totoland.web.beans.Car;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.service.impl.CarService;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -44,6 +45,8 @@ public class SelectionView extends BaseController{
    
     private boolean renderDataTable;
     
+    private Date sysDate;
+    
     @ManagedProperty("#{carService}")
     private CarService service;
     
@@ -57,6 +60,7 @@ public class SelectionView extends BaseController{
         cars6 = service.createCars(10);
         cars7 = service.createCars(50);
         renderDataTable = false;
+        sysDate = new Date();
     }
     
     public void search(){
@@ -139,6 +143,20 @@ public class SelectionView extends BaseController{
      */
     public void setRenderDataTable(boolean renderDataTable) {
         this.renderDataTable = renderDataTable;
+    }
+
+    /**
+     * @return the sysDate
+     */
+    public Date getSysDate() {
+        return sysDate;
+    }
+
+    /**
+     * @param sysDate the sysDate to set
+     */
+    public void setSysDate(Date sysDate) {
+        this.sysDate = sysDate;
     }
     
 }

@@ -1,21 +1,21 @@
 @font-face {
   font-family: 'latobold';
-  src: url("/javax.faces.resource/fonts/lato-bold-webfont.eot.xhtml?ln=primefaces-adamantium");
-  src: url("/javax.faces.resource/fonts/lato-bold-webfont.eot.xhtml?ln=primefaces-adamantium#iefix") format('embedded-opentype'), url("/javax.faces.resource/fonts/lato-bold-webfont.woff2.xhtml?ln=primefaces-adamantium") format('woff2'), url("/javax.faces.resource/fonts/lato-bold-webfont.woff.xhtml?ln=primefaces-adamantium") format('woff'), url("/javax.faces.resource/fonts/lato-bold-webfont.ttf.xhtml?ln=primefaces-adamantium") format('truetype'), url("/javax.faces.resource/fonts/lato-bold-webfont.svg.xhtml?ln=primefaces-adamantium#latobold") format('svg');
+  src: url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.eot']}");
+  src: url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.woff']}") format('woff'), url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-adamantium:fonts/lato-bold-webfont.svg']}#latobold") format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'latolight';
-  src: url("/javax.faces.resource/fonts/lato-light-webfont.eot.xhtml?ln=primefaces-adamantium");
-  src: url("/javax.faces.resource/fonts/lato-light-webfont.eot.xhtml?ln=primefaces-adamantium#iefix") format('embedded-opentype'), url("/javax.faces.resource/fonts/lato-light-webfont.woff2.xhtml?ln=primefaces-adamantium") format('woff2'), url("/javax.faces.resource/fonts/lato-light-webfont.woff.xhtml?ln=primefaces-adamantium") format('woff'), url("/javax.faces.resource/fonts/lato-light-webfont.ttf.xhtml?ln=primefaces-adamantium") format('truetype'), url("/javax.faces.resource/fonts/lato-light-webfont.svg.xhtml?ln=primefaces-adamantium#latolight") format('svg');
+  src: url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.eot']}");
+  src: url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.woff']}") format('woff'), url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-adamantium:fonts/lato-light-webfont.svg']}#latolight") format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'latoregular';
-  src: url("/javax.faces.resource/fonts/lato-regular-webfont.eot.xhtml?ln=primefaces-adamantium");
-  src: url("/javax.faces.resource/fonts/lato-regular-webfont.eot.xhtml?ln=primefaces-adamantium#iefix") format('embedded-opentype'), url("/javax.faces.resource/fonts/lato-regular-webfont.woff2.xhtml?ln=primefaces-adamantium") format('woff2'), url("/javax.faces.resource/fonts/lato-regular-webfont.woff.xhtml?ln=primefaces-adamantium") format('woff'), url("/javax.faces.resource/fonts/lato-regular-webfont.ttf.xhtml?ln=primefaces-adamantium") format('truetype'), url("/javax.faces.resource/fonts/lato-regular-webfont.svg.xhtml?ln=primefaces-adamantium#latoregular") format('svg');
+  src: url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.eot']}");
+  src: url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.woff']}") format('woff'), url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-adamantium:fonts/lato-regular-webfont.svg']}#latoregular") format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -36,11 +36,11 @@ body {
   margin: 0px;
   height: 100%;
   width: 100%;
-  /* background-color: #f7f5f3; */
+  background-color: #f7f5f3;
   font-family: 'latoregular';
 }
 .loginback {
-  background-image: url("/javax.faces.resource/images/loginback.svg.xhtml?ln=adamantium-layout");
+  background-image: url("#{resource['adamantium-layout:images/loginback.svg']}");
   background-repeat: repeat;
 }
 /* TOPBAR --------------------------------------------------------------------------------*/
@@ -546,6 +546,7 @@ li {
   background-color: #03A9F4;
 }
 .BlueBack {
+  /*background-color: #0288D1;*/  
   background-color: #ffc966;
 }
 .TurquoiseBack {

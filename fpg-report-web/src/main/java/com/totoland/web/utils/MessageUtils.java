@@ -27,13 +27,13 @@ public class MessageUtils {
             return "";
         }
     }
-    
+
     public static String getConf(String key) {
         return ResourceBundle.getBundle(WebConstant.CONF_PROP).getString(key);
     }
 
     public static String getString(String key) {
-        return getResourceBundleString(WebConstant.MESSAGES_PROP, key);
+        return getResourceBundleString(key);
     }
 
     public static String getString(String key, String... values) {
@@ -56,37 +56,51 @@ public class MessageUtils {
     public static String getResourceBundleString(String resourceBundleKey, String values) throws MissingResourceException {
         FacesContext fc = FacesContext.getCurrentInstance();
         ResourceBundle bundle = fc.getApplication().getResourceBundle(fc, "msg");
-        return bundle.getString(values);
+        MessageFormat formatter = new MessageFormat("{0} {1,number,###0}");
+        formatter.applyPattern(bundle.getString(resourceBundleKey));
+
+        return formatter.format(new Object[]{values});
+
     }
-    public static String SAVE_SUCCESS(){
+
+    public static String SAVE_SUCCESS() {
         return getResourceBundleString("save_success");
     }
-    public static String SAVE_NOT_SUCCESS(){
+
+    public static String SAVE_NOT_SUCCESS() {
         return getResourceBundleString("save_not_success");
     }
-    public static String PRINT_LINE_STAR(){
+
+    public static String PRINT_LINE_STAR() {
         return getResourceBundleString("print_line_star");
     }
-    public static String REQUIRE_SELECT_STRATEGICID(){
+
+    public static String REQUIRE_SELECT_STRATEGICID() {
         return getResourceBundleString("require_select_strategicId");
     }
-    public static String REQUIRE_SELECT_SUBSTRATEGICID(){
+
+    public static String REQUIRE_SELECT_SUBSTRATEGICID() {
         return getResourceBundleString("require_select_substrategicId");
     }
-    public static String REQUIRE_SELECT_PLAN(){
+
+    public static String REQUIRE_SELECT_PLAN() {
         return getResourceBundleString("require_select_plan");
     }
-    public static String REQUIRE_SELECT_PROJECT(){
+
+    public static String REQUIRE_SELECT_PROJECT() {
         return getResourceBundleString("require_select_project");
     }
-    public static String REQUIRE_SELECT_ACTIVITY(){
+
+    public static String REQUIRE_SELECT_ACTIVITY() {
         return getResourceBundleString("require_select_activity");
     }
-    public static String REQUIRQ_ENTER_ACTIVITY(){
+
+    public static String REQUIRQ_ENTER_ACTIVITY() {
         return getResourceBundleString("require_enter_activity");
     }
-    public static String REQUIRE_ADD_REPORT_DETAIL(){
+
+    public static String REQUIRE_ADD_REPORT_DETAIL() {
         return getResourceBundleString("require_add_report_detail");
     }
-    
+
 }
