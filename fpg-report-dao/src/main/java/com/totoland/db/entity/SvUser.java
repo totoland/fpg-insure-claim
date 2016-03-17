@@ -51,6 +51,8 @@ public class SvUser extends DomainEntity implements Serializable {
     private Integer userGroupId;
     @Column(name = "USER_GROUP_LVL")
     private Integer userGroupLvl;
+    @Column(name = "COMPANY_NAME")
+    private String companyName;
 
     public SvUser() {
     }
@@ -129,6 +131,14 @@ public class SvUser extends DomainEntity implements Serializable {
 
     public void setUserGroupLvl(Integer userGroupLvl) {
         this.userGroupLvl = userGroupLvl;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     @Override

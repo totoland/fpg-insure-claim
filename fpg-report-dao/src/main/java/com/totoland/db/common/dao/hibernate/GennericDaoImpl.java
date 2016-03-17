@@ -18,11 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author totoland
+ * @param <T>
  */
 @Repository("gennericDao")
 public class GennericDaoImpl<T> extends BaseDao implements GennericDao<T>, Serializable {
 
-    private static Logger logger = Logger.getLogger(GennericDaoImpl.class);
+    private static final Logger logger = Logger.getLogger(GennericDaoImpl.class);
     private static final long serialVersionUID = 5620842485855893208L;
 
     @Override

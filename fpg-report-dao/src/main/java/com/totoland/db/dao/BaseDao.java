@@ -1,5 +1,6 @@
 package com.totoland.db.dao;
 
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -100,7 +101,7 @@ public abstract class BaseDao extends HibernateDaoSupport {
         return statmentSQL.toString();
     }
 
-    public Integer countNativeQuery(final String SQL, final Object... value) {
+    public BigInteger countNativeQuery(final String SQL, final Object... value) {
         Object t = getHibernateTemplate().execute(new HibernateCallback() {
             @Override
             public Object doInHibernate(Session sn) throws HibernateException, SQLException {
@@ -110,13 +111,13 @@ public abstract class BaseDao extends HibernateDaoSupport {
                     query.setParameter(i, value[i]);
                 }
 
-                return ((Integer) query.uniqueResult()).intValue();
+                return ((BigInteger) query.uniqueResult());
             }
         });
-        return (Integer) t;
+        return (BigInteger) t;
     }
     
-    public Integer countNativeQuery(final String SQL) {
+    public BigInteger countNativeQuery(final String SQL) {
         return countNativeQuery(SQL, new Object[]{});
     }
 

@@ -5,23 +5,28 @@
 package com.totoland.db.user.dao.hibernate;
 
 import com.totoland.db.bean.UserCriteria;
-import com.totoland.db.dao.BaseDao;
+import com.totoland.db.common.dao.hibernate.GennericDaoImpl;
+import com.totoland.db.entity.SvUser;
 import com.totoland.db.entity.ViewUser;
+import com.totoland.db.enums.UserType;
 import com.totoland.db.user.dao.UserDao;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author totoland
  */
 @Repository("userDao")
-public class UserDaoImpl extends BaseDao implements UserDao {
+public class UserDaoImpl extends GennericDaoImpl<SvUser> implements UserDao {
 
+    @Transactional(readOnly = true)
     @Override
     public List<ViewUser> searchByUserCriteria(UserCriteria criteria) {
-        List<Object> lst = new ArrayList<Object>();
+        List<Object> lst = new ArrayList<>();
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT group_lvl.GROUP_LVL_NAME,user_group.USER_GROUP_NAME,sv_user.USER_ID,sv_user.USERNAME,sv_user.PASSWORD,");
@@ -48,6 +53,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         return findNativeQuery(sql.toString(), ViewUser.class, lst);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ViewUser searchByUserName(String criteria) {
 
@@ -66,4 +72,16 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         return (ViewUser)findUniqNativeQuery(sql.toString(), ViewUser.class, criteria);
         
     }
+    
+    @Transactional(readOnly = true)
+    @Override
+    public long countUser(UserType userType){
+        BigInteger count = (BigInteger)countNativeQuery("SELECT COUNT(1) FROM SV_USER WHERE USER_GROUP_LVL = ?", userType.getId());
+        
+        if(count==null){
+            return 0L;
+        }
+        
+        return count.longValue();
+    };
 }

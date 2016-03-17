@@ -12,8 +12,9 @@ import java.util.Map;
 /**
  *
  * @author totoland
+ * @param <T>
  */
-public interface GennericDao<T> {
+public interface GennericDao<T>{
     
     public void create(T entity);
 
