@@ -64,34 +64,37 @@
                     </ul>
                 </li>
             </ul>
-            <p:dialog header="#{msg.change_password_header}" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="250" minimizable="true" maximizable="true" responsive="true">
-                <div class="Container100">
-                    <div class="ContainerIndent">
-                        <div class="Container100 Responsive100">
-                            <div class="ContainerIndent">
-                                <h2 class="BigTopic"></h2>
-                                <p:panelGrid columns="2"
-                                             style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                    <h:outputLabel value="#{msg.old_password}"/>
-                                    <p:password/>
-                                    <h:outputLabel value="#{msg.new_password}"/>
-                                    <p:password/>
-                                    <h:outputLabel value="#{msg.confirm_new_password}"/>
-                                    <p:password/>
-                                    <p:separator/>
-                                    <p:commandButton value="#{msg.btn_save}"/>
-                                </p:panelGrid>
+            <p:dialog header="#{msg.change_password_header}" widgetVar="dlg3"
+                      showEffect="explode" hideEffect="bounce" height="250" minimizable="true" maximizable="true" responsive="true">
+                <h:form>
+                    <div class="Container100">
+                        <div class="ContainerIndent">
+                            <div class="Container100 Responsive100">
+                                <div class="ContainerIndent">
+                                    <h2 class="BigTopic"></h2>
+                                    <p:panelGrid columns="2"
+                                                 style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                        <h:outputLabel value="#{msg.old_password}"/>
+                                        <p:password/>
+                                        <h:outputLabel value="#{msg.new_password}"/>
+                                        <p:password/>
+                                        <h:outputLabel value="#{msg.confirm_new_password}"/>
+                                        <p:password/>
+                                        <p:separator/>
+                                        <p:commandButton value="#{msg.btn_save}"/>
+                                    </p:panelGrid>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
-                </div>
+                </h:form>
             </p:dialog>
 
             <p:dialog widgetVar="cmLogout" showEffect="fade"
                       header="#{msg.msg_confirm_logout}">
                 <p:commandButton value="#{msg.yes}" type="button" styleClass="ui-confirmdialog-yes GreenButton" onclick="window.location = '${request.contextPath}/LogoutController';" icon="ui-icon-check fa fa-check Fs14 white" />
-                <p:commandButton value="#{msg.btn_close}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                <p:commandButton value="#{msg.btn_close}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" onclick="PF('cmLogout').hide()"/>
             </p:dialog>
             <script>
                 function logout() {

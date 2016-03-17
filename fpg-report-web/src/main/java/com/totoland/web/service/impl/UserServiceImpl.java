@@ -7,6 +7,7 @@ package com.totoland.web.service.impl;
 import com.totoland.db.authen.dao.AuthenDao;
 import com.totoland.db.bean.UserCriteria;
 import com.totoland.db.entity.ViewUser;
+import com.totoland.db.enums.UserType;
 import com.totoland.db.user.dao.UserDao;
 import com.totoland.web.service.UserService;
 import java.io.Serializable;
@@ -40,6 +41,16 @@ public class UserServiceImpl implements UserService , Serializable{
     @Override
     public ViewUser findByUserName(String criteria) {
         return userDao.searchByUserName(criteria);
+    }
+
+    @Override
+    public long countAllUser() {
+        return userDao.countUser(UserType.OFFICIAL_USER);
+    }
+    
+    @Override
+    public long countAllAdmin() {
+        return userDao.countUser(UserType.ADMIN);
     }
     
 }

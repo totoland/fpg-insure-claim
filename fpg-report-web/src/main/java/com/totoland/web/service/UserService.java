@@ -16,4 +16,6 @@ public interface UserService {
     ViewUser findByUserId(Integer userId);
     List<ViewUser> findByUserCriteria(UserCriteria userName);
     ViewUser findByUserName(String criteria);
+    long countAllUser();
+    long countAllAdmin();
 }

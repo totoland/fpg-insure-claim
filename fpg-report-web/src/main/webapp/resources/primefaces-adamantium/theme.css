@@ -3135,7 +3135,8 @@ hr.ui-widget-header {
 }
 .ui-dialog .ui-dialog-content {
   padding: 20px !important;
-  color: #546e7a;
+  /*color: #546e7a;*/
+  color: #666f77;
   font-size: 14px;
 }
 .ui-dialog .ui-dialog-content .ui-icon-alert {

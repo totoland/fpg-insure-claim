@@ -9,6 +9,7 @@ import com.totoland.db.entity.SvUser;
 import com.totoland.db.entity.ViewUser;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
+import com.totoland.web.service.CustomerService;
 import com.totoland.web.service.GennericService;
 import com.totoland.web.service.UserService;
 import com.totoland.web.utils.JsfUtil;
@@ -53,24 +54,25 @@ public class UserManagementController extends BaseController {
     private SvUser svUser = new SvUser();
     @ManagedProperty("#{gennericService}")
     private GennericService<SvUser> gennericService;
+    @ManagedProperty("#{customerService}")
+    private CustomerService customerService;
+    
+    private long countAllCustomer;
+    private long countAllUser;
+    private long countAllAdmin;
     private String rePassword;
-    private static final String URL_PORT = MessageUtils.getConf("openfire.server");
-    private static final String SECRET_KEY = MessageUtils.getConf("secret");
 
     @PostConstruct
     public void init() {
         logger.trace("initPage");
         logger.trace("Locale : {}",FacesContext.getCurrentInstance()
         			.getViewRoot().getLocale());
-        //checkRoleAdmin();
         initForm();
     }
 
     public void search() {
         logger.trace("search userCriteria : {}", getUserCriteria());
-
         svUsers = getUserService().findByUserCriteria(getUserCriteria());
-
         logger.trace("svUsers size : {}", svUsers);
     }
 
@@ -196,6 +198,9 @@ public class UserManagementController extends BaseController {
     public void initForm() {
         userCriteria = new UserCriteria();
         svUsers = new ArrayList<>();
+        countAllCustomer = customerService.countAllCustomer();
+        countAllAdmin = userService.countAllAdmin();
+        countAllUser = userService.countAllUser();
     }
 
     /**
@@ -384,21 +389,32 @@ public class UserManagementController extends BaseController {
         this.rePassword = rePassword;
     }
 
-    private void createOpenfireUser(SvUser user) throws IOException, Exception {
-        HttpClient client = new DefaultHttpClient();
-        String url = URL_PORT+"/plugins/userService/userservice?type=add&secret="+SECRET_KEY+"&username="+user.getUsername()+"&password="+WebUtils.decrypt(user.getPassword())+"&name="+user.getUsername()+"&email="+user.getUsername()+"@telepresence.ddns.net";
-        
-        logger.debug("URL : {}",url);
-        
-        HttpPost post = new HttpPost(url);
-//        StringEntity input = new StringEntity("product");
-//        post.setEntity(input);
-        HttpResponse response = client.execute(post);
-        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-            logger.debug(line);
-        }
+    public CustomerService getCustomerService() {
+        return customerService;
+    }
+
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    public long getCountAllCustomer() {
+        return countAllCustomer;
+    }
+
+    public long getCountAllUser() {
+        return countAllUser;
+    }
+
+    public void setCountAllUser(long countAllUser) {
+        this.countAllUser = countAllUser;
+    }
+
+    public long getCountAllAdmin() {
+        return countAllAdmin;
+    }
+
+    public void setCountAllAdmin(long countAllAdmin) {
+        this.countAllAdmin = countAllAdmin;
     }
     
 }

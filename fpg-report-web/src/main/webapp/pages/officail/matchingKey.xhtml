@@ -18,11 +18,10 @@
                         <div class="CardTopic"> 
                             <i class="fa fa-edit Fs30 Fleft MarRight10"></i>
                             <div class="EmptyBox10 ShowOnMobile"></div>
-                            #{msg.menu_create_edit_claim} 
+                            #{msg.menu_match_key} 
                             <div class="EmptyBox10 ShowOnMobile"></div>
-                            <p:commandButton icon="fa fa-plus White" styleClass="Fright GreenButton" title="#{msg.menu_create_new_claim}">
-                                <p:confirm header="#{msg.confirmation_head}" message="#{msg.confirmation_message_create_page}?" icon="ui-icon-alert" />
-                            </p:commandButton>
+                            <p:button icon="fa fa-plus White" styleClass="Fright GreenButton" title="#{msg.menu_create_new_claim}" onclick="PF('dlgNewMatchKey').show();
+                                    return;"/>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                 <p:button value="#{msg.yes}" href="insuranceForm.xhtml" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white" />
                                 <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
@@ -38,30 +37,32 @@
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
-                                    <h:outputLabel value="#{msg.label_company_code}"/>
-                                    <p:inputText/>
-
-                                    <h:outputLabel value="#{msg.label_Policy_number}"/>
-                                    <p:inputText/>
-
-                                    <h:outputLabel value="#{msg.label_insured_name}"/>
-                                    <p:selectOneMenu styleClass="selectOne115">
-                                        <f:selectItem itemLabel="" itemValue="1" />
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel value="#{msg.label_method_of_transport}"/>
+                                    <h:outputLabel value="#{msg.label_customer}"/>
                                     <p:selectOneMenu styleClass="selectOne115">
                                         <f:selectItem itemLabel="" itemValue=""/>
-                                        <f:selectItems value="#{insuranceFormController.insureTypeList}" var="item"
+                                        <f:selectItems value="#{mathchingKeyController.ddlCustomer}" var="item"
                                                        itemValue="#{item.value}"
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
 
-                                    <h:outputLabel value="#{msg.label_issue_date_from}"/>
-                                    <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy"/>
+                                    <h:outputLabel value="#{msg.label_broker}"/>
+                                    <p:selectOneMenu styleClass="selectOne115">
+                                        <f:selectItems value="#{mathchingKeyController.ddlBroker}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
 
-                                    <h:outputLabel value="#{msg.label_issue_date_to}"/>
-                                    <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy"/>
+                                    <h:outputLabel value="#{msg.label_Policy_number}"/>
+                                    <p:inputText maxlength="20"/>
+
+                                    <h:outputLabel value="#{msg.label_cert_no}"/>
+                                    <p:inputText maxlength="20"/>
+
+                                    <h:outputLabel value="#{msg.label_claim_no}"/>
+                                    <p:inputText maxlength="20"/>
+
+                                    <h:outputLabel value=""/>
+                                    <h:outputLabel value=""/>
 
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
@@ -93,27 +94,24 @@
                             Search Result
                         </f:facet>
 
-                        <p:ajax event="rowSelect" update=":form:carDetail" oncomplete="PF('carDialog').show()" />
-
-                        <p:column headerText="#{msg.label_company_code}" sortBy="#{car.id}" footerText="#{msg.label_company_code}">
+                        <p:column headerText="#{msg.label_customer}" sortBy="#{car.id}" footerText="#{msg.label_company_code}">
                             <h:outputText value="#{car.id}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_Policy_number}" sortBy="#{car.year}" footerText="#{msg.label_Policy_number}">
-                            <h:outputText value="#{car.year}" />
-                        </p:column>
-                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{car.brand}" footerText="#{msg.label_insured_name}">
+                        <p:column headerText="#{msg.label_broker}" sortBy="#{car.year}" footerText="#{msg.label_Policy_number}">
                             <h:outputText value="#{car.brand}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_method_of_transport}" sortBy="#{car.color}" footerText="#{msg.label_method_of_transport}">
+                        <p:column headerText="#{msg.label_Policy_number}" sortBy="#{car.brand}" footerText="#{msg.label_insured_name}">
+                            <h:outputText value="#{car.year}" />
+                        </p:column>
+                        <p:column headerText="#{msg.label_cert_no}" sortBy="#{car.color}" footerText="#{msg.label_method_of_transport}">
                             <h:outputText value="Air" />
                         </p:column>
-                        <p:column headerText="#{msg.label_issue_date}" sortBy="#{car.color}" footerText="#{msg.label_issue_date}">
-                            <h:outputText value="#{dtSelectionView.sysDate}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        <p:column headerText="#{msg.label_claim_no}" sortBy="#{car.color}" footerText="#{msg.label_issue_date}">
+                            <h:outputText value="#{car.price}">
                             </h:outputText>
                         </p:column>
                         <p:column>
-                            <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton"/>
+                            <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" onclick="PF('dlgNewMatchKey').show()"/>
                             <p:commandButton value="#{msg.btn_reject}" styleClass="PinkButton RaisedButton"/>
                         </p:column>
                     </p:dataTable>
@@ -121,7 +119,38 @@
                 </p:panel>
             </div>
 
+            <p:dialog header="#{msg.menu_match_key}" widgetVar="dlgNewMatchKey"  modal="true"
+                      showEffect="explode" hideEffect="bounce" height="250" minimizable="true" maximizable="true" responsive="true">
+                <div class="Container100">
+                    <div class="ContainerIndent">
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="2"
+                                             style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                    <h:outputLabel value="#{msg.label_customer}"/>
+                                    <p:selectOneMenu styleClass="selectOne115">
+                                        <f:selectItems value="#{mathchingKeyController.ddlCustomer}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel value="#{msg.label_broker}"/>
+                                    <p:selectOneMenu styleClass="selectOne115">
+                                        <f:selectItems value="#{mathchingKeyController.ddlBroker}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel value="#{msg.label_Policy_number}"/>
+                                    <p:inputText/>
+                                    <p:separator/>
+                                    <p:commandButton value="#{msg.btn_save}"/>
+                                </p:panelGrid>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            </p:dialog>    
         </h:form>
     </ui:define>
 

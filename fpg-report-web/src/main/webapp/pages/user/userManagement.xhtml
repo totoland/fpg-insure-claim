@@ -82,7 +82,7 @@
                                     <i class="icon-store Fs40 Fleft Orange MarRight10"></i>
                                     <div class="Fleft DispInlBlock">
                                         <span class="Fs15 FontAdamantiumBold Gray">Customer Accounts</span><br/>
-                                        <span class="Fs30 FontAdamantiumBold">385</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">#{userManagementController.countAllCustomer}</span><br/>
                                         <span class="Fs11 FontAdamantiumRegular Green">65% Deployed</span>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                                     <i class="icon-umbrella Fs40 Fleft Pink MarRight10"></i>
                                     <div class="Fleft DispInlBlock">
                                         <span class="Fs15 FontAdamantiumBold Gray">Admin Accounts</span><br/>
-                                        <span class="Fs30 FontAdamantiumBold">2</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">#{userManagementController.countAllAdmin}</span><br/>
                                         <span class="Fs11 FontAdamantiumRegular Red">42% Remaining</span>
                                     </div>
                                 </div>
@@ -107,8 +107,8 @@
                                 <div class="Card SoftGrayBack">
                                     <i class="icon-portfolio Fs40 Fleft LeadenGreen MarRight10"></i>
                                     <div class="Fleft DispInlBlock">
-                                        <span class="Fs15 FontAdamantiumBold Gray">ETC Accounts</span><br/>
-                                        <span class="Fs30 FontAdamantiumBold">3</span><br/>
+                                        <span class="Fs15 FontAdamantiumBold Gray">Official Accounts</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">#{userManagementController.countAllUser}</span><br/>
                                         <span class="Fs11 FontAdamantiumRegular Blue">29% Ready</span>
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             #{msg.panel_search}
                             <div class="EmptyBox10 ShowOnMobile"></div>
-
+                                <p:commandButton styleClass="Fright GreenButton" icon="fa fa-plus White" action="#{userManagementController.initCreateUser()}" update="modalDialogCreate"/>
                             <br/>
                         </div>
 
@@ -138,30 +138,29 @@
                             <div class="ContainerIndent">
                                 <h2 class="BigTopic"></h2>
 
-                                    <h:panelGrid columns="2" id="pnCriteria">  
-                                        <h:outputLabel for="groupLvl" value="#{msg.groupLvl}" />
-                                        <p:selectOneMenu id="groupLvl" style="width:200px" value="#{userManagementController.userCriteria.groupLvl}">
-                                            <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                                            <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                        </p:selectOneMenu>
-                                        <h:outputLabel for="groupId" value="#{msg.userGroup}" />
-                                        <p:selectOneMenu id="groupId" style="width:200px" value="#{userManagementController.userCriteria.groupId}">
-                                            <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                                            <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                        </p:selectOneMenu>
-                                        <h:outputLabel for="criteria_username" value="#{msg.search_first_or_last_name}" style="width:200px"/>
-                                        <p:inputText id="criteria_username" value="#{userManagementController.userCriteria.userName}" style="width:235px"/>
-                                        <h:outputLabel/>
-                                        <h:panelGroup>
-                                            <p:commandButton value="#{msg.btn_search}" id="search" icon="ui-icon-search" action="#{userManagementController.search()}" update="gridUser"/>
-                                            <p:commandButton value="#{msg.btn_reset}" icon="ui-icon-arrowrefresh-1-w" action="#{userManagementController.resetForm()}" update="pnCriteria,gridUser"/>
-                                            <p:commandButton value="#{msg.btn_create_new}" icon="ui-icon-plusthick" action="#{userManagementController.initCreateUser()}" update="modalDialogCreate"/>
-                                        </h:panelGroup>
-                                    </h:panelGrid>  
+                                <h:panelGrid columns="2" id="pnCriteria">  
+                                    <h:outputLabel for="groupLvl" value="#{msg.groupLvl}" />
+                                    <p:selectOneMenu id="groupLvl" style="width:200px" value="#{userManagementController.userCriteria.groupLvl}">
+                                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
+                                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel for="groupId" value="#{msg.userGroup}" />
+                                    <p:selectOneMenu id="groupId" style="width:200px" value="#{userManagementController.userCriteria.groupId}">
+                                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
+                                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel for="criteria_username" value="#{msg.search_first_or_last_name}" style="width:200px"/>
+                                    <p:inputText id="criteria_username" value="#{userManagementController.userCriteria.userName}" style="width:235px"/>
+                                    <h:outputLabel/>
+                                    <h:panelGroup>
+                                        <p:commandButton value="#{msg.btn_search}" id="search" icon="ui-icon-search" action="#{userManagementController.search()}" update="gridUser"/>
+                                        <p:commandButton value="#{msg.btn_reset}" icon="ui-icon-arrowrefresh-1-w" action="#{userManagementController.resetForm()}" update="pnCriteria,gridUser"/>
+                                    </h:panelGroup>
+                                </h:panelGrid>  
 
-                                    <div class="SeparatorFull"></div>
-                                
-                                    <p:dataTable id="gridUser" var="item" value="#{userManagementController.svUsers}"
+                                <div class="SeparatorFull"></div>
+
+                                <p:dataTable id="gridUser" var="item" value="#{userManagementController.svUsers}"
                                              paginator="true" rows="10" emptyMessage="#{msg.no_data_found}"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="10,15,20">
@@ -223,84 +222,98 @@
 
 
 
-            <p:dialog id="modalDialogCreate" header="Create new user" widgetVar="modalDialogCreate" modal="true">  
-                <p:panelGrid columns="2">  
-                    <h:outputLabel for="username" value="Username" />
-                    <p:inputText id="username" value="#{userManagementController.svUser.username}"/>
-                    <h:outputLabel for="password" value="Password" />
-                    <p:password id="password" value="#{userManagementController.svUser.password}"/>
-                    <h:outputLabel for="password2" value="Re-password" />
-                    <p:password id="password2" value="#{userManagementController.rePassword}"/>
-                    <h:outputLabel for="fname" value="First name" />
-                    <p:inputText id="fname" value="#{userManagementController.svUser.fname}"/>
-                    <h:outputLabel for="lname" value="Last name" />
-                    <p:inputText id="lname" value="#{userManagementController.svUser.lname}"/>
-                    <h:outputLabel for="sex" value="Gender" />
-                    <h:selectOneRadio id="sex" value="#{userManagementController.svUser.sex}" style="border-style:none">  
-                        <f:selectItem itemLabel="Male" itemValue="0" />  
-                        <f:selectItem itemLabel="Female" itemValue="1" /> 
-                    </h:selectOneRadio>
-                    <h:outputLabel for="userGroupLvl" value="User Group Level" style="width:200px"/>
-                    <p:selectOneMenu id="userGroupLvl" style="width:200px" value="#{userManagementController.svUser.userGroupLvl}">
-                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                    </p:selectOneMenu>
-                    <h:outputLabel for="userGroup" value="User Group" style="width:200px"/>
-                    <p:selectOneMenu id="userGroup" style="width:200px" value="#{userManagementController.svUser.userGroupId}">
-                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                    </p:selectOneMenu>
-                    <h:outputLabel for="isactive" value="Status" style="width:200px"/>
-                    <h:selectOneRadio id="isactive" value="#{userManagementController.svUser.isActive}" style="border-style:none">  
-                        <f:selectItem itemLabel="Active" itemValue="true" />  
-                        <f:selectItem itemLabel="In Active" itemValue="false" /> 
-                    </h:selectOneRadio>
-                    <h:outputLabel value=""/>
-                    <h:panelGroup>
-                        <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.save()}" process="modalDialogCreate" update="gridUser"/>
-                        <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="modalDialogCreate.hide()"/>
-                    </h:panelGroup>
-                </p:panelGrid>  
+            <p:dialog id="modalDialogCreate" header="Create new user" widgetVar="modalDialogCreate" modal="true" showEffect="explode" hideEffect="bounce" minimizable="true" maximizable="true" responsive="true">
+                <div class="Container100">
+                        <div class="Container100 Responsive100">
+                            <p:panelGrid columns="2" 
+                                         styleClass="ui-panelgrid-blank">  
+                                <h:outputLabel for="username" value="Username" />
+                                <p:inputText id="username" value="#{userManagementController.svUser.username}"/>
+                                <h:outputLabel for="password" value="Password" />
+                                <p:password id="password" value="#{userManagementController.svUser.password}"/>
+                                <h:outputLabel for="password2" value="Re-password" />
+                                <p:password id="password2" value="#{userManagementController.rePassword}"/>
+                                <h:outputLabel for="userGroupLvl" value="User Group Level" />
+                                <p:selectOneMenu styleClass="selectOne115" id="userGroupLvl" value="#{userManagementController.svUser.userGroupLvl}">
+                                    <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
+                                    <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                </p:selectOneMenu>
+                                <h:outputLabel for="campanyName" value="Campany Name" />
+                                <p:inputText id="campanyName" value="#{userManagementController.svUser.companyName}"/>
+                                <h:outputLabel for="fname" value="First name" />
+                                <p:inputText id="fname" value="#{userManagementController.svUser.fname}"/>
+                                <h:outputLabel for="lname" value="Last name" />
+                                <p:inputText id="lname" value="#{userManagementController.svUser.lname}"/>
+                                <h:outputLabel for="sex" value="Gender" />
+                                <h:selectOneRadio styleClass="selectOne115" id="sex" value="#{userManagementController.svUser.sex}" style="border-style:none">  
+                                    <f:selectItem itemLabel="Male" itemValue="0" />  
+                                    <f:selectItem itemLabel="Female" itemValue="1" /> 
+                                </h:selectOneRadio>
+                                <h:outputLabel for="userGroup" value="User Group" />
+                                <p:selectOneMenu styleClass="selectOne115" id="userGroup" value="#{userManagementController.svUser.userGroupId}">
+                                    <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
+                                    <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                </p:selectOneMenu>
+                                <h:outputLabel for="isactive" value="Status" style="width:200px"/>
+                                <h:selectOneRadio id="isactive" value="#{userManagementController.svUser.isActive}" style="border-style:none">  
+                                    <f:selectItem itemLabel="Active" itemValue="true" />  
+                                    <f:selectItem itemLabel="In Active" itemValue="false" /> 
+                                </h:selectOneRadio>
+                                <h:outputLabel value=""/>
+                                <h:panelGroup>
+                                    <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.save()}" process="modalDialogCreate" update="gridUser"/>
+                                    <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="modalDialogCreate.hide()"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </div>
+                </div>
             </p:dialog>
 
-            <p:dialog id="modalDialogEdit" header="Update user" widgetVar="modalDialogEdit" modal="true">  
-                <p:panelGrid columns="2">  
-                    <h:outputLabel for="usernameEdit" value="Username" />
-                    <p:inputText id="usernameEdit" value="#{userManagementController.svUser.username}"/>
-                    <h:outputLabel for="passwordEdit" value="Password" />
-                    <p:password redisplay="true" id="passwordEdit" value="#{userManagementController.svUser.password}"/>
-                    <h:outputLabel for="password2Edit" value="Re-password" title="please enter re-password"/>
-                    <p:password redisplay="true" id="password2Edit" value="#{userManagementController.rePassword}"/>
-                    <h:outputLabel for="fnameEdit" value="First name" />
-                    <p:inputText id="fnameEdit" value="#{userManagementController.svUser.fname}"/>
-                    <h:outputLabel for="lnameEdit" value="Last name" />
-                    <p:inputText id="lnameEdit" value="#{userManagementController.svUser.lname}"/>
-                    <h:outputLabel for="sexEdit" value="Gender" />
-                    <h:selectOneRadio id="sexEdit" value="#{userManagementController.svUser.sex}" style="border-style:none">  
-                        <f:selectItem itemLabel="ชาย" itemValue="0" />  
-                        <f:selectItem itemLabel="หญิง" itemValue="1" /> 
-                    </h:selectOneRadio>
-                    <h:outputLabel for="userGroupLvlEdit" value="User group level" style="width:200px"/>
-                    <p:selectOneMenu id="userGroupLvlEdit" style="width:200px" value="#{userManagementController.svUser.userGroupLvl}">
-                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                    </p:selectOneMenu>
-                    <h:outputLabel for="userGroupEdit" value="User group" style="width:200px"/>
-                    <p:selectOneMenu id="userGroupEdit" style="width:200px" value="#{userManagementController.svUser.userGroupId}">
-                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                    </p:selectOneMenu>
-                    <h:outputLabel for="isactiveEdit" value="Status" style="width:200px"/>
-                    <h:selectOneRadio id="isactiveEdit" value="#{userManagementController.svUser.isActive}" style="border-style:none">  
-                        <f:selectItem itemLabel="Active" itemValue="true" />  
-                        <f:selectItem itemLabel="In Active" itemValue="false" /> 
-                    </h:selectOneRadio>
-                    <h:outputLabel value=""/>
-                    <h:panelGroup>
-                        <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.edit()}" process="modalDialogEdit" update=":formUser:gridUser"/>
-                        <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="modalDialogEdit.hide()"/>
-                    </h:panelGroup>
-                </p:panelGrid>  
+            <p:dialog id="modalDialogEdit" header="Update user" widgetVar="modalDialogEdit" modal="true" showEffect="explode" hideEffect="bounce" minimizable="true" maximizable="true" responsive="true">  
+                <div class="Container100">
+                        <div class="Container100 Responsive100">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">  
+                                    <h:outputLabel for="usernameEdit" value="Username" />
+                                    <p:inputText id="usernameEdit" value="#{userManagementController.svUser.username}"/>
+                                    <h:outputLabel for="passwordEdit" value="Password" />
+                                    <p:password redisplay="true" id="passwordEdit" value="#{userManagementController.svUser.password}"/>
+                                    <h:outputLabel for="password2Edit" value="Re-password" title="please enter re-password"/>
+                                    <p:password redisplay="true" id="password2Edit" value="#{userManagementController.rePassword}"/>
+                                    <h:outputLabel for="companyNameEdit" value="Company name" />
+                                    <p:inputText id="companyNameEdit" value="#{userManagementController.svUser.companyName}"/>
+                                    <h:outputLabel for="fnameEdit" value="First name" />
+                                    <p:inputText id="fnameEdit" value="#{userManagementController.svUser.fname}"/>
+                                    <h:outputLabel for="lnameEdit" value="Last name" />
+                                    <p:inputText id="lnameEdit" value="#{userManagementController.svUser.lname}"/>
+                                    <h:outputLabel for="sexEdit" value="Gender" />
+                                    <h:selectOneRadio id="sexEdit" value="#{userManagementController.svUser.sex}" style="border-style:none">  
+                                        <f:selectItem itemLabel="ชาย" itemValue="0" />  
+                                        <f:selectItem itemLabel="หญิง" itemValue="1" /> 
+                                    </h:selectOneRadio>
+                                    <h:outputLabel for="userGroupLvlEdit" value="User group level" style="width:200px"/>
+                                    <p:selectOneMenu id="userGroupLvlEdit" style="width:200px" value="#{userManagementController.svUser.userGroupLvl}">
+                                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
+                                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel for="userGroupEdit" value="User group" style="width:200px"/>
+                                    <p:selectOneMenu id="userGroupEdit" style="width:200px" value="#{userManagementController.svUser.userGroupId}">
+                                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
+                                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel for="isactiveEdit" value="Status" style="width:200px"/>
+                                    <h:selectOneRadio id="isactiveEdit" value="#{userManagementController.svUser.isActive}" style="border-style:none">  
+                                        <f:selectItem itemLabel="Active" itemValue="true" />  
+                                        <f:selectItem itemLabel="In Active" itemValue="false" /> 
+                                    </h:selectOneRadio>
+                                    <h:outputLabel value=""/>
+                                    <h:panelGroup>
+                                        <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.edit()}" process="modalDialogEdit" update=":formUser:gridUser"/>
+                                        <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="modalDialogEdit.hide()"/>
+                                    </h:panelGroup>
+                                </p:panelGrid>  
+                        </div>
+                </div>
             </p:dialog>
         </h:form>
     </ui:define>

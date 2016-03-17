@@ -72,7 +72,7 @@ public class DropdownFactory implements Serializable {
 
         return ectGroupLvl;
     }
-    
+
     private List<DropDownList> ectUserGroup;
 
     /**
@@ -96,17 +96,45 @@ public class DropdownFactory implements Serializable {
 
         return ectUserGroup;
     }
-    
+
     private static List<DropDownList> insureTypes;
 
     public List<DropDownList> ddlInsureTypesList() {
-        
-            insureTypes = new ArrayList<>();
-            insureTypes.add(new DropDownList(MessageUtils.getString("option_air"), "1"));
-            insureTypes.add(new DropDownList(MessageUtils.getString("option_vessel"), "2"));
-            insureTypes.add(new DropDownList(MessageUtils.getString("option_truck"), "3"));
-        
+
+        insureTypes = new ArrayList<>();
+        insureTypes.add(new DropDownList(MessageUtils.getString("option_air"), "1"));
+        insureTypes.add(new DropDownList(MessageUtils.getString("option_vessel"), "2"));
+        insureTypes.add(new DropDownList(MessageUtils.getString("option_truck"), "3"));
+
         return insureTypes;
     }
 
+    public List<DropDownList> ddlCustomer() {
+
+        List<DropDownList> customers = new ArrayList<>();
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("SV_USER");
+        criteria.setOrderByField("FNAME");
+        criteria.setName("FNAME");
+        criteria.setValue("USER_ID");
+        criteria.setSortName("ASC");
+        criteria.setCondition("USER_GROUP_LVL = 3");
+        
+        customers = commonService.getDropdownList(criteria);
+        return customers;
+    }
+    
+    public List<DropDownList> ddlBroker() {
+
+        List<DropDownList> customers = new ArrayList<>();
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("BROKER");
+        criteria.setOrderByField("BROKER_NAME");
+        criteria.setName("BROKER_NAME");
+        criteria.setValue("BROKER_ID");
+        criteria.setSortName("ASC");
+        
+        customers = commonService.getDropdownList(criteria);
+        return customers;
+    }
 }
