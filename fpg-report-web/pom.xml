@@ -19,7 +19,7 @@
         <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
         <fpg-report-dao-version>1.0-SNAPSHOT</fpg-report-dao-version>
         <timestamp>${maven.build.timestamp}</timestamp>
-        <maven.build.timestamp.format>dd/MM/yyyy hh:mm</maven.build.timestamp.format>
+        <maven.build.timestamp.format>dd/MM/yyyy HH:mm</maven.build.timestamp.format>
     </properties>
 
     <repositories>
