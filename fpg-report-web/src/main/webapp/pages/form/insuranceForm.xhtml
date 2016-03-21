@@ -21,11 +21,11 @@
                             #{msg.menu_marine_insure} 
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             <p:commandButton value="#{msg.option_truck}" icon="fa fa-cab" styleClass="Fright PurpleButton FloatNoneOnMobile" 
-                                             update="selectInsureType" action="#{insuranceFormController.selectInsureType(msg.option_truck)}"/>
+                                             update="selectInsureType , lbCertNumber" action="#{insuranceFormController.selectInsureType(msg.option_truck)}"/>
                             <p:commandButton value="#{msg.option_vessel}" icon="fa fa-ship" styleClass="Fright GreenButton FloatNoneOnMobile" 
-                                             update="selectInsureType" action="#{insuranceFormController.selectInsureType(msg.option_vessel)}"/>
+                                             update="selectInsureType , lbCertNumber" action="#{insuranceFormController.selectInsureType(msg.option_vessel)}"/>
                             <p:commandButton value="#{msg.option_air}" icon="fa fa-plane" styleClass="Fright FloatNoneOnMobile" 
-                                             update="selectInsureType" action="#{insuranceFormController.selectInsureType(msg.option_air)}"/> 
+                                             update="selectInsureType , lbCertNumber" action="#{insuranceFormController.selectInsureType(msg.option_air)}"/> 
                             <br/>
                         </div>
 
@@ -36,9 +36,10 @@
                                 <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                     <h:outputLabel value="#{msg.label_company_code}"/>
                                     <h:outputLabel value="#{msg.label_Policy_number}"/>
-                                    <h:outputLabel value=""/>
-                                    <p:inputText value="2053" disabled="true"/>
-                                    <p:inputText />
+                                    <h:outputLabel value="#{msg.label_cert_no}"/>
+                                    <h:outputLabel value="0001"/>
+                                    <h:outputLabel value="2053"/>
+                                    <h:outputLabel id="lbCertNumber" value="#{insuranceFormController.certNumber}"/>
                                 </p:panelGrid>
                             </div>
                         </div>
