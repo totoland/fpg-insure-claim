@@ -11,12 +11,10 @@ import com.totoland.web.controller.LocaleBean;
 import com.totoland.web.utils.WebUtils;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
-import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -68,15 +66,15 @@ public class LoginController extends BaseController {
             String nPassWord = WebUtils.encrypt(passWord);
 
             loginUser = getAuthenDao().loginUser(userName, nPassWord);
-            
+
             localeBean.setLanguage("en", "US");
 
         } catch (Exception ex) {
 
             logger.error("Cannot Authen : ", ex);
-            
+
             addError(ex.getMessage());
-            
+
             return;
         }
 
@@ -110,7 +108,8 @@ public class LoginController extends BaseController {
 
         logger.trace("path : {}", path);
 
-        executeJavaScript("setTimeout(function(){window.location='" + path + "/pages/user/userManagement.xhtml?firstLogin=true';blockUI.show();},100);");
+        executeJavaScript("setTimeout(function(){window.location='" + path
+                + "/pages/user/userManagement.xhtml?firstLogin=true';blockUI.show();},100);");
 
     }
 
@@ -119,7 +118,7 @@ public class LoginController extends BaseController {
         logger.trace("logout!!");
 
         redirectPage(JsfUtil.getContextPath() + "/LogoutController");
-    
+
     }
 
     /**
@@ -161,8 +160,7 @@ public class LoginController extends BaseController {
     }
 
     @Override
-    public void resetForm() {
-    }
+    public void resetForm() {}
 
     /**
      * @return the authenDao
