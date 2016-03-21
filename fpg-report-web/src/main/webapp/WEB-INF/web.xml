@@ -75,23 +75,14 @@
         <filter-name>Character Encoding Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
-    <!--    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>-->
-    <!-- OmniFaces specific settings. -->
-    <!--
     <filter>
-        <filter-name>facesExceptionFilter</filter-name>
-        <filter-class>org.omnifaces.filter.FacesExceptionFilter</filter-class>
+        <filter-name>Login Encoding Filter</filter-name>
+        <filter-class>com.totoland.web.filter.LoginFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>facesExceptionFilter</filter-name>
-        <servlet-name>facesServlet</servlet-name>
+        <filter-name>Login Encoding Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
-    -->
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
