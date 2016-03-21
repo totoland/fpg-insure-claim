@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,27 +24,30 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 @ManagedBean
 public class InsuranceFormController extends BaseController {
-    
-    private static final Logger LOGGER = LoggerFactory.getLogger(InsuranceFormController.class);
 
-    private String insureType = "";
+    private static final Logger LOGGER = LoggerFactory.getLogger(InsuranceFormController.class);
+    private static final long serialVersionUID = -4658297318038575831L;
+
+    private String insureType = "Air";
     private List<DropDownList> insureTypeList;
+
+    private String certNumber;
 
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         this.insureTypeList = getInsureTypeList();
     }
-    
+
     @Override
     public void resetForm() {
 
     }
-    
-    public void selectInsureType(String selectedInsureType){
-        LOGGER.debug("selectInsureType : {}",selectedInsureType);
+
+    public void selectInsureType(String selectedInsureType) {
+        LOGGER.debug("selectInsureType : {}", selectedInsureType);
         this.insureType = selectedInsureType;
     }
 
@@ -87,6 +91,29 @@ public class InsuranceFormController extends BaseController {
      */
     public void setInsureTypeList(List<DropDownList> insureTypeList) {
         this.insureTypeList = insureTypeList;
+    }
+
+    /**
+     * @return the certNumber
+     */
+    public String getCertNumber() {
+        certNumber = "";
+        if (insureType != null || !insureType.trim().isEmpty() && insureType.length()>1) {
+            try{
+                certNumber = insureType.substring(0,1).toUpperCase();
+            }catch(Exception ex){}
+        }
+
+        certNumber += RandomStringUtils.randomNumeric(7);
+
+        return certNumber;
+    }
+
+    /**
+     * @param certNumber the certNumber to set
+     */
+    public void setCertNumber(String certNumber) {
+        this.certNumber = certNumber;
     }
 
 }
