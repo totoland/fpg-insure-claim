@@ -21,7 +21,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
@@ -36,13 +35,12 @@ public class LoginFilter implements Filter {
 
     private static final boolean debug = true;
 
-    // The filter configuration object we are associated with.  If
-    // this value is null, this filter instance is not currently 
-    // configured. 
+    // The filter configuration object we are associated with. If
+    // this value is null, this filter instance is not currently
+    // configured.
     private FilterConfig filterConfig = null;
 
-    public LoginFilter() {
-    }
+    public LoginFilter() {}
 
     private void doBeforeProcessing(RequestWrapper request, ResponseWrapper response)
             throws IOException, ServletException {
@@ -68,34 +66,31 @@ public class LoginFilter implements Filter {
      * @exception ServletException if a servlet error occurs
      */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
-        if (debug) {
-            System.out.println("LoginFilter:doFilter()");
-        }
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(true);
         LoginController authenticated = (LoginController) session.getAttribute("loginController");
-        System.out.println("authenticated :"+authenticated);
+       
         String loginURL = req.getContextPath() + "/pages/login/login.xhtml";
+        String errorPage = req.getContextPath() + "/errors/session_expired.xhtml";
 
-        if ((authenticated == null || !authenticated.isLoggedIn()) && !req.getRequestURI().equals(loginURL)) {
-            System.out.println("Session timeout");
+        if ((authenticated == null || !authenticated.isLoggedIn())
+                && !req.getRequestURI().equals(loginURL) && !req.getRequestURI().equals(errorPage)) {
+
             if ("partial/ajax".equals(req.getHeader("Faces-Request"))) {
-                System.out.println("is ajax");
                 res.setContentType("text/xml");
                 res.getWriter()
                         .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-                        .printf("<partial-response><redirect url=\"%s\"></redirect></partial-response>", loginURL);
+                        .printf("<partial-response><redirect url=\"%s\"></redirect></partial-response>",
+                                errorPage);
             } else {
-                res.sendRedirect(loginURL);
+                res.sendRedirect(errorPage);
             }
         } else {
             chain.doFilter(request, response);
@@ -121,8 +116,7 @@ public class LoginFilter implements Filter {
     /**
      * Destroy method for this filter
      */
-    public void destroy() {
-    }
+    public void destroy() {}
 
     /**
      * Init method for this filter
@@ -159,12 +153,12 @@ public class LoginFilter implements Filter {
                 response.setContentType("text/html");
                 PrintStream ps = new PrintStream(response.getOutputStream());
                 PrintWriter pw = new PrintWriter(ps);
-                pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
+                pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); // NOI18N
 
                 // PENDING! Localize this for next official release
                 pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
                 pw.print(stackTrace);
-                pw.print("</pre></body>\n</html>"); //NOI18N
+                pw.print("</pre></body>\n</html>"); // NOI18N
                 pw.close();
                 ps.close();
                 response.getOutputStream().close();
@@ -219,7 +213,8 @@ public class LoginFilter implements Filter {
 
         public void setParameter(String name, String[] values) {
             if (debug) {
-                System.out.println("LoginFilter::setParameter(" + name + "=" + values + ")" + " localParams = " + localParams);
+                System.out.println("LoginFilter::setParameter(" + name + "=" + values + ")"
+                        + " localParams = " + localParams);
             }
 
             if (localParams == null) {
@@ -239,7 +234,8 @@ public class LoginFilter implements Filter {
         @Override
         public String getParameter(String name) {
             if (debug) {
-                System.out.println("LoginFilter::getParameter(" + name + ") localParams = " + localParams);
+                System.out.println("LoginFilter::getParameter(" + name + ") localParams = "
+                        + localParams);
             }
             if (localParams == null) {
                 return getRequest().getParameter(name);
@@ -258,7 +254,8 @@ public class LoginFilter implements Filter {
         @Override
         public String[] getParameterValues(String name) {
             if (debug) {
-                System.out.println("LoginFilter::getParameterValues(" + name + ") localParams = " + localParams);
+                System.out.println("LoginFilter::getParameterValues(" + name + ") localParams = "
+                        + localParams);
             }
             if (localParams == null) {
                 return getRequest().getParameterValues(name);
@@ -306,24 +303,24 @@ public class LoginFilter implements Filter {
         // as it went throught the filter chain. Since HttpServletRequest doesn't
         // have a get cookies method, we will need to store them locally as they
         // are being set.
-	/*
-         protected Vector cookies = null;
-	
-         // Create a new method that doesn't exist in HttpServletResponse
-         public Enumeration getCookies() {
-         if (cookies == null)
-         cookies = new Vector();
-         return cookies.elements();
-         }
-	
-         // Override this method from HttpServletResponse to keep track
-         // of cookies locally as well as in the wrapped response.
-         public void addCookie (Cookie cookie) {
-         if (cookies == null)
-         cookies = new Vector();
-         cookies.add(cookie);
-         ((HttpServletResponse)getResponse()).addCookie(cookie);
-         }
+        /*
+         * protected Vector cookies = null;
+         * 
+         * // Create a new method that doesn't exist in HttpServletResponse
+         * public Enumeration getCookies() {
+         * if (cookies == null)
+         * cookies = new Vector();
+         * return cookies.elements();
+         * }
+         * 
+         * // Override this method from HttpServletResponse to keep track
+         * // of cookies locally as well as in the wrapped response.
+         * public void addCookie (Cookie cookie) {
+         * if (cookies == null)
+         * cookies = new Vector();
+         * cookies.add(cookie);
+         * ((HttpServletResponse)getResponse()).addCookie(cookie);
+         * }
          */
     }
 
