@@ -74,6 +74,12 @@ public class LoginFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
+        
+        if(!req.getRequestURI().contains("/pages/")){
+            chain.doFilter(request, response);
+            return;
+        }
+        
         HttpSession session = req.getSession(true);
         LoginController authenticated = (LoginController) session.getAttribute("loginController");
        
