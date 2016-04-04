@@ -21,11 +21,11 @@
                             #{msg.menu_marine_insure} 
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             <p:commandButton value="#{msg.option_truck}" icon="fa fa-cab" styleClass="Fright PurpleButton FloatNoneOnMobile" 
-                                             update="selectInsureType , lbCertNumber" action="#{insuranceFormController.selectInsureType(msg.option_truck)}"/>
+                                             update="selectInsureType , lbCertNumber , selectInsureType2" action="#{insuranceFormController.selectInsureType(msg.option_truck)}"/>
                             <p:commandButton value="#{msg.option_vessel}" icon="fa fa-ship" styleClass="Fright GreenButton FloatNoneOnMobile" 
-                                             update="selectInsureType , lbCertNumber" action="#{insuranceFormController.selectInsureType(msg.option_vessel)}"/>
+                                             update="selectInsureType , lbCertNumber , selectInsureType2" action="#{insuranceFormController.selectInsureType(msg.option_vessel)}"/>
                             <p:commandButton value="#{msg.option_air}" icon="fa fa-plane" styleClass="Fright FloatNoneOnMobile" 
-                                             update="selectInsureType , lbCertNumber" action="#{insuranceFormController.selectInsureType(msg.option_air)}"/> 
+                                             update="selectInsureType , lbCertNumber , selectInsureType2" action="#{insuranceFormController.selectInsureType(msg.option_air)}"/> 
                             <br/>
                         </div>
 
@@ -72,7 +72,6 @@
                             <div>
                                 <h2 class="BigTopic"></h2>
                                 <p:panelGrid id="pnGrid" columns="4" 
-                                             columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              layout="grid" styleClass="ui-panelgrid-blank" 
                                              style="border:0px none; background-color:transparent;">
                                     <h:outputLabel value="#{msg.label_insured_name}"/>
@@ -102,16 +101,22 @@
 
                                     <h:outputLabel value="#{msg.label_local_amount_of_insurance}"/>
                                     <p:inputText value="00.00"/>
-
+                                    
                                     <h:outputLabel value="#{msg.label_origin_country}"/>
                                     <p:selectOneMenu styleClass="selectOne150">
                                             <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
                                     </p:selectOneMenu>
-
-                                    <h:outputLabel value="#{msg.label_destination_country}"/>
-                                    <p:inputText/>
                                     
                                     <h:outputLabel value="#{msg.label_origin_status_prov}"/>
+                                    <p:inputText/>
+                                    
+                                    <h:outputLabel value="#{msg.label_origin_desc}"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="#{msg.label_transshipment_port}"/>
+                                    <p:inputText/>
+                                    
+                                    <h:outputLabel value="#{msg.label_destination_country}"/>
                                     <p:selectOneMenu styleClass="selectOne150">
                                             <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
                                     </p:selectOneMenu>
@@ -119,10 +124,74 @@
                                     <h:outputLabel value="#{msg.label_destination_status_prov}"/>
                                     <p:inputText/>
                                     
+                                    <h:outputLabel value="#{msg.label_destination_desc}"/>
+                                    <p:inputText/>
+                                    
+                                    <h:outputLabel value="#{msg.label_conveyance_name}"/>
+                                    <p:inputText/>
+                                    
+                                    <h:outputLabel value="#{msg.label_transshipment_vessel}"/>
+                                    <p:inputText/>
+                                    
+                                    <h:outputLabel value="#{msg.label_voyage_flight_no}"/>
+                                    <p:inputText/>
+                                    
+                                    <h:outputLabel value="#{msg.label_method_of_transport}"/>
+                                    <h:outputLabel id="selectInsureType2" value="#{insuranceFormController.insureType}"/>
+                                    
+                                    <h:outputLabel value="#{msg.label_invoice}"/>
+                                    <p:inputText/>
+                                    
+                                    <h:outputLabel value="#{msg.label_bill_of_lading_number}"/>
+                                    <p:inputText/>
+                                    
+                                    <h:outputLabel value="#{msg.label_shipment_date}"/>
+                                    <p:calendar mask="99/99/9999"/>
+                                    
                                     <h:outputLabel value="#{msg.label_issue_date}"/>
                                     <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}" value="#{insuranceFormController.issueDate}"/>
 
-                                    <h:outputLabel value="#{msg.label_inception_date}"/>
+                                    <h:outputLabel value="#{msg.label_commodity_type}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+                                    
+                                    <h:outputLabel value="#{msg.label_commodity_description}"/>
+                                    <p:inputTextarea/>
+                                    
+                                    <h:outputLabel value="#{msg.label_marks_and_numbers}"/>
+                                    <p:inputTextarea/>
+                                    
+                                    <h:outputLabel value="#{msg.label_coverage_type}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+                                    
+                                    <h:outputLabel value="#{msg.label_valuation}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="105%" itemValue="105" />
+                                        <f:selectItem itemLabel="110%" itemValue="110" />
+                                        <f:selectItem itemLabel="115%" itemValue="115" />
+                                        <f:selectItem itemLabel="120%" itemValue="120" />
+                                    </p:selectOneMenu>
+                                    
+                                    <h:outputLabel value="#{msg.label_insuring_terms}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+                                    
+                                    <h:outputLabel value="#{msg.label_additional_info}"/>
+                                    <p:inputTextarea/>
+                                    
+                                    <h:outputLabel value="#{msg.label_claim_surveyor}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+                                    
+                                    <h:outputLabel value="#{msg.label_claim_payable_at}"/>
+                                    <h:outputLabel value="#{msg.fpg_company_name}"/>
+                                    
+<!--                                    <h:outputLabel value="#{msg.label_inception_date}"/>
                                     <h:outputLabel value="01/02/2016"/>
 
                                     <h:outputLabel value="#{msg.label_expiry_date}"/>
@@ -142,7 +211,7 @@
                                     </p:selectOneMenu>
 
                                     <h:outputLabel value="#{msg.label_reference_number}"/>
-                                    <p:inputText/>
+                                    <p:inputText/>-->
 
                                 </p:panelGrid>
                             </div>
@@ -157,7 +226,7 @@
                 </div>
             </div>
 
-            <div class="Container100">
+<!--            <div class="Container100">
                 <div class="ContainerIndent">
                     <div class="Card">
                         <div class="CardTopic"> 
@@ -176,8 +245,6 @@
                                 <p:panelGrid columns="4" 
                                              layout="grid" columnClasses="ui-grid-col-4"
                                              style="border:0px none;padding-top: 10px; background-color:transparent;">
-                                    <h:outputLabel value="#{msg.label_shipment_date}"/>
-                                    <p:calendar mask="99/99/9999"/>
 
                                     <h:outputLabel value="#{msg.label_invoice}"/>
                                     <p:inputText value="0.00"/>
@@ -188,22 +255,12 @@
                                     <h:outputLabel value="#{msg.label_premium}"/>
                                     <p:inputText value="0.00"/>
 
-                                    <h:outputLabel value="#{msg.label_valuation}"/>
-                                    <p:inputText value="0.00"/>
 
                                     <h:outputLabel value=""/>
                                     <h:outputLabel value=""/>
 
-                                    <h:outputLabel value="#{msg.label_commodity_type}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                        <f:selectItem itemLabel="" itemValue="1" />
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel value="#{msg.label_commodity_description}"/>
-                                    <p:inputText/>
-
-                                    <!--<h:outputLabel value="ความรับผิดชอบส่วนแรก"/>
-                                    <h:outputLabel value="-"/>-->
+                                    <h:outputLabel value="ความรับผิดชอบส่วนแรก"/>
+                                    <h:outputLabel value="-"/>
 
                                     <h:outputLabel value="#{msg.label_packaging_type}"/>
                                     <p:selectOneMenu styleClass="selectOne150">
@@ -219,22 +276,20 @@
                                     <h:outputLabel value="#{msg.label_voyage}"/>
                                     <p:inputText/>
 
-                                    <!--                                    <h:outputLabel value="ชนิดของเรือ"/>
+                                                                        <h:outputLabel value="ชนิดของเรือ"/>
                                                                         <p:selectOneMenu styleClass="selectOne150">
                                                                             <f:selectItem itemLabel="" itemValue="1" />
-                                                                        </p:selectOneMenu>-->
+                                                                        </p:selectOneMenu>
 
-                                    <!--                                    <h:outputLabel value="ชื่อเรือลำที่ 2"/>
-                                                                        <p:inputText/>-->
+                                                                        <h:outputLabel value="ชื่อเรือลำที่ 2"/>
+                                                                        <p:inputText/>
 
-                                    <!--                                    <h:outputLabel value="Issue date"/>
-                                                                        <p:calendar mask="99/99/9999"/>-->
+                                                                        <h:outputLabel value="Issue date"/>
+                                                                        <p:calendar mask="99/99/9999"/>
 
-                                    <!--                                    <h:outputLabel value="วันที่ออกเอกสาร"/>
-                                                                        <p:calendar mask="99/99/9999"/>-->
+                                                                        <h:outputLabel value="วันที่ออกเอกสาร"/>
+                                                                        <p:calendar mask="99/99/9999"/>
 
-                                    <h:outputLabel value="#{msg.label_bill_of_lading_number}"/>
-                                    <p:inputText/>
 
                                     <h:outputLabel value="Insuring terms"/>
                                     <h:outputLabel value="-"/>
@@ -254,13 +309,13 @@
                         </div>
                         <div class="Container50 Responsive50">
                             <div class="ContainerIndent">
-                                <!--<h2 class="BigTopic">TextArea</h2>-->
-                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
+                                <h2 class="BigTopic">TextArea</h2>
+                                <p:inputTextarea rows="5" placeholder="Your Message" />
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="Container100">
                 <div class="ContainerIndent">

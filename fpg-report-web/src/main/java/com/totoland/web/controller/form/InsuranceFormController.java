@@ -42,6 +42,7 @@ public class InsuranceFormController extends BaseController {
     @PostConstruct
     public void init() {
         this.insureTypeList = getInsureTypeList();
+        this.issueDate = new Date();
     }
 
     @Override
