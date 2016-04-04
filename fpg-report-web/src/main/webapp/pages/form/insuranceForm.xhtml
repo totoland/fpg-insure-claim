@@ -33,13 +33,15 @@
                         <div class="Container50 Responsive50">
                             <div class="ContainerIndent">
                                 <h2 class="BigTopic"></h2>
-                                <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                    <h:outputLabel value="#{msg.label_company_code}"/>
+                                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                    <h:outputLabel value="#{msg.label_status}"/>
+                                    <h:outputLabel value="New Entry"/>
                                     <h:outputLabel value="#{msg.label_Policy_number}"/>
-                                    <h:outputLabel value="#{msg.label_cert_no}"/>
-                                    <h:outputLabel value="0001"/>
                                     <h:outputLabel value="2053"/>
+                                    <h:outputLabel value="#{msg.label_cert_no}"/>
                                     <h:outputLabel id="lbCertNumber" value="#{insuranceFormController.certNumber}"/>
+                                    <h:outputLabel value="#{msg.label_method_of_transport}"/>
+                                    <h:outputLabel id="selectInsureType" value="#{insuranceFormController.insureType}"/>
                                 </p:panelGrid>
                             </div>
                         </div>
@@ -73,24 +75,16 @@
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              layout="grid" styleClass="ui-panelgrid-blank" 
                                              style="border:0px none; background-color:transparent;">
-                                    <h:outputLabel value="#{msg.label_method_of_transport}"/>
-                                    <h:outputLabel id="selectInsureType" value="#{insuranceFormController.insureType}"/>
+                                    <h:outputLabel value="#{msg.label_insured_name}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    </p:selectOneMenu>
+                                    
                                     <h:outputLabel value="#{msg.label_issue_date}"/>
-                                    <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}"/>
-
-                                    <!--<h:outputLabel value="ลำดับที่สลักหลัง"/>-->
-                                    <!--<p:inputText placeholder="#{msg.require_field}"/>-->
-                                    <!--<h:outputLabel value="ประเภทรายการข้อมูล"/>-->
-                                    <!--<p:inputText value="ข้อมูลกรมธรรม์ประกันภัย" disabled="true"/>-->
-
-                                    <!--<h:outputLabel value="ประเภทกลุ่มกรมธรรม์"/>-->
-                                    <!--<p:inputText value="ทั่วไป" disabled="true"/>-->
+                                    <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}" value="#{insuranceFormController.issueDate}"/>
 
                                     <h:outputLabel value="#{msg.label_inception_date}"/>
                                     <h:outputLabel value="01/02/2016"/>
-
-                                    <!--<h:outputLabel value="ประเภทการรับประกันภัย"/>-->
-                                    <!--<p:inputText value="กรมธรรม์ประกันโดย" disabled="true"/>-->
 
                                     <h:outputLabel value="#{msg.label_expiry_date}"/>
                                     <h:outputLabel value="02/02/2016"/>
@@ -245,78 +239,6 @@
 
                                     <h:outputLabel value=""/>
                                     <h:outputLabel value=""/>
-                                </p:panelGrid>
-                            </div>
-                        </div>
-                        <div class="Container50 Responsive50">
-                            <div class="ContainerIndent">
-                                <!--<h2 class="BigTopic">TextArea</h2>-->
-                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="Container100">
-                <div class="ContainerIndent">
-                    <div class="Card">
-                        <div class="CardTopic"> 
-                            <i class="icon-user Fs30 Fleft MarRight10"></i>
-                            <div class="EmptyBox10 ShowOnMobile"></div>
-                            ผู้เอาประกัน 
-                            <div class="EmptyBox10 ShowOnMobile"></div>
-
-                            <br/>
-                        </div>
-
-                        <div class="SeparatorFull"></div>
-                        <div class="Responsive50">
-                            <div>
-                                <h2 class="BigTopic"></h2>
-                                <p:panelGrid columns="4" 
-                                             layout="grid"
-                                             style="border:0px none;padding-top: 10px; background-color:transparent">
-                                    <h:outputLabel value="ผู้รับประโยชน์เป็นผู้เอาประกัน"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                        <f:selectItem itemLabel="ผู้เอาประกัน" itemValue="1" />
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel value="ที่อยู่ผู้เอาประกันภัย"/>
-                                    <h:outputLabel value="-"/>
-
-                                    <h:outputLabel value="ประเภทผู้เอาประกันภัย"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                        <f:selectItem itemLabel="" itemValue="1" />
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel value="ผู้รับประโยชน์คนที่ 1"/>
-                                    <p:inputText/>
-
-                                    <h:outputLabel value="ผู้รับประโยชน์คนที่ 2"/>
-                                    <p:inputText/>
-
-                                    <h:outputLabel value="ชื่อผู้เอาประกันภัย"/>
-                                    <h:outputLabel value="-"/>
-
-                                    <h:outputLabel value="จังหวัด"/>
-                                    <p:inputText/>
-
-                                    <h:outputLabel value="อำเภอ"/>
-                                    <h:outputLabel value=""/>
-
-                                    <h:outputLabel value="ตำบล"/>
-                                    <h:outputLabel/>
-
-                                    <h:outputLabel value="รหัสไปรษณีย์"/>
-                                    <h:outputLabel/>
-
-                                    <h:outputLabel value="ประเทศ"/>
-                                    <h:outputLabel value="ไทย"/>
-
-                                    <h:outputLabel value="เลขที่บัตรประจำตัวผู้เอาประกันภัย"/>
-                                    <p:inputText/>
-
                                 </p:panelGrid>
                             </div>
                         </div>

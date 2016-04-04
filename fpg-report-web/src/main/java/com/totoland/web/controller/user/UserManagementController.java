@@ -5,6 +5,7 @@
 package com.totoland.web.controller.user;
 
 import com.totoland.db.bean.UserCriteria;
+import com.totoland.db.entity.KeyMatch;
 import com.totoland.db.entity.SvUser;
 import com.totoland.db.entity.ViewUser;
 import com.totoland.web.controller.BaseController;
@@ -16,21 +17,13 @@ import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.StringUtils;
 import com.totoland.web.utils.WebUtils;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -44,7 +37,7 @@ import org.slf4j.MDC;
 public class UserManagementController extends BaseController {
 
     private static final long serialVersionUID = 4889668000891738625L;
-    private static final Logger logger = LoggerFactory.getLogger(UserManagementController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserManagementController.class);
     private List<ViewUser> svUsers;
     private UserCriteria userCriteria = new UserCriteria();
     @ManagedProperty("#{userService}")
@@ -52,6 +45,7 @@ public class UserManagementController extends BaseController {
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
     private SvUser svUser = new SvUser();
+    private KeyMatch keyMatch = new KeyMatch();
     @ManagedProperty("#{gennericService}")
     private GennericService<SvUser> gennericService;
     @ManagedProperty("#{customerService}")
@@ -64,39 +58,33 @@ public class UserManagementController extends BaseController {
 
     @PostConstruct
     public void init() {
-        logger.trace("initPage");
-        logger.trace("Locale : {}",FacesContext.getCurrentInstance()
-        			.getViewRoot().getLocale());
+        LOGGER.trace("initPage");
         initForm();
     }
 
     public void search() {
-        logger.trace("search userCriteria : {}", getUserCriteria());
+        LOGGER.trace("search userCriteria : {}", getUserCriteria());
         svUsers = getUserService().findByUserCriteria(getUserCriteria());
-        logger.trace("svUsers size : {}", svUsers);
+        LOGGER.trace("svUsers size : {}", svUsers);
     }
 
     public List<ViewUser> completeUsername(String query) {
-        logger.trace("autoComplete find Username text search : {}", query);
-
+        LOGGER.trace("autoComplete find Username text search : {}", query);
         return svUsers;
     }
 
     public void initCreateUser() {
-        logger.trace("create new User");
-
+        LOGGER.trace("create new User");
         svUser = new SvUser();
         svUser.setSex(0);
         svUser.setIsActive(Boolean.TRUE);
-        
         openDialog("modalDialogCreate");
     }
 
     public void initEditUser(ViewUser selsvUser) {
-        logger.trace("edit User");
-
+        LOGGER.trace("edit User");
+        
         try {
-
             this.svUser.setUserId(selsvUser.getUserId());
             this.svUser.setUsername(selsvUser.getUsername());
             this.svUser.setPassword(WebUtils.decrypt(selsvUser.getPassword()));
@@ -107,54 +95,38 @@ public class UserManagementController extends BaseController {
             this.svUser.setSex(selsvUser.getSex());
             this.svUser.setUserGroupId(selsvUser.getUserGroupId());
             this.svUser.setUserGroupLvl(selsvUser.getUserGroupLvl());
-
         } catch (Exception ex) {
-
-            logger.error("cannot initEdit :", ex);
-
+            LOGGER.error("cannot initEdit :", ex);
         }
         openDialog("modalDialogEdit");
     }
 
     public void save() {
         
-        logger.trace("Save... {} ", svUser);
+        LOGGER.trace("Save... {} ", svUser);
 
         if (!validateBeforeSave()) {
             return;
         }
 
         try {
-
             svUser.setPassword(WebUtils.encrypt(svUser.getPassword()));
-
-//            createOpenfireUser(svUser);
-            
             gennericService.create(svUser);
             
-            logger.trace("Save Success !! ");
+            LOGGER.trace("Save Success !! ");
 
             JsfUtil.alertJavaScript(MessageUtils.SAVE_SUCCESS());
-
             JsfUtil.hidePopup("modalDialogCreate");
             
             search();
-
-
         } catch (Exception ex) {
-
             JsfUtil.alertJavaScript(MessageUtils.SAVE_NOT_SUCCESS()+" ข้อผิดพลาด :"+ MDC.get("reqId"));
-
-            logger.error("Cannot Save Data : ", ex);
-        } finally {
-
-            logger.trace("Save... {} ", svUser);
-
+            LOGGER.error("Cannot Save Data : ", ex);
         }
     }
 
     public void edit() {
-        logger.trace("edit...");
+        LOGGER.trace("edit...");
 
         if (!validateBeforeEdit()) {
             return;
@@ -166,7 +138,7 @@ public class UserManagementController extends BaseController {
             
             gennericService.edit(svUser);
 
-            logger.trace("Edit Success !! ");
+            LOGGER.trace("Edit Success !! ");
 
             JsfUtil.alertJavaScript(MessageUtils.SAVE_SUCCESS());
 
@@ -179,13 +151,13 @@ public class UserManagementController extends BaseController {
 
             JsfUtil.alertJavaScript(MessageUtils.SAVE_NOT_SUCCESS()+" ข้อผิดพลาด :"+ MDC.get("reqId"));
 
-            logger.error("Cannot Save Data : ", ex);
+            LOGGER.error("Cannot Save Data : ", ex);
             
             svUser.setPassword(rePassword);
             
         } finally {
 
-            logger.trace("Save... {} ", svUser);
+            LOGGER.trace("Save... {} ", svUser);
 
         }
     }
@@ -416,5 +388,12 @@ public class UserManagementController extends BaseController {
     public void setCountAllAdmin(long countAllAdmin) {
         this.countAllAdmin = countAllAdmin;
     }
-    
+
+    public KeyMatch getKeyMatch() {
+        return keyMatch;
+    }
+
+    public void setKeyMatch(KeyMatch keyMatch) {
+        this.keyMatch = keyMatch;
+    }
 }

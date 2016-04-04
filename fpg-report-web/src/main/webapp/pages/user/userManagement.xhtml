@@ -187,7 +187,7 @@
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Group Level" />
+                                            <h:outputText value="User Type" />
                                         </f:facet>
                                         <h:outputText value="#{item.userGroupLvlName}" />
                                     </p:column>
@@ -233,13 +233,15 @@
                                 <p:password id="password" value="#{userManagementController.svUser.password}"/>
                                 <h:outputLabel for="password2" value="Re-password" />
                                 <p:password id="password2" value="#{userManagementController.rePassword}"/>
-                                <h:outputLabel for="userGroupLvl" value="User Group Level" />
+                                <h:outputLabel for="userGroupLvl" value="User Type" />
                                 <p:selectOneMenu styleClass="selectOne115" id="userGroupLvl" value="#{userManagementController.svUser.userGroupLvl}">
                                     <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
                                     <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
                                 </p:selectOneMenu>
-                                <h:outputLabel for="campanyName" value="Campany Name" />
+                                <h:outputLabel for="campanyName" value="#{msg.label_insured_name}" />
                                 <p:inputText id="campanyName" value="#{userManagementController.svUser.companyName}"/>
+                                <h:outputLabel for="policyNumber" value="#{msg.label_Policy_number}" />
+                                <p:inputText id="policyNumber" value="#{userManagementController.keyMatch.openPolicyNo}"/>    
                                 <h:outputLabel for="fname" value="First name" />
                                 <p:inputText id="fname" value="#{userManagementController.svUser.fname}"/>
                                 <h:outputLabel for="lname" value="Last name" />
@@ -249,11 +251,6 @@
                                     <f:selectItem itemLabel="Male" itemValue="0" />  
                                     <f:selectItem itemLabel="Female" itemValue="1" /> 
                                 </h:selectOneRadio>
-                                <h:outputLabel for="userGroup" value="User Group" />
-                                <p:selectOneMenu styleClass="selectOne115" id="userGroup" value="#{userManagementController.svUser.userGroupId}">
-                                    <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                                    <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                </p:selectOneMenu>
                                 <h:outputLabel for="isactive" value="Status" style="width:200px"/>
                                 <h:selectOneRadio id="isactive" value="#{userManagementController.svUser.isActive}" style="border-style:none">  
                                     <f:selectItem itemLabel="Active" itemValue="true" />  
@@ -280,8 +277,15 @@
                                     <p:password redisplay="true" id="passwordEdit" value="#{userManagementController.svUser.password}"/>
                                     <h:outputLabel for="password2Edit" value="Re-password" title="please enter re-password"/>
                                     <p:password redisplay="true" id="password2Edit" value="#{userManagementController.rePassword}"/>
-                                    <h:outputLabel for="companyNameEdit" value="Company name" />
+                                    <h:outputLabel for="userGroupLvlEdit" value="User Type" style="width:200px"/>
+                                    <p:selectOneMenu id="userGroupLvlEdit" styleClass="selectOne115" value="#{userManagementController.svUser.userGroupLvl}">
+                                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
+                                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel for="companyNameEdit" value="#{msg.label_insured_name}" />
                                     <p:inputText id="companyNameEdit" value="#{userManagementController.svUser.companyName}"/>
+                                    <h:outputLabel for="policyNumberEdit" value="#{msg.label_Policy_number}" />
+                                    <p:inputText id="policyNumberEdit" value="#{userManagementController.keyMatch.openPolicyNo}"/>    
                                     <h:outputLabel for="fnameEdit" value="First name" />
                                     <p:inputText id="fnameEdit" value="#{userManagementController.svUser.fname}"/>
                                     <h:outputLabel for="lnameEdit" value="Last name" />
@@ -291,16 +295,11 @@
                                         <f:selectItem itemLabel="Mail" itemValue="0" />  
                                         <f:selectItem itemLabel="Femail" itemValue="1" /> 
                                     </h:selectOneRadio>
-                                    <h:outputLabel for="userGroupLvlEdit" value="User group level" style="width:200px"/>
-                                    <p:selectOneMenu id="userGroupLvlEdit" style="width:200px" value="#{userManagementController.svUser.userGroupLvl}">
-                                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                    </p:selectOneMenu>
-                                    <h:outputLabel for="userGroupEdit" value="User group" style="width:200px"/>
+                                    <!--<h:outputLabel for="userGroupEdit" value="User group" style="width:200px"/>
                                     <p:selectOneMenu id="userGroupEdit" style="width:200px" value="#{userManagementController.svUser.userGroupId}">
                                         <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
                                         <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                    </p:selectOneMenu>
+                                    </p:selectOneMenu>-->
                                     <h:outputLabel for="isactiveEdit" value="Status" style="width:200px"/>
                                     <h:selectOneRadio id="isactiveEdit" value="#{userManagementController.svUser.isActive}" style="border-style:none">  
                                         <f:selectItem itemLabel="Active" itemValue="true" />  

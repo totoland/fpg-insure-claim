@@ -1,0 +1,140 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                >
+
+    <ui:define name="subheader">
+        Forms
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="fa fa-edit Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            #{msg.menu_condition_of_cover} 
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            <p:button icon="fa fa-plus White" styleClass="Fright GreenButton" title="#{msg.label_create_new_condition_of_cover}" onclick="PF('dlgNewConditionOfConver').show();
+                                    return;"/>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:button value="#{msg.yes}" href="insuranceForm.xhtml" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white" />
+                                <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                            </p:confirmDialog>
+                            <br/>
+                        </div>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="Container100 Responsive50">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="2" 
+                                             layout="grid" 
+                                             columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                             style="border:0px !important; background:none;">
+                                    <h:outputLabel value="#{msg.label_customer}"/>
+                                    <p:selectOneMenu styleClass="selectOne115">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{rateManagementController.ddlCustomer}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value=""/>
+                                    <h:panelGroup>
+                                        <p:commandButton value="#{msg.panel_search}" action="#{dtSelectionView.search()}"
+                                                         update="pnResult"/>
+                                        <p:commandButton value="#{msg.btn_reset}" action="#{dtSelectionView.init()}"
+                                                         update="pnResult"/>
+                                    </h:panelGroup>
+                                    <h:outputLabel value=""/>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ContainerIndent">
+                <p:panel id="pnResult">
+                    <p:dataTable id="singleDT" var="car" value="#{dtSelectionView.cars7}" rendered="#{dtSelectionView.renderDataTable}" selectionMode="single" selection="#{dtSelectionView.selectedCar}" rowKey="#{car.id}"
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" reflow="true">
+                        <f:facet name="header">
+                            Search Result
+                        </f:facet>
+
+                        <p:column headerText="#{msg.label_customer}" sortBy="#{car.id}" footerText="#{msg.label_company_code}">
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
+                        <p:column headerText="#{msg.option_air}" sortBy="#{car.year}" footerText="#{msg.label_Policy_number}">
+                            <h:outputText value="#{car.brand}" />
+                        </p:column>
+                        <p:column headerText="#{msg.option_vessel}" sortBy="#{car.brand}" footerText="#{msg.label_insured_name}">
+                            <h:outputText value="#{car.year}" />
+                        </p:column>
+                        <p:column headerText="#{msg.option_truck}" sortBy="#{car.brand}" footerText="#{msg.label_insured_name}">
+                            <h:outputText value="#{car.year}" />
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" onclick="PF('dlgNewConditionOfConver').show()"/>
+                            <p:commandButton value="#{msg.btn_reject}" styleClass="PinkButton RaisedButton"/>
+                        </p:column>
+                    </p:dataTable>
+
+                </p:panel>
+            </div>
+
+            <p:dialog header="#{msg.menu_rate}" widgetVar="dlgNewConditionOfConver"  modal="true"
+                      showEffect="explode" hideEffect="bounce" height="350" minimizable="true" maximizable="true" responsive="true">
+                <div class="Container100">
+                    <div class="ContainerIndent">
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="2" 
+                                             layout="grid" 
+                                             columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                             style="border:0px !important; background:none;">
+                                    <h:outputLabel value="#{msg.label_customer}"/>
+                                    <p:selectOneMenu styleClass="selectOne115">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{rateManagementController.ddlCustomer}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.option_air}"/>
+                                    <p:inputTextarea maxlength="255" rows="10" style="width: 400px"/>
+
+                                    <h:outputLabel value="#{msg.option_vessel}"/>
+                                    <p:inputTextarea maxlength="255" rows="10" style="width: 400px"/>
+                                    
+                                    <h:outputLabel value="#{msg.option_truck}"/>
+                                    <p:inputTextarea maxlength="255" rows="10" style="width: 400px"/>
+
+                                    <h:outputLabel value=""/>
+                                    <h:panelGroup>
+                                        <p:commandButton value="#{msg.btn_save}" action="#{dtSelectionView.search()}"
+                                                         update="pnResult"/>
+                                    </h:panelGroup>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </p:dialog>    
+        </h:form>
+    </ui:define>
+
+</ui:composition>

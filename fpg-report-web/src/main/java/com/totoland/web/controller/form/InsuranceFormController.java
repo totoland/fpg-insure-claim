@@ -8,6 +8,7 @@ package com.totoland.web.controller.form;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -35,6 +36,8 @@ public class InsuranceFormController extends BaseController {
 
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
+    
+    private Date issueDate;
 
     @PostConstruct
     public void init() {
@@ -114,6 +117,20 @@ public class InsuranceFormController extends BaseController {
      */
     public void setCertNumber(String certNumber) {
         this.certNumber = certNumber;
+    }
+
+    /**
+     * @return the issueDate
+     */
+    public Date getIssueDate() {
+        return issueDate;
+    }
+
+    /**
+     * @param issueDate the issueDate to set
+     */
+    public void setIssueDate(Date issueDate) {
+        this.issueDate = issueDate;
     }
 
 }
