@@ -80,6 +80,45 @@
                                         <f:selectItem itemLabel="" itemValue="1" />
                                     </p:selectOneMenu>
                                     
+                                    <h:outputLabel value="#{msg.label_financial_interest}"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="#{msg.label_consignee_name}"/>
+                                    <p:inputText/>
+
+                                    <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
+                                    <h:outputLabel value="invoice*exchange rate*valuation"/>
+
+                                    <h:outputLabel value="#{msg.label_deductible_amount}"/>
+                                    <h:outputLabel value="0.00"/>
+
+                                    <h:outputLabel value="#{msg.label_currency_type}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                            <f:selectItem itemLabel="US DOLLAR - USD" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.label_exchange_rate}"/>
+                                    <p:inputText value="35.64"/>
+
+                                    <h:outputLabel value="#{msg.label_local_amount_of_insurance}"/>
+                                    <p:inputText value="00.00"/>
+
+                                    <h:outputLabel value="#{msg.label_origin_country}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                            <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="#{msg.label_destination_country}"/>
+                                    <p:inputText/>
+                                    
+                                    <h:outputLabel value="#{msg.label_origin_status_prov}"/>
+                                    <p:selectOneMenu styleClass="selectOne150">
+                                            <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
+                                    </p:selectOneMenu>
+                                    
+                                    <h:outputLabel value="#{msg.label_destination_status_prov}"/>
+                                    <p:inputText/>
+                                    
                                     <h:outputLabel value="#{msg.label_issue_date}"/>
                                     <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}" value="#{insuranceFormController.issueDate}"/>
 
@@ -139,8 +178,6 @@
                                              style="border:0px none;padding-top: 10px; background-color:transparent;">
                                     <h:outputLabel value="#{msg.label_shipment_date}"/>
                                     <p:calendar mask="99/99/9999"/>
-                                    <h:outputLabel value="#{msg.label_deductible_amount}"/>
-                                    <h:outputLabel value="0.00"/>
 
                                     <h:outputLabel value="#{msg.label_invoice}"/>
                                     <p:inputText value="0.00"/>
@@ -148,19 +185,8 @@
                                     <h:outputLabel value="#{msg.label_premium_rate}"/>
                                     <h:outputLabel value="10"/>
 
-                                    <h:outputLabel value="#{msg.label_currency_type}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                        <f:selectItem itemLabel="US DOLLAR - USD" itemValue="1" />
-                                    </p:selectOneMenu>
-
                                     <h:outputLabel value="#{msg.label_premium}"/>
                                     <p:inputText value="0.00"/>
-
-                                    <h:outputLabel value="#{msg.label_exchange_rate}"/>
-                                    <p:inputText value="35.64"/>
-
-                                    <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
-                                    <h:outputLabel value="invoice*exchange rate*valuation"/>
 
                                     <h:outputLabel value="#{msg.label_valuation}"/>
                                     <p:inputText value="0.00"/>
@@ -186,22 +212,6 @@
 
                                     <h:outputLabel value=""/>
                                     <h:outputLabel value=""/>
-
-                                    <h:outputLabel value="#{msg.label_origin_country}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                        <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel value="#{msg.label_destination_status_prov}"/>
-                                    <p:inputText/>
-
-                                    <h:outputLabel value="#{msg.label_origin_status_prov}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                        <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel value="#{msg.label_destination_country}"/>
-                                    <p:inputText/>
 
                                     <h:outputLabel value="#{msg.label_vessel}"/>
                                     <p:inputText/>
