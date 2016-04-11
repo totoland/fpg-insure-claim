@@ -140,15 +140,11 @@ public class DropdownFactory implements Serializable {
     
     public List<DropDownList> ddlProduct() {
 
-        List<DropDownList> customers = new ArrayList<>();
-        DropDownList criteria = new DropDownList();
-        criteria.setTableName("BROKER");
-        criteria.setOrderByField("BROKER_NAME");
-        criteria.setName("BROKER_NAME");
-        criteria.setValue("BROKER_ID");
-        criteria.setSortName("ASC");
-        
-        customers = commonService.getDropdownList(criteria);
-        return customers;
+        List<DropDownList> insureTypes = new ArrayList<>();
+        insureTypes.add(new DropDownList("Product A", "1"));
+        insureTypes.add(new DropDownList("Product B", "2"));
+        insureTypes.add(new DropDownList("Product B", "3"));
+
+        return insureTypes;
     }
 }
