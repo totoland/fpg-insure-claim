@@ -30,18 +30,20 @@
                         </div>
 
                         <div class="SeparatorFull"></div>
-                        <div class="Container50 Responsive50">
+                        <div class="Container90 Responsive90">
                             <div class="ContainerIndent">
                                 <h2 class="BigTopic"></h2>
-                                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                    <h:outputLabel value="#{msg.label_status}"/>
-                                    <h:outputLabel value="New Entry"/>
+                                <p:panelGrid columns="4" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                     <h:outputLabel value="#{msg.label_Policy_number}"/>
                                     <h:outputLabel value="2053"/>
+                                    <h:outputLabel value="#{msg.label_status}"/>
+                                    <h:outputLabel value="New Entry"/>
                                     <h:outputLabel value="#{msg.label_cert_no}"/>
                                     <h:outputLabel id="lbCertNumber" value="#{insuranceFormController.certNumber}"/>
-                                    <h:outputLabel value="#{msg.label_method_of_transport}"/>
-                                    <h:outputLabel id="selectInsureType" value="#{insuranceFormController.insureType}"/>
+                                    <h:outputLabel value=""/>
+                                    <h:outputLabel value=""/>
+                                    <h:outputLabel value="#{msg.label_method_of_transport}" rendered="false"/>
+                                    <h:outputLabel id="selectInsureType" value="#{insuranceFormController.insureType}" rendered="false"/>
                                 </p:panelGrid>
                             </div>
                         </div>
@@ -68,22 +70,24 @@
                         </div>
 
                         <div class="SeparatorFull"></div>
-                        <div class="Responsive50">
+                        <div class="Responsive100">
                             <div>
                                 <h2 class="BigTopic"></h2>
                                 <p:panelGrid id="pnGrid" columns="4" 
                                              layout="grid" styleClass="ui-panelgrid-blank" 
                                              style="border:0px none; background-color:transparent;">
                                     <h:outputLabel value="#{msg.label_insured_name}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
+                                    <h:panelGroup>
+                                    <p:selectOneMenu styleClass="selectOne120">
                                         <f:selectItem itemLabel="" itemValue="1" />
                                     </p:selectOneMenu>
-                                    
-                                    <h:outputLabel value="#{msg.label_financial_interest}"/>
-                                    <p:inputText/>
-
+                                        <h:outputLabel value=" *" styleClass="requireField"/>
+                                    </h:panelGroup>
                                     <h:outputLabel value="#{msg.label_consignee_name}"/>
                                     <p:inputText/>
+                                    
+<!--                                    <h:outputLabel value="#{msg.label_financial_interest}"/>
+                                    <p:inputText/>-->
 
                                     <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
                                     <h:outputLabel value="invoice*exchange rate*valuation"/>
@@ -92,41 +96,57 @@
                                     <h:outputLabel value="0.00"/>
 
                                     <h:outputLabel value="#{msg.label_currency_type}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                            <f:selectItem itemLabel="US DOLLAR - USD" itemValue="1" />
-                                    </p:selectOneMenu>
-
+                                    <h:panelGroup>
+                                        <p:selectOneMenu styleClass="selectOne120">
+                                                <f:selectItem itemLabel="US DOLLAR" itemValue="1" />
+                                        </p:selectOneMenu>
+                                        <h:outputLabel value=" *" styleClass="requireField"/>
+                                    </h:panelGroup>
+                                    
                                     <h:outputLabel value="#{msg.label_exchange_rate}"/>
                                     <p:inputText value="35.64"/>
 
                                     <h:outputLabel value="#{msg.label_local_amount_of_insurance}"/>
                                     <p:inputText value="00.00"/>
                                     
-                                    <h:outputLabel value="#{msg.label_origin_country}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                            <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
-                                    </p:selectOneMenu>
+                                    <h:outputLabel value=""/>
+                                    <h:outputLabel value=""/>
                                     
+                                    <h:outputLabel value="#{msg.label_origin_country}"/>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu styleClass="selectOne120">
+                                                <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
+                                        </p:selectOneMenu>
+                                        <h:outputLabel value=" *" styleClass="requireField"/>
+                                    </h:panelGroup>
                                     <h:outputLabel value="#{msg.label_origin_status_prov}"/>
                                     <p:inputText/>
                                     
                                     <h:outputLabel value="#{msg.label_origin_desc}"/>
-                                    <p:inputText/>
+                                    <h:panelGroup>
+                                        <p:inputText/>
+                                        <h:outputLabel value=" *" styleClass="requireField"/>
+                                    </h:panelGroup>
 
                                     <h:outputLabel value="#{msg.label_transshipment_port}"/>
                                     <p:inputText/>
                                     
                                     <h:outputLabel value="#{msg.label_destination_country}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                            <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
-                                    </p:selectOneMenu>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu styleClass="selectOne120">
+                                                <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
+                                        </p:selectOneMenu>
+                                        <h:outputLabel value=" *" styleClass="requireField"/>
+                                    </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_destination_status_prov}"/>
                                     <p:inputText/>
                                     
                                     <h:outputLabel value="#{msg.label_destination_desc}"/>
-                                    <p:inputText/>
-                                    
+                                    <h:panelGroup>
+                                        <p:inputText/>
+                                        <h:outputLabel value=" *" styleClass="requireField"/>
+                                    </h:panelGroup>
                                     <h:outputLabel value="#{msg.label_conveyance_name}"/>
                                     <p:inputText/>
                                     
@@ -139,36 +159,48 @@
                                     <h:outputLabel value="#{msg.label_method_of_transport}"/>
                                     <h:outputLabel id="selectInsureType2" value="#{insuranceFormController.insureType}"/>
                                     
+                                    <h:outputLabel value=""/>
+                                    <h:outputLabel value=""/>    
+                                    
                                     <h:outputLabel value="#{msg.label_invoice}"/>
-                                    <p:inputText/>
+                                    <h:panelGroup>
+                                        <p:inputText/>
+                                        <h:outputLabel value=" *" styleClass="requireField"/>
+                                    </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_bill_of_lading_number}"/>
                                     <p:inputText/>
                                     
                                     <h:outputLabel value="#{msg.label_shipment_date}"/>
-                                    <p:calendar mask="99/99/9999"/>
+                                    <h:panelGroup>
+                                        <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy"/>
+                                        <h:outputLabel value=" *" styleClass="requireField"/>
+                                    </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_issue_date}"/>
                                     <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}" value="#{insuranceFormController.issueDate}"/>
 
                                     <h:outputLabel value="#{msg.label_commodity_type}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                        <f:selectItem itemLabel="" itemValue="1" />
-                                    </p:selectOneMenu>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu styleClass="selectOne120">
+                                            <f:selectItem itemLabel="" itemValue="1" />
+                                        </p:selectOneMenu>
+                                        <h:outputLabel value=" *" styleClass="requireField"/>
+                                    </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_commodity_description}"/>
                                     <p:inputTextarea/>
                                     
                                     <h:outputLabel value="#{msg.label_marks_and_numbers}"/>
-                                    <p:inputTextarea/>
+                                    <p:inputText/>
                                     
                                     <h:outputLabel value="#{msg.label_coverage_type}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
+                                    <p:selectOneMenu styleClass="selectOne120">
                                         <f:selectItem itemLabel="" itemValue="1" />
                                     </p:selectOneMenu>
                                     
                                     <h:outputLabel value="#{msg.label_valuation}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
+                                    <p:selectOneMenu styleClass="selectOne120">
                                         <f:selectItem itemLabel="105%" itemValue="105" />
                                         <f:selectItem itemLabel="110%" itemValue="110" />
                                         <f:selectItem itemLabel="115%" itemValue="115" />
@@ -176,17 +208,23 @@
                                     </p:selectOneMenu>
                                     
                                     <h:outputLabel value="#{msg.label_insuring_terms}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
+                                    <p:selectOneMenu styleClass="selectOne120">
                                         <f:selectItem itemLabel="" itemValue="1" />
                                     </p:selectOneMenu>
                                     
                                     <h:outputLabel value="#{msg.label_additional_info}"/>
                                     <p:inputTextarea/>
                                     
+                                    <h:outputLabel value=""/>
+                                    <h:outputLabel value=""/>
+                                    
                                     <h:outputLabel value="#{msg.label_claim_surveyor}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
-                                        <f:selectItem itemLabel="" itemValue="1" />
-                                    </p:selectOneMenu>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu styleClass="selectOne120">
+                                            <f:selectItem itemLabel="" itemValue="1" />
+                                        </p:selectOneMenu>
+                                        <h:outputLabel value=" *" styleClass="requireField"/>
+                                    </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_claim_payable_at}"/>
                                     <h:outputLabel value="#{msg.fpg_company_name}"/>
@@ -198,7 +236,7 @@
                                     <h:outputLabel value="02/02/2016"/>
 
                                     <h:outputLabel value="#{msg.label_status_of_goods}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
+                                    <p:selectOneMenu styleClass="selectOne120">
                                         <f:selectItem itemLabel="" itemValue="1" />
                                     </p:selectOneMenu>
 
@@ -206,7 +244,7 @@
                                     <h:outputLabel value="570-1020-1202-30"/>
 
                                     <h:outputLabel value="#{msg.label_distrition}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
+                                    <p:selectOneMenu styleClass="selectOne120">
                                         <f:selectItem itemLabel="ตัวแทน" itemValue="1" />
                                     </p:selectOneMenu>
 
@@ -263,7 +301,7 @@
                                     <h:outputLabel value="-"/>
 
                                     <h:outputLabel value="#{msg.label_packaging_type}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
+                                    <p:selectOneMenu styleClass="selectOne120">
                                         <f:selectItem itemLabel="" itemValue="1" />
                                     </p:selectOneMenu>
 
@@ -277,7 +315,7 @@
                                     <p:inputText/>
 
                                                                         <h:outputLabel value="ชนิดของเรือ"/>
-                                                                        <p:selectOneMenu styleClass="selectOne150">
+                                                                        <p:selectOneMenu styleClass="selectOne120">
                                                                             <f:selectItem itemLabel="" itemValue="1" />
                                                                         </p:selectOneMenu>
 
@@ -298,7 +336,7 @@
                                     <h:outputLabel value="#{msg.fpg_company_name}"/>
 
                                     <h:outputLabel value="#{msg.label_claim_surveyor}"/>
-                                    <p:selectOneMenu styleClass="selectOne150">
+                                    <p:selectOneMenu styleClass="selectOne120">
                                         <f:selectItem itemLabel="" itemValue="1" />
                                     </p:selectOneMenu>
 
