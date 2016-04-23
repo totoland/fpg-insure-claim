@@ -7,7 +7,7 @@
                 >
 
     <ui:define name="subheader">
-        Forms
+        <h:outputStylesheet library="primefaces-adamantium" name="theme.css" />
     </ui:define>
 
     <ui:define name="content">
@@ -61,100 +61,106 @@
                 <div class="ContainerIndent">
                     <div class="Card">
                         <div class="CardTopic"> 
-                            <i class="icon-newspaper Fs30 Fleft MarRight10"></i>
-                            <div class="EmptyBox10 ShowOnMobile"></div>
                             #{msg.label_general} 
-                            <div class="EmptyBox10 ShowOnMobile"></div>
-
-                            <br/>
                         </div>
 
                         <div class="SeparatorFull"></div>
-                        <div class="Responsive100">
-                            <div>
-                                <h2 class="BigTopic"></h2>
-                                <p:panelGrid id="pnGrid" columns="4" 
-                                             layout="grid" styleClass="ui-panelgrid-blank" 
-                                             style="border:0px none; background-color:transparent;">
+                        
+                        <p:panelGrid id="pnGrid" 
+                                             columns="4" 
+                                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                                 layout="grid" 
+                                 styleClass="ui-panelgrid-blank" 
+                                 style="border:0px none; background-color:transparent;">
                                     <h:outputLabel value="#{msg.label_insured_name}"/>
                                     <h:panelGroup>
-                                    <p:selectOneMenu styleClass="selectOne120">
+                                    <p:selectOneMenu styleClass="selectOne120"
+                                                     value="#{insuranceFormController.claimInsure.insuredId}">
                                         <f:selectItem itemLabel="" itemValue="1" />
+                                        <f:selectItems value="#{insuranceFormController.insureNameList}" 
+                                                       var="item"
+                                                       itemLabel="#{item.name}"
+                                                       itemValue="#{item.value}"/>
                                     </p:selectOneMenu>
                                         <h:outputLabel value=" *" styleClass="requireField"/>
                                     </h:panelGroup>
                                     <h:outputLabel value="#{msg.label_consignee_name}"/>
-                                    <p:inputText/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.consigneeName}"/>
                                     
-<!--                                    <h:outputLabel value="#{msg.label_financial_interest}"/>
-                                    <p:inputText/>-->
-
                                     <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
                                     <h:outputLabel value="invoice*exchange rate*valuation"/>
 
                                     <h:outputLabel value="#{msg.label_deductible_amount}"/>
-                                    <h:outputLabel value="0.00"/>
+                                    <h:outputLabel value="#{insuranceFormController.claimInsure.deductibleAmount}"/>
 
                                     <h:outputLabel value="#{msg.label_currency_type}"/>
                                     <h:panelGroup>
-                                        <p:selectOneMenu styleClass="selectOne120">
-                                                <f:selectItem itemLabel="US DOLLAR" itemValue="1" />
+                                        <p:selectOneMenu styleClass="selectOne120" 
+                                                         value="#{insuranceFormController.claimInsure.currencyType}">
+                                            <f:selectItems value="#{insuranceFormController.currencyTypeList}"
+                                                           var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
                                         </p:selectOneMenu>
                                         <h:outputLabel value=" *" styleClass="requireField"/>
                                     </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_exchange_rate}"/>
-                                    <p:inputText value="35.64"/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.exchangeRate}"/>
 
                                     <h:outputLabel value="#{msg.label_local_amount_of_insurance}"/>
-                                    <p:inputText value="00.00"/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.localAmountOfInsurance}"/>
                                     
                                     <h:outputLabel value=""/>
                                     <h:outputLabel value=""/>
                                     
                                     <h:outputLabel value="#{msg.label_origin_country}"/>
                                     <h:panelGroup>
-                                        <p:selectOneMenu styleClass="selectOne120">
-                                                <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
+                                        <p:selectOneMenu styleClass="selectOne120" value="#{insuranceFormController.claimInsure.originCountryId}">
+                                            <f:selectItems value="#{insuranceFormController.countriesList}" 
+                                                           var="item"
+                                                           itemLabel="#{item.name}"
+                                                           itemValue="#{item.value}"/>
                                         </p:selectOneMenu>
                                         <h:outputLabel value=" *" styleClass="requireField"/>
                                     </h:panelGroup>
                                     <h:outputLabel value="#{msg.label_origin_status_prov}"/>
-                                    <p:inputText/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.originStateProv}"/>
                                     
                                     <h:outputLabel value="#{msg.label_origin_desc}"/>
                                     <h:panelGroup>
-                                        <p:inputText/>
+                                        <p:inputText value="#{insuranceFormController.claimInsure.originDescription}"/>
                                         <h:outputLabel value=" *" styleClass="requireField"/>
                                     </h:panelGroup>
 
                                     <h:outputLabel value="#{msg.label_transshipment_port}"/>
-                                    <p:inputText/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.transshipmentPort}"/>
                                     
                                     <h:outputLabel value="#{msg.label_destination_country}"/>
                                     <h:panelGroup>
-                                        <p:selectOneMenu styleClass="selectOne120">
-                                                <f:selectItem itemLabel="THA-ไทย" itemValue="1" />
+                                        <p:selectOneMenu styleClass="selectOne120" value="#{insuranceFormController.claimInsure.destinationCountryId}">
+                                                <f:selectItems value="#{insuranceFormController.countriesList}" 
+                                                           var="item"
+                                                           itemLabel="#{item.name}"
+                                                           itemValue="#{item.value}"/>
                                         </p:selectOneMenu>
                                         <h:outputLabel value=" *" styleClass="requireField"/>
                                     </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_destination_status_prov}"/>
-                                    <p:inputText/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.destinationStateProv}"/>
                                     
                                     <h:outputLabel value="#{msg.label_destination_desc}"/>
                                     <h:panelGroup>
-                                        <p:inputText/>
+                                        <p:inputText value="#{insuranceFormController.claimInsure.destinationDescription}"/>
                                         <h:outputLabel value=" *" styleClass="requireField"/>
                                     </h:panelGroup>
                                     <h:outputLabel value="#{msg.label_conveyance_name}"/>
-                                    <p:inputText/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.conveyanceName}"/>
                                     
                                     <h:outputLabel value="#{msg.label_transshipment_vessel}"/>
-                                    <p:inputText/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.transshipmentVessel}"/>
                                     
                                     <h:outputLabel value="#{msg.label_voyage_flight_no}"/>
-                                    <p:inputText/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.voyageFlightNumber}"/>
                                     
                                     <h:outputLabel value="#{msg.label_method_of_transport}"/>
                                     <h:outputLabel id="selectInsureType2" value="#{insuranceFormController.insureType}"/>
@@ -164,39 +170,43 @@
                                     
                                     <h:outputLabel value="#{msg.label_invoice}"/>
                                     <h:panelGroup>
-                                        <p:inputText/>
+                                        <p:inputText value="#{insuranceFormController.claimInsure.invoiceNumber}"/>
                                         <h:outputLabel value=" *" styleClass="requireField"/>
                                     </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_bill_of_lading_number}"/>
-                                    <p:inputText/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.billOfLadingNumber}"/>
                                     
                                     <h:outputLabel value="#{msg.label_shipment_date}"/>
                                     <h:panelGroup>
-                                        <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy"/>
+                                        <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy" 
+                                                    value="#{insuranceFormController.claimInsure.shipmentDate}"/>
                                         <h:outputLabel value=" *" styleClass="requireField"/>
                                     </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_issue_date}"/>
-                                    <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}" value="#{insuranceFormController.issueDate}"/>
+                                    <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}" 
+                                                value="#{insuranceFormController.claimInsure.issueDate}"/>
 
                                     <h:outputLabel value="#{msg.label_commodity_type}"/>
                                     <h:panelGroup>
-                                        <p:selectOneMenu styleClass="selectOne120">
-                                            <f:selectItem itemLabel="" itemValue="1" />
+                                        <p:selectOneMenu styleClass="selectOne120" value="#{insuranceFormController.claimInsure.commodityTypeId}">
+                                            <f:selectItems value="#{insuranceFormController.commodityTypeList}" 
+                                                           var="item" itemLabel="#{item.name}" itemValue="#{item.value}"/>
                                         </p:selectOneMenu>
                                         <h:outputLabel value=" *" styleClass="requireField"/>
                                     </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_commodity_description}"/>
-                                    <p:inputTextarea/>
+                                    <p:inputTextarea value="#{insuranceFormController.claimInsure.commodityDescription}"/>
                                     
                                     <h:outputLabel value="#{msg.label_marks_and_numbers}"/>
-                                    <p:inputText/>
+                                    <p:inputText value="#{insuranceFormController.claimInsure.marksAndNumbers}"/>
                                     
                                     <h:outputLabel value="#{msg.label_coverage_type}"/>
-                                    <p:selectOneMenu styleClass="selectOne120">
-                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    <p:selectOneMenu styleClass="selectOne120" value="#{insuranceFormController.claimInsure.coverageTypeId}">
+                                        <f:selectItems value="#{insuranceFormController.coverageTypeList}"
+                                                       var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
                                     </p:selectOneMenu>
                                     
                                     <h:outputLabel value="#{msg.label_valuation}"/>
@@ -208,20 +218,24 @@
                                     </p:selectOneMenu>
                                     
                                     <h:outputLabel value="#{msg.label_insuring_terms}"/>
-                                    <p:selectOneMenu styleClass="selectOne120">
-                                        <f:selectItem itemLabel="" itemValue="1" />
+                                    <p:selectOneMenu styleClass="selectOne120" value="#{insuranceFormController.claimInsure.insuringTermsId}">
+                                        <f:selectItems value="#{insuranceFormController.insuringTermsTypeList}" 
+                                                       var="item"
+                                                       itemLabel="#{item.name}"
+                                                       itemValue="#{item.value}"/>
                                     </p:selectOneMenu>
                                     
                                     <h:outputLabel value="#{msg.label_additional_info}"/>
-                                    <p:inputTextarea/>
+                                    <p:inputTextarea value="#{insuranceFormController.claimInsure.additionalInfomation}"/>
                                     
                                     <h:outputLabel value=""/>
                                     <h:outputLabel value=""/>
                                     
                                     <h:outputLabel value="#{msg.label_claim_surveyor}"/>
                                     <h:panelGroup>
-                                        <p:selectOneMenu styleClass="selectOne120">
-                                            <f:selectItem itemLabel="" itemValue="1" />
+                                        <p:selectOneMenu styleClass="selectOne120" value="#{insuranceFormController.claimInsure.claimSurveyorId}">
+                                            <f:selectItems value="#{insuranceFormController.claimSurveyorsList}"
+                                                           var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
                                         </p:selectOneMenu>
                                         <h:outputLabel value=" *" styleClass="requireField"/>
                                     </h:panelGroup>
@@ -252,8 +266,7 @@
                                     <p:inputText/>-->
 
                                 </p:panelGrid>
-                            </div>
-                        </div>
+                     
                         <div class="Container50 Responsive50">
                             <div class="ContainerIndent">
                                 <!--<h2 class="BigTopic">TextArea</h2>-->
@@ -264,97 +277,6 @@
                 </div>
             </div>
 
-<!--            <div class="Container100">
-                <div class="ContainerIndent">
-                    <div class="Card">
-                        <div class="CardTopic"> 
-                            <i class="icon-document-alt-stroke Fs30 Fleft MarRight10"></i>
-                            <div class="EmptyBox10 ShowOnMobile"></div>
-                            #{msg.label_detail_header} 
-                            <div class="EmptyBox10 ShowOnMobile"></div>
-
-                            <br/>
-                        </div>
-
-                        <div class="SeparatorFull"></div>
-                        <div class="Responsive50">
-                            <div>
-                                <h2 class="BigTopic"></h2>
-                                <p:panelGrid columns="4" 
-                                             layout="grid" columnClasses="ui-grid-col-4"
-                                             style="border:0px none;padding-top: 10px; background-color:transparent;">
-
-                                    <h:outputLabel value="#{msg.label_invoice}"/>
-                                    <p:inputText value="0.00"/>
-
-                                    <h:outputLabel value="#{msg.label_premium_rate}"/>
-                                    <h:outputLabel value="10"/>
-
-                                    <h:outputLabel value="#{msg.label_premium}"/>
-                                    <p:inputText value="0.00"/>
-
-
-                                    <h:outputLabel value=""/>
-                                    <h:outputLabel value=""/>
-
-                                    <h:outputLabel value="ความรับผิดชอบส่วนแรก"/>
-                                    <h:outputLabel value="-"/>
-
-                                    <h:outputLabel value="#{msg.label_packaging_type}"/>
-                                    <p:selectOneMenu styleClass="selectOne120">
-                                        <f:selectItem itemLabel="" itemValue="1" />
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel value=""/>
-                                    <h:outputLabel value=""/>
-
-                                    <h:outputLabel value="#{msg.label_vessel}"/>
-                                    <p:inputText/>
-
-                                    <h:outputLabel value="#{msg.label_voyage}"/>
-                                    <p:inputText/>
-
-                                                                        <h:outputLabel value="ชนิดของเรือ"/>
-                                                                        <p:selectOneMenu styleClass="selectOne120">
-                                                                            <f:selectItem itemLabel="" itemValue="1" />
-                                                                        </p:selectOneMenu>
-
-                                                                        <h:outputLabel value="ชื่อเรือลำที่ 2"/>
-                                                                        <p:inputText/>
-
-                                                                        <h:outputLabel value="Issue date"/>
-                                                                        <p:calendar mask="99/99/9999"/>
-
-                                                                        <h:outputLabel value="วันที่ออกเอกสาร"/>
-                                                                        <p:calendar mask="99/99/9999"/>
-
-
-                                    <h:outputLabel value="Insuring terms"/>
-                                    <h:outputLabel value="-"/>
-
-                                    <h:outputLabel value="#{msg.label_claim_payable_at}"/>
-                                    <h:outputLabel value="#{msg.fpg_company_name}"/>
-
-                                    <h:outputLabel value="#{msg.label_claim_surveyor}"/>
-                                    <p:selectOneMenu styleClass="selectOne120">
-                                        <f:selectItem itemLabel="" itemValue="1" />
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel value=""/>
-                                    <h:outputLabel value=""/>
-                                </p:panelGrid>
-                            </div>
-                        </div>
-                        <div class="Container50 Responsive50">
-                            <div class="ContainerIndent">
-                                <h2 class="BigTopic">TextArea</h2>
-                                <p:inputTextarea rows="5" placeholder="Your Message" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-
             <div class="Container100">
                 <div class="ContainerIndent">
 
@@ -362,7 +284,8 @@
 
                         <p:toolbar>
                             <f:facet name="right">
-                                <p:commandButton type="button" value="#{msg.btn_save_draft}" icon="fa fa-save Fs14 White" />
+                                <p:commandButton type="submit" value="#{msg.btn_save_draft}" icon="fa fa-save Fs14 White" 
+                                                 action="#{insuranceFormController.save()}"/>
 
                                 <p:commandButton type="button" value="#{msg.btn_discard}" icon="fa fa-trash Fs14 Resd" styleClass="RedButton">
                                     <p:confirm header="#{msg.confirmation_head}" message="#{msg.confirmation_message_delete}?" icon="ui-icon-alert" />
@@ -373,7 +296,8 @@
                                 </p:commandButton>
 
                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                    <p:commandButton value="#{msg.yes}" type="button" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white" />
+                                    <p:commandButton value="#{msg.yes}" action="#{insuranceFormController.save()}"
+                                                     immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white" />
                                     <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
                             </f:facet>
@@ -389,7 +313,12 @@
                     <p:menuitem value="Draft" icon="/resources/images/dock/Document-48.png" url="#"/>
                 </p:stack>
             </div>
-
+            
+        <style>
+            .ui-panelgrid .ui-panelgrid-cell{
+                padding: 12px 10px!important;
+            }
+        </style>
         </h:form>
     </ui:define>
 

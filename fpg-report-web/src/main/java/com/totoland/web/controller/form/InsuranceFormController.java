@@ -6,8 +6,11 @@
 package com.totoland.web.controller.form;
 
 import com.totoland.db.common.entity.DropDownList;
+import com.totoland.db.entity.ClaimInsure;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
+import com.totoland.web.service.GennericService;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -31,23 +34,48 @@ public class InsuranceFormController extends BaseController {
 
     private String insureType = "Air";
     private List<DropDownList> insureTypeList;
+    private List<DropDownList> insureNameList;
+    private List<DropDownList> currencyTypeList;
+    private List<DropDownList> countriesList;
+    private List<DropDownList> commodityTypeList;
+    private List<DropDownList> coverageTypeList;
+    private List<DropDownList> insuringTermsTypeList;
+    private List<DropDownList> claimSurveyorsList;
+    private ClaimInsure claimInsure;
 
     private String certNumber;
 
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
+    @ManagedProperty("#{gennericService}")
+    private GennericService<ClaimInsure> gennericService;
     
     private Date issueDate;
 
     @PostConstruct
     public void init() {
+        LOGGER.debug("init...");
         this.insureTypeList = getInsureTypeList();
-        this.issueDate = new Date();
+        this.insureNameList = dropdownFactory.ddlInsureName();
+        this.currencyTypeList = dropdownFactory.ddlCurrencyType();
+        this.countriesList = dropdownFactory.ddlCountries();
+        this.commodityTypeList = dropdownFactory.ddlCommodityType();
+        this.coverageTypeList = dropdownFactory.ddlCoverageType();
+        this.insuringTermsTypeList = dropdownFactory.ddlInsuringTermsType();
+        this.claimSurveyorsList = dropdownFactory.ddlClaimSurveyors();
+        this.claimInsure = new ClaimInsure();
+        this.claimInsure.setExchangeRate(new BigDecimal("35.64"));
+        this.claimInsure.setIssueDate(new Date());
     }
 
     @Override
     public void resetForm() {
-
+        init();
+    }
+    
+    public void save(){
+        LOGGER.debug("save : {}",this.claimInsure);
+        gennericService.create(claimInsure);
     }
 
     public void selectInsureType(String selectedInsureType) {
@@ -132,6 +160,90 @@ public class InsuranceFormController extends BaseController {
      */
     public void setIssueDate(Date issueDate) {
         this.issueDate = issueDate;
+    }
+
+    /**
+     * @return the insureNameList
+     */
+    public List<DropDownList> getInsureNameList() {
+        return insureNameList;
+    }
+
+    /**
+     * @param insureNameList the insureNameList to set
+     */
+    public void setInsureNameList(List<DropDownList> insureNameList) {
+        this.insureNameList = insureNameList;
+    }
+
+    /**
+     * @return the claimInsure
+     */
+    public ClaimInsure getClaimInsure() {
+        return claimInsure;
+    }
+
+    /**
+     * @param claimInsure the claimInsure to set
+     */
+    public void setClaimInsure(ClaimInsure claimInsure) {
+        this.claimInsure = claimInsure;
+    }
+
+    /**
+     * @return the currencyTypeList
+     */
+    public List<DropDownList> getCurrencyTypeList() {
+        return currencyTypeList;
+    }
+
+    /**
+     * @return the countriesList
+     */
+    public List<DropDownList> getCountriesList() {
+        return countriesList;
+    }
+
+    /**
+     * @return the commodityTypeList
+     */
+    public List<DropDownList> getCommodityTypeList() {
+        return commodityTypeList;
+    }
+
+    /**
+     * @return the coverageTypeList
+     */
+    public List<DropDownList> getCoverageTypeList() {
+        return coverageTypeList;
+    }
+
+    /**
+     * @return the insuringTermsType
+     */
+    public List<DropDownList> getInsuringTermsTypeList() {
+        return insuringTermsTypeList;
+    }
+
+    /**
+     * @return the claimSurveyorsList
+     */
+    public List<DropDownList> getClaimSurveyorsList() {
+        return claimSurveyorsList;
+    }
+
+    /**
+     * @return the gennericService
+     */
+    public GennericService<ClaimInsure> getGennericService() {
+        return gennericService;
+    }
+
+    /**
+     * @param gennericService the gennericService to set
+     */
+    public void setGennericService(GennericService<ClaimInsure> gennericService) {
+        this.gennericService = gennericService;
     }
 
 }

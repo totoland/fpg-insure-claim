@@ -449,5 +449,7 @@ c{float:left;}
 }
 
 .requireField{
-    /* Todo */
+    vertical-align: super;
+    color: red;
+    padding: 5px;
 }
