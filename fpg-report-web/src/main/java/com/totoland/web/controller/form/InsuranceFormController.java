@@ -7,6 +7,7 @@ package com.totoland.web.controller.form;
 
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
+import com.totoland.db.enums.InsureState;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.GennericService;
@@ -63,7 +64,8 @@ public class InsuranceFormController extends BaseController {
         this.coverageTypeList = dropdownFactory.ddlCoverageType();
         this.insuringTermsTypeList = dropdownFactory.ddlInsuringTermsType();
         this.claimSurveyorsList = dropdownFactory.ddlClaimSurveyors();
-        this.claimInsure = new ClaimInsure();
+        this.claimInsure = new ClaimInsure(0);
+        this.claimInsure.setClaimStatusId(InsureState.NEW.getState());
         this.claimInsure.setExchangeRate(new BigDecimal("35.64"));
         this.claimInsure.setIssueDate(new Date());
     }
@@ -73,16 +75,41 @@ public class InsuranceFormController extends BaseController {
         init();
     }
     
-    public void save(){
+    public void save(int state){
+        this.claimInsure.setCreatedBy(1);
+        this.claimInsure.setCreatedDateTime(new Date());
+        this.claimInsure.setClaimStatusId(state);
         LOGGER.debug("save : {}",this.claimInsure);
         gennericService.create(claimInsure);
     }
-
-    public void selectInsureType(String selectedInsureType) {
-        LOGGER.debug("selectInsureType : {}", selectedInsureType);
-        this.insureType = selectedInsureType;
+    
+    public void edit(int state){
+        this.claimInsure.setUpdatedBy(1);
+        this.claimInsure.setUpdatedDateTime(new Date());
+        this.claimInsure.setClaimStatusId(state);
+        LOGGER.debug("edit : {}",this.claimInsure);
+        gennericService.create(claimInsure);
     }
 
+    public String getCurrentStatus(int claimStatusId){
+        return InsureState.toStateName(claimStatusId);
+    }
+    
+    public void selectInsureType(String selectedInsureType) {
+        this.insureType = findInsureType(selectedInsureType);
+        this.claimInsure.setMethodOfTransportId(Integer.parseInt(selectedInsureType));
+    }
+
+    private String findInsureType(String selectedInsureType){
+        for(DropDownList ddl : dropdownFactory.ddlInsureTypesList()){
+            if(ddl.getValue().equals(selectedInsureType)){
+                return ddl.getName();
+            }
+        }
+        
+        return null;
+    }
+    
     /**
      * @return the insureTypeList
      */
