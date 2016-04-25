@@ -44,7 +44,6 @@ public class ClaimInsure implements Serializable {
     private Integer insuredId;
     @Column(name = "consignee_name")
     private String consigneeName;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "amount_of_insurance")
     private BigDecimal amountOfInsurance;
     @Column(name = "deductible_amount")
@@ -55,8 +54,8 @@ public class ClaimInsure implements Serializable {
     private BigDecimal exchangeRate;
     @Column(name = "local_amount_of_insurance")
     private BigDecimal localAmountOfInsurance;
-    @Column(name = "origin_country_id")
-    private Integer originCountryId;
+    @Column(name = "origin_country_code")
+    private String originCountryCode;
     @Column(name = "origin_state_prov")
     private String originStateProv;
     @Lob
@@ -64,8 +63,8 @@ public class ClaimInsure implements Serializable {
     private String originDescription;
     @Column(name = "transshipment_port")
     private String transshipmentPort;
-    @Column(name = "destination_country_id")
-    private Integer destinationCountryId;
+    @Column(name = "destination_country_code")
+    private String destinationCountryCode;
     @Column(name = "destination_state_prov")
     private String destinationStateProv;
     @Lob
@@ -109,13 +108,13 @@ public class ClaimInsure implements Serializable {
     private Integer claimSurveyorId;
     @Column(name = "claim_payable_at")
     private String claimPayableAt;
-    @Column(name = "created_date_time")
+    @Column(name = "created_date_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDateTime;
     @Column(name = "updated_date_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDateTime;
-    @Column(name = "created_by")
+    @Column(name = "created_by", updatable = false)
     private Integer createdBy;
     @Column(name = "updated_by")
     private Integer updatedBy;
@@ -195,7 +194,7 @@ public class ClaimInsure implements Serializable {
         return currencyType;
     }
 
-    public void setCurrencyTypeId(String currencyType) {
+    public void setCurrencyType(String currencyType) {
         this.currencyType = currencyType;
     }
 
@@ -215,12 +214,12 @@ public class ClaimInsure implements Serializable {
         this.localAmountOfInsurance = localAmountOfInsurance;
     }
 
-    public Integer getOriginCountryId() {
-        return originCountryId;
+    public String getOriginCountryCode() {
+        return originCountryCode;
     }
 
-    public void setOriginCountryId(Integer originCountryId) {
-        this.originCountryId = originCountryId;
+    public void setOriginCountryCode(String originCountryCode) {
+        this.originCountryCode = originCountryCode;
     }
 
     public String getOriginStateProv() {
@@ -247,12 +246,12 @@ public class ClaimInsure implements Serializable {
         this.transshipmentPort = transshipmentPort;
     }
 
-    public Integer getDestinationCountryId() {
-        return destinationCountryId;
+    public String getDestinationCountryCode() {
+        return destinationCountryCode;
     }
 
-    public void setDestinationCountryId(Integer destinationCountryId) {
-        this.destinationCountryId = destinationCountryId;
+    public void setDestinationCountryCode(String destinationCountryCode) {
+        this.destinationCountryCode = destinationCountryCode;
     }
 
     public String getDestinationStateProv() {
@@ -461,6 +460,6 @@ public class ClaimInsure implements Serializable {
 
     @Override
     public String toString() {
-        return "ClaimInsure{" + "claimId=" + claimId + ", policyNumber=" + policyNumber + ", certificationNumber=" + certificationNumber + ", claimStatusId=" + claimStatusId + ", insuredId=" + insuredId + ", consigneeName=" + consigneeName + ", amountOfInsurance=" + amountOfInsurance + ", deductibleAmount=" + deductibleAmount + ", currencyType=" + currencyType + ", exchangeRate=" + exchangeRate + ", localAmountOfInsurance=" + localAmountOfInsurance + ", originCountryId=" + originCountryId + ", originStateProv=" + originStateProv + ", originDescription=" + originDescription + ", transshipmentPort=" + transshipmentPort + ", destinationCountryId=" + destinationCountryId + ", destinationStateProv=" + destinationStateProv + ", destinationDescription=" + destinationDescription + ", conveyanceName=" + conveyanceName + ", transshipmentVessel=" + transshipmentVessel + ", voyageFlightNumber=" + voyageFlightNumber + ", methodOfTransportId=" + methodOfTransportId + ", invoiceNumber=" + invoiceNumber + ", billOfLadingNumber=" + billOfLadingNumber + ", shipmentDate=" + shipmentDate + ", issueDate=" + issueDate + ", commodityTypeId=" + commodityTypeId + ", commodityDescription=" + commodityDescription + ", marksAndNumbers=" + marksAndNumbers + ", coverageTypeId=" + coverageTypeId + ", valuationId=" + valuationId + ", insuringTermsId=" + insuringTermsId + ", additionalInfomation=" + additionalInfomation + ", claimSurveyorId=" + claimSurveyorId + ", claimPayableAt=" + claimPayableAt + ", createdDateTime=" + createdDateTime + ", updatedDateTime=" + updatedDateTime + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + '}';
+        return "ClaimInsure{" + "claimId=" + claimId + ", policyNumber=" + policyNumber + ", certificationNumber=" + certificationNumber + ", claimStatusId=" + claimStatusId + ", insuredId=" + insuredId + ", consigneeName=" + consigneeName + ", amountOfInsurance=" + amountOfInsurance + ", deductibleAmount=" + deductibleAmount + ", currencyType=" + currencyType + ", exchangeRate=" + exchangeRate + ", localAmountOfInsurance=" + localAmountOfInsurance + ", originCountryCode=" + originCountryCode + ", originStateProv=" + originStateProv + ", originDescription=" + originDescription + ", transshipmentPort=" + transshipmentPort + ", destinationCountryCode=" + destinationCountryCode + ", destinationStateProv=" + destinationStateProv + ", destinationDescription=" + destinationDescription + ", conveyanceName=" + conveyanceName + ", transshipmentVessel=" + transshipmentVessel + ", voyageFlightNumber=" + voyageFlightNumber + ", methodOfTransportId=" + methodOfTransportId + ", invoiceNumber=" + invoiceNumber + ", billOfLadingNumber=" + billOfLadingNumber + ", shipmentDate=" + shipmentDate + ", issueDate=" + issueDate + ", commodityTypeId=" + commodityTypeId + ", commodityDescription=" + commodityDescription + ", marksAndNumbers=" + marksAndNumbers + ", coverageTypeId=" + coverageTypeId + ", valuationId=" + valuationId + ", insuringTermsId=" + insuringTermsId + ", additionalInfomation=" + additionalInfomation + ", claimSurveyorId=" + claimSurveyorId + ", claimPayableAt=" + claimPayableAt + ", createdDateTime=" + createdDateTime + ", updatedDateTime=" + updatedDateTime + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + '}';
     }
 }
