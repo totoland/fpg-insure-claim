@@ -451,5 +451,10 @@ c{float:left;}
 .requireField{
     vertical-align: super;
     color: red;
-    padding: 5px;
+}
+
+.ui-message-info, .ui-message-error, .ui-message-warn, .ui-message-fatal {
+    border: 1px solid;
+    margin: 0 0px!important;
+    padding: 2px 5px;
 }
