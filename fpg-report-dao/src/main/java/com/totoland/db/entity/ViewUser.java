@@ -9,6 +9,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
  *
@@ -42,6 +43,8 @@ public class ViewUser extends DomainEntity{
     private Integer userGroupLvl;
     @Column(name ="GROUP_LVL_NAME")
     private String userGroupLvlName;
+    @Transient
+    private String sessionId;
     
     /**
      * @return the userId
@@ -255,9 +258,22 @@ public class ViewUser extends DomainEntity{
         this.userGroupLvlName = userGroupLvlName;
     }
 
+    /**
+     * @return the sessionId
+     */
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    /**
+     * @param sessionId the sessionId to set
+     */
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
     @Override
     public String toString() {
-        return "ViewUser{" + "userId=" + userId + ", username=" + username + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupName=" + userGroupName + ", userGroupLvl=" + userGroupLvl + ", userGroupLvlName=" + userGroupLvlName + '}';
+        return "ViewUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupName=" + userGroupName + ", userGroupLvl=" + userGroupLvl + ", userGroupLvlName=" + userGroupLvlName + ", sessionId=" + sessionId + '}';
     }
-    
 }
