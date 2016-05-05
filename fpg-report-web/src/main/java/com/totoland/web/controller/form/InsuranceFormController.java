@@ -7,10 +7,14 @@ package com.totoland.web.controller.form;
 
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
+import com.totoland.db.enums.CertificateType;
 import com.totoland.db.enums.InsureState;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
+import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.GennericService;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +22,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import org.apache.commons.lang3.RandomStringUtils;
+import javax.faces.context.FacesContext;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,8 +56,11 @@ public class InsuranceFormController extends BaseController {
     private DropdownFactory dropdownFactory;
     @ManagedProperty("#{gennericService}")
     private GennericService<ClaimInsure> gennericService;
-    
+    @ManagedProperty("#{certificateService}")
+    private CertificateService certificateService;
+
     private Date issueDate;
+    private StreamedContent certificateFile;
 
     @PostConstruct
     public void init() {
@@ -64,6 +73,7 @@ public class InsuranceFormController extends BaseController {
         this.coverageTypeList = dropdownFactory.ddlCoverageType();
         this.insuringTermsTypeList = dropdownFactory.ddlInsuringTermsType();
         this.claimSurveyorsList = dropdownFactory.ddlClaimSurveyors();
+        this.certNumber = null;
         this.claimInsure = new ClaimInsure(0);
         this.claimInsure.setClaimStatusId(InsureState.NEW.getState());
         this.claimInsure.setExchangeRate(new BigDecimal("35.64"));
@@ -74,42 +84,55 @@ public class InsuranceFormController extends BaseController {
     public void resetForm() {
         init();
     }
-    
-    public void save(int state){
+
+    public void save(int state) {
         this.claimInsure.setCreatedBy(1);
         this.claimInsure.setCreatedDateTime(new Date());
         this.claimInsure.setClaimStatusId(state);
-        LOGGER.debug("save : {}",this.claimInsure);
-        gennericService.create(claimInsure);
-    }
-    
-    public void edit(int state){
-        this.claimInsure.setUpdatedBy(1);
-        this.claimInsure.setUpdatedDateTime(new Date());
-        this.claimInsure.setClaimStatusId(state);
-        LOGGER.debug("edit : {}",this.claimInsure);
+        LOGGER.debug("save : {}", this.claimInsure);
         gennericService.create(claimInsure);
     }
 
-    public String getCurrentStatus(int claimStatusId){
+    public void edit(int state) {
+        this.claimInsure.setUpdatedBy(1);
+        this.claimInsure.setUpdatedDateTime(new Date());
+        this.claimInsure.setClaimStatusId(state);
+        LOGGER.debug("edit : {}", this.claimInsure);
+        gennericService.create(claimInsure);
+    }
+
+    public void printCert() {
+        //TODO: Save and Call export pdf
+        this.certNumber = certificateService.getCertificateNO(insureType);
+        this.claimInsure.setCertificationNumber(certNumber);
+        //gennericService.edit(this.claimInsure);
+        LOGGER.info("Print Certificate number : {} by user {}", certNumber, getUserAuthen().getUserId());
+
+    }
+
+    public void exportCert(CertificateType type) {
+
+    }
+
+    public String getCurrentStatus(int claimStatusId) {
         return InsureState.toStateName(claimStatusId);
     }
-    
+
     public void selectInsureType(String selectedInsureType) {
         this.insureType = findInsureType(selectedInsureType);
         this.claimInsure.setMethodOfTransportId(Integer.parseInt(selectedInsureType));
     }
 
-    private String findInsureType(String selectedInsureType){
-        for(DropDownList ddl : dropdownFactory.ddlInsureTypesList()){
-            if(ddl.getValue().equals(selectedInsureType)){
+    private String findInsureType(String selectedInsureType) {
+        for (DropDownList ddl : dropdownFactory.ddlInsureTypesList()) {
+            if (ddl.getValue().equals(selectedInsureType)) {
                 return ddl.getName();
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * @return the insureTypeList
      */
@@ -156,15 +179,6 @@ public class InsuranceFormController extends BaseController {
      * @return the certNumber
      */
     public String getCertNumber() {
-        certNumber = "";
-        if (insureType != null || !insureType.trim().isEmpty() && insureType.length()>1) {
-            try{
-                certNumber = insureType.substring(0,1).toUpperCase();
-            }catch(Exception ex){}
-        }
-
-        certNumber += RandomStringUtils.randomNumeric(7);
-
         return certNumber;
     }
 
@@ -273,4 +287,35 @@ public class InsuranceFormController extends BaseController {
         this.gennericService = gennericService;
     }
 
+    public CertificateService getCertificateService() {
+        return certificateService;
+    }
+
+    public void setCertificateService(CertificateService certificateService) {
+        this.certificateService = certificateService;
+    }
+
+    /**
+     * @return the certificateFile
+     */
+    public StreamedContent getCertificateFile() {
+//        printCert();
+        LOGGER.debug("export CertificateType : {}",CertificateType.ORIGINAL);
+
+        //TODO:Download PDF
+        try {
+            InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/template/OPEN_COVER_BY_AIR1.pdf");
+            return new DefaultStreamedContent(stream, "application/pdf", "OPEN_COVER_BY_AIR1.pdf");
+        } catch (Exception ex) {
+            LOGGER.error("download error ",ex);
+            return null;
+        }
+    }
+
+    /**
+     * @param certificateFile the certificateFile to set
+     */
+    public void setCertificateFile(StreamedContent certificateFile) {
+        this.certificateFile = certificateFile;
+    }
 }

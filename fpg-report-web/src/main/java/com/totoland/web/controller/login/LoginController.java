@@ -37,6 +37,8 @@ public class LoginController extends BaseController {
     private boolean loggedIn = false;
     @ManagedProperty("#{localeBean}")
     private LocaleBean localeBean;
+    
+    public String sessionId;
 
     @PostConstruct
     public void init() {
@@ -46,9 +48,11 @@ public class LoginController extends BaseController {
 
     public void loginProcess() {
 
-        MDC.put("reqId", WebUtils.generateToken());
+        sessionId = WebUtils.generateToken();
+        
+        MDC.put("reqId", sessionId);
 
-        logger.info("loginProcessxxx!!");
+        logger.info("loginProcess...");
 
         logger.info("userName : {} , passWord : {}", userName, "********");
 
@@ -99,7 +103,9 @@ public class LoginController extends BaseController {
         }
 
         loggedIn = true;
-
+        
+        //Session Id for tag UNIQ key for each user login
+        loginUser.setSessionId(sessionId);
         super.getRequest().getSession().setAttribute("userAuthen", loginUser);
 
         addInfo(MessageUtils.getResourceBundleString("login.loginprocess"));
