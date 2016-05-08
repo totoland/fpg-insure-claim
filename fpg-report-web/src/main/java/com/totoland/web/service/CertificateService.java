@@ -5,6 +5,10 @@
  */
 package com.totoland.web.service;
 
+import com.totoland.db.bean.CertifaicationCriteria;
+import com.totoland.db.bean.ViewCertificate;
+import java.util.List;
+
 /**
  *
  * @author totoland
@@ -12,4 +16,5 @@ package com.totoland.web.service;
 public interface CertificateService {
 
     String getCertificateNO(String insureType);
+    List<ViewCertificate>searchCertificate(CertifaicationCriteria criteria);
 }

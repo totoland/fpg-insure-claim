@@ -119,11 +119,11 @@ public class DropdownFactory implements Serializable {
         criteria.setValue("USER_ID");
         criteria.setSortName("ASC");
         criteria.setCondition("USER_GROUP_LVL = 3");
-        
+
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
+
     public List<DropDownList> ddlBroker() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -133,11 +133,11 @@ public class DropdownFactory implements Serializable {
         criteria.setName("BROKER_NAME");
         criteria.setValue("BROKER_ID");
         criteria.setSortName("ASC");
-        
+
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
+
     public List<DropDownList> ddlProduct() {
 
         List<DropDownList> insureTypes = new ArrayList<>();
@@ -147,7 +147,7 @@ public class DropdownFactory implements Serializable {
 
         return insureTypes;
     }
-    
+
     public List<DropDownList> ddlInsureName() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -157,11 +157,11 @@ public class DropdownFactory implements Serializable {
         criteria.setName("insured_name");
         criteria.setValue("insured_id");
         criteria.setSortName("ASC");
-        
+
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
+
     public List<DropDownList> ddlCurrencyType() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -171,11 +171,11 @@ public class DropdownFactory implements Serializable {
         criteria.setName("currency_name");
         criteria.setValue("currency_code");
         criteria.setSortName("ASC");
-        
+
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
+
     public List<DropDownList> ddlCountries() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -185,11 +185,11 @@ public class DropdownFactory implements Serializable {
         criteria.setName("country_name");
         criteria.setValue("country_code");
         criteria.setSortName("ASC");
-        
+
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
+
     public List<DropDownList> ddlCommodityType() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -199,11 +199,11 @@ public class DropdownFactory implements Serializable {
         criteria.setName("commodity_type_name");
         criteria.setValue("commodity_type_id");
         criteria.setSortName("ASC");
-        
+
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
+
     public List<DropDownList> ddlCoverageType() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -213,11 +213,11 @@ public class DropdownFactory implements Serializable {
         criteria.setName("coverage_type_name");
         criteria.setValue("coverage_type_id");
         criteria.setSortName("ASC");
-        
+
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
+
     public List<DropDownList> ddlInsuringTermsType() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -227,11 +227,11 @@ public class DropdownFactory implements Serializable {
         criteria.setName("insuring_terms_name");
         criteria.setValue("insuring_terms_id");
         criteria.setSortName("ASC");
-        
+
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
+
     public List<DropDownList> ddlClaimSurveyors() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -241,8 +241,25 @@ public class DropdownFactory implements Serializable {
         criteria.setName("surveyor_name");
         criteria.setValue("surveyor_id");
         criteria.setSortName("ASC");
-        
+
         customers = commonService.getDropdownList(criteria);
         return customers;
+    }
+
+    private static List<DropDownList> claimStatus;
+
+    public List<DropDownList> ddlStatus() {
+        if (claimStatus == null) {
+            claimStatus = new ArrayList<>();
+            DropDownList criteria = new DropDownList();
+            criteria.setTableName("claim_status");
+            criteria.setOrderByField("claim_status_name");
+            criteria.setName("claim_status_name");
+            criteria.setValue("claim_status_id");
+            criteria.setSortName("ASC");
+
+            claimStatus = commonService.getDropdownList(criteria);
+        }
+        return claimStatus;
     }
 }

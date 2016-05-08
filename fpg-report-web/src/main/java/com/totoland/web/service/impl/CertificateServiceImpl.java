@@ -23,8 +23,13 @@
  */
 package com.totoland.web.service.impl;
 
+import com.totoland.db.bean.CertifaicationCriteria;
+import com.totoland.db.bean.ViewCertificate;
+import com.totoland.db.certificate.dao.CertificateDao;
 import com.totoland.web.service.CertificateService;
+import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,6 +38,9 @@ import org.springframework.stereotype.Service;
  */
 @Service(value = "certificateService")
 public class CertificateServiceImpl implements CertificateService{
+    
+    @Autowired
+    CertificateDao certificateDao;
     
     @Override
     public String getCertificateNO(String insureType){
@@ -48,4 +56,8 @@ public class CertificateServiceImpl implements CertificateService{
         return certNumber;
     }
     
+    @Override
+    public List<ViewCertificate>searchCertificate(CertifaicationCriteria criteria){
+        return certificateDao.findByCriteria(criteria);
+    }
 }
