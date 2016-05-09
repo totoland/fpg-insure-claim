@@ -21,6 +21,11 @@
         <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
         <param-value>/WEB-INF/primefaces-adamantium.taglib.xml</param-value>
     </context-param>
+    <!-- Load custom tag into JSF web application -->
+    <context-param>
+        <param-name>facelets.LIBRARIES</param-name>
+        <param-value>/WEB-INF/disablepanel.taglib.xml</param-value>
+    </context-param>
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>#{themeSwitcherController.theme}</param-value>

@@ -19,7 +19,7 @@ import sun.misc.BASE64Encoder;
 public class WebUtils {
 
     public static String generateToken() {
-        return UUID.randomUUID().toString().replaceAll("-", "");
+        return UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
     }
 
     public static void main(String args[]) throws Exception {

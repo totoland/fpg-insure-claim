@@ -26,6 +26,7 @@ package com.totoland.web.service.impl;
 import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.certificate.dao.CertificateDao;
+import com.totoland.db.entity.ClaimInsure;
 import com.totoland.web.service.CertificateService;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -59,5 +60,10 @@ public class CertificateServiceImpl implements CertificateService{
     @Override
     public List<ViewCertificate>searchCertificate(CertifaicationCriteria criteria){
         return certificateDao.findByCriteria(criteria);
+    }
+    
+    @Override
+    public ClaimInsure findByTrxId(String trxId){
+        return certificateDao.findByTrxId(trxId);
     }
 }

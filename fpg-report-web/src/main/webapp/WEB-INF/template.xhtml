@@ -31,16 +31,16 @@
             <div id="layout-portlets-cover">
 
                 <ui:insert name="content">
-                    
+
                 </ui:insert>
 
                 <ui:include src="footer.xhtml" />
 
             </div>
 
-            <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+            <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px"
+                          onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
                 <f:facet name="start">
-                    <p:graphicImage name="images/preloader.gif" library="adamantium-layout"/>
                 </f:facet>
 
                 <f:facet name="complete">
@@ -48,6 +48,10 @@
                 </f:facet>
             </p:ajaxStatus>
 
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" 
+                      closable="false" resizable="false" showHeader="false">
+                <p:graphicImage name="images/preloader.gif" library="adamantium-layout"/>
+            </p:dialog>
             <h:outputStylesheet name="css/core-layout.css" library="adamantium-layout" />
             <h:outputStylesheet name="css/animate.css" library="adamantium-layout" />
             <h:outputStylesheet name="css/adamantium-font.css" library="adamantium-layout" />

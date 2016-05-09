@@ -43,6 +43,17 @@ public class InsuranceManagementController extends BaseController{
         listViewCertificate = certificateService.searchCertificate(getCriteria());
     }
     
+    public String findMethodTransport(String methodType){
+        List<DropDownList>dropDownLists = dropdownFactory.ddlInsureTypesList();
+        for(DropDownList ddl : dropDownLists){
+            if(ddl.getValue().equals(methodType)){
+                return ddl.getName();
+            }
+        }
+        
+        return null;
+    }
+    
     public void prepareView(){
     
     }

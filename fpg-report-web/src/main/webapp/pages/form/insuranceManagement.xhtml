@@ -105,28 +105,37 @@
                             Search Result
                         </f:facet>
 
-                        <p:column headerText="#{msg.label_cert_no}" sortBy="#{car.id}" footerText="#{msg.label_company_code}">
+                        <p:column headerText="#{msg.label_cert_no}" 
+                                  sortBy="#{item.certificationNumber}" footerText="#{msg.label_company_code}">
                             <h:outputText value="#{item.certificationNumber}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_Policy_number}" sortBy="#{car.year}" footerText="#{msg.label_Policy_number}">
+                        <p:column headerText="#{msg.label_Policy_number}" 
+                                  sortBy="#{item.policyNumber}" footerText="#{msg.label_Policy_number}">
                             <h:outputText value="#{item.policyNumber}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{car.brand}" footerText="#{msg.label_insured_name}">
+<!--                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{item.insuredName}" footerText="#{msg.label_insured_name}">
                             <h:outputText value="#{item.insuredName}" />
+                        </p:column>-->
+                        <p:column headerText="#{msg.label_method_of_transport}" 
+                                  width="150"
+                                  sortBy="#{item.transportMethod}" 
+                                  footerText="#{msg.label_method_of_transport}">
+                            <h:outputText value="#{insuranceManagementController.findMethodTransport(item.transportMethod)}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_method_of_transport}" sortBy="#{car.color}" footerText="#{msg.label_method_of_transport}">
-                            <h:outputText value="#{item.transportMethod}" />
-                        </p:column>
-                        <p:column headerText="#{msg.label_status}" sortBy="#{car.color}" footerText="#{msg.label_method_of_transport}">
+                        <p:column headerText="#{msg.label_status}" width="70"
+                                  sortBy="#{item.statusName}" 
+                                  footerText="#{msg.label_status}">
                             <h:outputText value="#{item.statusName}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_issue_date}" sortBy="#{car.color}" footerText="#{msg.label_issue_date}">
+                        <p:column headerText="#{msg.label_issue_date}" 
+                                  width="120"
+                                  sortBy="#{item.issueDate}" footerText="#{msg.label_issue_date}">
                             <h:outputText value="#{item.issueDate}">
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
                         <p:column>
-                            <p:button value="#{msg.btn_edit}" styleClass="CyanButton" onclick="window.location = 'insuranceForm.xhtml';return false;"/>
+                            <p:button value="#{msg.btn_edit}" styleClass="CyanButton" onclick="window.location = 'insuranceForm.xhtml?id=#{item.trxId}';return false;"/>
                             <p:commandButton value="#{msg.btn_reject}" styleClass="PinkButton RaisedButton"/>
                         </p:column>
                     </p:dataTable>

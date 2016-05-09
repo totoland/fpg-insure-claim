@@ -7,6 +7,7 @@ package com.totoland.web.service;
 
 import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
+import com.totoland.db.entity.ClaimInsure;
 import java.util.List;
 
 /**
@@ -16,5 +17,8 @@ import java.util.List;
 public interface CertificateService {
 
     String getCertificateNO(String insureType);
-    List<ViewCertificate>searchCertificate(CertifaicationCriteria criteria);
+
+    List<ViewCertificate> searchCertificate(CertifaicationCriteria criteria);
+
+    ClaimInsure findByTrxId(String trxId);
 }

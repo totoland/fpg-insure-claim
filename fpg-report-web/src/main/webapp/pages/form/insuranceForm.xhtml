@@ -5,6 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:toto="http://java.sun.com/jsf/composite/components"
                 template="/WEB-INF/template.xhtml"
+                xmlns:fnc="http://myco.co.uk/fnc"
                 >
 
     <ui:define name="subheader">
@@ -44,7 +45,7 @@
                                     <h:outputLabel value=""/>
                                     <h:outputLabel value=""/>
                                     <h:outputLabel value="#{msg.label_method_of_transport}" rendered="false"/>
-                                    <h:outputLabel id="selectInsureType" value="#{insuranceFormController.insureType}" rendered="false"/>
+                                    <h:outputLabel id="selectInsureType" value="#{insuranceFormController.claimInsure.methodOfTransportId}" rendered="false"/>
                                 </p:panelGrid>
                             </div>
                         </div>
@@ -66,7 +67,7 @@
                         </div>
 
                         <div class="SeparatorFull"></div>
-
+                        <fnc:disablePanel disabled="#{insuranceFormController.readOnly}">
                         <p:panelGrid id="pnGrid" 
                                      columns="4" 
                                      columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
@@ -286,7 +287,7 @@
                             <h:outputLabel value="#{msg.fpg_company_name}"/>
 
                         </p:panelGrid>
-
+                        </fnc:disablePanel>
                         <div class="Container50 Responsive50">
                             <div class="ContainerIndent">
                                 <!--<h2 class="BigTopic">TextArea</h2>-->
@@ -306,17 +307,33 @@
                             <f:facet name="right">
                                 <p:commandButton value="#{msg.btn_save_draft}" 
                                                  icon="fa fa-save Fs14 White"
-                                                 update="form:pnGrid"
+                                                 update="@form"
+                                                 oncomplete="PF('dlgSave').show();"
                                                  action="#{insuranceFormController.save(2)}"/>
-
-                                <p:commandButton type="button" value="#{msg.btn_discard}" icon="fa fa-trash Fs14 Resd" styleClass="RedButton">
-                                    <p:confirm header="#{msg.confirmation_head}" message="#{msg.confirmation_message_delete}?" icon="ui-icon-alert" />
+                                <p:dialog widgetVar="dlgSave" modal="true">
+                                    <p:messages id="messages" closable="false"/>
+                                </p:dialog>
+                                <p:commandButton type="button" value="#{msg.btn_discard}" 
+                                                 icon="fa fa-trash Fs14 Resd" styleClass="RedButton"
+                                                 onclick="PF('cmfDiscard').show()">
                                 </p:commandButton>
+                                <p:confirmDialog widgetVar="cmfDiscard" showEffect="fade" hideEffect="fade" 
+                                                 header="#{msg.confirmation_head}" message="#{msg.confirmation_message_delete}?">
+                                    <p:commandButton value="#{msg.yes}" 
+                                                     action="#{insuranceFormController.cancel(param.trxId)}"
+                                                     oncomplete="PF('cmfDiscard').hide();PF('dlgCancel').show()" update="messagesDiscard"
+                                                     immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
 
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                </p:confirmDialog>
+
+                                <p:dialog widgetVar="dlgCancel" modal="true" onHide="window.location = 'insuranceForm.xhtml'">
+                                    <p:messages id="messagesDiscard" closable="false"/>
+                                </p:dialog> 
                                 <p:commandButton value="#{msg.btn_print_cert}" immediate="true"
                                                  icon="fa fa-save Fs14 White" styleClass="GreenButton" 
-                                                 ajax="false">
-                                    <p:fileDownload value="#{insuranceFormController.certificateFile}"/>
+                                                 type="button" onclick="PF('printPopup').show()">
                                 </p:commandButton>
 
                                 <p:confirmDialog widgetVar="printPopup" 
@@ -324,21 +341,17 @@
                                                  message="#{msg.msg_confirm_save}"
                                                  showEffect="fade" hideEffect="fade">
                                     <p:commandButton value="#{msg.yes}" 
-                                                     ajax="false"
+                                                     ajax="false" onclick="PF('printPopup').hide()"
+                                                     process="this"
                                                      immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
                                         <p:fileDownload value="#{insuranceFormController.certificateFile}"/>
                                     </p:commandButton>
-                                    <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                    <p:commandButton value="#{msg.btn_cancel}"
+                                                     onclick="PF('printPopup').hide()"
+                                                     type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
-                                
-                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                    <p:commandButton value="#{msg.yes}" 
-                                                     action="#{insuranceFormController.save()}"
-                                                     immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
-                                        <p:fileDownload value="#{insuranceFormController.certificateFile}"/>
-                                    </p:commandButton>
-                                    <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
-                                </p:confirmDialog>
+
+
                             </f:facet>
 
                         </p:toolbar>

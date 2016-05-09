@@ -70,6 +70,14 @@ public class MessageUtils {
     public static String SAVE_NOT_SUCCESS() {
         return getResourceBundleString("save_not_success");
     }
+    
+    public static String DISCARD_SUCCESS() {
+        return getResourceBundleString("discard_success");
+    }
+    
+    public static String DISCARD_FAIL() {
+        return getResourceBundleString("discard_not_success");
+    }
 
     public static String PRINT_LINE_STAR() {
         return getResourceBundleString("print_line_star");
