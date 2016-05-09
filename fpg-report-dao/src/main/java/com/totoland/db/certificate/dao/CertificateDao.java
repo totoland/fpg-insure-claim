@@ -25,6 +25,7 @@ package com.totoland.db.certificate.dao;
 
 import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
+import com.totoland.db.entity.ClaimInsure;
 import java.util.List;
 
 /**
@@ -34,4 +35,6 @@ import java.util.List;
 public interface CertificateDao {
 
     List<ViewCertificate> findByCriteria(CertifaicationCriteria criteria);
+
+    ClaimInsure findByTrxId(String trxId);
 }

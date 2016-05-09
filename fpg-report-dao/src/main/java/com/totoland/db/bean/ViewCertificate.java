@@ -55,7 +55,9 @@ public class ViewCertificate implements Serializable{
     @Column(name = "issue_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date issueDate;
-
+    @Column(name = "trx_id")
+    private String trxId;
+    
     public Long getClaimId() {
         return claimId;
     }
@@ -112,8 +114,17 @@ public class ViewCertificate implements Serializable{
         this.issueDate = issueDate;
     }
 
+    public String getTrxId() {
+        return trxId;
+    }
+
+    public void setTrxId(String trxId) {
+        this.trxId = trxId;
+    }
+
     @Override
     public String toString() {
-        return "ViewCertificate{" + "claimId=" + claimId + ", certificationNumber=" + certificationNumber + ", policyNumber=" + policyNumber + ", insuredName=" + insuredName + ", transportMethod=" + transportMethod + ", statusName=" + statusName + ", issueDate=" + issueDate + '}';
+        return "ViewCertificate{" + "claimId=" + claimId + ", certificationNumber=" + certificationNumber + ", policyNumber=" + policyNumber + ", insuredName=" + insuredName + ", transportMethod=" + transportMethod + ", statusName=" + statusName + ", issueDate=" + issueDate + ", trxId=" + trxId + '}';
     }
+    
 }

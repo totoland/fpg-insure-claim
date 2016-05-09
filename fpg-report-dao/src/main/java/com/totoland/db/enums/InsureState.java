@@ -31,7 +31,7 @@ public enum InsureState {
 
     NEW(1, "New Entry"),
     DRAFT(2, "DRAFT"),
-    SAVE(3, "SAVE"),
+    PRINT_CERT(3, "PRINT_CERT"),
     DELETE(0, "DELETE");
 
     private int state = 0;
@@ -56,7 +56,7 @@ public enum InsureState {
         } else if (status == 2) {
             return DRAFT.name;
         } else if (status == 3) {
-            return SAVE.name;
+            return PRINT_CERT.name;
         } else if (status == 0) {
             return DELETE.name;
         } else {

@@ -9,6 +9,7 @@ import com.totoland.db.dao.BaseDao;
 import com.totoland.db.entity.ViewUser;
 import java.io.Serializable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -19,6 +20,7 @@ public class AuthenDaoImpl extends BaseDao implements AuthenDao, Serializable {
 
     private static final long serialVersionUID = -4586932513662487847L;
 
+    @Transactional(readOnly = true)
     @Override
     public ViewUser loginUser(String userName, String passWord) {
         StringBuilder sql = new StringBuilder();

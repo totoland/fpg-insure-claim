@@ -27,9 +27,11 @@ import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.certificate.dao.CertificateDao;
 import com.totoland.db.dao.BaseDao;
+import com.totoland.db.entity.ClaimInsure;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -38,6 +40,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CertificateDaoImpl extends BaseDao implements CertificateDao {
 
+    @Transactional(readOnly = true)
     @Override
     public List<ViewCertificate> findByCriteria(CertifaicationCriteria criteria) {
         String SQL = "SELECT "
@@ -49,7 +52,8 @@ public class CertificateDaoImpl extends BaseDao implements CertificateDao {
                 + "claim_status.claim_status_name, "
                 + "insures.insured_name, "
                 + "claim_insure.method_of_transport_id, "
-                + "claim_insure.issue_date "
+                + "claim_insure.issue_date, "
+                + "claim_insure.trx_id "
                 + "FROM "
                 + "claim_insure "
                 + "INNER JOIN claim_status ON claim_insure.claim_status_id = claim_status.claim_status_id "
@@ -85,5 +89,11 @@ public class CertificateDaoImpl extends BaseDao implements CertificateDao {
 
         return findNativeQuery(SQL, ViewCertificate.class,params);
 
+    }
+    
+    @Transactional(readOnly = true)
+    @Override
+    public ClaimInsure findByTrxId(String trxId){
+        return (ClaimInsure)findUniqNativeQuery("SELECT * FROM claim_insure where trx_id = ?", ClaimInsure.class,trxId);
     }
 }

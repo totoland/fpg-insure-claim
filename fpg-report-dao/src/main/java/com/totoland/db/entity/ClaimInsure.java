@@ -75,7 +75,7 @@ public class ClaimInsure implements Serializable {
     @Column(name = "transshipment_vessel")
     private String transshipmentVessel;
     @Column(name = "voyage_flight_number")
-    private BigDecimal voyageFlightNumber;
+    private String voyageFlightNumber;
     @Column(name = "method_of_transport_id")
     private Integer methodOfTransportId;
     @Column(name = "invoice_number")
@@ -118,7 +118,9 @@ public class ClaimInsure implements Serializable {
     private Integer createdBy;
     @Column(name = "updated_by")
     private Integer updatedBy;
-
+    @Column(name = "trx_id", updatable = false)
+    private String trxId;
+    
     public ClaimInsure() {
     }
 
@@ -286,11 +288,11 @@ public class ClaimInsure implements Serializable {
         this.transshipmentVessel = transshipmentVessel;
     }
 
-    public BigDecimal getVoyageFlightNumber() {
+    public String getVoyageFlightNumber() {
         return voyageFlightNumber;
     }
 
-    public void setVoyageFlightNumber(BigDecimal voyageFlightNumber) {
+    public void setVoyageFlightNumber(String voyageFlightNumber) {
         this.voyageFlightNumber = voyageFlightNumber;
     }
 
@@ -438,6 +440,14 @@ public class ClaimInsure implements Serializable {
         this.updatedBy = updatedBy;
     }
 
+    public String getTrxId() {
+        return trxId;
+    }
+
+    public void setTrxId(String trxId) {
+        this.trxId = trxId;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
