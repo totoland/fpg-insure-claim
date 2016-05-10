@@ -21,46 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.totoland.db.enums;
+package com.totoland.db.keymatch.dao.impl;
+
+import com.totoland.db.dao.BaseDao;
+import com.totoland.db.entity.KeyMatch;
+import com.totoland.db.keymatch.dao.KeyMatchDao;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author totoland
  */
-public enum CertificateType {
+@Repository
+public class KeyMatchDaoImpl extends BaseDao implements KeyMatchDao {
 
-    ORIGINAL(1), DUPPICATE(2), INSURED_COPY(3), PRODUCER_COPY(4), OFFICE_COPY(5), COMPANY_COPY(6);
-
-    int type;
-
-    CertificateType(int type) {
-        this.type = type;
+    @Transactional
+    @Override
+    public void updateKeyMatch(KeyMatch entity) {
+        getHibernateTemplate().merge(entity);
     }
 
-    public static String valueOf(int val) {
-        switch (val) {
-            case 1: {
-                return "ORIGINAL";
-            }
-            case 2: {
-                return "DUPPICATE";
-            }
-            case 3: {
-                return "INSURED_COPY";
-            }
-            case 4: {
-                return "PRODUCER_COPY";
-            }
-            case 5: {
-                return "OFFICE_COPY";
-            }
-            case 6: {
-                return "COMPANY_COPY";
-            }
-            default: {
-                return null;
-            }
-        }
+    @Transactional(readOnly = true)
+    @Override
+    public KeyMatch findByCustomerId(String customerId) {
+        return (KeyMatch) findUniqNativeQuery("SELECT * FROM key_match WHERE CUST_ID=?", KeyMatch.class, customerId);
     }
 
 }

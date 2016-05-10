@@ -33,13 +33,13 @@ public class KeyMatch implements Serializable {
 
     private static final long serialVersionUID = 154353543548L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "KEY_MATCH_ID")
-    private Integer keyMatchId;
     @Basic(optional = false)
     @Column(name = "CUST_ID")
     private int custId;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "KEY_MATCH_ID")
+    private Integer keyMatchId = 0;
     @Column(name = "BROKER_ID")
     private Integer brokerId;
     @Column(name = "OPEN_POLICY_NO")

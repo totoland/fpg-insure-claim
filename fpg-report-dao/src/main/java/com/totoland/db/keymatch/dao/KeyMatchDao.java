@@ -21,46 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.totoland.db.enums;
+package com.totoland.db.keymatch.dao;
+
+import com.totoland.db.entity.KeyMatch;
 
 /**
  *
  * @author totoland
  */
-public enum CertificateType {
+public interface KeyMatchDao {
 
-    ORIGINAL(1), DUPPICATE(2), INSURED_COPY(3), PRODUCER_COPY(4), OFFICE_COPY(5), COMPANY_COPY(6);
+    KeyMatch findByCustomerId(String customerId);
 
-    int type;
-
-    CertificateType(int type) {
-        this.type = type;
-    }
-
-    public static String valueOf(int val) {
-        switch (val) {
-            case 1: {
-                return "ORIGINAL";
-            }
-            case 2: {
-                return "DUPPICATE";
-            }
-            case 3: {
-                return "INSURED_COPY";
-            }
-            case 4: {
-                return "PRODUCER_COPY";
-            }
-            case 5: {
-                return "OFFICE_COPY";
-            }
-            case 6: {
-                return "COMPANY_COPY";
-            }
-            default: {
-                return null;
-            }
-        }
-    }
-
+    void updateKeyMatch(KeyMatch entity);
 }
