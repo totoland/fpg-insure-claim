@@ -21,7 +21,7 @@ import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.KeyMatch;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
-import com.totoland.web.service.KeyMatchingService;
+import com.totoland.web.service.KeyMatchService;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -42,8 +42,9 @@ public class MathchingKeyController extends BaseController{
     
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
-    @ManagedProperty("#{keyMatchingService}")
-    private KeyMatchingService keyMatchingService;
+    
+    @ManagedProperty("#{keyMatchService}")
+    private KeyMatchService keyMatchService;
     
     private KeyMatch keyMatch;
     
@@ -96,19 +97,19 @@ public class MathchingKeyController extends BaseController{
         this.ddlBroker = ddlBroker;
     }
 
-    public KeyMatchingService getKeyMatchingService() {
-        return keyMatchingService;
-    }
-
-    public void setKeyMatchingService(KeyMatchingService keyMatchingService) {
-        this.keyMatchingService = keyMatchingService;
-    }
-
     public KeyMatch getKeyMatch() {
         return keyMatch;
     }
 
     public void setKeyMatch(KeyMatch keyMatch) {
         this.keyMatch = keyMatch;
+    }
+
+    public KeyMatchService getKeyMatchService() {
+        return keyMatchService;
+    }
+
+    public void setKeyMatchService(KeyMatchService keyMatchService) {
+        this.keyMatchService = keyMatchService;
     }
 }

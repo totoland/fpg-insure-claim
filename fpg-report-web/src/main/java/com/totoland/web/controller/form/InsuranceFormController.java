@@ -7,15 +7,17 @@ package com.totoland.web.controller.form;
 
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
+import com.totoland.db.entity.KeyMatch;
 import com.totoland.db.enums.CertificateType;
 import com.totoland.db.enums.InsureState;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.GennericService;
+import com.totoland.web.service.KeyMatchService;
 import com.totoland.web.utils.MessageUtils;
+import com.totoland.web.utils.StringUtils;
 import com.totoland.web.utils.WebUtils;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -60,11 +62,13 @@ public class InsuranceFormController extends BaseController {
     private GennericService<ClaimInsure> gennericService;
     @ManagedProperty("#{certificateService}")
     private CertificateService certificateService;
+    @ManagedProperty("#{keyMatchService}")
+    private KeyMatchService keyMatchService;
 
     private Date issueDate;
     private StreamedContent certificateFile;
     private boolean readOnly;
-    
+
     @PostConstruct
     public void init() {
         LOGGER.debug("init...");
@@ -85,27 +89,34 @@ public class InsuranceFormController extends BaseController {
         this.claimInsure.setClaimStatusId(InsureState.NEW.getState());
         this.claimInsure.setExchangeRate(new BigDecimal("35.64"));
         this.claimInsure.setIssueDate(new Date());
+        KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
+        this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
     }
 
     private void initUpdateMode(String trxId) {
         this.claimInsure = certificateService.findByTrxId(trxId);
-        
-        if(claimInsure == null){
+
+        if (claimInsure == null) {
             LOGGER.warn("TrxId is gone, redirect to create page...");
             super.redirectPage("insuranceForm.xhtml");
             return;
         }
-        
+
         this.certNumber = this.claimInsure.getCertificationNumber();
         this.claimInsure.setClaimStatusId(this.claimInsure.getClaimStatusId());
         this.claimInsure.setExchangeRate(new BigDecimal("35.64"));
 
-        if(this.claimInsure.getClaimStatusId() == InsureState.PRINT_CERT.getState()){
+        //Should not has this case
+        if (StringUtils.isBlank(this.claimInsure.getPolicyNumber())) {
+            LOGGER.warn("Open policyNumber is null try to set default by find customerId...");
+            KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
+            this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
+        }
+
+        if (this.claimInsure.getClaimStatusId() == InsureState.PRINT_CERT.getState()) {
             LOGGER.debug("Transaction has been printed set page to mode readOnly...");
             readOnly = true;
         }
-        
-        LOGGER.debug("initUpdateMode with : {}", claimInsure);
     }
 
     private void initData() {
@@ -163,12 +174,12 @@ public class InsuranceFormController extends BaseController {
             gennericService.remove(claimInsure);
             addInfo(MessageUtils.DISCARD_SUCCESS());
         } catch (Exception e) {
-            LOGGER.error("ERROR for discard with trxId "+trxId,e);
+            LOGGER.error("ERROR for discard with trxId " + trxId, e);
             addError(MessageUtils.DISCARD_FAIL());
         }
     }
 
-    public void printCert() {
+    public void genCertificate() {
         //TODO: Save and Call export pdf
         this.certNumber = certificateService.getCertificateNO(insureType);
         this.claimInsure.setCertificationNumber(certNumber);
@@ -366,6 +377,8 @@ public class InsuranceFormController extends BaseController {
      * @return the certificateFile
      */
     public StreamedContent getCertificateFile() {
+        genCertificate();
+        this.readOnly = true;
         this.claimInsure.setUpdatedBy(1);
         this.claimInsure.setUpdatedDateTime(new Date());
         this.claimInsure.setClaimStatusId(InsureState.PRINT_CERT.getState());
@@ -381,9 +394,23 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("export CertificateType : {}", CertificateType.ORIGINAL);
 
         //TODO:Download PDF
+//        try {
+//            InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/template/OPEN_COVER_BY_AIR1.pdf");
+//            return new DefaultStreamedContent(stream, "application/pdf", "OPEN_COVER_"+CertificateType.valueOf(certificateType)+"_BY_AIR1.pdf");
+//        } catch (Exception ex) {
+//            LOGGER.error("download error ", ex);
+//            return null;
+//        }
+        return null;
+    }
+
+    public StreamedContent getCertificateCopyFile(int certificateType) {
+        LOGGER.debug("edit : {}", this.claimInsure);
+        LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
+
         try {
             InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/template/OPEN_COVER_BY_AIR1.pdf");
-            return new DefaultStreamedContent(stream, "application/pdf", "OPEN_COVER_BY_AIR1.pdf");
+            return new DefaultStreamedContent(stream, "application/pdf", "OPEN_COVER_" + CertificateType.valueOf(certificateType) + "_BY_AIR1.pdf");
         } catch (Exception ex) {
             LOGGER.error("download error ", ex);
             return null;
@@ -403,5 +430,13 @@ public class InsuranceFormController extends BaseController {
 
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
+    }
+
+    public KeyMatchService getKeyMatchService() {
+        return keyMatchService;
+    }
+
+    public void setKeyMatchService(KeyMatchService keyMatchService) {
+        this.keyMatchService = keyMatchService;
     }
 }

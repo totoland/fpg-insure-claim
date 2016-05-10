@@ -37,7 +37,7 @@
                                 <h2 class="BigTopic"></h2>
                                 <p:panelGrid columns="4" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                     <h:outputLabel value="#{msg.label_Policy_number}"/>
-                                    <h:outputLabel value="2053"/>
+                                    <h:outputLabel value="#{insuranceFormController.claimInsure.policyNumber}"/>
                                     <h:outputLabel value="#{msg.label_status}"/>
                                     <h:outputLabel value="#{insuranceFormController.getCurrentStatus(insuranceFormController.claimInsure.claimStatusId)}"/>
                                     <h:outputLabel value="#{msg.label_cert_no}"/>
@@ -68,225 +68,225 @@
 
                         <div class="SeparatorFull"></div>
                         <fnc:disablePanel disabled="#{insuranceFormController.readOnly}">
-                        <p:panelGrid id="pnGrid" 
-                                     columns="4" 
-                                     columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
-                                     layout="grid" 
-                                     styleClass="ui-panelgrid-blank" 
-                                     style="border:0px none; background-color:transparent;">
-                            <h:outputLabel value="#{msg.label_insured_name}"/>
-                            <h:panelGroup>
-                                <p:selectOneMenu id="insuredId" styleClass="selectOne120" 
+                            <p:panelGrid id="pnGrid" 
+                                         columns="4" 
+                                         columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                                         layout="grid" 
+                                         styleClass="ui-panelgrid-blank" 
+                                         style="border:0px none; background-color:transparent;">
+                                <h:outputLabel value="#{msg.label_insured_name}"/>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="insuredId" styleClass="selectOne120" 
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"
+                                                     value="#{insuranceFormController.claimInsure.insuredId}">
+                                        <f:selectItem itemLabel="" itemValue="" />
+                                        <f:selectItems value="#{insuranceFormController.insureNameList}" 
+                                                       var="item"
+                                                       itemLabel="#{item.name}"
+                                                       itemValue="#{item.value}"/>
+                                    </p:selectOneMenu>
+                                    <toto:requireLabel forId="form:insuredId"/>
+                                </h:panelGroup>
+                                <h:outputLabel value="#{msg.label_consignee_name}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.consigneeName}"/>
+
+                                <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
+                                <h:outputLabel value="invoice*exchange rate*valuation"/>
+
+                                <h:outputLabel value="#{msg.label_deductible_amount}"/>
+                                <h:outputLabel value="#{insuranceFormController.claimInsure.deductibleAmount}"/>
+
+                                <h:outputLabel value="#{msg.label_currency_type}"/>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="currencyType"
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"
+                                                     styleClass="selectOne120" 
+                                                     value="#{insuranceFormController.claimInsure.currencyType}">
+                                        <f:selectItem itemLabel="" itemValue="" />
+                                        <f:selectItems value="#{insuranceFormController.currencyTypeList}"
+                                                       var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
+                                    </p:selectOneMenu>
+                                    <toto:requireLabel forId="form:currencyType"/>
+                                </h:panelGroup>
+
+                                <h:outputLabel value="#{msg.label_exchange_rate}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.exchangeRate}"/>
+
+                                <h:outputLabel value="#{msg.label_local_amount_of_insurance}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.localAmountOfInsurance}"/>
+
+                                <h:outputLabel value=""/>
+                                <h:outputLabel value=""/>
+
+                                <h:outputLabel value="#{msg.label_origin_country}"/>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="originCountryCode" 
+                                                     styleClass="selectOne120"
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"
+                                                     value="#{insuranceFormController.claimInsure.originCountryCode}">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{insuranceFormController.countriesList}" 
+                                                       var="item"
+                                                       itemLabel="#{item.name}"
+                                                       itemValue="#{item.value}"/>
+                                    </p:selectOneMenu>
+                                    <toto:requireLabel forId="form:originCountryCode"/>
+                                </h:panelGroup>
+                                <h:outputLabel value="#{msg.label_origin_status_prov}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.originStateProv}"/>
+
+                                <h:outputLabel value="#{msg.label_origin_desc}"/>
+                                <h:panelGroup>
+                                    <p:inputText id="originDescription"
                                                  required="true"
                                                  requiredMessage="#{msg.require_generic}"
-                                                 value="#{insuranceFormController.claimInsure.insuredId}">
-                                    <f:selectItem itemLabel="" itemValue="" />
-                                    <f:selectItems value="#{insuranceFormController.insureNameList}" 
+                                                 value="#{insuranceFormController.claimInsure.originDescription}"/>
+                                    <toto:requireLabel forId="form:originDescription"/>
+                                </h:panelGroup>
+
+                                <h:outputLabel value="#{msg.label_transshipment_port}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.transshipmentPort}"/>
+
+                                <h:outputLabel value="#{msg.label_destination_country}"/>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="destinationCountryCode" 
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"
+                                                     styleClass="selectOne120" value="#{insuranceFormController.claimInsure.destinationCountryCode}">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{insuranceFormController.countriesList}" 
+                                                       var="item"
+                                                       itemLabel="#{item.name}"
+                                                       itemValue="#{item.value}"/>
+                                    </p:selectOneMenu>
+                                    <toto:requireLabel forId="form:destinationCountryCode"/>
+                                </h:panelGroup>
+
+                                <h:outputLabel value="#{msg.label_destination_status_prov}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.destinationStateProv}"/>
+
+                                <h:outputLabel value="#{msg.label_destination_desc}"/>
+                                <h:panelGroup>
+                                    <p:inputText id="destinationDescription"
+                                                 required="true"
+                                                 requiredMessage="#{msg.require_generic}"
+                                                 value="#{insuranceFormController.claimInsure.destinationDescription}"/>
+                                    <toto:requireLabel forId="form:destinationDescription"/>
+                                </h:panelGroup>
+                                <h:outputLabel value="#{msg.label_conveyance_name}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.conveyanceName}"/>
+
+                                <h:outputLabel value="#{msg.label_transshipment_vessel}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.transshipmentVessel}"/>
+
+                                <h:outputLabel value="#{msg.label_voyage_flight_no}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.voyageFlightNumber}"/>
+
+                                <h:outputLabel value="#{msg.label_method_of_transport}"/>
+                                <h:outputLabel id="selectInsureType2" value="#{insuranceFormController.insureType}"/>
+
+                                <h:outputLabel value=""/>
+                                <h:outputLabel value=""/>    
+
+                                <h:outputLabel value="#{msg.label_invoice}"/>
+                                <h:panelGroup>
+                                    <p:inputText id="invoiceNumber"
+                                                 required="true"
+                                                 requiredMessage="#{msg.require_generic}"
+                                                 value="#{insuranceFormController.claimInsure.invoiceNumber}"/>
+                                    <toto:requireLabel forId="form:invoiceNumber"/>
+                                </h:panelGroup>
+
+                                <h:outputLabel value="#{msg.label_bill_of_lading_number}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.billOfLadingNumber}"/>
+
+                                <h:outputLabel value="#{msg.label_shipment_date}"/>
+                                <h:panelGroup>
+                                    <p:calendar id="shipmentDate" 
+                                                required="true"
+                                                requiredMessage="#{msg.require_generic}"
+                                                mask="99/99/9999" pattern="dd/MM/yyyy" 
+                                                value="#{insuranceFormController.claimInsure.shipmentDate}"/>
+                                    <toto:requireLabel forId="form:shipmentDate"/>
+                                </h:panelGroup>
+
+                                <h:outputLabel value="#{msg.label_issue_date}"/>
+                                <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}" 
+                                            value="#{insuranceFormController.claimInsure.issueDate}"/>
+
+                                <h:outputLabel value="#{msg.label_commodity_type}"/>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="commodityTypeId" 
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"
+                                                     styleClass="selectOne120" value="#{insuranceFormController.claimInsure.commodityTypeId}">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{insuranceFormController.commodityTypeList}" 
+                                                       var="item" itemLabel="#{item.name}" itemValue="#{item.value}"/>
+                                    </p:selectOneMenu>
+                                    <toto:requireLabel forId="form:commodityTypeId"/>
+                                </h:panelGroup>
+
+                                <h:outputLabel value="#{msg.label_commodity_description}"/>
+                                <p:inputTextarea value="#{insuranceFormController.claimInsure.commodityDescription}"/>
+
+                                <h:outputLabel value="#{msg.label_marks_and_numbers}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.marksAndNumbers}"/>
+
+                                <h:outputLabel value="#{msg.label_coverage_type}"/>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id='coverageTypeId' styleClass="selectOne120" 
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"
+                                                     value="#{insuranceFormController.claimInsure.coverageTypeId}">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{insuranceFormController.coverageTypeList}"
+                                                       var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
+                                    </p:selectOneMenu>
+                                    <toto:requireLabel forId="form:coverageTypeId"/>
+                                </h:panelGroup>
+                                <h:outputLabel value="#{msg.label_valuation}"/>
+                                <p:selectOneMenu styleClass="selectOne120">
+                                    <f:selectItem itemLabel="105%" itemValue="105" />
+                                    <f:selectItem itemLabel="110%" itemValue="110" />
+                                    <f:selectItem itemLabel="115%" itemValue="115" />
+                                    <f:selectItem itemLabel="120%" itemValue="120" />
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="#{msg.label_insuring_terms}"/>
+                                <p:selectOneMenu styleClass="selectOne120" value="#{insuranceFormController.claimInsure.insuringTermsId}">
+                                    <f:selectItems value="#{insuranceFormController.insuringTermsTypeList}" 
                                                    var="item"
                                                    itemLabel="#{item.name}"
                                                    itemValue="#{item.value}"/>
                                 </p:selectOneMenu>
-                                <toto:requireLabel forId="form:insuredId"/>
-                            </h:panelGroup>
-                            <h:outputLabel value="#{msg.label_consignee_name}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.consigneeName}"/>
 
-                            <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
-                            <h:outputLabel value="invoice*exchange rate*valuation"/>
+                                <h:outputLabel value="#{msg.label_additional_info}"/>
+                                <p:inputTextarea value="#{insuranceFormController.claimInsure.additionalInfomation}"/>
 
-                            <h:outputLabel value="#{msg.label_deductible_amount}"/>
-                            <h:outputLabel value="#{insuranceFormController.claimInsure.deductibleAmount}"/>
+                                <h:outputLabel value=""/>
+                                <h:outputLabel value=""/>
 
-                            <h:outputLabel value="#{msg.label_currency_type}"/>
-                            <h:panelGroup>
-                                <p:selectOneMenu id="currencyType"
-                                                 required="true"
-                                                 requiredMessage="#{msg.require_generic}"
-                                                 styleClass="selectOne120" 
-                                                 value="#{insuranceFormController.claimInsure.currencyType}">
-                                    <f:selectItem itemLabel="" itemValue="" />
-                                    <f:selectItems value="#{insuranceFormController.currencyTypeList}"
-                                                   var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
-                                </p:selectOneMenu>
-                                <toto:requireLabel forId="form:currencyType"/>
-                            </h:panelGroup>
+                                <h:outputLabel value="#{msg.label_claim_surveyor}"/>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="claimSurveyorId" 
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"
+                                                     styleClass="selectOne120" value="#{insuranceFormController.claimInsure.claimSurveyorId}">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{insuranceFormController.claimSurveyorsList}"
+                                                       var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
+                                    </p:selectOneMenu>
+                                    <toto:requireLabel forId="form:claimSurveyorId"/>
+                                </h:panelGroup>
 
-                            <h:outputLabel value="#{msg.label_exchange_rate}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.exchangeRate}"/>
+                                <h:outputLabel value="#{msg.label_claim_payable_at}"/>
+                                <h:outputLabel value="#{msg.fpg_company_name}"/>
 
-                            <h:outputLabel value="#{msg.label_local_amount_of_insurance}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.localAmountOfInsurance}"/>
-
-                            <h:outputLabel value=""/>
-                            <h:outputLabel value=""/>
-
-                            <h:outputLabel value="#{msg.label_origin_country}"/>
-                            <h:panelGroup>
-                                <p:selectOneMenu id="originCountryCode" 
-                                                 styleClass="selectOne120"
-                                                 required="true"
-                                                 requiredMessage="#{msg.require_generic}"
-                                                 value="#{insuranceFormController.claimInsure.originCountryCode}">
-                                    <f:selectItem itemLabel="" itemValue=""/>
-                                    <f:selectItems value="#{insuranceFormController.countriesList}" 
-                                                   var="item"
-                                                   itemLabel="#{item.name}"
-                                                   itemValue="#{item.value}"/>
-                                </p:selectOneMenu>
-                                <toto:requireLabel forId="form:originCountryCode"/>
-                            </h:panelGroup>
-                            <h:outputLabel value="#{msg.label_origin_status_prov}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.originStateProv}"/>
-
-                            <h:outputLabel value="#{msg.label_origin_desc}"/>
-                            <h:panelGroup>
-                                <p:inputText id="originDescription"
-                                             required="true"
-                                             requiredMessage="#{msg.require_generic}"
-                                             value="#{insuranceFormController.claimInsure.originDescription}"/>
-                                <toto:requireLabel forId="form:originDescription"/>
-                            </h:panelGroup>
-
-                            <h:outputLabel value="#{msg.label_transshipment_port}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.transshipmentPort}"/>
-
-                            <h:outputLabel value="#{msg.label_destination_country}"/>
-                            <h:panelGroup>
-                                <p:selectOneMenu id="destinationCountryCode" 
-                                                 required="true"
-                                                 requiredMessage="#{msg.require_generic}"
-                                                 styleClass="selectOne120" value="#{insuranceFormController.claimInsure.destinationCountryCode}">
-                                    <f:selectItem itemLabel="" itemValue=""/>
-                                    <f:selectItems value="#{insuranceFormController.countriesList}" 
-                                                   var="item"
-                                                   itemLabel="#{item.name}"
-                                                   itemValue="#{item.value}"/>
-                                </p:selectOneMenu>
-                                <toto:requireLabel forId="form:destinationCountryCode"/>
-                            </h:panelGroup>
-
-                            <h:outputLabel value="#{msg.label_destination_status_prov}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.destinationStateProv}"/>
-
-                            <h:outputLabel value="#{msg.label_destination_desc}"/>
-                            <h:panelGroup>
-                                <p:inputText id="destinationDescription"
-                                             required="true"
-                                             requiredMessage="#{msg.require_generic}"
-                                             value="#{insuranceFormController.claimInsure.destinationDescription}"/>
-                                <toto:requireLabel forId="form:destinationDescription"/>
-                            </h:panelGroup>
-                            <h:outputLabel value="#{msg.label_conveyance_name}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.conveyanceName}"/>
-
-                            <h:outputLabel value="#{msg.label_transshipment_vessel}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.transshipmentVessel}"/>
-
-                            <h:outputLabel value="#{msg.label_voyage_flight_no}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.voyageFlightNumber}"/>
-
-                            <h:outputLabel value="#{msg.label_method_of_transport}"/>
-                            <h:outputLabel id="selectInsureType2" value="#{insuranceFormController.insureType}"/>
-
-                            <h:outputLabel value=""/>
-                            <h:outputLabel value=""/>    
-
-                            <h:outputLabel value="#{msg.label_invoice}"/>
-                            <h:panelGroup>
-                                <p:inputText id="invoiceNumber"
-                                             required="true"
-                                             requiredMessage="#{msg.require_generic}"
-                                             value="#{insuranceFormController.claimInsure.invoiceNumber}"/>
-                                <toto:requireLabel forId="form:invoiceNumber"/>
-                            </h:panelGroup>
-
-                            <h:outputLabel value="#{msg.label_bill_of_lading_number}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.billOfLadingNumber}"/>
-
-                            <h:outputLabel value="#{msg.label_shipment_date}"/>
-                            <h:panelGroup>
-                                <p:calendar id="shipmentDate" 
-                                            required="true"
-                                            requiredMessage="#{msg.require_generic}"
-                                            mask="99/99/9999" pattern="dd/MM/yyyy" 
-                                            value="#{insuranceFormController.claimInsure.shipmentDate}"/>
-                                <toto:requireLabel forId="form:shipmentDate"/>
-                            </h:panelGroup>
-
-                            <h:outputLabel value="#{msg.label_issue_date}"/>
-                            <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}" 
-                                        value="#{insuranceFormController.claimInsure.issueDate}"/>
-
-                            <h:outputLabel value="#{msg.label_commodity_type}"/>
-                            <h:panelGroup>
-                                <p:selectOneMenu id="commodityTypeId" 
-                                                 required="true"
-                                                 requiredMessage="#{msg.require_generic}"
-                                                 styleClass="selectOne120" value="#{insuranceFormController.claimInsure.commodityTypeId}">
-                                    <f:selectItem itemLabel="" itemValue=""/>
-                                    <f:selectItems value="#{insuranceFormController.commodityTypeList}" 
-                                                   var="item" itemLabel="#{item.name}" itemValue="#{item.value}"/>
-                                </p:selectOneMenu>
-                                <toto:requireLabel forId="form:commodityTypeId"/>
-                            </h:panelGroup>
-
-                            <h:outputLabel value="#{msg.label_commodity_description}"/>
-                            <p:inputTextarea value="#{insuranceFormController.claimInsure.commodityDescription}"/>
-
-                            <h:outputLabel value="#{msg.label_marks_and_numbers}"/>
-                            <p:inputText value="#{insuranceFormController.claimInsure.marksAndNumbers}"/>
-
-                            <h:outputLabel value="#{msg.label_coverage_type}"/>
-                            <h:panelGroup>
-                                <p:selectOneMenu id='coverageTypeId' styleClass="selectOne120" 
-                                                 required="true"
-                                                 requiredMessage="#{msg.require_generic}"
-                                                 value="#{insuranceFormController.claimInsure.coverageTypeId}">
-                                    <f:selectItem itemLabel="" itemValue=""/>
-                                    <f:selectItems value="#{insuranceFormController.coverageTypeList}"
-                                                   var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
-                                </p:selectOneMenu>
-                                <toto:requireLabel forId="form:coverageTypeId"/>
-                            </h:panelGroup>
-                            <h:outputLabel value="#{msg.label_valuation}"/>
-                            <p:selectOneMenu styleClass="selectOne120">
-                                <f:selectItem itemLabel="105%" itemValue="105" />
-                                <f:selectItem itemLabel="110%" itemValue="110" />
-                                <f:selectItem itemLabel="115%" itemValue="115" />
-                                <f:selectItem itemLabel="120%" itemValue="120" />
-                            </p:selectOneMenu>
-
-                            <h:outputLabel value="#{msg.label_insuring_terms}"/>
-                            <p:selectOneMenu styleClass="selectOne120" value="#{insuranceFormController.claimInsure.insuringTermsId}">
-                                <f:selectItems value="#{insuranceFormController.insuringTermsTypeList}" 
-                                               var="item"
-                                               itemLabel="#{item.name}"
-                                               itemValue="#{item.value}"/>
-                            </p:selectOneMenu>
-
-                            <h:outputLabel value="#{msg.label_additional_info}"/>
-                            <p:inputTextarea value="#{insuranceFormController.claimInsure.additionalInfomation}"/>
-
-                            <h:outputLabel value=""/>
-                            <h:outputLabel value=""/>
-
-                            <h:outputLabel value="#{msg.label_claim_surveyor}"/>
-                            <h:panelGroup>
-                                <p:selectOneMenu id="claimSurveyorId" 
-                                                 required="true"
-                                                 requiredMessage="#{msg.require_generic}"
-                                                 styleClass="selectOne120" value="#{insuranceFormController.claimInsure.claimSurveyorId}">
-                                    <f:selectItem itemLabel="" itemValue=""/>
-                                    <f:selectItems value="#{insuranceFormController.claimSurveyorsList}"
-                                                   var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
-                                </p:selectOneMenu>
-                                <toto:requireLabel forId="form:claimSurveyorId"/>
-                            </h:panelGroup>
-
-                            <h:outputLabel value="#{msg.label_claim_payable_at}"/>
-                            <h:outputLabel value="#{msg.fpg_company_name}"/>
-
-                        </p:panelGrid>
+                            </p:panelGrid>
                         </fnc:disablePanel>
                         <div class="Container50 Responsive50">
                             <div class="ContainerIndent">
@@ -303,11 +303,12 @@
 
                     <div class="Responsive50">
 
-                        <p:toolbar>
+                        <p:toolbar rendered="#{!insuranceFormController.readOnly}">
                             <f:facet name="right">
                                 <p:commandButton value="#{msg.btn_save_draft}" 
                                                  icon="fa fa-save Fs14 White"
                                                  update="@form"
+                                                 immediate="true"
                                                  oncomplete="PF('dlgSave').show();"
                                                  action="#{insuranceFormController.save(2)}"/>
                                 <p:dialog widgetVar="dlgSave" modal="true">
@@ -342,12 +343,40 @@
                                                  showEffect="fade" hideEffect="fade">
                                     <p:commandButton value="#{msg.yes}" 
                                                      ajax="false" onclick="PF('printPopup').hide()"
-                                                     process="this"
-                                                     immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
+                                                     process="@form"
+                                                     styleClass="ui-confirmdialog-yes GreenButton" 
+                                                     icon="ui-icon-check fa fa-check Fs14 white" oncomplete="window.location = '?id=#{param.id}'">
                                         <p:fileDownload value="#{insuranceFormController.certificateFile}"/>
                                     </p:commandButton>
                                     <p:commandButton value="#{msg.btn_cancel}"
                                                      onclick="PF('printPopup').hide()"
+                                                     type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                </p:confirmDialog>
+
+
+                            </f:facet>
+
+                        </p:toolbar>
+                        <p:toolbar rendered="#{insuranceFormController.readOnly}">
+                            <f:facet name="right"> 
+                                <p:commandButton value="#{msg.btn_print_cert} Company Copy" immediate="true"
+                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 type="button" onclick="PF('printCopyPopup').show()">
+                                </p:commandButton>
+
+                                <p:confirmDialog widgetVar="printCopyPopup" 
+                                                 header="#{msg.confirmation_head}" 
+                                                 message="#{msg.msg_confirm_save}"
+                                                 showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="#{msg.yes}" 
+                                                     ajax="false" onclick="PF('printCopyPopup').hide()"
+                                                     process="@form"
+                                                     styleClass="ui-confirmdialog-yes GreenButton" 
+                                                     icon="ui-icon-check fa fa-check Fs14 white" oncomplete="window.location = ''">
+                                        <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile('6')}"/>
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msg.btn_cancel}"
+                                                     onclick="PF('printCopyPopup').hide()"
                                                      type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
 

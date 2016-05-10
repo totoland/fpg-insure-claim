@@ -11,7 +11,7 @@ import com.totoland.db.entity.ViewUser;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CustomerService;
-import com.totoland.web.service.GennericService;
+import com.totoland.web.service.KeyMatchService;
 import com.totoland.web.service.UserService;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
@@ -23,7 +23,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -40,17 +40,18 @@ public class UserManagementController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserManagementController.class);
     private List<ViewUser> svUsers;
     private UserCriteria userCriteria = new UserCriteria();
+    
     @ManagedProperty("#{userService}")
     private UserService userService;
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
-    private SvUser svUser = new SvUser();
-    private KeyMatch keyMatch = new KeyMatch();
-    @ManagedProperty("#{gennericService}")
-    private GennericService<SvUser> gennericService;
     @ManagedProperty("#{customerService}")
     private CustomerService customerService;
+    @ManagedProperty("#{keyMatchService}")
+    private KeyMatchService keyMatchService;
     
+    private SvUser svUser = new SvUser();
+    private KeyMatch keyMatch = new KeyMatch();
     private long countAllCustomer;
     private long countAllUser;
     private long countAllAdmin;
@@ -78,6 +79,7 @@ public class UserManagementController extends BaseController {
         svUser = new SvUser();
         svUser.setSex(0);
         svUser.setIsActive(Boolean.TRUE);
+        keyMatch = new KeyMatch();
         openDialog("modalDialogCreate");
     }
 
@@ -95,6 +97,14 @@ public class UserManagementController extends BaseController {
             this.svUser.setSex(selsvUser.getSex());
             this.svUser.setUserGroupId(selsvUser.getUserGroupId());
             this.svUser.setUserGroupLvl(selsvUser.getUserGroupLvl());
+            
+            //Find KeyMatching
+            keyMatch = keyMatchService.findByCustomerId(String.valueOf(selsvUser.getUserId()));
+            
+            if(keyMatch == null){
+                keyMatch = new KeyMatch();
+            }
+            
         } catch (Exception ex) {
             LOGGER.error("cannot initEdit :", ex);
         }
@@ -110,8 +120,9 @@ public class UserManagementController extends BaseController {
         }
 
         try {
+            LOGGER.trace("keyMatch {}",keyMatch);
             svUser.setPassword(WebUtils.encrypt(svUser.getPassword()));
-            gennericService.create(svUser);
+            userService.createWithKeyMatching(svUser,keyMatch);
             
             LOGGER.trace("Save Success !! ");
 
@@ -135,8 +146,8 @@ public class UserManagementController extends BaseController {
         try {
             
             svUser.setPassword(WebUtils.encrypt(svUser.getPassword()));
-            
-            gennericService.edit(svUser);
+            LOGGER.trace("keyMatch {}",keyMatch);
+            userService.updateWithKeyMatching(svUser,keyMatch);
 
             LOGGER.trace("Edit Success !! ");
 
@@ -243,20 +254,6 @@ public class UserManagementController extends BaseController {
      */
     public void setSvUser(SvUser svUser) {
         this.svUser = svUser;
-    }
-
-    /**
-     * @return the gennericService
-     */
-    public GennericService<SvUser> getGennericService() {
-        return gennericService;
-    }
-
-    /**
-     * @param gennericService the gennericService to set
-     */
-    public void setGennericService(GennericService<SvUser> gennericService) {
-        this.gennericService = gennericService;
     }
 
     private boolean validateBeforeEdit() {
@@ -395,5 +392,21 @@ public class UserManagementController extends BaseController {
 
     public void setKeyMatch(KeyMatch keyMatch) {
         this.keyMatch = keyMatch;
+    }
+
+    public KeyMatchService getKeyMatchService() {
+        return keyMatchService;
+    }
+
+    public void setKeyMatchService(KeyMatchService keyMatchService) {
+        this.keyMatchService = keyMatchService;
+    }
+
+    public RequestContext getContext() {
+        return context;
+    }
+
+    public void setContext(RequestContext context) {
+        this.context = context;
     }
 }

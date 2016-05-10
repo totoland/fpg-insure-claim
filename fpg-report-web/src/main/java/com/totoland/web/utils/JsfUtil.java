@@ -132,7 +132,7 @@ public class JsfUtil implements Serializable {
     }
 
     public static void hidePopup(String dlgAddReportDetail) {
-        executeJavaScript(dlgAddReportDetail.concat(".").concat("hide();"));
+        executeJavaScript("PF('".concat(dlgAddReportDetail).concat("').").concat("hide();"));
     }
 
     public static void hidePopupIframe(String report_MainDialog) {

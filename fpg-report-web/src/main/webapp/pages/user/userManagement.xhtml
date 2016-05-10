@@ -307,8 +307,8 @@
                                     </h:selectOneRadio>
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
-                                        <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.edit()}" process="modalDialogEdit" update=":formUser:gridUser"/>
-                                        <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="modalDialogEdit.hide()"/>
+                                        <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.edit()}" process="modalDialogEdit" update=":formUser:modalDialogEdit"/>
+                                        <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogEdit').hide()"/>
                                     </h:panelGroup>
                                 </p:panelGrid>  
                         </div>
