@@ -139,16 +139,16 @@
                                 <h2 class="BigTopic"></h2>
 
                                 <h:panelGrid columns="2" id="pnCriteria">  
-                                    <h:outputLabel for="groupLvl" value="#{msg.groupLvl}" />
+                                    <h:outputLabel for="groupLvl" value="#{msg.label_user_type}" />
                                     <p:selectOneMenu id="groupLvl" style="width:200px" value="#{userManagementController.userCriteria.groupLvl}">
                                         <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
                                         <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
                                     </p:selectOneMenu>
-                                    <h:outputLabel for="groupId" value="#{msg.userGroup}" />
+<!--                                    <h:outputLabel for="groupId" value="#{msg.userGroup}" />
                                     <p:selectOneMenu id="groupId" style="width:200px" value="#{userManagementController.userCriteria.groupId}">
                                         <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
                                         <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                    </p:selectOneMenu>
+                                    </p:selectOneMenu>-->
                                     <h:outputLabel for="criteria_username" value="#{msg.search_first_or_last_name}" style="width:200px"/>
                                     <p:inputText id="criteria_username" value="#{userManagementController.userCriteria.userName}" style="width:235px"/>
                                     <h:outputLabel/>
@@ -179,15 +179,15 @@
                                         <h:outputText value="#{item.fname} #{item.lname}" />
                                     </p:column>
 
-                                    <p:column>
+<!--                                    <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="User Group" />
                                         </f:facet>
                                         <h:outputText value="#{item.userGroupName}"/>
-                                    </p:column>
+                                    </p:column>-->
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="User Type" />
+                                            <h:outputText value="#{msg.label_user_type}" />
                                         </f:facet>
                                         <h:outputText value="#{item.userGroupLvlName}" />
                                     </p:column>

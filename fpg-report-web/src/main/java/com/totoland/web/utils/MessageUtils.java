@@ -70,11 +70,11 @@ public class MessageUtils {
     public static String SAVE_NOT_SUCCESS() {
         return getResourceBundleString("save_not_success");
     }
-    
+
     public static String DISCARD_SUCCESS() {
         return getResourceBundleString("discard_success");
     }
-    
+
     public static String DISCARD_FAIL() {
         return getResourceBundleString("discard_not_success");
     }
@@ -111,4 +111,11 @@ public class MessageUtils {
         return getResourceBundleString("require_add_report_detail");
     }
 
+    public static String DELETE_SUCCESS() {
+        return getResourceBundleString("delete_success");
+    }
+
+    public static String DELETE_NOT_SUCCESS() {
+        return getResourceBundleString("delete_not_success");
+    }
 }

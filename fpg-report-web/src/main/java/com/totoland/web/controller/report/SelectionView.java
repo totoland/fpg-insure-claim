@@ -65,7 +65,6 @@ public class SelectionView extends BaseController{
     
     public void search(){
         renderDataTable = true;
-        System.out.println("search set renderDataTable: "+renderDataTable);
     }
 
     @Override

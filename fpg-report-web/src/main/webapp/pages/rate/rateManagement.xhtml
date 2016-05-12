@@ -3,8 +3,8 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml"
-                >
+                xmlns:toto="http://java.sun.com/jsf/composite/components"
+                template="/WEB-INF/template.xhtml">
 
     <ui:define name="subheader">
         Forms
@@ -12,6 +12,7 @@
 
     <ui:define name="content">
         <h:form id="form">
+            <p:messages id="messages" closable="true"/>
             <div class="Container100">
                 <div class="ContainerIndent">
                     <div class="Card">
@@ -20,8 +21,13 @@
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             #{msg.menu_rate} 
                             <div class="EmptyBox10 ShowOnMobile"></div>
-                            <p:button icon="fa fa-plus White" styleClass="Fright GreenButton" title="#{msg.label_create_new_matching}" onclick="PF('dlgNewRateMnm').show();
-                                    return;"/>
+                            <p:commandButton icon="fa fa-plus White" 
+                                             styleClass="Fright GreenButton" 
+                                             title="#{msg.label_create_new_matching}"
+                                             action="#{rateManagementController.initCreate()}"
+                                             process="@this"
+                                             update="dlgNewRateMnm"
+                                             oncomplete="PF('dlgNewRateMnm').show()"/>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                 <p:button value="#{msg.yes}" href="insuranceForm.xhtml" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white" />
                                 <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
@@ -33,12 +39,13 @@
                         <div class="Container100 Responsive50">
                             <div class="ContainerIndent">
                                 <h2 class="BigTopic"></h2>
-                                <p:panelGrid columns="2" 
+                                <p:panelGrid id="searchPn"
+                                             columns="2" 
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
                                     <h:outputLabel value="#{msg.label_customer}"/>
-                                    <p:selectOneMenu styleClass="selectOne115">
+                                    <p:selectOneMenu styleClass="selectOne115" value="#{rateManagementController.criteria.customerId}">
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{rateManagementController.ddlCustomer}" var="item"
                                                        itemValue="#{item.value}"
@@ -46,21 +53,20 @@
                                     </p:selectOneMenu>
 
                                     <h:outputLabel value="#{msg.label_product}"/>
-                                    <p:selectOneMenu styleClass="selectOne115">
+                                    <p:selectOneMenu styleClass="selectOne115" value="#{rateManagementController.criteria.productId}">
+                                        <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{rateManagementController.ddlProduct}" var="item"
                                                        itemValue="#{item.value}"
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
 
-                                    <h:outputLabel value="#{msg.label_rate}"/>
-                                    <p:inputText maxlength="20"/>
-
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
-                                        <p:commandButton value="#{msg.panel_search}" action="#{dtSelectionView.search()}"
-                                                         update="pnResult"/>
-                                        <p:commandButton value="#{msg.btn_reset}" action="#{dtSelectionView.init()}"
-                                                         update="pnResult"/>
+                                        <p:commandButton value="#{msg.panel_search}" action="#{rateManagementController.search()}"
+                                                         process=":form:searchPn"
+                                                         update=":form:pnResult"/>
+                                        <p:commandButton value="#{msg.btn_reset}" action="#{rateManagementController.init()}"
+                                                         update="@form"/>
                                     </h:panelGroup>
                                     <h:outputLabel value=""/>
                                 </p:panelGrid>
@@ -76,32 +82,47 @@
 
             <div class="ContainerIndent">
                 <p:panel id="pnResult">
-                    <p:dataTable id="singleDT" var="car" value="#{dtSelectionView.cars7}" rendered="#{dtSelectionView.renderDataTable}" selectionMode="single" selection="#{dtSelectionView.selectedCar}" rowKey="#{car.id}"
+                    <p:dataTable id="singleDT" var="item" value="#{rateManagementController.dataSource}" rendered="#{rateManagementController.dataSource!=null}" 
                                  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" reflow="true">
                         <f:facet name="header">
                             Search Result
                         </f:facet>
 
-                        <p:column headerText="#{msg.label_customer}" sortBy="#{car.id}" footerText="#{msg.label_company_code}">
-                            <h:outputText value="#{car.id}" />
+                        <p:column headerText="#{msg.label_customer}" sortBy="#{item.customerId}" footerText="#{msg.label_customer}">
+                            <h:outputText value="#{item.customerId}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_product}" sortBy="#{car.year}" footerText="#{msg.label_Policy_number}">
-                            <h:outputText value="#{car.brand}" />
+                        <p:column headerText="#{msg.label_product}" sortBy="#{item.productId}" footerText="#{msg.label_product}">
+                            <h:outputText value="#{item.productId}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_rate}" sortBy="#{car.brand}" footerText="#{msg.label_insured_name}">
-                            <h:outputText value="#{car.year}" />
+                        <p:column headerText="#{msg.label_rate}" sortBy="#{item.productRate}" footerText="#{msg.label_rate}">
+                            <h:outputText value="#{item.productRate}" />
                         </p:column>
                         <p:column>
-                            <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" onclick="PF('dlgNewRateMnm').show()"/>
-                            <p:commandButton value="#{msg.btn_reject}" styleClass="PinkButton RaisedButton"/>
+                            <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" 
+                                             action="#{rateManagementController.initEdit(item)}"
+                                             process="@this"
+                                             update=":form:dlgEditRateMnm"
+                                             oncomplete="PF('dlgEditRateMnm').show()"/>
+                            <p:commandButton type="button" value="#{msg.btn_reject}" styleClass="PinkButton RaisedButton" onclick="PF('cmfDelete').show()"/>
+                            <p:confirmDialog widgetVar="cmfDelete" showEffect="fade" hideEffect="fade" 
+                                             header="#{msg.confirmation_head}" message="#{msg.confirmation_message_delete}">
+                                <p:commandButton value="#{msg.yes}" 
+                                                 action="#{rateManagementController.delete(item)}"
+                                                 update=":form:messages :form:pnResult"
+                                                 onclick="PF('cmfDelete').hide()"
+                                                 immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
+
+                                </p:commandButton>
+                                <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                            </p:confirmDialog>
                         </p:column>
                     </p:dataTable>
 
                 </p:panel>
             </div>
 
-            <p:dialog header="#{msg.menu_rate}" widgetVar="dlgNewRateMnm"  modal="true"
+            <p:dialog id="dlgNewRateMnm" header="#{msg.menu_rate}" widgetVar="dlgNewRateMnm"  modal="true"
                       showEffect="explode" hideEffect="bounce" height="350" minimizable="true" maximizable="true" responsive="true">
                 <div class="Container100">
                     <div class="ContainerIndent">
@@ -111,28 +132,83 @@
                                 <p:panelGrid columns="2"
                                              style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                     <h:outputLabel value="#{msg.label_customer}"/>
-                                    <p:selectOneMenu styleClass="selectOne115">
+                                    <p:selectOneMenu styleClass="selectOne115" 
+                                                     value="#{rateManagementController.selectedItem.customerId}">
                                         <f:selectItems value="#{rateManagementController.ddlCustomer}" var="item"
                                                        itemValue="#{item.value}"
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
                                     <h:outputLabel value="#{msg.label_product}"/>
-                                    <p:selectOneMenu styleClass="selectOne115">
+                                    <p:selectOneMenu styleClass="selectOne115"
+                                                     value="#{rateManagementController.selectedItem.productId}">
                                         <f:selectItems value="#{rateManagementController.ddlProduct}" var="item"
                                                        itemValue="#{item.value}"
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
                                     <h:outputLabel value="#{msg.label_rate}"/>
-                                    <p:inputText/>
+                                    <h:panelGroup>
+                                        <p:inputNumber id="newProductRate" value="#{rateManagementController.selectedItem.productRate}"
+                                                       decimalPlaces="2"
+                                                       required="true"
+                                                       requiredMessage="#{msg.require_generic}"/>
+                                        <p:message id="popupNewMsg" for="newProductRate"/>
+                                    </h:panelGroup>
                                     <h:outputLabel/>
-                                    <p:commandButton value="#{msg.btn_save}"/>
+                                    <p:commandButton value="#{msg.btn_save}"
+                                                     action="#{rateManagementController.save()}"
+                                                     process="dlgNewRateMnm"
+                                                     update=":form:pnResult,popupNewMsg"/>
                                 </p:panelGrid>
                             </div>
                         </div>
 
                     </div>
                 </div>
-            </p:dialog>    
+            </p:dialog>
+
+            <p:dialog id="dlgEditRateMnm" header="#{msg.menu_rate}" widgetVar="dlgEditRateMnm"  modal="true"
+                      showEffect="explode" hideEffect="bounce" height="350" minimizable="true" maximizable="true" responsive="true">
+                <div class="Container100">
+                    <div class="ContainerIndent">
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="2"
+                                             style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                    <h:outputLabel value="#{msg.label_customer}"/>
+                                    <p:selectOneMenu styleClass="selectOne115" 
+                                                     value="#{rateManagementController.selectedItem.customerId}">
+                                        <f:selectItems value="#{rateManagementController.ddlCustomer}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel value="#{msg.label_product}"/>
+                                    <p:selectOneMenu styleClass="selectOne115"
+                                                     value="#{rateManagementController.selectedItem.productId}">
+                                        <f:selectItems value="#{rateManagementController.ddlProduct}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel value="#{msg.label_rate}"/>
+                                    <h:panelGroup>
+                                        <p:inputNumber id="editProductRate" value="#{rateManagementController.selectedItem.productRate}"
+                                                       decimalPlaces="2"
+                                                       required="true"
+                                                       requiredMessage="#{msg.require_generic}"/>
+                                        <p:message id="popupEditMsg" for="editProductRate"/>
+                                    </h:panelGroup>
+                                    <h:outputLabel/>
+                                    <p:commandButton value="#{msg.btn_save}"
+                                                     action="#{rateManagementController.edit()}"
+                                                     process="dlgEditRateMnm"
+                                                     update=":form:pnResult,popupEditMsg"/>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </p:dialog>
         </h:form>
     </ui:define>
 

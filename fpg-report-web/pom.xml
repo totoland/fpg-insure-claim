@@ -98,7 +98,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>${primeface.version}</version>
+            <version>6.0.RC3</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>

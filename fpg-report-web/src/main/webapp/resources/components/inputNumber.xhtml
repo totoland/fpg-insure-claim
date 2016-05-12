@@ -26,12 +26,19 @@
         <composite:attribute name="size"/>
         <composite:attribute name="style"/>
         <composite:attribute name="tabindex"/>
+        <composite:attribute name="required"/>
+        <composite:attribute name="requiredMessage"/>
 
     </composite:interface>
 
     <composite:implementation>
 
-        <p:inputText id="#{cc.attrs.id}" style="#{cc.attrs.style==null?'':cc.attrs.style}" tabindex="#{cc.attrs.tabindex==''?0:cc.attrs.tabindex}" size="#{cc.attrs.size==null?10:cc.attrs.size}" onkeyup="#{cc.attrs.onkeyup==null?'':cc.attrs.onkeyup}" onblur="#{cc.attrs.onblur==null?'':cc.attrs.onblur}" onchange="#{cc.attrs.onchange==null?'':cc.attrs.onchange}" styleClass="inputNumber" disabled="#{cc.attrs.disabled==null?'false':cc.attrs.disabled}" readonly="#{cc.attrs.readonly==null?'false':cc.attrs.readonly}" rendered="#{cc.attrs.rendered==null?'true':cc.attrs.rendered}"  maxlength="#{cc.attrs.maxlength==null?'10':cc.attrs.maxlength}" value="#{cc.attrs.value}">
+        <p:inputText id="#{cc.attrs.id}" style="#{cc.attrs.style==null?'':cc.attrs.style}" 
+                     tabindex="#{cc.attrs.tabindex==''?0:cc.attrs.tabindex}"
+                     required="#{cc.attrs.required==''?false:cc.attrs.required}"
+                     requiredMessage="#{cc.attrs.requiredMessage==null?'':cc.attrs.requiredMessage}"
+                     size="#{cc.attrs.size==null?10:cc.attrs.size}" 
+                     onkeyup="#{cc.attrs.onkeyup==null?'':cc.attrs.onkeyup}" onblur="#{cc.attrs.onblur==null?'':cc.attrs.onblur}" onchange="#{cc.attrs.onchange==null?'':cc.attrs.onchange}" styleClass="inputNumber" disabled="#{cc.attrs.disabled==null?'false':cc.attrs.disabled}" readonly="#{cc.attrs.readonly==null?'false':cc.attrs.readonly}" rendered="#{cc.attrs.rendered==null?'true':cc.attrs.rendered}"  maxlength="#{cc.attrs.maxlength==null?'10':cc.attrs.maxlength}" value="#{cc.attrs.value}">
             <composite:insertChildren/>
             <pe:keyFilter regEx="/[\d]/"/>
         </p:inputText>

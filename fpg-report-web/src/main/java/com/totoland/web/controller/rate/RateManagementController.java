@@ -17,10 +17,15 @@
  */
 package com.totoland.web.controller.rate;
 
+import com.totoland.db.bean.ProductRateCriteria;
 import com.totoland.db.common.entity.DropDownList;
-import com.totoland.db.entity.KeyMatch;
+import com.totoland.db.entity.ProductRate;
+import com.totoland.db.entity.ViewProductRate;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
+import com.totoland.web.service.RateManagementService;
+import com.totoland.web.utils.JsfUtil;
+import com.totoland.web.utils.MessageUtils;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -37,33 +42,83 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 public class RateManagementController extends BaseController {
 
+    private static final long serialVersionUID = 4696958820488830897L;
     private static final Logger LOGGER = LoggerFactory.getLogger(RateManagementController.class);
 
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
+    @ManagedProperty("#{rateManagementService}")
+    private RateManagementService rateManagementService;
 
-    private KeyMatch keyMatch;
+    private ProductRateCriteria criteria;
+    private List<ViewProductRate> dataSource;
 
     private List<DropDownList> ddlCustomer;
     private List<DropDownList> ddlProduct;
+    private ProductRate selectedItem;
 
     @PostConstruct
     public void init() {
         LOGGER.debug("init...");
         this.ddlCustomer = dropdownFactory.ddlCustomer();
         this.ddlProduct = dropdownFactory.ddlProduct();
+        this.criteria = new ProductRateCriteria(null, null);
+        this.selectedItem = new ProductRate();
     }
 
     public void search() {
+        LOGGER.debug("search with : {}", getCriteria());
+        dataSource = rateManagementService.findDetailByCriteria(getCriteria());
     }
 
-    public void prepareEdit() {
+    public void initCreate() {
+        LOGGER.debug("initCreate");
+        this.selectedItem = new ProductRate();
+    }
+
+    public void initEdit(ViewProductRate viewItem) {
+        this.selectedItem = new ProductRate(viewItem.getProductRateId(), 
+                viewItem.getProductRate(), viewItem.getCustomerId(), viewItem.getProductId());
+        LOGGER.debug("initEdit");
     }
 
     public void save() {
+        try {
+            rateManagementService.create(selectedItem);
+            LOGGER.debug("save : {}", this.selectedItem);
+            addInfo(MessageUtils.SAVE_SUCCESS());
+            JsfUtil.hidePopup("dlgNewRateMnm");
+            search();
+        } catch (Exception ex) {
+            LOGGER.error("", ex);
+            addError(MessageUtils.SAVE_NOT_SUCCESS());
+        }
     }
 
     public void edit() {
+        try {
+            rateManagementService.edit(selectedItem);
+            LOGGER.debug("edit : {}", this.selectedItem);
+            addInfo(MessageUtils.SAVE_SUCCESS());
+            JsfUtil.hidePopup("dlgEditRateMnm");
+            search();
+        } catch (Exception ex) {
+            LOGGER.error("", ex);
+            addError(MessageUtils.SAVE_NOT_SUCCESS());
+        }
+    }
+    
+    public void delete(ViewProductRate viewItem){
+        try {
+            this.selectedItem = new ProductRate(viewItem.getProductRateId(), 
+                viewItem.getProductRate(), viewItem.getCustomerId(), viewItem.getProductId());
+            rateManagementService.remove(selectedItem);
+            addInfo(MessageUtils.DELETE_SUCCESS());
+            search();
+        } catch (Exception ex) {
+            LOGGER.error("", ex);
+            addError(MessageUtils.DELETE_NOT_SUCCESS());
+        }
     }
 
     public void close() {
@@ -89,14 +144,6 @@ public class RateManagementController extends BaseController {
     public void setDdlCustomer(List<DropDownList> ddlCustomer) {
         this.ddlCustomer = ddlCustomer;
     }
-    
-    public KeyMatch getKeyMatch() {
-        return keyMatch;
-    }
-
-    public void setKeyMatch(KeyMatch keyMatch) {
-        this.keyMatch = keyMatch;
-    }
 
     public List<DropDownList> getDdlProduct() {
         return ddlProduct;
@@ -104,5 +151,37 @@ public class RateManagementController extends BaseController {
 
     public void setDdlProduct(List<DropDownList> ddlProduct) {
         this.ddlProduct = ddlProduct;
+    }
+
+    public RateManagementService getRateManagementService() {
+        return rateManagementService;
+    }
+
+    public void setRateManagementService(RateManagementService rateManagementService) {
+        this.rateManagementService = rateManagementService;
+    }
+
+    public ProductRateCriteria getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(ProductRateCriteria criteria) {
+        this.criteria = criteria;
+    }
+
+    public List<ViewProductRate> getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(List<ViewProductRate> dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public ProductRate getSelectedItem() {
+        return selectedItem;
+    }
+
+    public void setSelectedItem(ProductRate selectedItem) {
+        this.selectedItem = selectedItem;
     }
 }
