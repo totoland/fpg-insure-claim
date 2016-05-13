@@ -66,7 +66,9 @@
                                                          process=":form:searchPn"
                                                          update=":form:pnResult"/>
                                         <p:commandButton value="#{msg.btn_reset}" action="#{rateManagementController.init()}"
-                                                         update="@form"/>
+                                                         immediate="true"
+                                                         process=":form:searchPn"
+                                                         update=":form:searchPn,:form:pnResult"/>
                                     </h:panelGroup>
                                     <h:outputLabel value=""/>
                                 </p:panelGrid>
@@ -123,7 +125,7 @@
             </div>
 
             <p:dialog id="dlgNewRateMnm" header="#{msg.menu_rate}" widgetVar="dlgNewRateMnm"  modal="true"
-                      showEffect="explode" hideEffect="bounce" height="350" minimizable="true" maximizable="true" responsive="true">
+                      showEffect="explode" hideEffect="bounce" height="250" minimizable="true" maximizable="true" responsive="true">
                 <div class="Container100">
                     <div class="ContainerIndent">
                         <div class="Container100 Responsive100">
@@ -167,7 +169,7 @@
             </p:dialog>
 
             <p:dialog id="dlgEditRateMnm" header="#{msg.menu_rate}" widgetVar="dlgEditRateMnm"  modal="true"
-                      showEffect="explode" hideEffect="bounce" height="350" minimizable="true" maximizable="true" responsive="true">
+                      showEffect="explode" hideEffect="bounce" height="250" minimizable="true" maximizable="true" responsive="true">
                 <div class="Container100">
                     <div class="ContainerIndent">
                         <div class="Container100 Responsive100">

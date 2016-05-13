@@ -438,14 +438,14 @@ c{float:left;}
 }
 
 .selectOne150{
-    min-width: 150px; 
+    min-width: 150px; width: 150px;
 }
 .selectOne115{
-    min-width: 115px; 
+    min-width: 115px; width: 115px;
 }
 
 .selectOne120{
-    min-width: 120px; 
+    min-width: 120px; width: 120px;
 }
 
 .requireField{

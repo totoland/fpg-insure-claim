@@ -64,6 +64,7 @@ public class RateManagementController extends BaseController {
         this.ddlProduct = dropdownFactory.ddlProduct();
         this.criteria = new ProductRateCriteria(null, null);
         this.selectedItem = new ProductRate();
+        this.dataSource = null;
     }
 
     public void search() {
@@ -126,7 +127,8 @@ public class RateManagementController extends BaseController {
 
     @Override
     public void resetForm() {
-
+        LOGGER.debug("resetForm...");
+        init();
     }
 
     public DropdownFactory getDropdownFactory() {
