@@ -80,11 +80,11 @@ public class RateManagementDaoImpl extends GennericDaoImpl<ProductRate> implemen
         List<Object> params = new ArrayList<>();
 
         if (!StringUtils.isEmpty(criteria.getCustomerId())) {
-            SQL += "and customer_id = ? ";
+            SQL += "and product_rate.customer_id = ? ";
             params.add(criteria.getCustomerId());
         }
         if (!StringUtils.isEmpty(criteria.getProductId())) {
-            SQL += "and product_id = ? ";
+            SQL += "and product_rate.product_id = ? ";
             params.add(criteria.getProductId());
         }
 
