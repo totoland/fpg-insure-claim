@@ -5,6 +5,8 @@
  */
 package com.totoland.web.controller.form;
 
+import com.chetty.reporting.beans.DataBean;
+import com.chetty.reporting.business.DataBeanMaker;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.KeyMatch;
@@ -18,15 +20,29 @@ import com.totoland.web.service.KeyMatchService;
 import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.StringUtils;
 import com.totoland.web.utils.WebUtils;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
@@ -185,7 +201,30 @@ public class InsuranceFormController extends BaseController {
         this.claimInsure.setCertificationNumber(certNumber);
         //gennericService.edit(this.claimInsure);
         LOGGER.info("Print Certificate number : {} by user {}", certNumber, getUserAuthen().getUserId());
+    }
 
+    public StreamedContent getCertificateCopyFile(int certificateType) {
+        LOGGER.debug("edit : {}", this.claimInsure);
+        LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
+        LOGGER.debug(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/jasper/reportDebitNote.jrxml"));
+
+        try {
+            InputStream inputStream = new FileInputStream(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/jasper/reportDebitNote.jrxml"));
+            JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(Arrays.asList(this.claimInsure));
+
+            Map parameters = new HashMap();
+
+            JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
+            byte[] data = JasperExportManager.exportReportToPdf(jasperPrint);
+
+            return new DefaultStreamedContent(new ByteArrayInputStream(data), "application/pdf", "OPEN_COVER_" + CertificateType.valueOf(certificateType) + "_BY_AIR1.pdf");
+        } catch (Exception ex) {
+            LOGGER.error("download error ", ex);
+        }
+
+        return null;
     }
 
     public void exportCert(CertificateType type) {
@@ -371,50 +410,6 @@ public class InsuranceFormController extends BaseController {
 
     public void setCertificateService(CertificateService certificateService) {
         this.certificateService = certificateService;
-    }
-
-    /**
-     * @return the certificateFile
-     */
-    public StreamedContent getCertificateFile() {
-        genCertificate();
-        this.readOnly = true;
-        this.claimInsure.setUpdatedBy(1);
-        this.claimInsure.setUpdatedDateTime(new Date());
-        this.claimInsure.setClaimStatusId(InsureState.PRINT_CERT.getState());
-        LOGGER.debug("edit : {}", this.claimInsure);
-        try {
-            gennericService.edit(claimInsure);
-            addInfo(MessageUtils.SAVE_SUCCESS());
-        } catch (Exception e) {
-            LOGGER.error("ERROR WITH TRX_ID " + this.claimInsure.getTrxId() + " ", e);
-            addError(MessageUtils.SAVE_NOT_SUCCESS());
-        }
-//        printCert();
-        LOGGER.debug("export CertificateType : {}", CertificateType.ORIGINAL);
-
-        //TODO:Download PDF
-//        try {
-//            InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/template/OPEN_COVER_BY_AIR1.pdf");
-//            return new DefaultStreamedContent(stream, "application/pdf", "OPEN_COVER_"+CertificateType.valueOf(certificateType)+"_BY_AIR1.pdf");
-//        } catch (Exception ex) {
-//            LOGGER.error("download error ", ex);
-//            return null;
-//        }
-        return null;
-    }
-
-    public StreamedContent getCertificateCopyFile(int certificateType) {
-        LOGGER.debug("edit : {}", this.claimInsure);
-        LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
-
-        try {
-            InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/template/OPEN_COVER_BY_AIR1.pdf");
-            return new DefaultStreamedContent(stream, "application/pdf", "OPEN_COVER_" + CertificateType.valueOf(certificateType) + "_BY_AIR1.pdf");
-        } catch (Exception ex) {
-            LOGGER.error("download error ", ex);
-            return null;
-        }
     }
 
     /**

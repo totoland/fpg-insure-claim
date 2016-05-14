@@ -23,8 +23,7 @@ public class LocaleBean {
 
     @PostConstruct
     public void init() {
-        locale = new Locale("th","TH");
-        System.out.println("locale : "+locale);
+        locale = new Locale("en","US");
     }
 
     public Locale getLocale() {

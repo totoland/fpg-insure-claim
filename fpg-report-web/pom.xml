@@ -18,6 +18,7 @@
         <org.springframework.version>3.2.4.RELEASE</org.springframework.version>
         <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
         <fpg-report-dao-version>1.0-SNAPSHOT</fpg-report-dao-version>
+        <fpg-report-engine-version>1.0-SNAPSHOT</fpg-report-engine-version>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>dd/MM/yyyy HH:mm</maven.build.timestamp.format>
     </properties>
@@ -71,6 +72,11 @@
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.totoland</groupId>
+            <artifactId>report-engine</artifactId>
+            <version>${fpg-report-engine-version}</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
