@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDebitNote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7cc9e6c-39c7-448f-b25c-32e05a2d7e7a">
+	<property name="ireport.zoom" value="2.415765000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="437"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement x="161" y="1" width="187" height="20" uuid="42fe629b-3600-4968-bfc6-488f3591808c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[บริษัท เอฟพีจี ประกันภัย (ประเทศไทย) จำกัด มหาชน]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="21" width="177" height="20" uuid="70f81905-c1f2-4189-b5ae-9a468277f0b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[FPG Insurance (Thailand) Public Company Limited]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="41" width="236" height="20" uuid="8d350410-e3e0-4765-ab4d-eba2128e2cc5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" isBold="false" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[52 ธนิยะพลาซ่า ชั้น 16 ถนนสีลม แขวงสุริยวงศ์ เขตบางรัก กรุงเทพมหานคร 10500]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="61" width="165" height="20" uuid="0f362879-9483-4377-854e-6d8e61190ffd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" isBold="false" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[52 Thaniya Plaza Building,16th floor,Silom Road, Bangkok 10500]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="81" width="134" height="14" uuid="acf88e17-f4af-4cc5-b3bb-f2c4a38237aa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" isBold="false" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[1 (66) 2231-2640  1 (66) 2231-2653  www.fpgins.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="4" width="72" height="40" uuid="024d73fe-9dd5-41a5-94a9-621aeb77e329"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ใบแจ้งหนี้ DEBIT NOTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="81" width="81" height="14" uuid="6c1b4c37-1393-446a-a138-211487f2cb91"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" isBold="false" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[เลขประจำตัวผู้เสียภาษี]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="36e1bf70-e985-47e4-96f1-8125dd306be3"/>
+			</line>
+			<line>
+				<reportElement x="0" y="96" width="555" height="1" uuid="9435a18d-f3a8-4762-b486-ea9e9ee4f40e"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="97" uuid="9590898d-6243-459c-8cb5-2928ab7b3992"/>
+			</line>
+			<line>
+				<reportElement x="555" y="0" width="1" height="97" uuid="9d454532-cb51-433f-883c-91489d4c9206"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="239" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="0" width="230" height="16" uuid="ebee3374-08da-4406-b1ac-55904040d8b1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ชื่อและที่อยู่ผู้เอาประกันภัย         Insured Name & Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="42" height="31" uuid="ea2b2878-9eb6-4a01-b43a-2f61d56dda26"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[เลขที่  No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="31" width="42" height="30" uuid="e307180a-fd36-4f7a-8d00-53fb9de14213"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[วันที่  Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="62" width="61" height="28" uuid="7749676b-5803-4c7e-88cf-8ec6a8238aab"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[เบี้ยประกันภัย Premium]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="91" width="42" height="28" uuid="0fbb6c43-dfa9-42e0-bb0a-df1f59416afd"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[อากรแสตมป์  Stamp Duty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="120" width="83" height="28" uuid="e4dc5e3d-28a4-4bd9-a803-1c438cd96980"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ประเภทกรมธรรม์ Type of Policy]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="149" width="83" height="28" uuid="712944e5-b2b0-4c8f-917c-93f1fa910089"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[กรมธรรม์เลขที่ Policy No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="178" width="83" height="12" uuid="09c01250-b69a-4cb6-b2cb-ffa68c6fcde8"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ระยะเวลาประกันภัย]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="190" width="83" height="12" uuid="5e199cc5-b338-44db-962f-35dcf1cb0fd0"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Period of Insurance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="178" width="28" height="12" uuid="cb8cfd97-77c1-4e41-98b8-8ff690bb5ac9"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[จาก]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="190" width="28" height="12" uuid="d4b71cd1-92a5-43f7-b88e-1b9399080fd8"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="190" width="28" height="12" uuid="f7a10a9c-f3ca-44f5-89c6-4d8a13602ae6"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="178" width="28" height="12" uuid="86281663-e287-4149-8a1b-4a16911927ca"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ถึง]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="119" width="61" height="28" uuid="9cf85415-1313-401d-8c9d-c63b1c9ac3c0"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รวม  Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="149" width="75" height="28" uuid="ed1ef8a6-93bc-4646-b016-afc97741ccea"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ภาษีมูลค่าเพิ่ม VAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="178" width="75" height="28" uuid="ba8c2100-0d74-4959-aaff-6b4dee4c9dca"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รวมเป็นเงิน  Grand Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="220" width="71" height="12" uuid="133a701a-d999-4781-b131-2fb08047ad34"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Authorized Signature]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="208" width="71" height="12" uuid="29ba9461-879a-4f13-8913-5854e3087725"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ผู้รับมอบอำนาจ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="261" y="207" width="278" height="12" uuid="7812c633-2029-4643-a37c-7458e195470a"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[กรุณาเขียนเช็คขีดคร่อมจ่ายในนาม "บริษัท เอฟพีจี ประกันภัย (ประเทศไทย) จำกัด (มหาชน)"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="261" y="220" width="293" height="12" uuid="e505f387-136d-402a-aafb-547bfdb4dcef"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Please make crossed cheque payable to "FPG Insurance (Thailand) Public Company Limited"]]></text>
+			</staticText>
+			<line>
+				<reportElement x="330" y="0" width="1" height="206" uuid="12ebfa04-5487-40d3-9c35-b6bee8be472c"/>
+			</line>
+			<line>
+				<reportElement x="408" y="0" width="1" height="207" uuid="a7472a98-215a-4612-bc51-58a1f16b62fb"/>
+			</line>
+			<line>
+				<reportElement x="0" y="31" width="555" height="1" uuid="7f558e63-fbd4-4c9e-8d24-082b3dc12695"/>
+			</line>
+			<line>
+				<reportElement x="331" y="61" width="224" height="1" uuid="8346de27-c305-4fef-b3f8-5152e7605885"/>
+			</line>
+			<line>
+				<reportElement x="330" y="90" width="225" height="1" uuid="6f1dcf66-9a60-4b1e-9dfa-bf5208239501"/>
+			</line>
+			<line>
+				<reportElement x="0" y="119" width="555" height="1" uuid="3a7c9b4b-bf2c-4d77-a881-db5b0ee97405"/>
+			</line>
+			<line>
+				<reportElement x="1" y="148" width="555" height="1" uuid="97fbf34c-92a2-46b3-be3f-ffe7367d21b7"/>
+			</line>
+			<line>
+				<reportElement x="1" y="177" width="555" height="1" uuid="6f51e55b-872e-4527-8459-85d056aead1f"/>
+			</line>
+			<line>
+				<reportElement x="0" y="206" width="555" height="1" uuid="e084817e-fb3c-44e1-a29c-6262bf6b1a19"/>
+			</line>
+			<line>
+				<reportElement x="0" y="235" width="555" height="1" uuid="fc6b3be9-35eb-44dc-bcb8-c2c55077c0b9"/>
+			</line>
+			<line>
+				<reportElement x="77" y="228" width="174" height="1" uuid="fb6c4fae-c2a6-443d-8401-96a5f30ed63f"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="235" uuid="47fab289-e2a9-4f55-9919-14b5feca2552"/>
+			</line>
+			<line>
+				<reportElement x="555" y="0" width="1" height="236" uuid="f4bcd686-93b4-4820-9621-1cde98e1ed5b"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>
