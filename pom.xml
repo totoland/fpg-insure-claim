@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>fpg-report-dao</module>
+        <module>report-engine</module>
         <module>fpg-report-web</module>
     </modules>
     <properties>
