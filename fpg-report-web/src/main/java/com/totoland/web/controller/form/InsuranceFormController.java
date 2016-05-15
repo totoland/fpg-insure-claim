@@ -1,48 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.totoland.web.controller.form;
 
-import com.chetty.reporting.beans.DataBean;
-import com.chetty.reporting.business.DataBeanMaker;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.KeyMatch;
 import com.totoland.db.enums.CertificateType;
 import com.totoland.db.enums.InsureState;
+import com.totoland.reporting.service.impl.PDFReportExporter;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.GennericService;
 import com.totoland.web.service.KeyMatchService;
+import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.StringUtils;
 import com.totoland.web.utils.WebUtils;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
@@ -55,10 +36,11 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 @ManagedBean
 public class InsuranceFormController extends BaseController {
-
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(InsuranceFormController.class);
     private static final long serialVersionUID = -4658297318038575831L;
-
+    private static final String MARINE_PDF_TEMPLATE = "/resources/jasper/reportFPG.jrxml";
+    
     private String insureType = "Air";
     private List<DropDownList> insureTypeList;
     private List<DropDownList> insureNameList;
@@ -69,9 +51,9 @@ public class InsuranceFormController extends BaseController {
     private List<DropDownList> insuringTermsTypeList;
     private List<DropDownList> claimSurveyorsList;
     private ClaimInsure claimInsure;
-
+    
     private String certNumber;
-
+    
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
     @ManagedProperty("#{gennericService}")
@@ -80,25 +62,24 @@ public class InsuranceFormController extends BaseController {
     private CertificateService certificateService;
     @ManagedProperty("#{keyMatchService}")
     private KeyMatchService keyMatchService;
-
+    
     private Date issueDate;
-    private StreamedContent certificateFile;
     private boolean readOnly;
-
+    
     @PostConstruct
     public void init() {
         LOGGER.debug("init...");
         initData();
-
+        
         String trxId = super.getParameter("id");
-
+        
         if (trxId == null) {
             initCreateMode();
         } else {
             initUpdateMode(trxId);
         }
     }
-
+    
     private void initCreateMode() {
         this.certNumber = null;
         this.claimInsure = new ClaimInsure(0);
@@ -108,16 +89,16 @@ public class InsuranceFormController extends BaseController {
         KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
         this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
     }
-
+    
     private void initUpdateMode(String trxId) {
         this.claimInsure = certificateService.findByTrxId(trxId);
-
+        
         if (claimInsure == null) {
             LOGGER.warn("TrxId is gone, redirect to create page...");
             super.redirectPage("insuranceForm.xhtml");
             return;
         }
-
+        
         this.certNumber = this.claimInsure.getCertificationNumber();
         this.claimInsure.setClaimStatusId(this.claimInsure.getClaimStatusId());
         this.claimInsure.setExchangeRate(new BigDecimal("35.64"));
@@ -128,13 +109,13 @@ public class InsuranceFormController extends BaseController {
             KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
             this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
         }
-
+        
         if (this.claimInsure.getClaimStatusId() == InsureState.PRINT_CERT.getState()) {
             LOGGER.debug("Transaction has been printed set page to mode readOnly...");
             readOnly = true;
         }
     }
-
+    
     private void initData() {
         this.insureTypeList = getInsureTypeList();
         this.insureNameList = dropdownFactory.ddlInsureName();
@@ -146,19 +127,19 @@ public class InsuranceFormController extends BaseController {
         this.claimSurveyorsList = dropdownFactory.ddlClaimSurveyors();
         this.readOnly = false;
     }
-
+    
     @Override
     public void resetForm() {
         init();
     }
-
+    
     public void save(int state) {
         this.claimInsure.setCreatedBy(1);
         this.claimInsure.setCreatedDateTime(new Date());
         this.claimInsure.setClaimStatusId(state);
         this.claimInsure.setTrxId(WebUtils.generateToken());
         LOGGER.debug("save : {}", this.claimInsure);
-
+        
         try {
             gennericService.edit(claimInsure);
             addInfo(MessageUtils.SAVE_SUCCESS());
@@ -167,9 +148,9 @@ public class InsuranceFormController extends BaseController {
             LOGGER.error("ERROR WITH TRX_ID " + this.claimInsure.getTrxId() + " ", e);
             addError(MessageUtils.SAVE_NOT_SUCCESS());
         }
-
+        
     }
-
+    
     public void edit(int state) {
         this.claimInsure.setUpdatedBy(1);
         this.claimInsure.setUpdatedDateTime(new Date());
@@ -183,7 +164,7 @@ public class InsuranceFormController extends BaseController {
             addError(MessageUtils.SAVE_NOT_SUCCESS());
         }
     }
-
+    
     public void cancel(String trxId) {
         //Discard transaction
         try {
@@ -194,59 +175,60 @@ public class InsuranceFormController extends BaseController {
             addError(MessageUtils.DISCARD_FAIL());
         }
     }
-
-    public void genCertificate() {
-        //TODO: Save and Call export pdf
+    
+    private void createCertificateNumber() {
         this.certNumber = certificateService.getCertificateNO(insureType);
         this.claimInsure.setCertificationNumber(certNumber);
-        //gennericService.edit(this.claimInsure);
+        gennericService.edit(this.claimInsure);
         LOGGER.info("Print Certificate number : {} by user {}", certNumber, getUserAuthen().getUserId());
     }
-
+    
     public StreamedContent getCertificateCopyFile(int certificateType) {
-        LOGGER.debug("edit : {}", this.claimInsure);
         LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
-        LOGGER.debug(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/jasper/reportDebitNote.jrxml"));
-
+        
+        //If first time export must be export with ORIGINAL and need to create new Certificate number
+        if (CertificateType.ORIGINAL.equals(CertificateType.valueOf(certificateType))) {
+            try {
+                createCertificateNumber();
+            } catch (Exception ex) {
+                LOGGER.error("Fail when create createCertificateNumber : ", ex);
+                return null;
+            }
+        }
+        
+        String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
+        
         try {
-            InputStream inputStream = new FileInputStream(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/jasper/reportDebitNote.jrxml"));
-            JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(Arrays.asList(this.claimInsure));
-
-            Map parameters = new HashMap();
-
-            JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
-            byte[] data = JasperExportManager.exportReportToPdf(jasperPrint);
-
-            return new DefaultStreamedContent(new ByteArrayInputStream(data), "application/pdf", "OPEN_COVER_" + CertificateType.valueOf(certificateType) + "_BY_AIR1.pdf");
+            byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(this.claimInsure));
+            return new DefaultStreamedContent(new ByteArrayInputStream(data),
+                    "application/pdf", "OPEN_COVER_" + CertificateType.valueOf(certificateType) + "_BY_"+this.insureType+".pdf");
         } catch (Exception ex) {
             LOGGER.error("download error ", ex);
         }
-
+        
         return null;
     }
-
+    
     public void exportCert(CertificateType type) {
-
+        
     }
-
+    
     public String getCurrentStatus(int claimStatusId) {
         return InsureState.toStateName(claimStatusId);
     }
-
+    
     public void selectInsureType(String selectedInsureType) {
         this.insureType = findInsureType(selectedInsureType);
         this.claimInsure.setMethodOfTransportId(Integer.parseInt(selectedInsureType));
     }
-
+    
     private String findInsureType(String selectedInsureType) {
         for (DropDownList ddl : dropdownFactory.ddlInsureTypesList()) {
             if (ddl.getValue().equals(selectedInsureType)) {
                 return ddl.getName();
             }
         }
-
+        
         return null;
     }
 
@@ -403,34 +385,27 @@ public class InsuranceFormController extends BaseController {
     public void setGennericService(GennericService<ClaimInsure> gennericService) {
         this.gennericService = gennericService;
     }
-
+    
     public CertificateService getCertificateService() {
         return certificateService;
     }
-
+    
     public void setCertificateService(CertificateService certificateService) {
         this.certificateService = certificateService;
     }
-
-    /**
-     * @param certificateFile the certificateFile to set
-     */
-    public void setCertificateFile(StreamedContent certificateFile) {
-        this.certificateFile = certificateFile;
-    }
-
+    
     public boolean isReadOnly() {
         return readOnly;
     }
-
+    
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
-
+    
     public KeyMatchService getKeyMatchService() {
         return keyMatchService;
     }
-
+    
     public void setKeyMatchService(KeyMatchService keyMatchService) {
         this.keyMatchService = keyMatchService;
     }

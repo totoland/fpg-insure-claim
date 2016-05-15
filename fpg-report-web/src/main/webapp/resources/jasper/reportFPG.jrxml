@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFPG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03c5575f-761a-4e21-ae7f-ce00d78a7c53">
+	<property name="ireport.zoom" value="1.4641000000000035"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="104">
+			<staticText>
+				<reportElement x="174" y="83" width="199" height="14" uuid="0d438572-b030-4a06-b333-1bdcbee4f051"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" isBold="false" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[1 (66) 2231-2640  1 (66) 2231-2653  www.fpgins.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="63" width="243" height="20" uuid="f891f442-6a2c-4b2f-9d75-5e5998e95df7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" isBold="false" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[52 Thaniya Plaza Building,16th floor,Silom Road, Bangkok 10500]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="23" width="255" height="20" uuid="127306c2-1006-4c50-a44e-4709d4b497a2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[FPG Insurance (Thailand) Public Company Limited]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="3" width="265" height="20" uuid="6299d0cf-05b1-4e03-b177-00f89d66185d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[บริษัท เอฟพีจี ประกันภัย (ประเทศไทย) จำกัด มหาชน]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="43" width="314" height="20" uuid="6c2262a4-ae95-47fc-b9c2-44f7ac347f74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" isBold="false" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[52 ธนิยะพลาซ่า ชั้น 16 ถนนสีลม แขวงสุริยวงศ์ เขตบางรัก กรุงเทพมหานคร 10500]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="3" width="54" height="40" uuid="2f46f6bc-881b-47a4-bed9-bff66951e639"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Certificate Number:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="163">
+			<staticText>
+				<reportElement x="2" y="4" width="53" height="14" uuid="8be1352d-74c0-4a6a-bdca-f4836cd41801"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ORIGINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="4" width="82" height="13" uuid="4035e283-ffc7-4260-9316-9dc9ec666896"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Open Policy Number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="15" width="164" height="20" uuid="b7f061ef-a931-4ba1-9173-88590aa4a621"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[MARINE CARGO CERTIFICATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="42" width="65" height="11" uuid="20b27607-7c18-4d68-89b7-c5dd120eb5d5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Name of Assured:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="54" width="100" height="11" uuid="f5908030-28d0-4e35-a97f-27f4cafdae87"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Vessel/Airline:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="66" width="100" height="11" uuid="070c473e-9869-4af4-ba70-581fcc3214b0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Referrence Number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="78" width="30" height="11" uuid="36eccc16-a9e1-45d1-ba93-0861d7556d08"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Voyage:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="101" width="100" height="11" uuid="2f09c3cc-4ed6-4841-9087-a75cdfacbb92"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Amount Insured Hereunder:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="78" width="47" height="11" uuid="fe0c74bb-466f-49ed-965e-51770854f09a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[At and from:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="89" width="18" height="11" uuid="899845c4-a091-491a-a88a-d70c683b6e97"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[To:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="54" width="70" height="11" uuid="3da44225-243a-4f1a-98c8-d474d7690011"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Voyage/Flight No:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="66" width="70" height="11" uuid="27cf3120-2921-489f-bca2-0ddc1b51f120"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Sailing/Flight Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="129" width="82" height="11" uuid="ae6606fa-0d27-4c22-88fd-0c1605c18f77"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Subject-Matter Isured:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="5d18d87a-9040-4502-a9e7-90ecf39feb34"/>
+				<graphicElement>
+					<pen lineWidth="2.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="128" width="555" height="1" uuid="94f70dc5-970e-4976-950f-497405925089"/>
+				<graphicElement>
+					<pen lineWidth="2.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="162" width="555" height="1" uuid="4e52e2fe-dba7-4005-a22f-c0b4d8bb4d02"/>
+				<graphicElement>
+					<pen lineWidth="2.5"/>
+				</graphicElement>
+			</line>
+		</band>
+		<band height="208">
+			<line>
+				<reportElement x="0" y="176" width="555" height="1" uuid="267ee809-1180-48c6-a842-afa332e6b516"/>
+				<graphicElement>
+					<pen lineWidth="2.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="277" y="0" width="1" height="177" uuid="0871192b-60e3-4d32-af41-9161e4e07c21"/>
+				<graphicElement>
+					<pen lineWidth="2.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="207" width="555" height="1" uuid="f1bf65b2-a587-4089-b924-885c899407cc"/>
+				<graphicElement>
+					<pen lineWidth="2.5"/>
+				</graphicElement>
+			</line>
+		</band>
+		<band height="255">
+			<staticText>
+				<reportElement x="2" y="0" width="112" height="11" uuid="5fa4e362-2af9-4ae8-8edf-def6c4eba94c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Claims, if any, payable at/in:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="11" width="14" height="11" uuid="bd471d48-05ba-437a-b3eb-1a2485975091"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[By:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="11" width="252" height="11" uuid="1bdf05f0-0fce-4995-9942-ab1c387fe7b1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Era Survey and Consultants Ltd., 16/19 Soi Sathupradit 4, Tungwatdon, Sathorn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="22" width="229" height="11" uuid="97fc1027-d923-4386-9fac-c7cf0ef775c8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Bangkok 10120, Thailand (Phone: 66 2 672 6112, Fax: 66 2 672 6225)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="33" width="488" height="11" uuid="63c6f4a3-a004-450c-b08c-674c81375369"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[In the event of loss or damage for which may involve a claim under this insurance, no claim will be admitted unless immediate notice for survey has been]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="44" width="205" height="11" uuid="392e2aa1-f191-43ce-8873-df4a2efa324a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[given to end a survey report obtained from or with the approval of:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="55" width="252" height="11" uuid="4dfcc2ab-de8d-43a3-9366-5b8355693e3e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Era Survey and Consultants Ltd., 16/19 Soi Sathupradit 4, Tungwatdon, Sathorn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="66" width="229" height="11" uuid="9a7ff6de-60f1-4266-a98e-05f9ff7120ad"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Bangkok 10120, Thailand (Phone: 66 2 672 6112, Fax: 66 2 672 6225)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="77" width="229" height="11" uuid="b52e548a-be17-47f8-b9a5-74034401d7d9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[In cases where there is no agent, the Lloyd's Agent must be applied for.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="88" width="502" height="11" uuid="44e00a28-a74e-4efd-a44c-b3ef14aa7861"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Notwithstanding anything contained herein or attached hereto the contrary, it is understood and agreed that this insurance is subject to English law and practice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="99" width="469" height="11" uuid="f8bddb0d-d666-4aa0-80a6-178960d4b464"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[only as to all questions of liability for and settlement of any and all claims arising under this Policy. It is further declared and agreed that notwithstanding]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="110" width="469" height="11" uuid="30a481ba-bc7e-4ad9-859f-d07b13dc6d67"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[anything to the contrary in the Revenue Code of Thailand, the business tax, municipal tax and stamp duty on the Policy are payable by the Assured.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="121" width="129" height="11" uuid="338b5b05-1a02-4733-8dbe-d067a39a692d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[We, FPG Insurance (Thailand) Public Company Limited]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="121" width="282" height="11" uuid="75b715d2-a766-45d0-9e82-d9d6568d56c7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(herein referred to as the Underwriters) here by agree, in consideration of the Payment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="132" width="502" height="11" uuid="ad5adb8c-cb6a-4e7e-8e91-2fa17991e9e9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[to us by or on behalf of the Assured of the premium as arranged, to insure against loss, damage, liability or expense to the extent and in the manner herein]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="143" width="31" height="11" uuid="adda42dc-5224-44d8-ae59-49fb91cab10f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[provided.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="143" width="43" height="11" uuid="3f3af25f-f784-4d8d-977d-1cddae1d6676"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[IN WITNESS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="143" width="313" height="11" uuid="f2353dd6-0ce4-4ac5-a0b8-3692b107092f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[whereof the undersigned have subscribed their names for and on behalf of the Underwriters.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="154" width="414" height="11" uuid="f82dcdc4-a0ba-4413-b763-d88c38543904"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[This certificate is not valid unless countersigned by the assured or an authorized representative of the company.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="207" width="136" height="1" uuid="5de9d2b9-99a3-4f12-8747-ae376081dd03"/>
+			</line>
+			<line>
+				<reportElement x="189" y="207" width="136" height="1" uuid="c2f11390-18b0-4fd5-a609-9fb04a3f08c6"/>
+			</line>
+			<line>
+				<reportElement x="371" y="207" width="136" height="1" uuid="64c9baa9-3afe-4f66-b4e0-07fe494c5673"/>
+			</line>
+			<staticText>
+				<reportElement x="14" y="207" width="94" height="11" uuid="423856d2-17e3-45a8-9706-055c119b3382"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Authorized Representative]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="218" width="70" height="11" uuid="329faad8-c6a3-4ed5-8c69-24f26d13f619"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Issued in Bangkok on:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="208" width="35" height="11" uuid="57d0a44a-2cb7-49b8-b2e4-7c196941626e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Director]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="424" y="208" width="35" height="11" uuid="8c8ff4c1-cc9a-4522-b78d-a6d2909836d3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Director]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="244" width="94" height="11" uuid="98619216-8fc2-4397-825c-71e893dd693c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Form 12-02-0362 (Ed.3/02)]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

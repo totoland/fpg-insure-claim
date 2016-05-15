@@ -40,6 +40,10 @@ public class JsfUtil implements Serializable {
         return d;
     }
 
+    public static String getRealPath(String resourcesjasperreportFPGjrxml) {
+        return FacesContext.getCurrentInstance().getExternalContext().getRealPath(resourcesjasperreportFPGjrxml);
+    }
+
     public UIComponent findComponent(final String id) {
         FacesContext context = FacesContext.getCurrentInstance();
         UIViewRoot root = context.getViewRoot();
