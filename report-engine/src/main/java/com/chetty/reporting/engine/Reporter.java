@@ -1,5 +1,6 @@
 package com.chetty.reporting.engine;
 
+import com.chetty.reporting.bean.DebitNote;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import com.chetty.reporting.beans.DataBean;
 import com.chetty.reporting.business.DataBeanMaker;
+import java.util.Arrays;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -24,10 +26,9 @@ public class Reporter {
     public static void main(String[] args) throws Exception {
         InputStream inputStream = new FileInputStream("reports/reportDebitNote.jrxml");
 
-        DataBeanMaker dataBeanMaker = new DataBeanMaker();
-        ArrayList<DataBean> dataBeanList = dataBeanMaker.getDataBeanList();
+        DebitNote debitNote = new DebitNote();
 
-        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
+        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(Arrays.asList(debitNote));
 
         Map parameters = new HashMap();
 
