@@ -81,7 +81,8 @@
                                         <h:outputLabel value="#{msg.confirm_new_password}"/>
                                         <p:password/>
                                         <p:separator/>
-                                        <p:commandButton value="#{msg.btn_save}"/>
+                                        <p:commandButton value="#{msg.btn_save}"
+                                                         action="#{changePasswordController.changePassword()}"/>
                                     </p:panelGrid>
                                 </div>
                             </div>

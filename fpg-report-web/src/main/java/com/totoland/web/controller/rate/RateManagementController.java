@@ -26,7 +26,10 @@ import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.RateManagementService;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
+import static com.totoland.web.utils.MessageUtils.getResourceBundleString;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -85,6 +88,16 @@ public class RateManagementController extends BaseController {
 
     public void save() {
         try {
+            Map<String,Object>paramsMap = new HashMap<>();
+            paramsMap.put("customerId", selectedItem.getCustomerId());
+            paramsMap.put("productId", selectedItem.getProductId());
+            List<ProductRate>listProdcutRate = rateManagementService.findByDynamicField(ProductRate.class, paramsMap);
+            
+            if(listProdcutRate!=null && !listProdcutRate.isEmpty()){
+                addError("newProductRateMsg",MessageUtils.getResourceBundleString("product_rate_ins_dupp"));
+                return;
+            }
+            
             rateManagementService.create(selectedItem);
             LOGGER.debug("save : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());

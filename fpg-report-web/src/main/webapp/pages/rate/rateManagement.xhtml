@@ -3,6 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
                 xmlns:toto="http://java.sun.com/jsf/composite/components"
                 template="/WEB-INF/template.xhtml">
 
@@ -91,11 +92,11 @@
                             Search Result
                         </f:facet>
 
-                        <p:column headerText="#{msg.label_customer}" sortBy="#{item.customerId}" footerText="#{msg.label_customer}">
-                            <h:outputText value="#{item.customerId}" />
+                        <p:column headerText="#{msg.label_customer}" sortBy="#{item.customerName}" footerText="#{msg.label_customer}">
+                            <h:outputText value="#{item.customerName}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_product}" sortBy="#{item.productId}" footerText="#{msg.label_product}">
-                            <h:outputText value="#{item.productId}" />
+                        <p:column headerText="#{msg.label_product}" sortBy="#{item.productName}" footerText="#{msg.label_product}">
+                            <h:outputText value="#{item.productName}" />
                         </p:column>
                         <p:column headerText="#{msg.label_rate}" sortBy="#{item.productRate}" footerText="#{msg.label_rate}">
                             <h:outputText value="#{item.productRate}" />
@@ -125,8 +126,9 @@
             </div>
 
             <p:dialog id="dlgNewRateMnm" header="#{msg.menu_rate}" widgetVar="dlgNewRateMnm"  modal="true"
-                      showEffect="explode" hideEffect="bounce" height="250" minimizable="true" maximizable="true" responsive="true">
-                <div class="Container100">
+                      showEffect="explode" hideEffect="bounce" height="350" width="400" minimizable="true" maximizable="true" responsive="true">
+                <p:messages id="newProductRateMsg"/>
+                <p:panel id="pnNewRateMnm" class="Container100" style="border: 0px">
                     <div class="ContainerIndent">
                         <div class="Container100 Responsive100">
                             <div class="ContainerIndent">
@@ -134,22 +136,34 @@
                                 <p:panelGrid columns="2"
                                              style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                     <h:outputLabel value="#{msg.label_customer}"/>
-                                    <p:selectOneMenu styleClass="selectOne115" 
-                                                     value="#{rateManagementController.selectedItem.customerId}">
-                                        <f:selectItems value="#{rateManagementController.ddlCustomer}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu id="newCustomerId" styleClass="selectOne115" 
+                                                         value="#{rateManagementController.selectedItem.customerId}"
+                                                         required="true"
+                                                         requiredMessage="#{msg.require_generic}">
+                                            <f:selectItem/>
+                                            <f:selectItems value="#{rateManagementController.ddlCustomer}" var="item"
+                                                           itemValue="#{item.value}"
+                                                           itemLabel="#{item.name}"/>
+                                        </p:selectOneMenu>
+                                        <p:message id="newCustomerIdMsg" for="newCustomerId"/>
+                                    </h:panelGroup>
                                     <h:outputLabel value="#{msg.label_product}"/>
-                                    <p:selectOneMenu styleClass="selectOne115"
-                                                     value="#{rateManagementController.selectedItem.productId}">
-                                        <f:selectItems value="#{rateManagementController.ddlProduct}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu id="newProductId" styleClass="selectOne115"
+                                                         value="#{rateManagementController.selectedItem.productId}"
+                                                         required="true"
+                                                         requiredMessage="#{msg.require_generic}">
+                                            <f:selectItem/>
+                                            <f:selectItems value="#{rateManagementController.ddlProduct}" var="item"
+                                                           itemValue="#{item.value}"
+                                                           itemLabel="#{item.name}"/>
+                                        </p:selectOneMenu>
+                                        <p:message id="newProductIdMsg" for="newProductId"/>
+                                    </h:panelGroup>
                                     <h:outputLabel value="#{msg.label_rate}"/>
                                     <h:panelGroup>
-                                        <p:inputNumber id="newProductRate" value="#{rateManagementController.selectedItem.productRate}"
+                                        <pe:inputNumber id="newProductRate" value="#{rateManagementController.selectedItem.productRate}"
                                                        decimalPlaces="2"
                                                        required="true"
                                                        requiredMessage="#{msg.require_generic}"/>
@@ -159,13 +173,13 @@
                                     <p:commandButton value="#{msg.btn_save}"
                                                      action="#{rateManagementController.save()}"
                                                      process="dlgNewRateMnm"
-                                                     update=":form:pnResult,popupNewMsg"/>
+                                                     update=":form:pnResult,pnNewRateMnm"/>
                                 </p:panelGrid>
                             </div>
                         </div>
 
                     </div>
-                </div>
+                </p:panel>
             </p:dialog>
 
             <p:dialog id="dlgEditRateMnm" header="#{msg.menu_rate}" widgetVar="dlgEditRateMnm"  modal="true"
@@ -193,7 +207,7 @@
                                     </p:selectOneMenu>
                                     <h:outputLabel value="#{msg.label_rate}"/>
                                     <h:panelGroup>
-                                        <p:inputNumber id="editProductRate" value="#{rateManagementController.selectedItem.productRate}"
+                                        <pe:inputNumber id="editProductRate" value="#{rateManagementController.selectedItem.productRate}"
                                                        decimalPlaces="2"
                                                        required="true"
                                                        requiredMessage="#{msg.require_generic}"/>

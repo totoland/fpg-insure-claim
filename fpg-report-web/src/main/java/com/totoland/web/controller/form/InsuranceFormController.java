@@ -116,6 +116,17 @@ public class InsuranceFormController extends BaseController {
         }
     }
     
+    public boolean renderSelectInsureType(int type){
+        if(!readOnly){
+            return true;
+        }
+        
+        LOGGER.debug("this.claimInsure.getMethodOfTransportId() : {}",this.claimInsure.getMethodOfTransportId());
+        
+        return this.claimInsure !=null && this.claimInsure.getMethodOfTransportId()!=null 
+                && this.claimInsure.getMethodOfTransportId()==type;
+    }
+    
     private void initData() {
         this.insureTypeList = getInsureTypeList();
         this.insureNameList = dropdownFactory.ddlInsureName();

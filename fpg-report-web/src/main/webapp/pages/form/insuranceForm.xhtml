@@ -22,12 +22,18 @@
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             #{msg.menu_marine_insure} 
                             <div class="EmptyBox10 ShowOnMobile"></div>
-                            <p:commandButton value="#{msg.option_truck}" icon="fa fa-cab" styleClass="Fright PurpleButton FloatNoneOnMobile" 
-                                             update="selectInsureType , lbCertNumber , selectInsureType2" action="#{insuranceFormController.selectInsureType(3)}"/>
-                            <p:commandButton value="#{msg.option_vessel}" icon="fa fa-ship" styleClass="Fright GreenButton FloatNoneOnMobile" 
-                                             update="selectInsureType , lbCertNumber , selectInsureType2" action="#{insuranceFormController.selectInsureType(2)}"/>
-                            <p:commandButton value="#{msg.option_air}" icon="fa fa-plane" styleClass="Fright FloatNoneOnMobile" 
-                                             update="selectInsureType , lbCertNumber , selectInsureType2" action="#{insuranceFormController.selectInsureType(1)}"/> 
+                                <p:commandButton value="#{msg.option_truck}" icon="fa fa-cab" styleClass="Fright PurpleButton FloatNoneOnMobile" 
+                                                 update="selectInsureType , lbCertNumber , selectInsureType2"
+                                                 rendered="#{!insuranceFormController.readOnly}"
+                                                 action="#{insuranceFormController.selectInsureType(3)}"/>
+                                <p:commandButton value="#{msg.option_vessel}" icon="fa fa-ship" styleClass="Fright GreenButton FloatNoneOnMobile" 
+                                                 rendered="#{!insuranceFormController.readOnly}"
+                                                 update="selectInsureType , lbCertNumber , selectInsureType2" 
+                                                 action="#{insuranceFormController.selectInsureType(2)}"/>
+                                <p:commandButton value="#{msg.option_air}" icon="fa fa-plane" styleClass="Fright FloatNoneOnMobile" 
+                                                 rendered="#{!insuranceFormController.readOnly}"
+                                                 update="selectInsureType , lbCertNumber , selectInsureType2" 
+                                                 action="#{insuranceFormController.selectInsureType(1)}"/> 
                             <br/>
                         </div>
 
@@ -128,7 +134,7 @@
                                                      requiredMessage="#{msg.require_generic}"
                                                      value="#{insuranceFormController.claimInsure.originCountryCode}">
                                         <f:selectItem itemLabel="" itemValue=""/>
-                                        <f:selectItems value="#{insuranceFormController.countriesList}" 
+                                        <f:selectItems value="#{insuranceFormController.countriesList}"
                                                        var="item"
                                                        itemLabel="#{item.name}"
                                                        itemValue="#{item.value}"/>
@@ -359,9 +365,25 @@
                         </p:toolbar>
                         <p:toolbar rendered="#{insuranceFormController.readOnly}">
                             <f:facet name="right"> 
-                                <p:commandButton value="#{msg.btn_print_cert} Company Copy" immediate="true"
+                                <p:commandButton value="#{msg.btn_company_copy}" immediate="true"
                                                  icon="fa fa-save Fs14 White" styleClass="GreenButton" 
                                                  type="button" onclick="PF('printCopyPopup').show()">
+                                </p:commandButton>
+                                <p:commandButton value="#{msg.btn_dupp_copy}" immediate="true"
+                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 type="button" onclick="PF('printCopyDupp').show()">
+                                </p:commandButton>
+                                <p:commandButton value="#{msg.btn_insure_copy}" immediate="true"
+                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 type="button" onclick="PF('printInsureCopy').show()">
+                                </p:commandButton>
+                                <p:commandButton value="#{msg.btn_producer_copy}" immediate="true"
+                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 type="button" onclick="PF('printProducerCopy').show()">
+                                </p:commandButton>
+                                <p:commandButton value="#{msg.btn_office_copy}" immediate="true"
+                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 type="button" onclick="PF('printOfficeCopy').show()">
                                 </p:commandButton>
 
                                 <p:confirmDialog widgetVar="printCopyPopup" 
@@ -379,7 +401,70 @@
                                                      onclick="PF('printCopyPopup').hide()"
                                                      type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
+                                
+                                <p:confirmDialog widgetVar="printCopyDupp" 
+                                                 header="#{msg.confirmation_head}" 
+                                                 message="#{msg.msg_confirm_save}"
+                                                 showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="#{msg.yes}" 
+                                                     ajax="false" onclick="PF('printCopyDupp').hide()"
+                                                     process="@form"
+                                                     styleClass="ui-confirmdialog-yes GreenButton" 
+                                                     icon="ui-icon-check fa fa-check Fs14 white" oncomplete="window.location = ''">
+                                        <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile('2')}"/>
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msg.btn_cancel}"
+                                                     onclick="PF('printCopyDupp').hide()"
+                                                     type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                </p:confirmDialog>
+                                
+                                <p:confirmDialog widgetVar="printInsureCopy" 
+                                                 header="#{msg.confirmation_head}" 
+                                                 message="#{msg.msg_confirm_save}"
+                                                 showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="#{msg.yes}" 
+                                                     ajax="false" onclick="PF('printInsureCopy').hide()"
+                                                     process="@form"
+                                                     styleClass="ui-confirmdialog-yes GreenButton" 
+                                                     icon="ui-icon-check fa fa-check Fs14 white" oncomplete="window.location = ''">
+                                        <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile('3')}"/>
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msg.btn_cancel}"
+                                                     onclick="PF('printInsureCopy').hide()"
+                                                     type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                </p:confirmDialog>
+                                
+                                <p:confirmDialog widgetVar="printProducerCopy" 
+                                                 header="#{msg.confirmation_head}" 
+                                                 message="#{msg.msg_confirm_save}"
+                                                 showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="#{msg.yes}" 
+                                                     ajax="false" onclick="PF('printProducerCopy').hide()"
+                                                     process="@form"
+                                                     styleClass="ui-confirmdialog-yes GreenButton" 
+                                                     icon="ui-icon-check fa fa-check Fs14 white" oncomplete="window.location = ''">
+                                        <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile('4')}"/>
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msg.btn_cancel}"
+                                                     onclick="PF('printProducerCopy').hide()"
+                                                     type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                </p:confirmDialog>
 
+                                <p:confirmDialog widgetVar="printOfficeCopy" 
+                                                 header="#{msg.confirmation_head}" 
+                                                 message="#{msg.msg_confirm_save}"
+                                                 showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="#{msg.yes}" 
+                                                     ajax="false" onclick="PF('printOfficeCopy').hide()"
+                                                     process="@form"
+                                                     styleClass="ui-confirmdialog-yes GreenButton" 
+                                                     icon="ui-icon-check fa fa-check Fs14 white" oncomplete="window.location = ''">
+                                        <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile('5')}"/>
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msg.btn_cancel}"
+                                                     onclick="PF('printOfficeCopy').hide()"
+                                                     type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                </p:confirmDialog>
 
                             </f:facet>
 
@@ -400,6 +485,10 @@
                     padding: 12px 10px!important;
                 }
             </style>
+            <script>
+                $("#form\\:originCountryCode").attr("style","");
+                $("#form\\:destinationCountryCode").attr("style","");
+            </script>
         </h:form>
     </ui:define>
 
