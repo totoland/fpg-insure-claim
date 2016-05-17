@@ -27,27 +27,6 @@ public class DropdownFactory implements Serializable {
     @Autowired
     CommonService commonService;
 
-    /**
-     * *
-     * getFiscalYear
-     *
-     * @return ปีงบประมาณ ย้อนหลัง 10 ปี
-     */
-    public List<DropDownList> ddlFiscalYear() {
-
-        List<DropDownList> dropDownLists = new ArrayList<>();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-
-        int curYear = Integer.parseInt(dateFormat.format(new Date()));
-
-        for (int i = 0; i < 10; i++) {
-            dropDownLists.add(new DropDownList(String.valueOf(curYear - i), String.valueOf(curYear - i)));
-        }
-
-        return dropDownLists;
-    }
-
     private static List<DropDownList> ectGroupLvl;
 
     /**
@@ -261,5 +240,19 @@ public class DropdownFactory implements Serializable {
             claimStatus = commonService.getDropdownList(criteria);
         }
         return claimStatus;
+    }
+    
+    public List<DropDownList> ddlRateSchedule() {
+
+        List<DropDownList> customers = new ArrayList<>();
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("rate_schedule");
+        criteria.setOrderByField("rate_schedule_name");
+        criteria.setName("CONCAT(rate_schedule_name , '-------------------------------------------------------------------' , rate )");
+        criteria.setValue("rate");
+        criteria.setSortName("ASC");
+
+        customers = commonService.getDropdownList(criteria);
+        return customers;
     }
 }

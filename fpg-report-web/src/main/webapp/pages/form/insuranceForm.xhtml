@@ -3,6 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
                 xmlns:toto="http://java.sun.com/jsf/composite/components"
                 template="/WEB-INF/template.xhtml"
                 xmlns:fnc="http://myco.co.uk/fnc"
@@ -22,18 +23,18 @@
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             #{msg.menu_marine_insure} 
                             <div class="EmptyBox10 ShowOnMobile"></div>
-                                <p:commandButton value="#{msg.option_truck}" icon="fa fa-cab" styleClass="Fright PurpleButton FloatNoneOnMobile" 
-                                                 update="selectInsureType , lbCertNumber , selectInsureType2"
-                                                 rendered="#{!insuranceFormController.readOnly}"
-                                                 action="#{insuranceFormController.selectInsureType(3)}"/>
-                                <p:commandButton value="#{msg.option_vessel}" icon="fa fa-ship" styleClass="Fright GreenButton FloatNoneOnMobile" 
-                                                 rendered="#{!insuranceFormController.readOnly}"
-                                                 update="selectInsureType , lbCertNumber , selectInsureType2" 
-                                                 action="#{insuranceFormController.selectInsureType(2)}"/>
-                                <p:commandButton value="#{msg.option_air}" icon="fa fa-plane" styleClass="Fright FloatNoneOnMobile" 
-                                                 rendered="#{!insuranceFormController.readOnly}"
-                                                 update="selectInsureType , lbCertNumber , selectInsureType2" 
-                                                 action="#{insuranceFormController.selectInsureType(1)}"/> 
+                            <p:commandButton value="#{msg.option_truck}" icon="fa fa-cab" styleClass="Fright PurpleButton FloatNoneOnMobile" 
+                                             update="selectInsureType , lbCertNumber , selectInsureType2"
+                                             rendered="#{!insuranceFormController.readOnly}"
+                                             action="#{insuranceFormController.selectInsureType(3)}"/>
+                            <p:commandButton value="#{msg.option_vessel}" icon="fa fa-ship" styleClass="Fright GreenButton FloatNoneOnMobile" 
+                                             rendered="#{!insuranceFormController.readOnly}"
+                                             update="selectInsureType , lbCertNumber , selectInsureType2" 
+                                             action="#{insuranceFormController.selectInsureType(2)}"/>
+                            <p:commandButton value="#{msg.option_air}" icon="fa fa-plane" styleClass="Fright FloatNoneOnMobile" 
+                                             rendered="#{!insuranceFormController.readOnly}"
+                                             update="selectInsureType , lbCertNumber , selectInsureType2" 
+                                             action="#{insuranceFormController.selectInsureType(1)}"/> 
                             <br/>
                         </div>
 
@@ -98,7 +99,8 @@
                                 <p:inputText value="#{insuranceFormController.claimInsure.consigneeName}"/>
 
                                 <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
-                                <h:outputLabel value="invoice*exchange rate*valuation"/>
+                                <pe:inputNumber id="amountOfInsurance"
+                                                value="#{insuranceFormController.claimInsure.amountOfInsurance}"/>
 
                                 <h:outputLabel value="#{msg.label_deductible_amount}"/>
                                 <h:outputLabel value="#{insuranceFormController.claimInsure.deductibleAmount}"/>
@@ -121,7 +123,8 @@
                                 <p:inputText value="#{insuranceFormController.claimInsure.exchangeRate}"/>
 
                                 <h:outputLabel value="#{msg.label_local_amount_of_insurance}"/>
-                                <p:inputText value="#{insuranceFormController.claimInsure.localAmountOfInsurance}"/>
+                                <pe:inputNumber id="localAmountOfInsurance"
+                                                value="#{insuranceFormController.claimInsure.localAmountOfInsurance}"/>
 
                                 <h:outputLabel value=""/>
                                 <h:outputLabel value=""/>
@@ -199,10 +202,10 @@
 
                                 <h:outputLabel value="#{msg.label_invoice}"/>
                                 <h:panelGroup>
-                                    <p:inputText id="invoiceNumber"
-                                                 required="true"
-                                                 requiredMessage="#{msg.require_generic}"
-                                                 value="#{insuranceFormController.claimInsure.invoiceNumber}"/>
+                                    <pe:inputNumber id="invoiceNumber"
+                                                    value="#{insuranceFormController.claimInsure.invoiceNumber}"
+                                                    required="true"
+                                                    requiredMessage="#{msg.require_generic}"/>
                                     <toto:requireLabel forId="form:invoiceNumber"/>
                                 </h:panelGroup>
 
@@ -307,12 +310,94 @@
             <div class="Container100">
                 <div class="ContainerIndent">
 
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            #{msg.label_rate_schedule} 
+                        </div>
+
+                        <div class="SeparatorFull"></div>
+                        <fnc:disablePanel disabled="#{insuranceFormController.readOnly}">
+                            <p:panelGrid id="pnGridRate" 
+                                         columns="2" 
+                                         layout="grid"
+                                         columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                                         styleClass="ui-panelgrid-blank" 
+                                         style="border:0px none; background-color:transparent;">
+                                <h:outputLabel value="#{msg.label_rate_schedule} "/>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="rateScheduleId"
+                                                     required="true" styleClass="selectOne115"
+                                                     requiredMessage="#{msg.require_generic}"
+                                                     value="#{insuranceFormController.claimInsure.rate}">
+                                        <p:ajax listener="#{insuranceFormController.onRateScheduleChange()}"
+                                                process="@this , :form:amountOfInsurance , :form:localAmountOfInsurance"
+                                                update=":form:dtRate" />
+                                        <f:selectItem itemLabel="" itemValue="" />
+                                        <f:selectItems value="#{insuranceFormController.rateScheduleList}" 
+                                                       var="item"
+                                                       itemLabel="#{item.name}"
+                                                       itemValue="#{item.value}"/>
+                                    </p:selectOneMenu>
+                                    <toto:requireLabel forId="form:insuredId"/>
+                                </h:panelGroup>
+
+                            </p:panelGrid>
+                            <p:dataTable value="#{1}" id="dtRate">
+                                <p:column headerText="#{msg.label_premium_type}">
+                                    <h:outputLabel value="Marine"/>
+                                </p:column>
+                                <p:column headerText="#{msg.label_amount_of_insurance}">
+                                    <h:outputLabel value="#{insuranceFormController.claimInsure.amountOfInsurance}">
+                                        <f:convertNumber pattern="###,###" type="currency"/>
+                                    </h:outputLabel>
+                                </p:column>
+                                <p:column headerText="#{msg.label_local_amount_of_insurance}">
+                                    <h:outputLabel value="#{insuranceFormController.claimInsure.localAmountOfInsurance}">
+                                        <f:convertNumber pattern="###,###" type="currency"/>
+                                    </h:outputLabel>
+                                </p:column>
+                                <p:column headerText="#{msg.label_rate}">
+                                    <pe:inputNumber value="#{insuranceFormController.claimInsure.rate}"
+                                                    decimalPlaces="2"
+                                                    required="true"
+                                                    requiredMessage="#{msg.require_generic}"/>
+                                </p:column>
+                                <p:column headerText="#{msg.label_premium}">
+                                    <pe:inputNumber value="#{insuranceFormController.claimInsure.premiumRate}"
+                                                    decimalPlaces="2"
+                                                    required="true"
+                                                    requiredMessage="#{msg.require_generic}"/>
+                                </p:column>
+                                <f:facet name="footer">
+                                    
+                                        <h:outputLabel value="Total Premium : "/>
+                                        <h:outputLabel value="#{insuranceFormController.claimInsure.premiumRate}">
+                                            <f:convertNumber pattern="###,###" type="currency"/>
+                                        </h:outputLabel>
+                                        <div class="EmptyBox10"/>
+                                        <h:outputLabel value="Minimum Premium :"/>
+                                        <h:outputLabel value="#{500}">
+                                            <f:convertNumber pattern="###,###" type="currency"/>
+                                        </h:outputLabel>
+                                    
+                                </f:facet>
+                            </p:dataTable>
+                        </fnc:disablePanel>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="Container100">
+                <div class="ContainerIndent">
+
                     <div class="Responsive50">
 
                         <p:toolbar rendered="#{!insuranceFormController.readOnly}">
                             <f:facet name="right">
                                 <p:commandButton value="#{msg.btn_save_draft}" 
                                                  icon="fa fa-save Fs14 White"
+                                                 process="@form"
                                                  update="@form"
                                                  immediate="true"
                                                  oncomplete="PF('dlgSave').show();"
@@ -366,23 +451,23 @@
                         <p:toolbar rendered="#{insuranceFormController.readOnly}">
                             <f:facet name="right"> 
                                 <p:commandButton value="#{msg.btn_company_copy}" immediate="true"
-                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 icon="fa fa-save Fs14 White" styleClass="BlueButton" 
                                                  type="button" onclick="PF('printCopyPopup').show()">
                                 </p:commandButton>
                                 <p:commandButton value="#{msg.btn_dupp_copy}" immediate="true"
-                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 icon="fa fa-save Fs14 White" styleClass="BlueButton" 
                                                  type="button" onclick="PF('printCopyDupp').show()">
                                 </p:commandButton>
                                 <p:commandButton value="#{msg.btn_insure_copy}" immediate="true"
-                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 icon="fa fa-save Fs14 White" styleClass="BlueButton" 
                                                  type="button" onclick="PF('printInsureCopy').show()">
                                 </p:commandButton>
                                 <p:commandButton value="#{msg.btn_producer_copy}" immediate="true"
-                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 icon="fa fa-save Fs14 White" styleClass="BlueButton" 
                                                  type="button" onclick="PF('printProducerCopy').show()">
                                 </p:commandButton>
                                 <p:commandButton value="#{msg.btn_office_copy}" immediate="true"
-                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 icon="fa fa-save Fs14 White" styleClass="BlueButton" 
                                                  type="button" onclick="PF('printOfficeCopy').show()">
                                 </p:commandButton>
 
@@ -401,7 +486,7 @@
                                                      onclick="PF('printCopyPopup').hide()"
                                                      type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
-                                
+
                                 <p:confirmDialog widgetVar="printCopyDupp" 
                                                  header="#{msg.confirmation_head}" 
                                                  message="#{msg.msg_confirm_save}"
@@ -417,7 +502,7 @@
                                                      onclick="PF('printCopyDupp').hide()"
                                                      type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
-                                
+
                                 <p:confirmDialog widgetVar="printInsureCopy" 
                                                  header="#{msg.confirmation_head}" 
                                                  message="#{msg.msg_confirm_save}"
@@ -433,7 +518,7 @@
                                                      onclick="PF('printInsureCopy').hide()"
                                                      type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
-                                
+
                                 <p:confirmDialog widgetVar="printProducerCopy" 
                                                  header="#{msg.confirmation_head}" 
                                                  message="#{msg.msg_confirm_save}"
@@ -473,7 +558,7 @@
                     </div>
 
                 </div>
-                <p:stack icon="/resources/images/dock/stack.png" expanded="false">
+                <p:stack icon="/resources/images/dock/stack.png" expanded="false" rendered="false">
                     <p:menuitem value="#{msg.btn_discard}" icon="/resources/images/dock/Cancel-48.png" url="#"/>
                     <p:menuitem value="#{msg.btn_save}" icon="/resources/images/dock/Checked-48.png" url="#"/>
                     <p:menuitem value="Draft" icon="/resources/images/dock/Document-48.png" url="#"/>
@@ -486,8 +571,8 @@
                 }
             </style>
             <script>
-                $("#form\\:originCountryCode").attr("style","");
-                $("#form\\:destinationCountryCode").attr("style","");
+                $("#form\\:originCountryCode").attr("style", "");
+                $("#form\\:destinationCountryCode").attr("style", "");
             </script>
         </h:form>
     </ui:define>
