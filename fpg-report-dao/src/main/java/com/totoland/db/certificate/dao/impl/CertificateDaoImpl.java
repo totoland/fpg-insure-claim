@@ -57,7 +57,7 @@ public class CertificateDaoImpl extends BaseDao implements CertificateDao {
                 + "FROM "
                 + "claim_insure "
                 + "INNER JOIN claim_status ON claim_insure.claim_status_id = claim_status.claim_status_id "
-                + "INNER JOIN insures ON claim_insure.insured_id = insures.insured_id "
+                + "LEFT JOIN insures ON claim_insure.insured_id = insures.insured_id "
                 + "WHERE 1=1  ";
 
         List<Object> params = new ArrayList<>();
@@ -87,6 +87,8 @@ public class CertificateDaoImpl extends BaseDao implements CertificateDao {
             params.add(criteria.getStatus());
         }
 
+        SQL += " ORDER BY claim_insure.issue_date DESC";
+        
         return findNativeQuery(SQL, ViewCertificate.class,params);
 
     }

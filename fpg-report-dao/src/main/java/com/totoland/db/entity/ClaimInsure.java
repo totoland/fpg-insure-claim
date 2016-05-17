@@ -120,7 +120,13 @@ public class ClaimInsure implements Serializable {
     private Integer updatedBy;
     @Column(name = "trx_id", updatable = false)
     private String trxId;
-    
+    @Column(name = "rate")
+    private BigDecimal rate;
+    @Column(name = "premium_rate")
+    private BigDecimal premiumRate;
+    @Column(name = "minimum_premium_rate")
+    private BigDecimal minimumPremiumRate;
+
     public ClaimInsure() {
     }
 
@@ -447,7 +453,31 @@ public class ClaimInsure implements Serializable {
     public void setTrxId(String trxId) {
         this.trxId = trxId;
     }
-    
+
+    public BigDecimal getRate() {
+        return rate;
+    }
+
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
+    }
+
+    public BigDecimal getPremiumRate() {
+        return premiumRate;
+    }
+
+    public void setPremiumRate(BigDecimal premiumRate) {
+        this.premiumRate = premiumRate;
+    }
+
+    public BigDecimal getMinimumPremiumRate() {
+        return minimumPremiumRate;
+    }
+
+    public void setMinimumPremiumRate(BigDecimal minimumPremiumRate) {
+        this.minimumPremiumRate = minimumPremiumRate;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -470,6 +500,6 @@ public class ClaimInsure implements Serializable {
 
     @Override
     public String toString() {
-        return "ClaimInsure{" + "claimId=" + claimId + ", policyNumber=" + policyNumber + ", certificationNumber=" + certificationNumber + ", claimStatusId=" + claimStatusId + ", insuredId=" + insuredId + ", consigneeName=" + consigneeName + ", amountOfInsurance=" + amountOfInsurance + ", deductibleAmount=" + deductibleAmount + ", currencyType=" + currencyType + ", exchangeRate=" + exchangeRate + ", localAmountOfInsurance=" + localAmountOfInsurance + ", originCountryCode=" + originCountryCode + ", originStateProv=" + originStateProv + ", originDescription=" + originDescription + ", transshipmentPort=" + transshipmentPort + ", destinationCountryCode=" + destinationCountryCode + ", destinationStateProv=" + destinationStateProv + ", destinationDescription=" + destinationDescription + ", conveyanceName=" + conveyanceName + ", transshipmentVessel=" + transshipmentVessel + ", voyageFlightNumber=" + voyageFlightNumber + ", methodOfTransportId=" + methodOfTransportId + ", invoiceNumber=" + invoiceNumber + ", billOfLadingNumber=" + billOfLadingNumber + ", shipmentDate=" + shipmentDate + ", issueDate=" + issueDate + ", commodityTypeId=" + commodityTypeId + ", commodityDescription=" + commodityDescription + ", marksAndNumbers=" + marksAndNumbers + ", coverageTypeId=" + coverageTypeId + ", valuationId=" + valuationId + ", insuringTermsId=" + insuringTermsId + ", additionalInfomation=" + additionalInfomation + ", claimSurveyorId=" + claimSurveyorId + ", claimPayableAt=" + claimPayableAt + ", createdDateTime=" + createdDateTime + ", updatedDateTime=" + updatedDateTime + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + '}';
+        return "ClaimInsure{" + "claimId=" + claimId + ", policyNumber=" + policyNumber + ", certificationNumber=" + certificationNumber + ", claimStatusId=" + claimStatusId + ", insuredId=" + insuredId + ", consigneeName=" + consigneeName + ", amountOfInsurance=" + amountOfInsurance + ", deductibleAmount=" + deductibleAmount + ", currencyType=" + currencyType + ", exchangeRate=" + exchangeRate + ", localAmountOfInsurance=" + localAmountOfInsurance + ", originCountryCode=" + originCountryCode + ", originStateProv=" + originStateProv + ", originDescription=" + originDescription + ", transshipmentPort=" + transshipmentPort + ", destinationCountryCode=" + destinationCountryCode + ", destinationStateProv=" + destinationStateProv + ", destinationDescription=" + destinationDescription + ", conveyanceName=" + conveyanceName + ", transshipmentVessel=" + transshipmentVessel + ", voyageFlightNumber=" + voyageFlightNumber + ", methodOfTransportId=" + methodOfTransportId + ", invoiceNumber=" + invoiceNumber + ", billOfLadingNumber=" + billOfLadingNumber + ", shipmentDate=" + shipmentDate + ", issueDate=" + issueDate + ", commodityTypeId=" + commodityTypeId + ", commodityDescription=" + commodityDescription + ", marksAndNumbers=" + marksAndNumbers + ", coverageTypeId=" + coverageTypeId + ", valuationId=" + valuationId + ", insuringTermsId=" + insuringTermsId + ", additionalInfomation=" + additionalInfomation + ", claimSurveyorId=" + claimSurveyorId + ", claimPayableAt=" + claimPayableAt + ", createdDateTime=" + createdDateTime + ", updatedDateTime=" + updatedDateTime + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", trxId=" + trxId + ", rate=" + rate + ", premiumRate=" + premiumRate + ", minimumPremiumRate=" + minimumPremiumRate + '}';
     }
 }
