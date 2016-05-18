@@ -29,7 +29,7 @@ public class DebitNote implements Serializable {
     //เบี้ยประกันภัย
     private BigDecimal premium;
     //อากรแสตมป์
-    private String stampDuty;
+    private BigDecimal stampDuty;
     //ประเภทกรมธรรม์
     private String typeOfPolicy;
     //รวม
@@ -92,11 +92,11 @@ public class DebitNote implements Serializable {
         this.premium = premium;
     }
 
-    public String getStampDuty() {
+    public BigDecimal getStampDuty() {
         return stampDuty;
     }
 
-    public void setStampDuty(String stampDuty) {
+    public void setStampDuty(BigDecimal stampDuty) {
         this.stampDuty = stampDuty;
     }
 
