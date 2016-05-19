@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFPG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03c5575f-761a-4e21-ae7f-ce00d78a7c53">
-	<property name="ireport.zoom" value="2.1435888100000065"/>
+	<property name="ireport.zoom" value="1.7715610000000053"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="logo" class="java.lang.String"/>
+	<property name="ireport.y" value="823"/>
+	<field name="nameOfAssured" class="java.lang.String"/>
+	<field name="vesselAirline" class="java.lang.String"/>
+	<field name="referenceNumber" class="java.lang.String"/>
+	<field name="voyage" class="java.lang.String"/>
+	<field name="from" class="java.lang.String"/>
+	<field name="to" class="java.lang.String"/>
+	<field name="amountInsuredHereunder" class="java.lang.String"/>
+	<field name="policyNumber" class="java.lang.String"/>
+	<field name="voyageFlightNo" class="java.lang.String"/>
+	<field name="sailingFlightDate" class="java.util.Date"/>
+	<field name="subject" class="java.lang.String"/>
+	<field name="detail" class="java.lang.String"/>
+	<field name="issueOn" class="java.util.Date"/>
+	<field name="copyType" class="java.lang.String"/>
+	<field name="certificationNumber" class="java.lang.String"/>
+	<field name="companyLogoURL" class="java.lang.String"/>
+	<field name="signature1URL" class="java.lang.String"/>
+	<field name="signature2URL" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -45,27 +62,27 @@
 				<text><![CDATA[52 ธนิยะพลาซ่า ชั้น 16 ถนนสีลม แขวงสุริยวงศ์ เขตบางรัก กรุงเทพมหานคร 10500]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="3" width="35" height="40" uuid="2f46f6bc-881b-47a4-bed9-bff66951e639"/>
+				<reportElement x="430" y="3" width="41" height="40" uuid="2f46f6bc-881b-47a4-bed9-bff66951e639"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="TH SarabunPSK" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="12" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Certificate Number:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="471" y="23" width="84" height="20" uuid="320230e4-446c-4f09-b855-2fd766c86b5a"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="12" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificationNumber}]]></textFieldExpression>
+			</textField>
 			<image>
-				<reportElement x="2" y="3" width="142" height="94" uuid="b26b29d3-0bbf-4c54-a526-f9da9c2b8a36"/>
-				<imageExpression><![CDATA["http://localhost:8088/fpg-insurance-web/resources/images/signature/1.png"]]></imageExpression>
+				<reportElement x="0" y="0" width="142" height="94" uuid="598d68c4-1114-4a24-87a1-906a11707999"/>
+				<imageExpression><![CDATA[$F{companyLogoURL}]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>
 	<detail>
 		<band height="163">
-			<staticText>
-				<reportElement x="2" y="4" width="53" height="14" uuid="8be1352d-74c0-4a6a-bdca-f4836cd41801"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[ORIGINAL]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="362" y="4" width="82" height="11" uuid="4035e283-ffc7-4260-9316-9dc9ec666896"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -76,26 +93,26 @@
 			<staticText>
 				<reportElement x="189" y="15" width="164" height="20" uuid="b7f061ef-a931-4ba1-9173-88590aa4a621"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TH SarabunPSK" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="14" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[MARINE CARGO CERTIFICATE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="42" width="65" height="11" uuid="20b27607-7c18-4d68-89b7-c5dd120eb5d5"/>
+				<reportElement x="2" y="42" width="53" height="11" uuid="20b27607-7c18-4d68-89b7-c5dd120eb5d5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Name of Assured:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="54" width="100" height="11" uuid="f5908030-28d0-4e35-a97f-27f4cafdae87"/>
+				<reportElement x="2" y="54" width="53" height="11" uuid="f5908030-28d0-4e35-a97f-27f4cafdae87"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Vessel/Airline:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="66" width="100" height="11" uuid="070c473e-9869-4af4-ba70-581fcc3214b0"/>
+				<reportElement x="2" y="66" width="61" height="11" uuid="070c473e-9869-4af4-ba70-581fcc3214b0"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -109,7 +126,7 @@
 				<text><![CDATA[Voyage:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="101" width="100" height="11" uuid="2f09c3cc-4ed6-4841-9087-a75cdfacbb92"/>
+				<reportElement x="2" y="101" width="82" height="11" uuid="2f09c3cc-4ed6-4841-9087-a75cdfacbb92"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -168,6 +185,90 @@
 					<pen lineWidth="2.5"/>
 				</graphicElement>
 			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="76" y="41" width="100" height="12" uuid="0acc9b12-8e8e-4714-ad33-393535458ddd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nameOfAssured}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="76" y="54" width="100" height="11" uuid="8c39e33b-90f9-4a51-8ffc-39a73b59c3a3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vesselAirline}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="76" y="66" width="100" height="11" uuid="4099cfbd-3d10-4b50-b95b-cf0b833fc98c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{referenceNumber}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="33" y="78" width="49" height="11" uuid="a12eae6b-74f4-4d75-8cff-1bc8def0593b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{voyage}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="78" width="100" height="11" uuid="efe9f693-1372-4fc1-b344-b76679e79ec5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{from}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="89" width="100" height="11" uuid="ec290a1f-3157-4d70-9848-d0d711d89443"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{to}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="93" y="101" width="260" height="26" uuid="76d7f379-cacd-45cb-9452-44e7c002ec4a"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amountInsuredHereunder}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="457" y="4" width="87" height="11" uuid="8c609de8-fd54-405e-a99f-f17f21de5f73"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{policyNumber}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="457" y="54" width="87" height="11" uuid="750eb757-3481-4366-aeda-6f5ccfa7fb38"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{voyageFlightNo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="457" y="66" width="87" height="11" uuid="1bf9f1df-02d9-4d02-81e7-59ab5e49d82f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yyyy",new Locale("en")).format($F{sailingFlightDate})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="140" width="276" height="20" uuid="e6c728f1-228e-4b46-939a-9214fb454807"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subject}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="4" width="70" height="11" uuid="e62aafd0-bb96-40f5-8434-272c9185937d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{copyType}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="208">
 			<line>
@@ -188,6 +289,13 @@
 					<pen lineWidth="2.5"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement x="2" y="2" width="229" height="162" uuid="b9e29ac7-99bc-4c60-be4b-fd7bf24cbde4"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detail}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="255">
 			<staticText>
@@ -340,7 +448,7 @@
 				<text><![CDATA[Authorized Representative]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="219" width="70" height="11" uuid="329faad8-c6a3-4ed5-8c69-24f26d13f619"/>
+				<reportElement x="12" y="219" width="64" height="11" uuid="329faad8-c6a3-4ed5-8c69-24f26d13f619"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -367,6 +475,21 @@
 				</textElement>
 				<text><![CDATA[Form 12-02-0362 (Ed.3/02)]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="75" y="219" width="100" height="11" uuid="0c253e08-1585-4235-b95a-e84173a9bc78"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yyyy",new Locale("en")).format($F{issueOn})]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="231" y="176" width="118" height="31" uuid="017b8fc8-13b9-40eb-bde7-01ce50490b32"/>
+				<imageExpression><![CDATA[$F{signature1URL}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="399" y="176" width="118" height="31" uuid="813a82ff-52dc-4eeb-9515-222707339e30"/>
+				<imageExpression><![CDATA[$F{signature2URL}]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 </jasperReport>

@@ -46,8 +46,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ConditionsOfCover.findAll", query = "SELECT c FROM ConditionsOfCover c")})
 public class ConditionsOfCover implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -62,6 +63,16 @@ public class ConditionsOfCover implements Serializable {
     @Lob
     @Column(name = "truck_conditions")
     private String truckConditions;
+    @Lob
+    @Column(name = "air_subject")
+    private String airSubject;
+    @Lob
+    @Column(name = "vessel_subject")
+    private String vesselSubject;
+    @Lob
+    @Column(name = "truck_subject")
+    private String truckSubject;
+
     @Column(name = "customer_id")
     private Integer customerId;
 
@@ -132,8 +143,32 @@ public class ConditionsOfCover implements Serializable {
         return true;
     }
 
+    public String getAirSubject() {
+        return airSubject;
+    }
+
+    public void setAirSubject(String airSubject) {
+        this.airSubject = airSubject;
+    }
+
+    public String getVesselSubject() {
+        return vesselSubject;
+    }
+
+    public void setVesselSubject(String vesselSubject) {
+        this.vesselSubject = vesselSubject;
+    }
+
+    public String getTruckSubject() {
+        return truckSubject;
+    }
+
+    public void setTruckSubject(String truckSubject) {
+        this.truckSubject = truckSubject;
+    }
+
     @Override
     public String toString() {
-        return "ConditionsOfCover{" + "conditionsCoverId=" + conditionsCoverId + ", airConditions=" + airConditions + ", vesselConditions=" + vesselConditions + ", truckConditions=" + truckConditions + ", customerId=" + customerId + '}';
+        return "ConditionsOfCover{" + "conditionsCoverId=" + conditionsCoverId + ", airConditions=" + airConditions + ", vesselConditions=" + vesselConditions + ", truckConditions=" + truckConditions + ", airSubject=" + airSubject + ", vesselSubject=" + vesselSubject + ", truckSubject=" + truckSubject + ", customerId=" + customerId + '}';
     }
 }

@@ -80,7 +80,6 @@ public class ConditionsOfCoverController extends BaseController {
     }
 
     public void initEdit(ViewConditionsOfCover viewItem) {
-        LOGGER.debug("initEdit : {}", viewItem);
         this.selectedItem = new ConditionsOfCover();
         this.selectedItem.setConditionsCoverId(viewItem.getConditionsCoverId());
         this.selectedItem.setAirConditions(viewItem.getAirConditions());

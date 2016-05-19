@@ -70,7 +70,7 @@
             <div class="ContainerIndent">
                 <p:panel id="pnResult">
                     <p:dataTable id="singleDT" var="item" value="#{conditionsOfCoverController.dataSource}" rendered="#{conditionsOfCoverController.dataSource!=null}"
-                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rows="13" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" reflow="true">
                         <f:facet name="header">
                             Search Result
@@ -124,7 +124,7 @@
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
-                                    <h:outputLabel value="#{msg.label_customer}"/>
+                                    <h:outputLabel value="#{msg.label_insured_name}"/>
                                     <p:selectOneMenu styleClass="selectOne115" value="#{conditionsOfCoverController.selectedItem.customerId}">
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{conditionsOfCoverController.ddlCustomer}" var="item"
@@ -132,16 +132,28 @@
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
 
+                                    <h:outputLabel value="#{msg.label_subject}"/>
+                                    <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
+                                                     value="#{conditionsOfCoverController.selectedItem.airSubject}"/>
+                                    
                                     <h:outputLabel value="#{msg.option_air}"/>
                                     <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
                                                      value="#{conditionsOfCoverController.selectedItem.airConditions}"/>
 
+                                    <h:outputLabel value="#{msg.label_subject}"/>
+                                    <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
+                                                     value="#{conditionsOfCoverController.selectedItem.vesselSubject}"/>
+                                    
                                     <h:outputLabel value="#{msg.option_vessel}"/>
-                                    <p:inputTextarea maxlength="2048" rows="10" style="width: 400px"
+                                    <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
                                                      value="#{conditionsOfCoverController.selectedItem.vesselConditions}"/>
 
+                                    <h:outputLabel value="#{msg.label_subject}"/>
+                                    <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
+                                                     value="#{conditionsOfCoverController.selectedItem.truckSubject}"/>
+                                    
                                     <h:outputLabel value="#{msg.option_truck}"/>
-                                    <p:inputTextarea maxlength="2048" rows="10" style="width: 400px"
+                                    <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
                                                      value="#{conditionsOfCoverController.selectedItem.truckConditions}"/>
 
                                     <h:outputLabel value=""/>
@@ -170,7 +182,7 @@
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
-                                    <h:outputLabel value="#{msg.label_customer}"/>
+                                    <h:outputLabel value="#{msg.label_insured_name}"/>
                                     <p:selectOneMenu styleClass="selectOne115" value="#{conditionsOfCoverController.selectedItem.customerId}">
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{conditionsOfCoverController.ddlCustomer}" var="item"
@@ -178,16 +190,28 @@
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
 
+                                    <h:outputLabel value="#{msg.label_subject}"/>
+                                    <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
+                                                     value="#{conditionsOfCoverController.selectedItem.airSubject}"/>
+                                    
                                     <h:outputLabel value="#{msg.option_air}"/>
-                                    <p:inputTextarea maxlength="255" rows="10" style="width: 400px"
+                                    <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
                                                      value="#{conditionsOfCoverController.selectedItem.airConditions}"/>
 
+                                    <h:outputLabel value="#{msg.label_subject}"/>
+                                    <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
+                                                     value="#{conditionsOfCoverController.selectedItem.vesselSubject}"/>
+                                    
                                     <h:outputLabel value="#{msg.option_vessel}"/>
-                                    <p:inputTextarea maxlength="255" rows="10" style="width: 400px"
+                                    <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
                                                      value="#{conditionsOfCoverController.selectedItem.vesselConditions}"/>
 
+                                    <h:outputLabel value="#{msg.label_subject}"/>
+                                    <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
+                                                     value="#{conditionsOfCoverController.selectedItem.truckSubject}"/>
+                                    
                                     <h:outputLabel value="#{msg.option_truck}"/>
-                                    <p:inputTextarea maxlength="255" rows="10" style="width: 400px"
+                                    <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
                                                      value="#{conditionsOfCoverController.selectedItem.truckConditions}"/>
 
                                     <h:outputLabel value=""/>

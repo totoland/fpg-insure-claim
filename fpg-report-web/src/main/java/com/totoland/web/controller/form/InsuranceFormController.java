@@ -1,8 +1,11 @@
 package com.totoland.web.controller.form;
 
+import com.chetty.reporting.beans.CertificationBean;
+import com.totoland.db.bean.ConditionsOfCoverCriteria;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.KeyMatch;
+import com.totoland.db.entity.ViewConditionsOfCover;
 import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.CertificateType;
 import com.totoland.db.enums.InsureState;
@@ -11,6 +14,7 @@ import com.totoland.reporting.service.impl.PDFReportExporter;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
+import com.totoland.web.service.ConditionsOfCoverService;
 import com.totoland.web.service.GennericService;
 import com.totoland.web.service.KeyMatchService;
 import com.totoland.web.service.UserService;
@@ -44,6 +48,13 @@ public class InsuranceFormController extends BaseController {
     private static final long serialVersionUID = -4658297318038575831L;
     private static final String MARINE_PDF_TEMPLATE = "/resources/jasper/reportFPG.jrxml";
     private static final String DEBIT_NOTE_PDF_TEMPLATE = "/resources/jasper/reportDebitNote.jrxml";
+    private static final String RESOURCES_LOGO = "/resources/images/logo.png";
+    private static final String RESOURCES_SIGNATURE1 = "/resources/images/signature/1.png";
+    private static final String RESOURCES_SIGNATURE2 = "/resources/images/signature/2.png";
+
+    private static final int AIR = 1;
+    private static final int VESSEL = 2;
+    private static final int TRUCK = 3;
 
     private String insureType = "Air";
     private List<DropDownList> insureTypeList;
@@ -69,6 +80,8 @@ public class InsuranceFormController extends BaseController {
     private KeyMatchService keyMatchService;
     @ManagedProperty("#{userService}")
     private UserService userService;
+    @ManagedProperty("#{conditionsOfCoverService}")
+    private ConditionsOfCoverService conditionsOfCoverService;
 
     private Date issueDate;
     private boolean readOnly;
@@ -216,6 +229,21 @@ public class InsuranceFormController extends BaseController {
         LOGGER.info("Print Certificate number : {} by user {}", certNumber, getUserAuthen().getUserId());
     }
 
+    private String findCountryName(String code) {
+        LOGGER.debug("findCountryName with : {}", code);
+        if (this.countriesList == null) {
+            this.countriesList = dropdownFactory.ddlCountries();
+        }
+
+        for (DropDownList ddl : this.countriesList) {
+            if (code.equals(ddl.getValue())) {
+                return ddl.getName();
+            }
+        }
+
+        return null;
+    }
+
     public StreamedContent getCertificateCopyFile(int certificateType) {
         LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
 
@@ -235,13 +263,59 @@ public class InsuranceFormController extends BaseController {
         }
 
         try {
+
+            CertificationBean certRpt = new CertificationBean();
+            //Init data for print Certificate
+            ViewUser userData = userService.findByUserId(this.claimInsure.getInsuredId());
+            certRpt.setNameOfAssured(userData.getCompanyName());
+            certRpt.setVesselAirline(this.claimInsure.getConveyanceName());
+            certRpt.setReferenceNumber(this.claimInsure.getInvoiceNumber());
+            certRpt.setAmountInsuredHereunder(String.valueOf(this.claimInsure.getAmountOfInsurance()));
+            certRpt.setPolicyNumber(this.claimInsure.getPolicyNumber());
+            certRpt.setVoyageFlightNo("");
+            certRpt.setSailingFlightDate(this.claimInsure.getShipmentDate());
+            certRpt.setCertificationNumber(this.claimInsure.getCertificationNumber());
+            certRpt.setIssueOn(new Date());
+            certRpt.setCopyType(CertificateType.valueOf(certificateType));
+            certRpt.setFrom(findCountryName(this.claimInsure.getOriginCountryCode()));
+            certRpt.setTo(findCountryName(this.claimInsure.getDestinationCountryCode()));
+
+            certRpt.setCompanyLogoURL(JsfUtil.getFullURI()+RESOURCES_LOGO);
+            certRpt.setSignature1URL(JsfUtil.getFullURI()+RESOURCES_SIGNATURE1);
+            certRpt.setSignature2URL(JsfUtil.getFullURI()+RESOURCES_SIGNATURE2);
+
+            //Init ConditionOfCover for print Certificate
+            List<ViewConditionsOfCover> listCondition = conditionsOfCoverService.findByCriteria(new ConditionsOfCoverCriteria(this.claimInsure.getInsuredId()));
+            if (listCondition != null && !listCondition.isEmpty()) {
+
+                String subject = "";
+                String detail = "";
+
+                if (AIR == this.claimInsure.getMethodOfTransportId()) {
+                    subject = listCondition.get(0).getAirSubject();
+                    detail = listCondition.get(0).getAirConditions();
+                } else if (VESSEL == this.claimInsure.getMethodOfTransportId()) {
+                    subject = listCondition.get(0).getVesselSubject();
+                    detail = listCondition.get(0).getVesselConditions();
+                } else if (TRUCK == this.claimInsure.getMethodOfTransportId()) {
+                    subject = listCondition.get(0).getTruckSubject();
+                    detail = listCondition.get(0).getTruckConditions();
+                }
+
+                certRpt.setSubject(subject);
+                certRpt.setDetail(detail);
+            }
+
+            LOGGER.debug("certRpt : {}", certRpt);
+
             String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
-            byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(this.claimInsure));
+            byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(certRpt));
             gennericService.edit(this.claimInsure);
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
                     "application/pdf", "OPEN_COVER_" + CertificateType.valueOf(certificateType) + "_BY_" + this.insureType + ".pdf");
         } catch (Exception ex) {
             LOGGER.error("download error ", ex);
+            JsfUtil.alertJavaScript(ex.getMessage());
         }
 
         return null;
@@ -509,5 +583,13 @@ public class InsuranceFormController extends BaseController {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    public ConditionsOfCoverService getConditionsOfCoverService() {
+        return conditionsOfCoverService;
+    }
+
+    public void setConditionsOfCoverService(ConditionsOfCoverService conditionsOfCoverService) {
+        this.conditionsOfCoverService = conditionsOfCoverService;
     }
 }

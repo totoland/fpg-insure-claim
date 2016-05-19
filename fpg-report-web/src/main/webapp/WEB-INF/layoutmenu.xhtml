@@ -18,11 +18,11 @@
                 <p:submenu id="rm_admin" label="#{msg.menu_admin}" icon="icon-lock-stroke" rendered="#{permissionController.isCanAccessModule('ADMIN')}">
                     <p:menuitem id="rm_promotion" value="#{msg.menu_user_mgr}" icon="icon-users" url="/pages/user/userManagement.xhtml"
                                 rendered="#{permissionController.isCanAccessPage('/pages/user/userManagement.xhtml')}"/>
-                    <p:menuitem id="insuredManagementMenu" value="#{msg.menu_cust_mgr}" icon="icon-users" url="/pages/user/insuredManagement.xhtml"
+                    <p:menuitem id="insuredManagementMenu" value="#{msg.menu_cust_mgr}" icon="fa fa-user" url="/pages/user/insuredManagement.xhtml"
                                 rendered="#{permissionController.isCanAccessPage('/pages/user/insuredManagement.xhtml')}"/>
                     <p:menuitem value="#{msg.menu_match_key}" icon="fa fa-edit" url="/pages/officail/matchingKey.xhtml" rendered="false"/>
-                    <p:menuitem value="#{msg.menu_rate}" icon="fa fa-edit" url="/pages/product/productManagement.xhtml" 
-                                rendered="#{permissionController.isCanAccessPage('/pages/product/productManagement.xhtml')}"/>
+<!--                    <p:menuitem value="#{msg.menu_product_management}" icon="fa fa-edit" url="/pages/product/productManagement.xhtml" 
+                                rendered="#{permissionController.isCanAccessPage('/pages/product/productManagement.xhtml')}"/>-->
                     <p:menuitem value="#{msg.menu_rate}" icon="fa fa-edit" url="/pages/rate/rateManagement.xhtml" 
                                 rendered="#{permissionController.isCanAccessPage('/pages/rate/rateManagement.xhtml')}"/>
                     <p:menuitem value="#{msg.menu_condition_of_cover}" icon="icon-dial" url="/pages/admin/conditionsOfCover.xhtml" 

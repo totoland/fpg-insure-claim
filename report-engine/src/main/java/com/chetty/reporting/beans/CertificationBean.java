@@ -32,6 +32,9 @@ public class CertificationBean implements Serializable {
     private Date issueOn;
     private String copyType;
     private String certificationNumber;
+    private String companyLogoURL;
+    private String signature1URL;
+    private String signature2URL;
 
     public String getNameOfAssured() {
         return nameOfAssured;
@@ -153,8 +156,32 @@ public class CertificationBean implements Serializable {
         this.certificationNumber = certificationNumber;
     }
 
+    public String getCompanyLogoURL() {
+        return companyLogoURL;
+    }
+
+    public void setCompanyLogoURL(String companyLogoURL) {
+        this.companyLogoURL = companyLogoURL;
+    }
+
+    public String getSignature1URL() {
+        return signature1URL;
+    }
+
+    public void setSignature1URL(String signature1URL) {
+        this.signature1URL = signature1URL;
+    }
+
+    public String getSignature2URL() {
+        return signature2URL;
+    }
+
+    public void setSignature2URL(String signature2URL) {
+        this.signature2URL = signature2URL;
+    }
+
     @Override
     public String toString() {
-        return "CertificationBean{" + "nameOfAssured=" + nameOfAssured + ", vesselAirline=" + vesselAirline + ", referenceNumber=" + referenceNumber + ", voyage=" + voyage + ", from=" + from + ", to=" + to + ", amountInsuredHereunder=" + amountInsuredHereunder + ", policyNumber=" + policyNumber + ", voyageFlightNo=" + voyageFlightNo + ", sailingFlightDate=" + sailingFlightDate + ", subject=" + subject + ", detail=" + detail + ", issueOn=" + issueOn + ", copyType=" + copyType + ", certificationNumber=" + certificationNumber + '}';
+        return "CertificationBean{" + "nameOfAssured=" + nameOfAssured + ", vesselAirline=" + vesselAirline + ", referenceNumber=" + referenceNumber + ", voyage=" + voyage + ", from=" + from + ", to=" + to + ", amountInsuredHereunder=" + amountInsuredHereunder + ", policyNumber=" + policyNumber + ", voyageFlightNo=" + voyageFlightNo + ", sailingFlightDate=" + sailingFlightDate + ", subject=" + subject + ", detail=" + detail + ", issueOn=" + issueOn + ", copyType=" + copyType + ", certificationNumber=" + certificationNumber + ", companyLogoURL=" + companyLogoURL + ", signature1URL=" + signature1URL + ", signature2URL=" + signature2URL + '}';
     }
 }

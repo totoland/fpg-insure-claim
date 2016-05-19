@@ -163,6 +163,17 @@ public class JsfUtil implements Serializable {
         return servletRequest.getRequestURI();
     }
 
+    public static String getFullURI() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        final ExternalContext ectx = context.getExternalContext();
+        String url = ectx.getRequestScheme()
+                + "://" + ectx.getRequestServerName()
+                + ":" + ectx.getRequestServerPort()
+                + "/" + ectx.getRequestContextPath();
+        
+        return url;
+    }
+
     /**
      * *
      * Close Popup

@@ -55,6 +55,15 @@ public class ViewConditionsOfCover implements Serializable {
     @Lob
     @Column(name = "truck_conditions")
     private String truckConditions;
+    @Lob
+    @Column(name = "air_subject")
+    private String airSubject;
+    @Lob
+    @Column(name = "vessel_subject")
+    private String vesselSubject;
+    @Lob
+    @Column(name = "truck_subject")
+    private String truckSubject;
     @Column(name = "customer_id")
     private Integer customerId;
     @Column(name = "customer_name")
@@ -108,6 +117,30 @@ public class ViewConditionsOfCover implements Serializable {
         this.customerName = customerName;
     }
 
+    public String getAirSubject() {
+        return airSubject;
+    }
+
+    public void setAirSubject(String airSubject) {
+        this.airSubject = airSubject;
+    }
+
+    public String getVesselSubject() {
+        return vesselSubject;
+    }
+
+    public void setVesselSubject(String vesselSubject) {
+        this.vesselSubject = vesselSubject;
+    }
+
+    public String getTruckSubject() {
+        return truckSubject;
+    }
+
+    public void setTruckSubject(String truckSubject) {
+        this.truckSubject = truckSubject;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -132,6 +165,6 @@ public class ViewConditionsOfCover implements Serializable {
 
     @Override
     public String toString() {
-        return "ViewConditionsOfCover{" + "conditionsCoverId=" + conditionsCoverId + ", airConditions=" + airConditions + ", vesselConditions=" + vesselConditions + ", truckConditions=" + truckConditions + ", customerId=" + customerId + ", customerName=" + customerName + '}';
+        return "ViewConditionsOfCover{" + "conditionsCoverId=" + conditionsCoverId + ", airConditions=" + airConditions + ", vesselConditions=" + vesselConditions + ", truckConditions=" + truckConditions + ", airSubject=" + airSubject + ", vesselSubject=" + vesselSubject + ", truckSubject=" + truckSubject + ", customerId=" + customerId + ", customerName=" + customerName + '}';
     }
 }

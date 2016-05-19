@@ -47,8 +47,11 @@ public class ConditionsOfCoverDaoImpl extends GennericDaoImpl<ConditionsOfCover>
     public List<ViewConditionsOfCover> findByCriteria(ConditionsOfCoverCriteria criteria) {
         String SQL = "SELECT "
                 + "conditions_of_cover.conditions_cover_id, "
+                + "conditions_of_cover.air_subject, "
                 + "conditions_of_cover.air_conditions, "
+                + "conditions_of_cover.vessel_subject, "
                 + "conditions_of_cover.vessel_conditions, "
+                + "conditions_of_cover.truck_subject, "
                 + "conditions_of_cover.truck_conditions, "
                 + "conditions_of_cover.customer_id, "
                 + "sv_user.COMPANY_NAME customer_name "
