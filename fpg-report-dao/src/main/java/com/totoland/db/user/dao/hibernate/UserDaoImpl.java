@@ -48,6 +48,8 @@ public class UserDaoImpl extends GennericDaoImpl<SvUser> implements UserDao {
         if (criteria.getGroupLvl() != null && criteria.getGroupLvl() != -1) {
             sql.append("AND sv_user.USER_GROUP_LVL = ? ");
             lst.add(criteria.getGroupLvl());
+        }else{
+            sql.append("AND sv_user.USER_GROUP_LVL <> 3 ");
         }
 
         return findNativeQuery(sql.toString(), ViewUser.class, lst);
