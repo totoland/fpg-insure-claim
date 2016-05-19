@@ -78,6 +78,7 @@ public class UserManagementController extends BaseController {
     public void initCreateUser() {
         LOGGER.trace("create new User");
         svUser = new SvUser();
+        svUser.setUserGroupId(1);
         svUser.setSex(0);
         svUser.setIsActive(Boolean.TRUE);
         keyMatch = new KeyMatch();
@@ -122,9 +123,8 @@ public class UserManagementController extends BaseController {
         }
 
         try {
-            LOGGER.trace("keyMatch {}",keyMatch);
             svUser.setPassword(WebUtils.encrypt(svUser.getPassword()));
-            userService.createWithKeyMatching(svUser,keyMatch);
+            userService.create(svUser);
             
             LOGGER.trace("Save Success !! ");
 
@@ -149,7 +149,7 @@ public class UserManagementController extends BaseController {
             
             svUser.setPassword(WebUtils.encrypt(svUser.getPassword()));
             LOGGER.trace("keyMatch {}",keyMatch);
-            userService.updateWithKeyMatching(svUser,keyMatch);
+            userService.edit(svUser);
 
             LOGGER.trace("Edit Success !! ");
 
@@ -324,10 +324,7 @@ public class UserManagementController extends BaseController {
             msg += (MessageUtils.getResourceBundleString("require_message", "Gender")) + ("\\n");
         }
         if (svUser.getUserGroupLvl() == null || svUser.getUserGroupLvl().intValue() == -1) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "User Group Level")) + ("\\n");
-        }
-        if (svUser.getUserGroupId() == null || svUser.getUserGroupId().intValue() == -1) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "User Group")) + ("\\n");
+            msg += (MessageUtils.getResourceBundleString("require_message", "User Type")) + ("\\n");
         }
         if (svUser.getIsActive() == null) {
             msg += (MessageUtils.getResourceBundleString("require_message", "Status")) + ("\\n");

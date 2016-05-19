@@ -33,7 +33,6 @@
                                     <div class="Fleft DispInlBlock">
                                         <span class="Fs15 FontAdamantiumBold Gray">Customer Accounts</span><br/>
                                         <span class="Fs30 FontAdamantiumBold">#{userManagementController.countAllCustomer}</span><br/>
-                                        <span class="Fs11 FontAdamantiumRegular Green">65% Deployed</span>
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +45,6 @@
                                     <div class="Fleft DispInlBlock">
                                         <span class="Fs15 FontAdamantiumBold Gray">Admin Accounts</span><br/>
                                         <span class="Fs30 FontAdamantiumBold">#{userManagementController.countAllAdmin}</span><br/>
-                                        <span class="Fs11 FontAdamantiumRegular Red">42% Remaining</span>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +57,6 @@
                                     <div class="Fleft DispInlBlock">
                                         <span class="Fs15 FontAdamantiumBold Gray">Official Accounts</span><br/>
                                         <span class="Fs30 FontAdamantiumBold">#{userManagementController.countAllUser}</span><br/>
-                                        <span class="Fs11 FontAdamantiumRegular Blue">29% Ready</span>
                                     </div>
                                 </div>
                             </div>
@@ -188,24 +185,20 @@
                                     <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
                                     <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
                                 </p:selectOneMenu>
-                                <h:outputLabel for="campanyName" value="#{msg.label_insured_name}" />
-                                <p:inputText id="campanyName" value="#{userManagementController.svUser.companyName}"/>
-                                <h:outputLabel for="policyNumber" value="#{msg.label_Policy_number}" />
-                                <p:inputText id="policyNumber" value="#{userManagementController.keyMatch.openPolicyNo}"/>    
                                 <h:outputLabel for="fname" value="First name" />
                                 <p:inputText id="fname" value="#{userManagementController.svUser.fname}"/>
                                 <h:outputLabel for="lname" value="Last name" />
                                 <p:inputText id="lname" value="#{userManagementController.svUser.lname}"/>
                                 <h:outputLabel for="sex" value="Gender" />
-                                <h:selectOneRadio styleClass="selectOne115" id="sex" value="#{userManagementController.svUser.sex}" style="border-style:none">  
+                                <p:selectOneRadio styleClass="selectOne115" id="sex" value="#{userManagementController.svUser.sex}" style="border-style:none">  
                                     <f:selectItem itemLabel="Male" itemValue="0" />  
                                     <f:selectItem itemLabel="Female" itemValue="1" /> 
-                                </h:selectOneRadio>
+                                </p:selectOneRadio>
                                 <h:outputLabel for="isactive" value="Status" style="width:200px"/>
-                                <h:selectOneRadio id="isactive" value="#{userManagementController.svUser.isActive}" style="border-style:none">  
+                                <p:selectOneRadio id="isactive" value="#{userManagementController.svUser.isActive}" style="border-style:none">  
                                     <f:selectItem itemLabel="Active" itemValue="true" />  
                                     <f:selectItem itemLabel="In Active" itemValue="false" /> 
-                                </h:selectOneRadio>
+                                </p:selectOneRadio>
                                 <h:outputLabel value=""/>
                                 <h:panelGroup>
                                     <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.save()}" process="modalDialogCreate" update="gridUser"/>
@@ -232,29 +225,25 @@
                                         <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
                                         <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
                                     </p:selectOneMenu>
-                                    <h:outputLabel for="companyNameEdit" value="#{msg.label_insured_name}" />
-                                    <p:inputText id="companyNameEdit" value="#{userManagementController.svUser.companyName}"/>
-                                    <h:outputLabel for="policyNumberEdit" value="#{msg.label_Policy_number}" />
-                                    <p:inputText id="policyNumberEdit" value="#{userManagementController.keyMatch.openPolicyNo}"/>    
                                     <h:outputLabel for="fnameEdit" value="First name" />
                                     <p:inputText id="fnameEdit" value="#{userManagementController.svUser.fname}"/>
                                     <h:outputLabel for="lnameEdit" value="Last name" />
                                     <p:inputText id="lnameEdit" value="#{userManagementController.svUser.lname}"/>
                                     <h:outputLabel for="sexEdit" value="Gender" />
-                                    <h:selectOneRadio id="sexEdit" value="#{userManagementController.svUser.sex}" style="border-style:none">  
+                                    <p:selectOneRadio id="sexEdit" value="#{userManagementController.svUser.sex}" style="border-style:none">  
                                         <f:selectItem itemLabel="Mail" itemValue="0" />  
                                         <f:selectItem itemLabel="Femail" itemValue="1" /> 
-                                    </h:selectOneRadio>
+                                    </p:selectOneRadio>
                                     <!--<h:outputLabel for="userGroupEdit" value="User group" style="width:200px"/>
                                     <p:selectOneMenu id="userGroupEdit" style="width:200px" value="#{userManagementController.svUser.userGroupId}">
                                         <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
                                         <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
                                     </p:selectOneMenu>-->
                                     <h:outputLabel for="isactiveEdit" value="Status" style="width:200px"/>
-                                    <h:selectOneRadio id="isactiveEdit" value="#{userManagementController.svUser.isActive}" style="border-style:none">  
+                                    <p:selectOneRadio id="isactiveEdit" value="#{userManagementController.svUser.isActive}" style="border-style:none">  
                                         <f:selectItem itemLabel="Active" itemValue="true" />  
                                         <f:selectItem itemLabel="In Active" itemValue="false" /> 
-                                    </h:selectOneRadio>
+                                    </p:selectOneRadio>
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
                                         <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.edit()}" process="modalDialogEdit" update=":formUser:modalDialogEdit"/>
