@@ -9,10 +9,10 @@ import com.totoland.db.common.entity.DropDownList;
 import com.totoland.web.service.CommonService;
 import com.totoland.web.utils.MessageUtils;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -53,7 +53,7 @@ public class DropdownFactory implements Serializable {
 
         return ectGroupLvl;
     }
-    
+
     public List<DropDownList> ddlCustomerLvl() {
         if (fpgCustLvl == null) {
 
@@ -70,7 +70,7 @@ public class DropdownFactory implements Serializable {
 
         return fpgCustLvl;
     }
-    
+
     public List<DropDownList> ddllAllUserCustomerLvl() {
         if (fpgUserLvl == null) {
 
@@ -171,6 +171,20 @@ public class DropdownFactory implements Serializable {
         criteria.setName("company_name");
         criteria.setValue("user_id");
         criteria.setCondition("USER_GROUP_LVL = 3");
+        criteria.setSortName("ASC");
+
+        customers = commonService.getDropdownList(criteria);
+        return customers;
+    }
+    
+    public List<DropDownList> ddlAllInsureName() {
+
+        List<DropDownList> customers = new ArrayList<>();
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("sv_user");
+        criteria.setOrderByField("company_name");
+        criteria.setName("company_name");
+        criteria.setValue("user_id");
         criteria.setSortName("ASC");
 
         customers = commonService.getDropdownList(criteria);
@@ -277,7 +291,7 @@ public class DropdownFactory implements Serializable {
         }
         return claimStatus;
     }
-    
+
     public List<DropDownList> ddlRateSchedule() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -291,7 +305,7 @@ public class DropdownFactory implements Serializable {
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
+
     public List<DropDownList> ddlRateSchedule(String customerId) {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -300,16 +314,16 @@ public class DropdownFactory implements Serializable {
         criteria.setOrderByField("product_name");
         criteria.setName("CONCAT(product_name , '-------------------------------------------------------------------' , product_rate )");
         criteria.setValue("product_rate");
-        criteria.setCondition("customer_id = "+customerId);
+        criteria.setCondition("customer_id = " + customerId);
         criteria.setSortName("ASC");
 
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
-    public List<DropDownList> ddlConf() {
 
-        List<DropDownList> customers = new ArrayList<>();
+    public Map<String, String> ddlConf() {
+
+        List<DropDownList> confs = new ArrayList<>();
         DropDownList criteria = new DropDownList();
         criteria.setTableName("conf");
         criteria.setOrderByField("conf_name");
@@ -317,10 +331,19 @@ public class DropdownFactory implements Serializable {
         criteria.setValue("conf_value");
         criteria.setSortName("ASC");
 
-        customers = commonService.getDropdownList(criteria);
-        return customers;
+        confs = commonService.getDropdownList(criteria);
+
+        Map<String, String> map = new HashMap<>();
+
+        if (confs != null && !confs.isEmpty()) {
+            for (DropDownList ddl : confs) {
+                map.put(ddl.getName(), ddl.getValue());
+            }
+        }
+
+        return map;
     }
-    
+
     public String getCurrentExchangeRate() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -332,11 +355,11 @@ public class DropdownFactory implements Serializable {
         criteria.setSortName("ASC");
 
         customers = commonService.getDropdownList(criteria);
-        
-        if(customers!=null && !customers.isEmpty()){
+
+        if (customers != null && !customers.isEmpty()) {
             return customers.get(0).getValue();
         }
-        
+
         return null;
     }
 }

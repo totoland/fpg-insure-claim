@@ -10,12 +10,23 @@ import java.io.Serializable;
  *
  * @author totoland
  */
-public class UserCriteria implements Serializable{
+public class UserCriteria implements Serializable {
+
     private static final long serialVersionUID = 7352292656993154981L;
-    
+
+    private String userId;
     private String userName;
     private Integer groupId;
     private Integer groupLvl;
+    private String insuredName;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     /**
      * @return the userName
@@ -59,8 +70,16 @@ public class UserCriteria implements Serializable{
         this.groupLvl = groupLvl;
     }
 
+    public String getInsuredName() {
+        return insuredName;
+    }
+
+    public void setInsuredName(String insuredName) {
+        this.insuredName = insuredName;
+    }
+
     @Override
     public String toString() {
-        return "UserCriteria{" + "userName=" + userName + ", groupId=" + groupId + ", groupLvl=" + groupLvl + '}';
+        return "UserCriteria{" + "userId=" + userId + ", userName=" + userName + ", groupId=" + groupId + ", groupLvl=" + groupLvl + ", insuredName=" + insuredName + '}';
     }
 }

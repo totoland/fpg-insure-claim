@@ -3,14 +3,17 @@ package com.totoland.web.controller.form;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.KeyMatch;
+import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.CertificateType;
 import com.totoland.db.enums.InsureState;
+import com.totoland.reporting.bean.DebitNote;
 import com.totoland.reporting.service.impl.PDFReportExporter;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.GennericService;
 import com.totoland.web.service.KeyMatchService;
+import com.totoland.web.service.UserService;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.StringUtils;
@@ -40,6 +43,7 @@ public class InsuranceFormController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(InsuranceFormController.class);
     private static final long serialVersionUID = -4658297318038575831L;
     private static final String MARINE_PDF_TEMPLATE = "/resources/jasper/reportFPG.jrxml";
+    private static final String DEBIT_NOTE_PDF_TEMPLATE = "/resources/jasper/reportDebitNote.jrxml";
 
     private String insureType = "Air";
     private List<DropDownList> insureTypeList;
@@ -63,6 +67,8 @@ public class InsuranceFormController extends BaseController {
     private CertificateService certificateService;
     @ManagedProperty("#{keyMatchService}")
     private KeyMatchService keyMatchService;
+    @ManagedProperty("#{userService}")
+    private UserService userService;
 
     private Date issueDate;
     private boolean readOnly;
@@ -93,8 +99,10 @@ public class InsuranceFormController extends BaseController {
     }
 
     private void initUpdateMode(String trxId) {
-        LOGGER.debug("initUpdateMode...");
+        LOGGER.debug("initUpdateMode... with : {}", trxId);
         this.claimInsure = certificateService.findByTrxId(trxId);
+
+        LOGGER.debug("claimInsure : {}", claimInsure);
 
         if (claimInsure == null) {
             LOGGER.warn("TrxId is gone, redirect to create page...");
@@ -103,7 +111,6 @@ public class InsuranceFormController extends BaseController {
         }
 
         this.certNumber = this.claimInsure.getCertificationNumber();
-        this.claimInsure.setClaimStatusId(this.claimInsure.getClaimStatusId());
 //        this.claimInsure.setExchangeRate(new BigDecimal(dropdownFactory.getCurrentExchangeRate()));
 
         //Should not has this case
@@ -130,7 +137,7 @@ public class InsuranceFormController extends BaseController {
 
     private void initData() {
         this.insureTypeList = getInsureTypeList();
-        this.insureNameList = dropdownFactory.ddlInsureName();
+        this.insureNameList = dropdownFactory.ddlAllInsureName();
         this.currencyTypeList = dropdownFactory.ddlCurrencyType();
         this.countriesList = dropdownFactory.ddlCountries();
         this.commodityTypeList = dropdownFactory.ddlCommodityType();
@@ -233,6 +240,44 @@ public class InsuranceFormController extends BaseController {
             gennericService.edit(this.claimInsure);
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
                     "application/pdf", "OPEN_COVER_" + CertificateType.valueOf(certificateType) + "_BY_" + this.insureType + ".pdf");
+        } catch (Exception ex) {
+            LOGGER.error("download error ", ex);
+        }
+
+        return null;
+    }
+
+    public StreamedContent getDebitNote() {
+        LOGGER.debug("export Debit Note...");
+
+        try {
+            DebitNote debitNote = new DebitNote();
+            //Init data for print Debit note
+            ViewUser userData = userService.findByUserId(this.claimInsure.getInsuredId());
+            debitNote.setTaxNo(dropdownFactory.ddlConf().get("tax_no"));
+            debitNote.setInsuredName(userData.getCompanyName());
+            debitNote.setInsuredAddress(userData.getAddress());
+            debitNote.setCertificationNumber(this.claimInsure.getCertificationNumber());
+            debitNote.setIssueDate(this.claimInsure.getIssueDate());
+            debitNote.setPremium(this.claimInsure.getPremiumRate());
+            //Premium rate * 0.4%
+            debitNote.setStampDuty(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate(),
+                    new BigDecimal(0.4)), new BigDecimal(100)));
+            //Premium + StampDuty
+            debitNote.setTotal(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()));
+            //Vat = Premium + Stamp * 7%
+            debitNote.setVat(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()),
+                    new BigDecimal(7)), new BigDecimal(100)));
+            debitNote.setGrandTotal(debitNote.getTotal().add(debitNote.getVat()));
+            debitNote.setTypeOfPolicy(dropdownFactory.ddlConf().get("type_of_policy"));
+            debitNote.setPolicyNo(this.claimInsure.getPolicyNumber());
+            debitNote.setWarrantyFrom(this.claimInsure.getShipmentDate());
+
+            String jrxmlPath = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
+            byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(debitNote));
+            gennericService.edit(this.claimInsure);
+            return new DefaultStreamedContent(new ByteArrayInputStream(data),
+                    "application/pdf", "DEBIT_NOTE_" + this.insureType + ".pdf");
         } catch (Exception ex) {
             LOGGER.error("download error ", ex);
         }
@@ -456,5 +501,13 @@ public class InsuranceFormController extends BaseController {
 
     public void setKeyMatchService(KeyMatchService keyMatchService) {
         this.keyMatchService = keyMatchService;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

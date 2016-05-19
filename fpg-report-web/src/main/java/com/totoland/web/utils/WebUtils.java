@@ -5,6 +5,8 @@
  */
 package com.totoland.web.utils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.Key;
 import java.util.UUID;
 import javax.crypto.Cipher;
@@ -22,22 +24,10 @@ public class WebUtils {
         return UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
     }
 
-    public static void main(String args[]) throws Exception {
-        
-        String passWord = "password";
-        
-        String nPassWord = WebUtils.encrypt(passWord);
-        
-        System.out.println("nPassWord : "+nPassWord);
-        
-        System.out.println(WebUtils.decrypt(nPassWord));
-        
-    }
-    
     private static final String ALGO = "AES";
-    private static final byte[] keyValue =
-            new byte[]{'E', 't', 'c', 'S', 'e', 'c', 'K',
-        'e', 'y', '1', '2', '3', '4', '5', '6', '7'};
+    private static final byte[] keyValue
+            = new byte[]{'E', 't', 'c', 'S', 'e', 'c', 'K',
+                'e', 'y', '1', '2', '3', '4', '5', '6', '7'};
 
     public static String encrypt(String Data) throws Exception {
         Key key = generateKey();
@@ -62,10 +52,28 @@ public class WebUtils {
         Key key = new SecretKeySpec(keyValue, ALGO);
         return key;
     }
+
+    public static BigDecimal mutilplyRoundUp(BigDecimal a, BigDecimal b) {
+        if(a == null || b == null){
+            return null;
+        }
+        
+        if(a.floatValue() == 0 || b.floatValue() == 0){
+            return BigDecimal.ZERO;
+        }
+        
+        return a.multiply(b);
+    }
     
-    public static String lineDisplayTraceLog(String logger){
+    public static BigDecimal divideRoundUp(BigDecimal a, BigDecimal b) {
+        if(a == null || b == null){
+            return null;
+        }
         
-        return "*********************************"+logger+"*********************************";
+        if(a.floatValue() == 0 || b.floatValue() == 0){
+            return BigDecimal.ZERO;
+        }
         
+        return a.divide(b,RoundingMode.UP);
     }
 }

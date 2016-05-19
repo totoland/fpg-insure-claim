@@ -478,6 +478,10 @@
                         </p:toolbar>
                         <p:toolbar rendered="#{insuranceFormController.readOnly}">
                             <f:facet name="right"> 
+                                <p:commandButton value="#{msg.btn_print_debit_note}" immediate="true"
+                                                 icon="fa fa-save Fs14 White" styleClass="GreenButton" 
+                                                 type="button" onclick="PF('printDebitNotePopup').show()">
+                                </p:commandButton>
                                 <p:commandButton value="#{msg.btn_company_copy}" immediate="true"
                                                  icon="fa fa-save Fs14 White" styleClass="BlueButton" 
                                                  type="button" onclick="PF('printCopyPopup').show()">
@@ -499,6 +503,25 @@
                                                  type="button" onclick="PF('printOfficeCopy').show()">
                                 </p:commandButton>
 
+                                <p:confirmDialog widgetVar="printDebitNotePopup" 
+                                                 header="#{msg.confirmation_head}" 
+                                                 message="#{msg.msg_confirm_save}"
+                                                 showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="#{msg.yes}" 
+                                                     ajax="false" onclick="PF('printDebitNotePopup').hide();
+                                                             PrimeFaces.monitorDownload(start, function(){
+                                                                 stop();
+                                                                 location.reload();
+                                                             })" 
+                                                     process="@form"
+                                                     styleClass="ui-confirmdialog-yes GreenButton" 
+                                                     icon="ui-icon-check fa fa-check Fs14 white">
+                                        <p:fileDownload value="#{insuranceFormController.getDebitNote()}"/>
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msg.btn_cancel}"
+                                                     onclick="PF('printDebitNotePopup').hide()"
+                                                     type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                </p:confirmDialog>
                                 <p:confirmDialog widgetVar="printCopyPopup" 
                                                  header="#{msg.confirmation_head}" 
                                                  message="#{msg.msg_confirm_save}"
@@ -508,7 +531,7 @@
                                                              PrimeFaces.monitorDownload(start, stop)" 
                                                      process="@form"
                                                      styleClass="ui-confirmdialog-yes GreenButton" 
-                                                     icon="ui-icon-check fa fa-check Fs14 white" oncomplete="window.location = ''">
+                                                     icon="ui-icon-check fa fa-check Fs14 white">
                                         <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile('6')}"/>
                                     </p:commandButton>
                                     <p:commandButton value="#{msg.btn_cancel}"

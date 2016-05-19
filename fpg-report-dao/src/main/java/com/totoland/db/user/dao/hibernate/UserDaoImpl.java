@@ -34,6 +34,16 @@ public class UserDaoImpl extends GennericDaoImpl<SvUser> implements UserDao {
         sql.append("FROM sv_user INNER JOIN group_lvl ON sv_user.USER_GROUP_LVL = group_lvl.GROUP_LVL_ID INNER JOIN user_group ON sv_user.USER_GROUP_ID = user_group.USER_GROUP_ID ");
         sql.append("WHERE 1=1 ");
         
+        if (criteria.getUserId() != null && !criteria.getUserId().trim().isEmpty()) {
+            sql.append("AND sv_user.USER_ID = ? ");
+            lst.add(criteria.getUserId());
+        }
+
+        if (criteria.getInsuredName()!= null && !criteria.getInsuredName().trim().isEmpty()) {
+            sql.append("AND sv_user.COMPANY_NAME = ? ");
+            lst.add(criteria.getInsuredName());
+        }
+        
         if (criteria.getGroupId() != null && criteria.getGroupId() != -1) {
             sql.append("AND sv_user.USER_GROUP_ID = ? ");
             lst.add(criteria.getGroupId());

@@ -108,7 +108,7 @@ public class ConditionsOfCoverController extends BaseController {
             conditionsOfCoverService.edit(this.selectedItem);
             LOGGER.debug("save : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
-            JsfUtil.hidePopup("dlgNewConditionOfConver");
+            JsfUtil.hidePopup("dlgEditConditionOfConver");
             search();
         } catch (Exception ex) {
             LOGGER.error("", ex);

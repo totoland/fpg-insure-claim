@@ -39,7 +39,7 @@
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
-                                    <h:outputLabel value="#{msg.label_customer}"/>
+                                    <h:outputLabel value="#{msg.label_insured_name}"/>
                                     <p:selectOneMenu styleClass="selectOne115" value="#{conditionsOfCoverController.criteria.customerId}">
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{conditionsOfCoverController.ddlCustomer}" var="item"
@@ -76,16 +76,16 @@
                             Search Result
                         </f:facet>
 
-                        <p:column headerText="#{msg.label_customer}" sortBy="#{car.id}" footerText="#{msg.label_company_code}">
+                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{car.id}" footerText="#{msg.label_insured_name}">
                             <h:outputText value="#{item.customerName}" />
                         </p:column>
-                        <p:column headerText="#{msg.option_air}" sortBy="#{car.year}" footerText="#{msg.label_Policy_number}">
+                        <p:column headerText="#{msg.option_air}" sortBy="#{car.year}" footerText="#{msg.option_air}">
                             <h:outputText value="#{item.airConditions}" />
                         </p:column>
-                        <p:column headerText="#{msg.option_vessel}" sortBy="#{car.brand}" footerText="#{msg.label_insured_name}">
+                        <p:column headerText="#{msg.option_vessel}" sortBy="#{car.brand}" footerText="#{msg.option_vessel}">
                             <h:outputText value="#{item.vesselConditions}" />
                         </p:column>
-                        <p:column headerText="#{msg.option_truck}" sortBy="#{car.brand}" footerText="#{msg.label_insured_name}">
+                        <p:column headerText="#{msg.option_truck}" sortBy="#{car.brand}" footerText="#{msg.option_truck}">
                             <h:outputText value="#{item.truckConditions}" />
                         </p:column>
                         <p:column>
@@ -105,7 +105,7 @@
                                                  immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
 
                                 </p:commandButton>
-                                <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" onclick="PF('cmfDelete').hide()"/>
                             </p:confirmDialog>
                         </p:column>
                     </p:dataTable>
@@ -113,7 +113,7 @@
                 </p:panel>
             </div>
 
-            <p:dialog header="#{msg.menu_rate}" id="dlgNewConditionOfConver" widgetVar="dlgNewConditionOfConver"  modal="true"
+            <p:dialog header="#{msg.menu_condition_of_cover}" id="dlgNewConditionOfConver" widgetVar="dlgNewConditionOfConver"  modal="true"
                       showEffect="explode" hideEffect="bounce" height="350" minimizable="true" maximizable="true" responsive="true">
                 <div class="Container100">
                     <div class="ContainerIndent">
@@ -133,15 +133,15 @@
                                     </p:selectOneMenu>
 
                                     <h:outputLabel value="#{msg.option_air}"/>
-                                    <p:inputTextarea maxlength="255" rows="10" style="width: 400px"
+                                    <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
                                                      value="#{conditionsOfCoverController.selectedItem.airConditions}"/>
 
                                     <h:outputLabel value="#{msg.option_vessel}"/>
-                                    <p:inputTextarea maxlength="255" rows="10" style="width: 400px"
+                                    <p:inputTextarea maxlength="2048" rows="10" style="width: 400px"
                                                      value="#{conditionsOfCoverController.selectedItem.vesselConditions}"/>
 
                                     <h:outputLabel value="#{msg.option_truck}"/>
-                                    <p:inputTextarea maxlength="255" rows="10" style="width: 400px"
+                                    <p:inputTextarea maxlength="2048" rows="10" style="width: 400px"
                                                      value="#{conditionsOfCoverController.selectedItem.truckConditions}"/>
 
                                     <h:outputLabel value=""/>
@@ -159,7 +159,7 @@
                 </div>
             </p:dialog>
             
-            <p:dialog header="#{msg.menu_rate}" id="dlgEditConditionOfConver" widgetVar="dlgEditConditionOfConver"  modal="true"
+            <p:dialog header="#{msg.menu_condition_of_cover}" id="dlgEditConditionOfConver" widgetVar="dlgEditConditionOfConver"  modal="true"
                       showEffect="explode" hideEffect="bounce" height="350" minimizable="true" maximizable="true" responsive="true">
                 <div class="Container100">
                     <div class="ContainerIndent">

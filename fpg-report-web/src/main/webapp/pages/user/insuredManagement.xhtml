@@ -144,11 +144,11 @@
                                         <f:selectItems value="#{insuredManagementController.dropdownFactory.ddlCustomerLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
                                     </p:selectOneMenu>
                                     <h:outputLabel for="criteria_username" value="#{msg.label_insured_name}" style="width:200px"/>
-                                    <p:inputText id="criteria_username" value="#{insuredManagementController.userCriteria.userName}" style="width:235px"/>
+                                    <p:inputText id="criteria_username" value="#{insuredManagementController.userCriteria.insuredName}" style="width:235px"/>
                                     <h:outputLabel/>
                                     <h:panelGroup>
-                                        <p:commandButton value="#{msg.btn_search}" id="search" icon="ui-icon-search" action="#{insuredManagementController.search()}" immediate="true" update="gridUser"/>
-                                        <p:commandButton value="#{msg.btn_reset}" icon="ui-icon-arrowrefresh-1-w" action="#{insuredManagementController.resetForm()}" immediate="true" update="pnCriteria,gridUser"/>
+                                        <p:commandButton value="#{msg.btn_search}" id="search" icon="ui-icon-search" action="#{insuredManagementController.search()}" process="pnCriteria" update="gridUser"/>
+                                        <p:commandButton value="#{msg.btn_reset}" icon="ui-icon-arrowrefresh-1-w" action="#{insuredManagementController.resetForm()}" process="pnCriteria" update="pnCriteria,gridUser"/>
                                     </h:panelGroup>
                                 </h:panelGrid>  
 
@@ -161,7 +161,14 @@
 
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="username" />
+                                            <h:outputText value="Insured Name" />
+                                        </f:facet>
+                                        <h:outputText value="#{item.companyName}" />
+                                    </p:column>
+                                    
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Username" />
                                         </f:facet>
                                         <h:outputText value="#{item.username}" />
                                     </p:column>

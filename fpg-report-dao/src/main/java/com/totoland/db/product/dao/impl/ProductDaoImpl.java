@@ -21,47 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.totoland.db.admin.dao.impl;
+package com.totoland.db.product.dao.impl;
 
-import com.totoland.db.admin.dao.ConditionsOfCoverDao;
-import com.totoland.db.bean.ConditionsOfCoverCriteria;
 import com.totoland.db.common.dao.hibernate.GennericDaoImpl;
-import com.totoland.db.entity.ConditionsOfCover;
-import com.totoland.db.entity.ViewConditionsOfCover;
+import com.totoland.db.entity.Product;
+import com.totoland.db.product.dao.ProductDao;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 /**
  *
  * @author totoland
  */
 @Repository
-public class ConditionsOfCoverDaoImpl extends GennericDaoImpl<ConditionsOfCover> implements ConditionsOfCoverDao {
+public class ProductDaoImpl extends GennericDaoImpl<Product> implements ProductDao {
 
-    private static final long serialVersionUID = 7615685221888510973L;
+    private static final long serialVersionUID = 5227730327680842144L;
 
     @Transactional(readOnly = true)
     @Override
-    public List<ViewConditionsOfCover> findByCriteria(ConditionsOfCoverCriteria criteria) {
-        String SQL = "SELECT "
-                + "conditions_of_cover.conditions_cover_id, "
-                + "conditions_of_cover.air_conditions, "
-                + "conditions_of_cover.vessel_conditions, "
-                + "conditions_of_cover.truck_conditions, "
-                + "conditions_of_cover.customer_id, "
-                + "sv_user.COMPANY_NAME customer_name "
-                + "FROM "
-                + "conditions_of_cover "
-                + "INNER JOIN sv_user ON conditions_of_cover.customer_id = sv_user.USER_ID ";
-
-        if (!StringUtils.isEmpty(criteria.getCustomerId())) {
-            SQL += "WHERE conditions_of_cover.customer_id = ?";
-            return findNativeQuery(SQL, ViewConditionsOfCover.class, criteria.getCustomerId());
+    public List<Product> findById(String productId) {
+        if (productId == null || productId.trim().isEmpty()) {
+            return findNativeQuery("SELECT * FROM PRODUCT", Product.class);
         }
 
-        return findNativeQuery(SQL, ViewConditionsOfCover.class);
+        return findNativeQuery("SELECT * FROM PRODUCT WHERE PRODUCT_ID = ? ", Product.class, productId);
     }
 
 }
