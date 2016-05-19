@@ -39,7 +39,6 @@ public class CommonDaoImpl extends BaseDao implements CommonDao {
                 + ", '"+orderBy+"' AS order_by ,'"+sortBy+"' AS sort_by "
                 + ",'"+schemaName+"' AS schema_name " 
                 + "from "+tableName + " "+condition + " order by "+orderBy + " "+sortBy).toLowerCase();
-
         List<DropDownList> result;
 
         result = (List<DropDownList>) getHibernateTemplate().execute(new HibernateCallback() {

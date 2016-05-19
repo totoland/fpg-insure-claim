@@ -9,18 +9,26 @@
     <div class="layout-menu-cover-top Animated05" id="layout-menu-cover">
         <h:form id="menuform">
             <pm:menu>
-                <p:submenu id="rm_hierarchy" label="#{msg.menu_marine_insure}" icon="icon-folder-stroke">
-                    <p:menuitem id="rm_lnk2211" value="#{msg.menu_create_new_claim}" icon="icon-add" url="/pages/form/insuranceForm.xhtml" />
-                    <p:menuitem id="rm_lnk2212" value="#{msg.menu_create_edit_claim}" icon="fa fa-edit" url="/pages/form/insuranceManagement.xhtml" />
+                <p:submenu id="menu_insuredForm" label="#{msg.menu_marine_insure}" icon="icon-folder-stroke" rendered="#{permissionController.isCanAccessModule('CERTIFICATE_ISSUE')}">
+                    <p:menuitem id="rm_lnk2211" value="#{msg.menu_create_new_claim}" icon="icon-add" url="/pages/form/insuranceForm.xhtml" 
+                                rendered="#{permissionController.isCanAccessPage('/pages/form/insuranceForm.xhtml')}"/>
+                    <p:menuitem id="rm_lnk2212" value="#{msg.menu_create_edit_claim}" icon="fa fa-edit" url="/pages/form/insuranceManagement.xhtml" 
+                                rendered="#{permissionController.isCanAccessPage('/pages/form/insuranceManagement.xhtml')}"/>
                 </p:submenu>
-                <p:submenu id="rm_admin" label="#{msg.menu_admin}" icon="icon-lock-stroke">
-                    <p:menuitem id="rm_promotion" value="#{msg.menu_user_mgr}" icon="icon-users" url="/pages/user/userManagement.xhtml"/>
+                <p:submenu id="rm_admin" label="#{msg.menu_admin}" icon="icon-lock-stroke" rendered="#{permissionController.isCanAccessModule('ADMIN')}">
+                    <p:menuitem id="rm_promotion" value="#{msg.menu_user_mgr}" icon="icon-users" url="/pages/user/userManagement.xhtml"
+                                rendered="#{permissionController.isCanAccessPage('/pages/user/userManagement.xhtml')}"/>
+                    <p:menuitem id="insuredManagementMenu" value="#{msg.menu_cust_mgr}" icon="icon-users" url="/pages/user/insuredManagement.xhtml"
+                                rendered="#{permissionController.isCanAccessPage('/pages/user/insuredManagement.xhtml')}"/>
                     <p:menuitem value="#{msg.menu_match_key}" icon="fa fa-edit" url="/pages/officail/matchingKey.xhtml" rendered="false"/>
-                    <p:menuitem value="#{msg.menu_rate}" icon="fa fa-edit" url="/pages/rate/rateManagement.xhtml" />
-                    <p:menuitem value="#{msg.menu_condition_of_cover}" icon="icon-dial" url="/pages/admin/conditionsOfCover.xhtml" />
+                    <p:menuitem value="#{msg.menu_rate}" icon="fa fa-edit" url="/pages/rate/rateManagement.xhtml" 
+                                rendered="#{permissionController.isCanAccessPage('/pages/rate/rateManagement.xhtml')}"/>
+                    <p:menuitem value="#{msg.menu_condition_of_cover}" icon="icon-dial" url="/pages/admin/conditionsOfCover.xhtml" 
+                                rendered="#{permissionController.isCanAccessPage('/pages/admin/conditionsOfCover.xhtml')}"/>
                 </p:submenu>
-                <p:submenu id="rm_orientation" label="#{msg.menum_report}" icon="icon-menu">
-                    <p:menuitem id="rm_top" value="Certificate Active Report" icon="icon-layout7" url="/pages/report/certificateActiveReport.xhtml" />
+                <p:submenu id="rm_orientation" label="#{msg.menum_report}" icon="icon-menu" rendered="#{permissionController.isCanAccessModule('REPORT')}">
+                    <p:menuitem id="rm_top" value="Certificate Active Report" icon="icon-layout7" url="/pages/report/certificateActiveReport.xhtml" 
+                                rendered="#{permissionController.isCanAccessPage('/pages/report/certificateActiveReport.xhtml')}"/>
                 </p:submenu>
             </pm:menu>
         </h:form>

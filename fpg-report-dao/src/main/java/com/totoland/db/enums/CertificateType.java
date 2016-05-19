@@ -31,14 +31,14 @@ public enum CertificateType {
 
     ORIGINAL(1), DUPPICATE(2), INSURED_COPY(3), PRODUCER_COPY(4), OFFICE_COPY(5), COMPANY_COPY(6);
 
-    int type;
+    int value;
 
-    CertificateType(int type) {
-        this.type = type;
+    CertificateType(int value) {
+        this.value = value;
     }
 
-    public static String valueOf(int val) {
-        switch (val) {
+    public static String valueOf(int value) {
+        switch (value) {
             case 1: {
                 return "ORIGINAL";
             }
@@ -63,4 +63,7 @@ public enum CertificateType {
         }
     }
 
+    public int getValue() {
+        return value;
+    }
 }

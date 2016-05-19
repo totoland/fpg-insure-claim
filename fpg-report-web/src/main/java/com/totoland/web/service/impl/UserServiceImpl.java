@@ -65,14 +65,22 @@ public class UserServiceImpl extends GennericServiceImpl<SvUser> implements User
     public void createWithKeyMatching(SvUser user, KeyMatch keyMatch) {
         userDao.create(user);
         keyMatch.setCustId(user.getUserId());
+        keyMatch.setOpenPolicyNo(user.getPolicyNo());
         keyMatchDao.updateKeyMatch(keyMatch);
     }
 
+    @Transactional(rollbackFor = {Throwable.class})
     @Override
     public void updateWithKeyMatching(SvUser user, KeyMatch keyMatch) {
         userDao.edit(user);
         keyMatch.setCustId(user.getUserId());
+        keyMatch.setOpenPolicyNo(user.getPolicyNo());
         keyMatchDao.updateKeyMatch(keyMatch);
     }
-
+    
+    @Override
+    public SvUser findById(Long userId){
+        return userDao.findById(userId);
+    }
+    
 }

@@ -5,6 +5,7 @@
 package com.totoland.db.entity;
 
 import com.totoland.db.domain.entity.DomainEntity;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +17,10 @@ import javax.persistence.Transient;
  * @author totoland
  */
 @Entity
-public class ViewUser extends DomainEntity{
+public class ViewUser extends DomainEntity {
+
     private static final long serialVersionUID = 3183600610528921979L;
-    
+
     @Id
     @Basic(optional = false)
     @Column(name = "USER_ID")
@@ -37,15 +39,21 @@ public class ViewUser extends DomainEntity{
     private Integer sex;
     @Column(name = "USER_GROUP_ID")
     private Integer userGroupId;
-    @Column(name ="USER_GROUP_NAME")
+    @Column(name = "USER_GROUP_NAME")
     private String userGroupName;
-    @Column(name ="USER_GROUP_LVL")
+    @Column(name = "USER_GROUP_LVL")
     private Integer userGroupLvl;
-    @Column(name ="GROUP_LVL_NAME")
+    @Column(name = "GROUP_LVL_NAME")
     private String userGroupLvlName;
+    @Column(name = "COMPANY_NAME")
+    private String companyName;
+    @Column(name = "ADDRESS")
+    private String address;
+    @Column(name = "POLICY_NO")
+    private String policyNo;
     @Transient
     private String sessionId;
-    
+
     /**
      * @return the userId
      */
@@ -186,64 +194,6 @@ public class ViewUser extends DomainEntity{
         this.userGroupLvl = userGroupLvl;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + (this.userId != null ? this.userId.hashCode() : 0);
-        hash = 79 * hash + (this.username != null ? this.username.hashCode() : 0);
-        hash = 79 * hash + (this.password != null ? this.password.hashCode() : 0);
-        hash = 79 * hash + (this.isActive != null ? this.isActive.hashCode() : 0);
-        hash = 79 * hash + (this.fname != null ? this.fname.hashCode() : 0);
-        hash = 79 * hash + (this.lname != null ? this.lname.hashCode() : 0);
-        hash = 79 * hash + (this.sex != null ? this.sex.hashCode() : 0);
-        hash = 79 * hash + (this.userGroupId != null ? this.userGroupId.hashCode() : 0);
-        hash = 79 * hash + (this.userGroupName != null ? this.userGroupName.hashCode() : 0);
-        hash = 79 * hash + (this.userGroupLvl != null ? this.userGroupLvl.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ViewUser other = (ViewUser) obj;
-        if (this.userId != other.userId && (this.userId == null || !this.userId.equals(other.userId))) {
-            return false;
-        }
-        if ((this.username == null) ? (other.username != null) : !this.username.equals(other.username)) {
-            return false;
-        }
-        if ((this.password == null) ? (other.password != null) : !this.password.equals(other.password)) {
-            return false;
-        }
-        if (this.isActive != other.isActive && (this.isActive == null || !this.isActive.equals(other.isActive))) {
-            return false;
-        }
-        if ((this.fname == null) ? (other.fname != null) : !this.fname.equals(other.fname)) {
-            return false;
-        }
-        if ((this.lname == null) ? (other.lname != null) : !this.lname.equals(other.lname)) {
-            return false;
-        }
-        if (this.sex != other.sex && (this.sex == null || !this.sex.equals(other.sex))) {
-            return false;
-        }
-        if (this.userGroupId != other.userGroupId && (this.userGroupId == null || !this.userGroupId.equals(other.userGroupId))) {
-            return false;
-        }
-        if ((this.userGroupName == null) ? (other.userGroupName != null) : !this.userGroupName.equals(other.userGroupName)) {
-            return false;
-        }
-        if (this.userGroupLvl != other.userGroupLvl && (this.userGroupLvl == null || !this.userGroupLvl.equals(other.userGroupLvl))) {
-            return false;
-        }
-        return true;
-    }
-
     /**
      * @return the userGroupLvlName
      */
@@ -272,8 +222,54 @@ public class ViewUser extends DomainEntity{
         this.sessionId = sessionId;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPolicyNo() {
+        return policyNo;
+    }
+
+    public void setPolicyNo(String policyNo) {
+        this.policyNo = policyNo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.userId);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ViewUser other = (ViewUser) obj;
+        if (!Objects.equals(this.userId, other.userId)) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
-        return "ViewUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupName=" + userGroupName + ", userGroupLvl=" + userGroupLvl + ", userGroupLvlName=" + userGroupLvlName + ", sessionId=" + sessionId + '}';
+        return "ViewUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupName=" + userGroupName + ", userGroupLvl=" + userGroupLvl + ", userGroupLvlName=" + userGroupLvlName + ", companyName=" + companyName + ", address=" + address + ", policyNo=" + policyNo + ", sessionId=" + sessionId + '}';
     }
 }

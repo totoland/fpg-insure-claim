@@ -35,10 +35,10 @@ import org.slf4j.MDC;
  */
 @ViewScoped
 @ManagedBean
-public class UserManagementController extends BaseController {
+public class InsuredManagementController extends BaseController {
 
     private static final long serialVersionUID = 4889668000891738625L;
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserManagementController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(InsuredManagementController.class);
     private List<ViewUser> svUsers;
     private UserCriteria userCriteria = new UserCriteria();
     
@@ -99,6 +99,9 @@ public class UserManagementController extends BaseController {
             this.svUser.setSex(selsvUser.getSex());
             this.svUser.setUserGroupId(selsvUser.getUserGroupId());
             this.svUser.setUserGroupLvl(selsvUser.getUserGroupLvl());
+            this.svUser.setCompanyName(selsvUser.getCompanyName());
+            this.svUser.setAddress(selsvUser.getAddress());
+            this.svUser.setPolicyNo(selsvUser.getPolicyNo());
             
             //Find KeyMatching
             keyMatch = keyMatchService.findByCustomerId(String.valueOf(selsvUser.getUserId()));
@@ -186,6 +189,7 @@ public class UserManagementController extends BaseController {
         countAllCustomer = customerService.countAllCustomer();
         countAllAdmin = userService.countAllAdmin();
         countAllUser = userService.countAllUser();
+        userCriteria.setGroupLvl(UserType.CUSTOMER.getId());
     }
 
     /**
@@ -267,20 +271,8 @@ public class UserManagementController extends BaseController {
         if (StringUtils.isBlank(svUser.getPassword())) {
             msg += (MessageUtils.getResourceBundleString("require_message", "Password")) + ("\\n");
         }
-        if (StringUtils.isBlank(svUser.getFname())) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "Fist name")) + ("\\n");
-        }
-        if (StringUtils.isBlank(svUser.getLname())) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "Last name")) + ("\\n");
-        }
-        if (svUser.getSex() == null) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "Gender")) + ("\\n");
-        }
         if (svUser.getUserGroupLvl() == null || svUser.getUserGroupLvl() == -1) {
             msg += (MessageUtils.getResourceBundleString("require_message", "Group Level")) + ("\\n");
-        }
-        if (svUser.getUserGroupId() == null || svUser.getUserGroupId() == -1) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "User Group")) + ("\\n");
         }
         if (svUser.getIsActive() == null) {
             msg += (MessageUtils.getResourceBundleString("require_message", "Status")) + ("\\n");
@@ -314,20 +306,8 @@ public class UserManagementController extends BaseController {
         if (StringUtils.isBlank(svUser.getPassword())) {
             msg += (MessageUtils.getResourceBundleString("require_message", "Password")) + ("\\n");
         }
-        if (StringUtils.isBlank(svUser.getFname())) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "First name")) + ("\\n");
-        }
-        if (StringUtils.isBlank(svUser.getLname())) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "Last name")) + ("\\n");
-        }
-        if (svUser.getSex() == null) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "Gender")) + ("\\n");
-        }
         if (svUser.getUserGroupLvl() == null || svUser.getUserGroupLvl().intValue() == -1) {
             msg += (MessageUtils.getResourceBundleString("require_message", "User Group Level")) + ("\\n");
-        }
-        if (svUser.getUserGroupId() == null || svUser.getUserGroupId().intValue() == -1) {
-            msg += (MessageUtils.getResourceBundleString("require_message", "User Group")) + ("\\n");
         }
         if (svUser.getIsActive() == null) {
             msg += (MessageUtils.getResourceBundleString("require_message", "Status")) + ("\\n");

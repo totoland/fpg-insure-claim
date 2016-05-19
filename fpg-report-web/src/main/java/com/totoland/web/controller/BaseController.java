@@ -52,6 +52,10 @@ public abstract class BaseController implements Serializable {
     public void addInfo(String message) {
         addMessages(FacesMessage.SEVERITY_INFO, message, "");
     }
+    
+    public void addInfo(String clientId,String message) {
+        addMessages(clientId,FacesMessage.SEVERITY_INFO, message, "");
+    }
 
     public void addError(String clientId, String message) {
         addMessages(clientId, FacesMessage.SEVERITY_ERROR, message, "");

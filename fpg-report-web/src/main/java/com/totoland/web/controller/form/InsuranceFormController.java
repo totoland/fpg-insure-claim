@@ -82,16 +82,18 @@ public class InsuranceFormController extends BaseController {
     }
 
     private void initCreateMode() {
+        LOGGER.debug("initCreateMode...");
         this.certNumber = null;
         this.claimInsure = new ClaimInsure(0);
         this.claimInsure.setClaimStatusId(InsureState.NEW.getState());
-        this.claimInsure.setExchangeRate(new BigDecimal("35.64"));
+        this.claimInsure.setExchangeRate(new BigDecimal(dropdownFactory.getCurrentExchangeRate()));
         this.claimInsure.setIssueDate(new Date());
         KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
         this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
     }
 
     private void initUpdateMode(String trxId) {
+        LOGGER.debug("initUpdateMode...");
         this.claimInsure = certificateService.findByTrxId(trxId);
 
         if (claimInsure == null) {
@@ -102,7 +104,7 @@ public class InsuranceFormController extends BaseController {
 
         this.certNumber = this.claimInsure.getCertificationNumber();
         this.claimInsure.setClaimStatusId(this.claimInsure.getClaimStatusId());
-        this.claimInsure.setExchangeRate(new BigDecimal("35.64"));
+//        this.claimInsure.setExchangeRate(new BigDecimal(dropdownFactory.getCurrentExchangeRate()));
 
         //Should not has this case
         if (StringUtils.isBlank(this.claimInsure.getPolicyNumber())) {
@@ -121,8 +123,6 @@ public class InsuranceFormController extends BaseController {
         if (!readOnly) {
             return true;
         }
-
-        LOGGER.debug("this.claimInsure.getMethodOfTransportId() : {}", this.claimInsure.getMethodOfTransportId());
 
         return this.claimInsure != null && this.claimInsure.getMethodOfTransportId() != null
                 && this.claimInsure.getMethodOfTransportId() == type;
@@ -147,8 +147,11 @@ public class InsuranceFormController extends BaseController {
     }
 
     public void save(int state) {
-        this.claimInsure.setCreatedBy(1);
-        this.claimInsure.setCreatedDateTime(new Date());
+        Date sysdate = new Date();
+        this.claimInsure.setCreatedBy(getUserAuthen().getUserId());
+        this.claimInsure.setUpdatedBy(getUserAuthen().getUserId());
+        this.claimInsure.setCreatedDateTime(sysdate);
+        this.claimInsure.setUpdatedDateTime(sysdate);
         this.claimInsure.setClaimStatusId(state);
         this.claimInsure.setTrxId(WebUtils.generateToken());
         LOGGER.debug("save : {}", this.claimInsure);
@@ -156,7 +159,7 @@ public class InsuranceFormController extends BaseController {
         try {
             gennericService.edit(claimInsure);
             addInfo(MessageUtils.SAVE_SUCCESS());
-            initCreateMode();
+            JsfUtil.openDialog("dlgSave");
         } catch (Exception e) {
             LOGGER.error("ERROR WITH TRX_ID " + this.claimInsure.getTrxId() + " ", e);
             addError(MessageUtils.SAVE_NOT_SUCCESS());
@@ -165,13 +168,17 @@ public class InsuranceFormController extends BaseController {
     }
 
     public void edit(int state) {
-        this.claimInsure.setUpdatedBy(1);
-        this.claimInsure.setUpdatedDateTime(new Date());
+        Date sysdate = new Date();
+        this.claimInsure.setCreatedBy(getUserAuthen().getUserId());
+        this.claimInsure.setUpdatedBy(getUserAuthen().getUserId());
+        this.claimInsure.setCreatedDateTime(sysdate);
+        this.claimInsure.setUpdatedDateTime(sysdate);
         this.claimInsure.setClaimStatusId(state);
         LOGGER.debug("edit : {}", this.claimInsure);
         try {
             gennericService.edit(claimInsure);
             addInfo(MessageUtils.SAVE_SUCCESS());
+            JsfUtil.openDialog("dlgSave");
         } catch (Exception e) {
             LOGGER.error("ERROR WITH TRX_ID " + this.claimInsure.getTrxId() + " ", e);
             addError(MessageUtils.SAVE_NOT_SUCCESS());
@@ -190,9 +197,12 @@ public class InsuranceFormController extends BaseController {
     }
 
     private void createCertificateNumber() {
+        LOGGER.debug("createCertificateNumber...");
         this.certNumber = certificateService.getCertificateNO(insureType);
         this.claimInsure.setCertificationNumber(certNumber);
+        this.claimInsure.setClaimStatusId(InsureState.PRINT_CERT.getState());
         gennericService.edit(this.claimInsure);
+        readOnly = true;
         LOGGER.info("Print Certificate number : {} by user {}", certNumber, getUserAuthen().getUserId());
     }
 
@@ -200,7 +210,7 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
 
         //If first time export must be export with ORIGINAL and need to create new Certificate number
-        if (CertificateType.ORIGINAL.equals(CertificateType.valueOf(certificateType))) {
+        if (CertificateType.ORIGINAL.getValue() == certificateType) {
             try {
                 createCertificateNumber();
             } catch (Exception ex) {
@@ -245,7 +255,7 @@ public class InsuranceFormController extends BaseController {
     }
 
     private String findInsureType(String selectedInsureType) {
-        for (DropDownList ddl : dropdownFactory.ddlInsureTypesList()) {
+        for (DropDownList ddl : dropdownFactory.ddlMethodOfTransport()) {
             if (ddl.getValue().equals(selectedInsureType)) {
                 return ddl.getName();
             }
@@ -258,7 +268,7 @@ public class InsuranceFormController extends BaseController {
      * @return the insureTypeList
      */
     public List<DropDownList> getInsureTypeList() {
-        return dropdownFactory.ddlInsureTypesList();
+        return dropdownFactory.ddlMethodOfTransport();
     }
 
     /**

@@ -42,16 +42,18 @@ import org.slf4j.LoggerFactory;
 @ManagedBean
 @ViewScoped
 public class ChangePasswordController extends BaseController {
-    
+
     private static final long serialVersionUID = 6937574482438261553L;
     private static final Logger LOGGER = LoggerFactory.getLogger(ChangePasswordController.class);
-    
+
     private String oldPassword;
     private String newPassword;
     private String confirmNewPassword;
-    
+
     @ManagedProperty("#{userService}")
     private UserService userService;
+
+    private String messageId = "changePWDMessage";
     
     @PostConstruct
     public void init() {
@@ -59,67 +61,85 @@ public class ChangePasswordController extends BaseController {
         this.newPassword = null;
         this.confirmNewPassword = null;
     }
-    
+
     public void changePassword() {
-        
-        if(!validatePassword()){
-            addError(MessageUtils.getResourceBundleString("change_password_newpass_not_match_confirm"));
-        }
-        
-        //Prepare entity
-        SvUser user = userService.find(getUserAuthen().getUserId(), SvUser.class);
-        //user should not null
-        if (user == null) {
-            addError(MessageUtils.getResourceBundleString("change_password_no_data_found"));
-            return;
-        }
+        LOGGER.debug("changePassword...");
         try {
+            if (!validateOldPassword()) {
+                LOGGER.debug("validateOldPassword");
+                addError(messageId,MessageUtils.getResourceBundleString("change_password_oldpass_not_match_confirm"));
+                openDialog("cmAlertChangePWD");
+                return;
+            }
+
+            if (!validatePassword()) {
+                LOGGER.debug("validatePassword");
+                addError(messageId,MessageUtils.getResourceBundleString("change_password_newpass_not_match_confirm"));
+                openDialog("cmAlertChangePWD");
+                return;
+            }
+
+            //Prepare entity
+            SvUser user = userService.findById(getUserAuthen().getUserId().longValue());
+
+            //user should not null
+            if (user == null) {
+                addError(messageId,MessageUtils.getResourceBundleString("change_password_no_data_found"));
+                openDialog("cmAlertChangePWD");
+                return;
+            }
+
             user.setPassword(WebUtils.encrypt(newPassword));
             userService.edit(user);
-            addInfo(MessageUtils.getResourceBundleString("change_password_success"));
+            addInfo(messageId,MessageUtils.getResourceBundleString("change_password_success"));
         } catch (Exception ex) {
-            LOGGER.error("ERROR : When change password ",ex);
-            addError(MessageUtils.getResourceBundleString("change_password_fail"));
+            LOGGER.error("ERROR : When change password ", ex);
+            addError(messageId,MessageUtils.getResourceBundleString("change_password_fail"));
         }
+        openDialog("cmAlertChangePWD");
     }
-    
-    private boolean validatePassword(){
+
+    private boolean validatePassword() {
         return this.newPassword.equals(confirmNewPassword);
     }
-    
+
+    private boolean validateOldPassword() throws Exception {
+        return WebUtils.encrypt(this.oldPassword).equals(getUserAuthen().getPassword());
+    }
+
     @Override
     public void resetForm() {
         init();
     }
-    
+
     public String getOldPassword() {
         return oldPassword;
     }
-    
+
     public void setOldPassword(String oldPassword) {
         this.oldPassword = oldPassword;
     }
-    
+
     public String getNewPassword() {
         return newPassword;
     }
-    
+
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
-    
+
     public String getConfirmNewPassword() {
         return confirmNewPassword;
     }
-    
+
     public void setConfirmNewPassword(String confirmNewPassword) {
         this.confirmNewPassword = confirmNewPassword;
     }
-    
+
     public UserService getUserService() {
         return userService;
     }
-    
+
     public void setUserService(UserService userService) {
         this.userService = userService;
     }

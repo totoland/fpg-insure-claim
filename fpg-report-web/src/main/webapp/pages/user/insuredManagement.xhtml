@@ -1,0 +1,352 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:toto="http://java.sun.com/jsf/composite/components"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#FF4081', '#FB8C00', '#43A047', '#8E24AA'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #546E7A;
+            }
+            .Fleft{
+                float: none;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="subheader">
+        Dashboard
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="formUser">  
+            <div class="Container100">
+                <div class="ContainerIndent"> 
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="icon-user Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            <h:outputText value="#{msg.menu_cust_mgr}"/> <br/>
+                            <span class="CardSubTopic">For create/edit user</span> 
+                        </div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="Container33 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card SoftGrayBack">
+                                    <i class="icon-store Fs40 Fleft Orange MarRight10"></i>
+                                    <div class="Fleft DispInlBlock">
+                                        <span class="Fs15 FontAdamantiumBold Gray">Customer Accounts</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">#{insuredManagementController.countAllCustomer}</span><br/>
+                                        <span class="Fs11 FontAdamantiumRegular Green">65% Deployed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Container33 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card SoftGrayBack">
+                                    <i class="icon-umbrella Fs40 Fleft Pink MarRight10"></i>
+                                    <div class="Fleft DispInlBlock">
+                                        <span class="Fs15 FontAdamantiumBold Gray">Admin Accounts</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">#{insuredManagementController.countAllAdmin}</span><br/>
+                                        <span class="Fs11 FontAdamantiumRegular Red">42% Remaining</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Container33 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card SoftGrayBack">
+                                    <i class="icon-portfolio Fs40 Fleft LeadenGreen MarRight10"></i>
+                                    <div class="Fleft DispInlBlock">
+                                        <span class="Fs15 FontAdamantiumBold Gray">Official Accounts</span><br/>
+                                        <span class="Fs30 FontAdamantiumBold">#{insuredManagementController.countAllUser}</span><br/>
+                                        <span class="Fs11 FontAdamantiumRegular Blue">29% Ready</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="EmptyBox20"></div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="icon-document-stroke Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            #{msg.panel_search}
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            <p:commandButton styleClass="Fright GreenButton" icon="fa fa-plus White"
+                                             immediate="true"
+                                             process="@this"
+                                             action="#{insuredManagementController.initCreateUser()}" update="modalDialogCreate"/>
+                            <br/>
+                        </div>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="Container100 Responsive50">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+
+                                <h:panelGrid columns="2" id="pnCriteria">  
+                                    <h:outputLabel for="groupLvl" value="#{msg.label_user_type}" />
+                                    <p:selectOneMenu id="groupLvl" style="width:200px" value="#{insuredManagementController.userCriteria.groupLvl}">
+                                        <f:selectItems value="#{insuredManagementController.dropdownFactory.ddlCustomerLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel for="criteria_username" value="#{msg.label_insured_name}" style="width:200px"/>
+                                    <p:inputText id="criteria_username" value="#{insuredManagementController.userCriteria.userName}" style="width:235px"/>
+                                    <h:outputLabel/>
+                                    <h:panelGroup>
+                                        <p:commandButton value="#{msg.btn_search}" id="search" icon="ui-icon-search" action="#{insuredManagementController.search()}" immediate="true" update="gridUser"/>
+                                        <p:commandButton value="#{msg.btn_reset}" icon="ui-icon-arrowrefresh-1-w" action="#{insuredManagementController.resetForm()}" immediate="true" update="pnCriteria,gridUser"/>
+                                    </h:panelGroup>
+                                </h:panelGrid>  
+
+                                <div class="SeparatorFull"></div>
+
+                                <p:dataTable id="gridUser" var="item" value="#{insuredManagementController.svUsers}"
+                                             paginator="true" rows="10" emptyMessage="#{msg.no_data_found}"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="10,15,20">
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="username" />
+                                        </f:facet>
+                                        <h:outputText value="#{item.username}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.label_Policy_number}" />
+                                        </f:facet>
+                                        <h:outputText value="#{item.policyNo}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Status" />
+                                        </f:facet>
+                                        <h:outputText value="#{item.isActive?'Active':'In active'}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputLabel value=""/>
+                                        </f:facet>
+                                        <p:commandButton value="#{msg.btn_edit}" action="#{insuredManagementController.initEditUser(item)}" immediate="true"
+                                                         process="@this"
+                                                         update=":formUser:modalDialogEdit"/>
+                                    </p:column>
+                                    <f:facet name="footer">
+
+                                    </f:facet>
+                                </p:dataTable>
+
+                            </div>
+                        </div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <!--<h2 class="BigTopic">TextArea</h2>-->
+                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <p:dialog id="modalDialogCreate" header="Create new user" widgetVar="modalDialogCreate" modal="true" showEffect="explode" hideEffect="bounce" minimizable="true" maximizable="true" responsive="true">
+                <div class="Container100">
+                    <div class="Container100 Responsive100">
+                        <p:panelGrid id="pnGridNew" columns="2" 
+                                     styleClass="ui-panelgrid-blank">  
+                            <h:outputLabel for="username" value="Username" />
+                            <h:panelGroup>
+                                <p:inputText id="username" value="#{insuredManagementController.svUser.username}"
+                                             required="true" requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel forId=":formUser:username"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="password" value="Password" />
+                            <h:panelGroup>
+                                <p:password id="password" value="#{insuredManagementController.svUser.password}"
+                                            required="true" requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel forId=":formUser:password"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="password2" value="Re-password" />
+                            <h:panelGroup>
+                                <p:password id="password2" value="#{insuredManagementController.rePassword}"
+                                            required="true" requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel forId=":formUser:password2"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="userGroupLvl" value="User Type" />
+                            <p:selectOneMenu styleClass="selectOne115" id="userGroupLvl" value="#{insuredManagementController.svUser.userGroupLvl}">
+                                <f:selectItems value="#{insuredManagementController.dropdownFactory.ddlCustomerLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <h:outputLabel for="campanyName" value="#{msg.label_insured_name}" />
+                            <h:panelGroup>
+                                <p:inputText id="campanyName" value="#{insuredManagementController.svUser.companyName}"
+                                             required="true" requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel forId=":formUser:campanyName"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="address" value="#{msg.label_insured_addres}" />
+                            <h:panelGroup>
+                                <p:inputTextarea id="address" value="#{insuredManagementController.svUser.address}" autoResize="true"
+                                                 required="true" requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel forId=":formUser:address"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="policyNumber" value="#{msg.label_Policy_number}" />
+                            <h:panelGroup>
+                                <p:inputText id="policyNumber" value="#{insuredManagementController.svUser.policyNo}"
+                                             required="true" requiredMessage="#{msg.require_generic}"/>    
+                                <toto:requireLabel forId=":formUser:policyNumber"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="fname" value="First name" />
+                            <p:inputText id="fname" value="#{insuredManagementController.svUser.fname}"/>
+                            <h:outputLabel for="lname" value="Last name" />
+                            <p:inputText id="lname" value="#{insuredManagementController.svUser.lname}"/>
+                            <h:outputLabel for="sex" value="Gender" />
+                            <p:selectOneRadio styleClass="selectOne115" id="sex" value="#{insuredManagementController.svUser.sex}" style="border-style:none">  
+                                <f:selectItem itemLabel="Male" itemValue="0" />  
+                                <f:selectItem itemLabel="Female" itemValue="1" /> 
+                            </p:selectOneRadio>
+                            <h:outputLabel for="isactive" value="Status" style="width:200px"/>
+                            <p:selectOneRadio id="isactive" value="#{insuredManagementController.svUser.isActive}" style="border-style:none">  
+                                <f:selectItem itemLabel="Active" itemValue="#{true}" />  
+                                <f:selectItem itemLabel="In Active" itemValue="#{false}" /> 
+                            </p:selectOneRadio>
+                            <h:outputLabel value=""/>
+                            <h:panelGroup>
+                                <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{insuredManagementController.save()}"
+                                                 process=":formUser:pnGridNew" update=":formUser:pnGridNew , :formUser:gridUser"/>
+                                <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="modalDialogCreate.hide()"/>
+                            </h:panelGroup>
+                        </p:panelGrid>
+                    </div>
+                </div>
+            </p:dialog>
+
+            <p:dialog id="modalDialogEdit" header="Update user" widgetVar="modalDialogEdit" modal="true" showEffect="explode" hideEffect="bounce" minimizable="true" maximizable="true" responsive="true">  
+                <div class="Container100">
+                    <div class="Container100 Responsive100">
+                        <h2 class="BigTopic"></h2>
+                        <p:panelGrid id="pnGridUpdate" columns="2" styleClass="ui-panelgrid-blank">  
+                            <h:outputLabel for="usernameEdit" value="Username" />
+                            <h:panelGroup>
+                                <p:inputText id="usernameEdit" value="#{insuredManagementController.svUser.username}"
+                                             required="true" requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel forId=":formUser:usernameEdit"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="passwordEdit" value="Password" />
+                            <h:panelGroup>
+                                <p:password redisplay="true" id="passwordEdit" value="#{insuredManagementController.svUser.password}"
+                                            required="true" requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel forId=":formUser:password"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="password2Edit" value="Re-password" title="please enter re-password"/>
+                            <h:panelGroup>
+                                <p:password id="password2Edit" redisplay="true" value="#{insuredManagementController.rePassword}"
+                                            required="true" requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel forId=":formUser:password2"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="userGroupLvlEdit" value="User Type" style="width:200px"/>
+                            <p:selectOneMenu id="userGroupLvlEdit" styleClass="selectOne115" value="#{insuredManagementController.svUser.userGroupLvl}">
+                                <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
+                                <f:selectItems value="#{insuredManagementController.dropdownFactory.ddlCustomerLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <h:outputLabel for="companyNameEdit" value="#{msg.label_insured_name}" />
+                            <h:panelGroup>
+                                <p:inputText id="companyNameEdit" value="#{insuredManagementController.svUser.companyName}"
+                                             required="true" requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel forId=":formUser:companyNameEdit"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="addressEdit" value="#{msg.label_insured_addres}" />
+                            <h:panelGroup>
+                                <p:inputTextarea id="addressEdit" value="#{insuredManagementController.svUser.address}" autoResize="true"
+                                                 required="true" requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel forId=":formUser:addressEdit"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="policyNumberEdit" value="#{msg.label_Policy_number}" />
+                            <h:panelGroup>
+                                <p:inputText id="policyNumberEdit" value="#{insuredManagementController.svUser.policyNo}"
+                                             required="true" requiredMessage="#{msg.require_generic}"/>    
+                                <toto:requireLabel forId=":formUser:policyNumberEdit"/>
+                            </h:panelGroup>
+                            <h:outputLabel for="fnameEdit" value="First name" />
+                            <p:inputText id="fnameEdit" value="#{insuredManagementController.svUser.fname}"/>
+                            <h:outputLabel for="lnameEdit" value="Last name" />
+                            <p:inputText id="lnameEdit" value="#{insuredManagementController.svUser.lname}"/>
+                            <h:outputLabel for="sexEdit" value="Gender" />
+                            <p:selectOneRadio id="sexEdit" value="#{insuredManagementController.svUser.sex}" style="border-style:none">  
+                                <f:selectItem itemLabel="Mail" itemValue="0" />  
+                                <f:selectItem itemLabel="Femail" itemValue="1" /> 
+                            </p:selectOneRadio>
+                            <h:outputLabel for="isactiveEdit" value="Status" style="width:200px"/>
+                            <p:selectOneRadio id="isactiveEdit" value="#{insuredManagementController.svUser.isActive}" style="border-style:none">  
+                                <f:selectItem itemLabel="Active" itemValue="true" />  
+                                <f:selectItem itemLabel="In Active" itemValue="false" /> 
+                            </p:selectOneRadio>
+                            <h:outputLabel value=""/>
+                            <h:panelGroup>
+                                <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" 
+                                                 action="#{insuredManagementController.edit()}"
+                                                 process=":formUser:pnGridUpdate" update=":formUser:pnGridUpdate , :formUser:gridUser"/>
+                                <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogEdit').hide()"/>
+                            </h:panelGroup>
+                        </p:panelGrid>  
+                    </div>
+                </div>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

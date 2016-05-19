@@ -6,6 +6,7 @@ package com.totoland.web.controller.login;
 
 import com.totoland.db.authen.dao.AuthenDao;
 import com.totoland.db.entity.ViewUser;
+import com.totoland.db.enums.UserType;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.controller.LocaleBean;
 import com.totoland.web.utils.WebUtils;
@@ -37,7 +38,7 @@ public class LoginController extends BaseController {
     private boolean loggedIn = false;
     @ManagedProperty("#{localeBean}")
     private LocaleBean localeBean;
-    
+
     public String sessionId;
 
     @PostConstruct
@@ -49,7 +50,7 @@ public class LoginController extends BaseController {
     public void loginProcess() {
 
         sessionId = WebUtils.generateToken();
-        
+
         MDC.put("reqId", sessionId);
 
         logger.info("loginProcess...");
@@ -103,7 +104,7 @@ public class LoginController extends BaseController {
         }
 
         loggedIn = true;
-        
+
         //Session Id for tag UNIQ key for each user login
         loginUser.setSessionId(sessionId);
         super.getRequest().getSession().setAttribute("userAuthen", loginUser);
@@ -114,8 +115,16 @@ public class LoginController extends BaseController {
 
         logger.trace("path : {}", path);
 
-        executeJavaScript("setTimeout(function(){window.location='" + path
-                + "/pages/user/userManagement.xhtml?firstLogin=true';blockUI.show();},100);");
+        if (UserType.ADMIN.getId() == loginUser.getUserGroupLvl()) {
+            executeJavaScript("setTimeout(function(){PF('statusDialog').show();window.location='" + path
+                    + "/pages/user/userManagement.xhtml?firstLogin=true';},100);");
+        } else if (UserType.OFFICIAL_USER.getId() == loginUser.getUserGroupLvl()) {
+            executeJavaScript("setTimeout(function(){PF('statusDialog').show();window.location='" + path
+                    + "/pages/user/userManagement.xhtml?firstLogin=true';},100);");
+        } else if (UserType.CUSTOMER.getId() == loginUser.getUserGroupLvl()) {
+            executeJavaScript("setTimeout(function(){PF('statusDialog').show();window.location='" + path
+                    + "/pages/form/insuranceManagement.xhtml?firstLogin=true';},100);");
+        }
 
     }
 
@@ -166,7 +175,8 @@ public class LoginController extends BaseController {
     }
 
     @Override
-    public void resetForm() {}
+    public void resetForm() {
+    }
 
     /**
      * @return the authenDao

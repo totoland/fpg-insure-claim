@@ -28,6 +28,8 @@ public class DropdownFactory implements Serializable {
     CommonService commonService;
 
     private static List<DropDownList> ectGroupLvl;
+    private static List<DropDownList> fpgCustLvl;
+    private static List<DropDownList> fpgUserLvl;
 
     /**
      * *
@@ -44,12 +46,45 @@ public class DropdownFactory implements Serializable {
             criteria.setName("GROUP_LVL_NAME");
             criteria.setValue("GROUP_LVL_ID");
             criteria.setSortName("ASC");
-            //criteria.setCondition("GROUP_LVL_ID <> 5");
+            criteria.setCondition("GROUP_LVL_ID <> 3");
 
             ectGroupLvl = commonService.getDropdownList(criteria);
         }
 
         return ectGroupLvl;
+    }
+    
+    public List<DropDownList> ddlCustomerLvl() {
+        if (fpgCustLvl == null) {
+
+            DropDownList criteria = new DropDownList();
+            criteria.setTableName("GROUP_LVL");
+            criteria.setOrderByField("GROUP_LVL_ID");
+            criteria.setName("GROUP_LVL_NAME");
+            criteria.setValue("GROUP_LVL_ID");
+            criteria.setSortName("ASC");
+            criteria.setCondition("GROUP_LVL_ID = 3");
+
+            fpgCustLvl = commonService.getDropdownList(criteria);
+        }
+
+        return fpgCustLvl;
+    }
+    
+    public List<DropDownList> ddllAllUserCustomerLvl() {
+        if (fpgUserLvl == null) {
+
+            DropDownList criteria = new DropDownList();
+            criteria.setTableName("GROUP_LVL");
+            criteria.setOrderByField("GROUP_LVL_ID");
+            criteria.setName("GROUP_LVL_NAME");
+            criteria.setValue("GROUP_LVL_ID");
+            criteria.setSortName("ASC");
+
+            fpgUserLvl = commonService.getDropdownList(criteria);
+        }
+
+        return fpgUserLvl;
     }
 
     private List<DropDownList> ectUserGroup;
@@ -78,7 +113,7 @@ public class DropdownFactory implements Serializable {
 
     private static List<DropDownList> insureTypes;
 
-    public List<DropDownList> ddlInsureTypesList() {
+    public List<DropDownList> ddlMethodOfTransport() {
 
         insureTypes = new ArrayList<>();
         insureTypes.add(new DropDownList(MessageUtils.getString("option_air"), "1"));
@@ -131,10 +166,11 @@ public class DropdownFactory implements Serializable {
 
         List<DropDownList> customers = new ArrayList<>();
         DropDownList criteria = new DropDownList();
-        criteria.setTableName("insures");
-        criteria.setOrderByField("insured_name");
-        criteria.setName("insured_name");
-        criteria.setValue("insured_id");
+        criteria.setTableName("sv_user");
+        criteria.setOrderByField("company_name");
+        criteria.setName("company_name");
+        criteria.setValue("user_id");
+        criteria.setCondition("USER_GROUP_LVL = 3");
         criteria.setSortName("ASC");
 
         customers = commonService.getDropdownList(criteria);
@@ -246,13 +282,46 @@ public class DropdownFactory implements Serializable {
 
         List<DropDownList> customers = new ArrayList<>();
         DropDownList criteria = new DropDownList();
-        criteria.setTableName("rate_schedule");
-        criteria.setOrderByField("rate_schedule_name");
-        criteria.setName("CONCAT(rate_schedule_name , '-------------------------------------------------------------------' , rate )");
-        criteria.setValue("rate");
+        criteria.setTableName("view_rate_schedule");
+        criteria.setOrderByField("product_name");
+        criteria.setName("CONCAT(product_name , '-------------------------------------------------------------------' , product_rate )");
+        criteria.setValue("product_rate");
         criteria.setSortName("ASC");
 
         customers = commonService.getDropdownList(criteria);
         return customers;
+    }
+    
+    public List<DropDownList> ddlConf() {
+
+        List<DropDownList> customers = new ArrayList<>();
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("conf");
+        criteria.setOrderByField("conf_name");
+        criteria.setName("conf_name");
+        criteria.setValue("conf_value");
+        criteria.setSortName("ASC");
+
+        customers = commonService.getDropdownList(criteria);
+        return customers;
+    }
+    
+    public String getCurrentExchangeRate() {
+
+        List<DropDownList> customers = new ArrayList<>();
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("conf");
+        criteria.setOrderByField("conf_name");
+        criteria.setName("conf_name");
+        criteria.setValue("conf_value");
+        criteria.setSortName("ASC");
+
+        customers = commonService.getDropdownList(criteria);
+        
+        if(customers!=null && !customers.isEmpty()){
+            return customers.get(0).getValue();
+        }
+        
+        return null;
     }
 }

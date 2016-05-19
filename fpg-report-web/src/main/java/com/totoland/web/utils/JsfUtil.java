@@ -170,11 +170,11 @@ public class JsfUtil implements Serializable {
      * @param dialogId
      */
     public static void closeDialog(String dialogId) {
-        executeJavaScript(dialogId + ".hide()");
+        executeJavaScript("PF('".concat(dialogId).concat("').").concat("hide();"));
     }
 
     public static void openDialog(String dialogId) {
-        executeJavaScript(dialogId + ".show()");
+        executeJavaScript("PF('".concat(dialogId).concat("').").concat("show();"));
     }
 
     public static void consoleLog(String log) {

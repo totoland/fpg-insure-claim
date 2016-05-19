@@ -5,11 +5,16 @@
  */
 package com.totoland.web.filter;
 
+import com.totoland.db.enums.UserType;
 import com.totoland.web.controller.login.LoginController;
+import static com.totoland.web.controller.permission.PermissionController.ADMIN_PAGES;
+import static com.totoland.web.controller.permission.PermissionController.CUSTOMER_PAGES;
+import static com.totoland.web.controller.permission.PermissionController.OFFICIAL_PAGES;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -40,7 +45,8 @@ public class LoginFilter implements Filter {
     // configured.
     private FilterConfig filterConfig = null;
 
-    public LoginFilter() {}
+    public LoginFilter() {
+    }
 
     private void doBeforeProcessing(RequestWrapper request, ResponseWrapper response)
             throws IOException, ServletException {
@@ -74,17 +80,18 @@ public class LoginFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        
-        if(!req.getRequestURI().contains("/pages/")){
+
+        if (!req.getRequestURI().contains("/pages/")) {
             chain.doFilter(request, response);
             return;
         }
-        
+
         HttpSession session = req.getSession(true);
         LoginController authenticated = (LoginController) session.getAttribute("loginController");
-       
+
         String loginURL = req.getContextPath() + "/pages/login/login.xhtml";
         String errorPage = req.getContextPath() + "/errors/session_expired.xhtml";
+        String accessDenied = req.getContextPath() + "/errors/access_denie.xhtml";
 
         if ((authenticated == null || !authenticated.isLoggedIn())
                 && !req.getRequestURI().equals(loginURL) && !req.getRequestURI().equals(errorPage)) {
@@ -99,8 +106,21 @@ public class LoginFilter implements Filter {
                 res.sendRedirect(errorPage);
             }
         } else {
+            //Check permission
             chain.doFilter(request, response);
         }
+    }
+
+    public boolean isCanAccessPage(String page, LoginController authenticated) {
+        if (UserType.ADMIN.getId() == authenticated.getLoginUser().getUserGroupLvl()) {
+            return Arrays.asList(ADMIN_PAGES).contains(page);
+        } else if (UserType.OFFICIAL_USER.getId() == authenticated.getLoginUser().getUserGroupLvl()) {
+            return Arrays.asList(OFFICIAL_PAGES).contains(page);
+        } else if (UserType.CUSTOMER.getId() == authenticated.getLoginUser().getUserGroupLvl()) {
+            return Arrays.asList(CUSTOMER_PAGES).contains(page);
+        }
+
+        return false;
     }
 
     /**
@@ -122,7 +142,8 @@ public class LoginFilter implements Filter {
     /**
      * Destroy method for this filter
      */
-    public void destroy() {}
+    public void destroy() {
+    }
 
     /**
      * Init method for this filter

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.totoland.db.entity;
 
 import com.totoland.db.domain.entity.DomainEntity;
@@ -29,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "SvUser.findAll", query = "SELECT s FROM SvUser s")})
 public class SvUser extends DomainEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +53,10 @@ public class SvUser extends DomainEntity implements Serializable {
     private Integer userGroupLvl;
     @Column(name = "COMPANY_NAME")
     private String companyName;
+    @Column(name = "ADDRESS")
+    private String address;
+    @Column(name = "POLICY_NO")
+    private String policyNo;
 
     public SvUser() {
     }
@@ -141,6 +145,22 @@ public class SvUser extends DomainEntity implements Serializable {
         this.companyName = companyName;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPolicyNo() {
+        return policyNo;
+    }
+
+    public void setPolicyNo(String policyNo) {
+        this.policyNo = policyNo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -163,7 +183,6 @@ public class SvUser extends DomainEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "SvUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupLvl=" + userGroupLvl + '}';
+        return "SvUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupLvl=" + userGroupLvl + ", companyName=" + companyName + ", address=" + address + ", policyNo=" + policyNo + '}';
     }
-    
 }

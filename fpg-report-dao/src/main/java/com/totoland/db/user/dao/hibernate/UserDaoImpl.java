@@ -30,7 +30,7 @@ public class UserDaoImpl extends GennericDaoImpl<SvUser> implements UserDao {
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT group_lvl.GROUP_LVL_NAME,user_group.USER_GROUP_NAME,sv_user.USER_ID,sv_user.USERNAME,sv_user.PASSWORD,");
-        sql.append("sv_user.IS_ACTIVE,sv_user.FNAME,sv_user.LNAME,sv_user.SEX,sv_user.USER_GROUP_ID,sv_user.USER_GROUP_LVL ");
+        sql.append("sv_user.IS_ACTIVE,sv_user.FNAME,sv_user.LNAME,sv_user.SEX,sv_user.USER_GROUP_ID,sv_user.USER_GROUP_LVL , sv_user.ADDRESS , sv_user.COMPANY_NAME ,sv_user.POLICY_NO ");
         sql.append("FROM sv_user INNER JOIN group_lvl ON sv_user.USER_GROUP_LVL = group_lvl.GROUP_LVL_ID INNER JOIN user_group ON sv_user.USER_GROUP_ID = user_group.USER_GROUP_ID ");
         sql.append("WHERE 1=1 ");
         
@@ -84,4 +84,11 @@ public class UserDaoImpl extends GennericDaoImpl<SvUser> implements UserDao {
         
         return count.longValue();
     };
+    
+    
+    @Transactional(readOnly = true)
+    @Override
+    public SvUser findById(Long id) {
+        return (SvUser)findUniqNativeQuery("SELECT * FROM SV_USER WHERE USER_ID = ?", SvUser.class,id);
+    }
 }

@@ -3,6 +3,7 @@ package com.totoland.web.controller.form;
 import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.common.entity.DropDownList;
+import com.totoland.db.enums.UserType;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
@@ -20,65 +21,69 @@ import org.slf4j.LoggerFactory;
  */
 @ViewScoped
 @ManagedBean
-public class InsuranceManagementController extends BaseController{
+public class InsuranceManagementController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InsuranceManagementController.class);
-    
+
     @ManagedProperty(value = "#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
     private CertifaicationCriteria criteria;
     @ManagedProperty(value = "#{certificateService}")
     private CertificateService certificateService;
-    
-    private List<ViewCertificate>listViewCertificate;
-    
+
+    private List<ViewCertificate> listViewCertificate;
+
     @PostConstruct
-    public void init(){
+    public void init() {
         this.criteria = new CertifaicationCriteria();
+        //Customer accout must be fecth only owner data
+        if (UserType.CUSTOMER.getId() == getUserAuthen().getUserGroupLvl()) {
+            this.criteria.setInsuredName(String.valueOf(getUserAuthen().getUserId()));
+        }
         this.listViewCertificate = null;
     }
-    
-    public void search(){
-        LOGGER.debug("search with : {}",getCriteria());
+
+    public void search() {
+        LOGGER.debug("search with : {}", getCriteria());
         listViewCertificate = certificateService.searchCertificate(getCriteria());
     }
-    
-    public String findMethodTransport(String methodType){
-        List<DropDownList>dropDownLists = dropdownFactory.ddlInsureTypesList();
-        for(DropDownList ddl : dropDownLists){
-            if(ddl.getValue().equals(methodType)){
+
+    public String findMethodTransport(String methodType) {
+        List<DropDownList> dropDownLists = dropdownFactory.ddlMethodOfTransport();
+        for (DropDownList ddl : dropDownLists) {
+            if (ddl.getValue().equals(methodType)) {
                 return ddl.getName();
             }
         }
-        
+
         return null;
     }
-    
-    public void prepareView(){
-    
+
+    public void prepareView() {
+
     }
-    
-    public void prepareEdit(){
-    
+
+    public void prepareEdit() {
+
     }
-    
-    public void edit(){
-    
+
+    public void edit() {
+
     }
-    
-    public void close(){
-    
+
+    public void close() {
+
     }
-    
+
     @Override
     public void resetForm() {
-        
+
     }
 
     public List<DropDownList> getStatusTypeList() {
         return dropdownFactory.ddlStatus();
     }
-    
+
     public CertifaicationCriteria getCriteria() {
         return criteria;
     }

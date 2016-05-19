@@ -16,6 +16,7 @@ import java.util.List;
  */
 public interface UserService extends GennericService<SvUser>{
     ViewUser findByUserId(Integer userId);
+    SvUser findById(Long userId);
     List<ViewUser> findByUserCriteria(UserCriteria userName);
     ViewUser findByUserName(String criteria);
     long countAllUser();

@@ -21,4 +21,6 @@ public interface UserDao extends GennericDao<SvUser>{
     ViewUser searchByUserName(String criteria);
     
     long countUser(UserType userType);
+    
+    SvUser findById(Long id);
 }
