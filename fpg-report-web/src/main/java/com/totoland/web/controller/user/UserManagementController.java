@@ -8,7 +8,6 @@ import com.totoland.db.bean.UserCriteria;
 import com.totoland.db.entity.KeyMatch;
 import com.totoland.db.entity.SvUser;
 import com.totoland.db.entity.ViewUser;
-import com.totoland.db.enums.UserType;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CustomerService;

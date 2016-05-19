@@ -6,6 +6,7 @@ package com.totoland.web.controller;
 
 import com.totoland.db.entity.GroupLvl;
 import com.totoland.db.entity.ViewUser;
+import com.totoland.db.enums.UserType;
 import com.totoland.web.utils.DateTimeUtils;
 import com.totoland.web.utils.MessageUtils;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public abstract class BaseController implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
     private static final long serialVersionUID = -3424239608725799082L;
     protected RequestContext context = RequestContext.getCurrentInstance();
-    
+
     public String getMessage(String key) {
         return MessageUtils.getResourceBundleString(key);
     }
@@ -52,9 +53,9 @@ public abstract class BaseController implements Serializable {
     public void addInfo(String message) {
         addMessages(FacesMessage.SEVERITY_INFO, message, "");
     }
-    
-    public void addInfo(String clientId,String message) {
-        addMessages(clientId,FacesMessage.SEVERITY_INFO, message, "");
+
+    public void addInfo(String clientId, String message) {
+        addMessages(clientId, FacesMessage.SEVERITY_INFO, message, "");
     }
 
     public void addError(String clientId, String message) {
@@ -80,11 +81,11 @@ public abstract class BaseController implements Serializable {
      * @param dialogId
      */
     public void closeDialog(String dialogId) {
-        executeJavaScript("PF('"+dialogId + "').hide()");
+        executeJavaScript("PF('" + dialogId + "').hide()");
     }
 
     public void openDialog(String dialogId) {
-        executeJavaScript("PF('"+dialogId + "').show()");
+        executeJavaScript("PF('" + dialogId + "').show()");
     }
 
     public void consoleLog(String log) {
@@ -104,6 +105,10 @@ public abstract class BaseController implements Serializable {
     public ViewUser getUserAuthen() {
         ViewUser viewUser = (ViewUser) getSessionBean("userAuthen");
         return viewUser;
+    }
+
+    public boolean isAdmin() {
+        return UserType.ADMIN.getId() == getUserAuthen().getUserGroupLvl();
     }
 
     public void sendError(int code, String message) {
@@ -183,16 +188,16 @@ public abstract class BaseController implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(param);
     }
 
-    public String dateTH(Date date,String format) {
-        if(format == null || format.isEmpty()){
+    public String dateTH(Date date, String format) {
+        if (format == null || format.isEmpty()) {
             return DateTimeUtils.getInstance().thDate(date, DateTimeUtils.DISPLAY_DATE_FORMAT);
         }
         return DateTimeUtils.getInstance().thDate(date, format);
 
     }
-    
+
     protected void checkRoleAdmin() {
-        if(getUserAuthen().getUserGroupLvl()!=GroupLvl.GroupLevel.SYSTEM_ADMIN.getLevel()){
+        if (getUserAuthen().getUserGroupLvl() != GroupLvl.GroupLevel.SYSTEM_ADMIN.getLevel()) {
             sendError(401, "Cannot Access This Page ,You are not Admin.");
             //throw new AccessDenieException("Cannot Access User Management Page ,You are not Admin.");
         };

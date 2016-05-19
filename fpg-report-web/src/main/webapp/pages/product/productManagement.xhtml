@@ -20,12 +20,12 @@
                         <div class="CardTopic"> 
                             <i class="fa fa-edit Fs30 Fleft MarRight10"></i>
                             <div class="EmptyBox10 ShowOnMobile"></div>
-                            #{msg.menu_rate} 
+                            #{msg.menu_product_management} 
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             <p:commandButton icon="fa fa-plus White" 
                                              styleClass="Fright GreenButton" 
                                              title="#{msg.label_create_new_matching}"
-                                             action="#{rateManagementController.initCreate()}"
+                                             action="#{productManagementController.initCreate()}"
                                              process="@this"
                                              update="dlgNewRateMnm"
                                              oncomplete="PF('dlgNewRateMnm').show()"/>
@@ -45,28 +45,21 @@
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
-                                    <h:outputLabel value="#{msg.label_insured_name}"/>
-                                    <p:selectOneMenu styleClass="selectOne115" value="#{rateManagementController.criteria.customerId}">
-                                        <f:selectItem itemLabel="" itemValue=""/>
-                                        <f:selectItems value="#{rateManagementController.ddlCustomer}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
 
                                     <h:outputLabel value="#{msg.label_product}"/>
-                                    <p:selectOneMenu styleClass="selectOne115" value="#{rateManagementController.criteria.productId}">
+                                    <p:selectOneMenu styleClass="selectOne115" value="#{productManagementController.criteria.productId}">
                                         <f:selectItem itemLabel="" itemValue=""/>
-                                        <f:selectItems value="#{rateManagementController.ddlProduct}" var="item"
+                                        <f:selectItems value="#{productManagementController.ddlProduct}" var="item"
                                                        itemValue="#{item.value}"
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
 
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
-                                        <p:commandButton value="#{msg.panel_search}" action="#{rateManagementController.search()}"
+                                        <p:commandButton value="#{msg.panel_search}" action="#{productManagementController.search()}"
                                                          process=":form:searchPn"
                                                          update=":form:pnResult"/>
-                                        <p:commandButton value="#{msg.btn_reset}" action="#{rateManagementController.init()}"
+                                        <p:commandButton value="#{msg.btn_reset}" action="#{productManagementController.init()}"
                                                          immediate="true"
                                                          process=":form:searchPn"
                                                          update=":form:searchPn,:form:pnResult"/>
@@ -85,25 +78,22 @@
 
             <div class="ContainerIndent">
                 <p:panel id="pnResult">
-                    <p:dataTable id="singleDT" var="item" value="#{rateManagementController.dataSource}" rendered="#{rateManagementController.dataSource!=null}" 
+                    <p:dataTable id="singleDT" var="item" value="#{productManagementController.dataSource}" rendered="#{productManagementController.dataSource!=null}" 
                                  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" reflow="true">
                         <f:facet name="header">
                             Search Result
                         </f:facet>
-
-                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{item.customerName}" footerText="#{msg.label_insured_name}">
-                            <h:outputText value="#{item.customerName}" />
+                        
+                        <p:column headerText="#{msg.label_product_code}" sortBy="#{item.productRate}" footerText="#{msg.label_product_code}">
+                            <h:outputText value="#{item.productCode}" />
                         </p:column>
                         <p:column headerText="#{msg.label_product}" sortBy="#{item.productName}" footerText="#{msg.label_product}">
                             <h:outputText value="#{item.productName}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_rate}" sortBy="#{item.productRate}" footerText="#{msg.label_rate}">
-                            <h:outputText value="#{item.productRate}" />
-                        </p:column>
                         <p:column>
                             <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" 
-                                             action="#{rateManagementController.initEdit(item)}"
+                                             action="#{productManagementController.initEdit(item)}"
                                              process="@this"
                                              update=":form:dlgEditRateMnm"
                                              oncomplete="PF('dlgEditRateMnm').show()"/>
@@ -111,7 +101,7 @@
                             <p:confirmDialog widgetVar="cmfDelete" showEffect="fade" hideEffect="fade" 
                                              header="#{msg.confirmation_head}" message="#{msg.confirmation_message_delete}">
                                 <p:commandButton value="#{msg.yes}" 
-                                                 action="#{rateManagementController.delete(item)}"
+                                                 action="#{productManagementController.delete(item)}"
                                                  update=":form:messages :form:pnResult"
                                                  onclick="PF('cmfDelete').hide()"
                                                  immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
@@ -135,43 +125,21 @@
                                 <h2 class="BigTopic"></h2>
                                 <p:panelGrid columns="2"
                                              style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                    <h:outputLabel value="#{msg.label_customer}"/>
-                                    <h:panelGroup>
-                                        <p:selectOneMenu id="newCustomerId" styleClass="selectOne115" 
-                                                         value="#{rateManagementController.selectedItem.customerId}"
-                                                         required="true"
-                                                         requiredMessage="#{msg.require_generic}">
-                                            <f:selectItem/>
-                                            <f:selectItems value="#{rateManagementController.ddlCustomer}" var="item"
-                                                           itemValue="#{item.value}"
-                                                           itemLabel="#{item.name}"/>
-                                        </p:selectOneMenu>
-                                        <p:message id="newCustomerIdMsg" for="newCustomerId"/>
-                                    </h:panelGroup>
                                     <h:outputLabel value="#{msg.label_product}"/>
                                     <h:panelGroup>
-                                        <p:selectOneMenu id="newProductId" styleClass="selectOne115"
-                                                         value="#{rateManagementController.selectedItem.productId}"
-                                                         required="true"
-                                                         requiredMessage="#{msg.require_generic}">
-                                            <f:selectItem/>
-                                            <f:selectItems value="#{rateManagementController.ddlProduct}" var="item"
-                                                           itemValue="#{item.value}"
-                                                           itemLabel="#{item.name}"/>
-                                        </p:selectOneMenu>
+                                        <p:inputText id="newProductId" value="#{productManagementController.selectedItem.productName}"/>
                                         <p:message id="newProductIdMsg" for="newProductId"/>
                                     </h:panelGroup>
-                                    <h:outputLabel value="#{msg.label_rate}"/>
+                                    <h:outputLabel value="#{msg.label_product_code}"/>
                                     <h:panelGroup>
-                                        <pe:inputNumber id="newProductRate" value="#{rateManagementController.selectedItem.productRate}"
-                                                       decimalPlaces="2"
+                                        <p:inputText id="newProductRate" value="#{productManagementController.selectedItem.productCode}"
                                                        required="true"
                                                        requiredMessage="#{msg.require_generic}"/>
                                         <p:message id="popupNewMsg" for="newProductRate"/>
                                     </h:panelGroup>
                                     <h:outputLabel/>
                                     <p:commandButton value="#{msg.btn_save}"
-                                                     action="#{rateManagementController.save()}"
+                                                     action="#{productManagementController.save()}"
                                                      process="dlgNewRateMnm"
                                                      update=":form:pnResult,pnNewRateMnm"/>
                                 </p:panelGrid>
@@ -191,31 +159,21 @@
                                 <h2 class="BigTopic"></h2>
                                 <p:panelGrid columns="2"
                                              style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                    <h:outputLabel value="#{msg.label_customer}"/>
-                                    <p:selectOneMenu styleClass="selectOne115" 
-                                                     value="#{rateManagementController.selectedItem.customerId}">
-                                        <f:selectItems value="#{rateManagementController.ddlCustomer}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
                                     <h:outputLabel value="#{msg.label_product}"/>
-                                    <p:selectOneMenu styleClass="selectOne115"
-                                                     value="#{rateManagementController.selectedItem.productId}">
-                                        <f:selectItems value="#{rateManagementController.ddlProduct}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
-                                    <h:outputLabel value="#{msg.label_rate}"/>
                                     <h:panelGroup>
-                                        <pe:inputNumber id="editProductRate" value="#{rateManagementController.selectedItem.productRate}"
-                                                       decimalPlaces="2"
+                                        <p:inputText id="editProductId" value="#{productManagementController.selectedItem.productName}"/>
+                                        <p:message id="editProductIdMsg" for="editProductId"/>
+                                    </h:panelGroup>
+                                    <h:outputLabel value="#{msg.label_product_code}"/>
+                                    <h:panelGroup>
+                                        <p:inputText id="editProductRate" value="#{productManagementController.selectedItem.productCode}"
                                                        required="true"
                                                        requiredMessage="#{msg.require_generic}"/>
                                         <p:message id="popupEditMsg" for="editProductRate"/>
                                     </h:panelGroup>
                                     <h:outputLabel/>
                                     <p:commandButton value="#{msg.btn_save}"
-                                                     action="#{rateManagementController.edit()}"
+                                                     action="#{productManagementController.edit()}"
                                                      process="dlgEditRateMnm"
                                                      update=":form:pnResult,popupEditMsg"/>
                                 </p:panelGrid>

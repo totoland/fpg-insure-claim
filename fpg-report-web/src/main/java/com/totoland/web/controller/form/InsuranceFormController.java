@@ -137,7 +137,11 @@ public class InsuranceFormController extends BaseController {
         this.coverageTypeList = dropdownFactory.ddlCoverageType();
         this.insuringTermsTypeList = dropdownFactory.ddlInsuringTermsType();
         this.claimSurveyorsList = dropdownFactory.ddlClaimSurveyors();
-        this.rateScheduleList = dropdownFactory.ddlRateSchedule();
+        if (isAdmin()) {
+            this.rateScheduleList = dropdownFactory.ddlRateSchedule();
+        } else {
+            this.rateScheduleList = dropdownFactory.ddlRateSchedule(String.valueOf(getUserAuthen().getUserId()));
+        }
         this.readOnly = false;
     }
 
@@ -201,7 +205,6 @@ public class InsuranceFormController extends BaseController {
         this.certNumber = certificateService.getCertificateNO(insureType);
         this.claimInsure.setCertificationNumber(certNumber);
         this.claimInsure.setClaimStatusId(InsureState.PRINT_CERT.getState());
-        gennericService.edit(this.claimInsure);
         readOnly = true;
         LOGGER.info("Print Certificate number : {} by user {}", certNumber, getUserAuthen().getUserId());
     }
@@ -212,17 +215,22 @@ public class InsuranceFormController extends BaseController {
         //If first time export must be export with ORIGINAL and need to create new Certificate number
         if (CertificateType.ORIGINAL.getValue() == certificateType) {
             try {
-                createCertificateNumber();
+                LOGGER.debug("createCertificateNumber...");
+
+                if (this.claimInsure.getCertificationNumber() == null) {
+                    createCertificateNumber();
+                }
+
             } catch (Exception ex) {
                 LOGGER.error("Fail when create createCertificateNumber : ", ex);
                 return null;
             }
         }
 
-        String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
-
         try {
+            String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(this.claimInsure));
+            gennericService.edit(this.claimInsure);
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
                     "application/pdf", "OPEN_COVER_" + CertificateType.valueOf(certificateType) + "_BY_" + this.insureType + ".pdf");
         } catch (Exception ex) {

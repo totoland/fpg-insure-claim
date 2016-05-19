@@ -128,8 +128,8 @@ public class DropdownFactory implements Serializable {
         List<DropDownList> customers = new ArrayList<>();
         DropDownList criteria = new DropDownList();
         criteria.setTableName("SV_USER");
-        criteria.setOrderByField("FNAME");
-        criteria.setName("FNAME");
+        criteria.setOrderByField("COMPANY_NAME");
+        criteria.setName("COMPANY_NAME");
         criteria.setValue("USER_ID");
         criteria.setSortName("ASC");
         criteria.setCondition("USER_GROUP_LVL = 3");
@@ -286,6 +286,21 @@ public class DropdownFactory implements Serializable {
         criteria.setOrderByField("product_name");
         criteria.setName("CONCAT(product_name , '-------------------------------------------------------------------' , product_rate )");
         criteria.setValue("product_rate");
+        criteria.setSortName("ASC");
+
+        customers = commonService.getDropdownList(criteria);
+        return customers;
+    }
+    
+    public List<DropDownList> ddlRateSchedule(String customerId) {
+
+        List<DropDownList> customers = new ArrayList<>();
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("view_rate_schedule");
+        criteria.setOrderByField("product_name");
+        criteria.setName("CONCAT(product_name , '-------------------------------------------------------------------' , product_rate )");
+        criteria.setValue("product_rate");
+        criteria.setCondition("customer_id = "+customerId);
         criteria.setSortName("ASC");
 
         customers = commonService.getDropdownList(criteria);

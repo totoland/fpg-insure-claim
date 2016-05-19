@@ -26,7 +26,6 @@ import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.RateManagementService;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
-import static com.totoland.web.utils.MessageUtils.getResourceBundleString;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
