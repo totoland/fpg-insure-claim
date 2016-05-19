@@ -29,6 +29,9 @@ public class CertificationBean implements Serializable {
 
     private String subject;
     private String detail;
+    private Date issueOn;
+    private String copyType;
+    private String certificationNumber;
 
     public String getNameOfAssured() {
         return nameOfAssured;
@@ -126,8 +129,32 @@ public class CertificationBean implements Serializable {
         this.detail = detail;
     }
 
+    public Date getIssueOn() {
+        return issueOn;
+    }
+
+    public void setIssueOn(Date issueOn) {
+        this.issueOn = issueOn;
+    }
+
+    public String getCopyType() {
+        return copyType;
+    }
+
+    public void setCopyType(String copyType) {
+        this.copyType = copyType;
+    }
+
+    public String getCertificationNumber() {
+        return certificationNumber;
+    }
+
+    public void setCertificationNumber(String certificationNumber) {
+        this.certificationNumber = certificationNumber;
+    }
+
     @Override
     public String toString() {
-        return "CertificationBean{" + "nameOfAssured=" + nameOfAssured + ", vesselAirline=" + vesselAirline + ", referenceNumber=" + referenceNumber + ", voyage=" + voyage + ", from=" + from + ", to=" + to + ", amountInsuredHereunder=" + amountInsuredHereunder + ", policyNumber=" + policyNumber + ", voyageFlightNo=" + voyageFlightNo + ", sailingFlightDate=" + sailingFlightDate + ", subject=" + subject + ", detail=" + detail + '}';
+        return "CertificationBean{" + "nameOfAssured=" + nameOfAssured + ", vesselAirline=" + vesselAirline + ", referenceNumber=" + referenceNumber + ", voyage=" + voyage + ", from=" + from + ", to=" + to + ", amountInsuredHereunder=" + amountInsuredHereunder + ", policyNumber=" + policyNumber + ", voyageFlightNo=" + voyageFlightNo + ", sailingFlightDate=" + sailingFlightDate + ", subject=" + subject + ", detail=" + detail + ", issueOn=" + issueOn + ", copyType=" + copyType + ", certificationNumber=" + certificationNumber + '}';
     }
 }
