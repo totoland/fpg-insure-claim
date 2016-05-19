@@ -6,6 +6,7 @@
 package com.chetty.reporting.beans;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -24,7 +25,7 @@ public class CertificationBean implements Serializable {
     private String amountInsuredHereunder;
     private String policyNumber;
     private String voyageFlightNo;
-    private String sailingFlightDate;
+    private Date sailingFlightDate;
 
     private String subject;
     private String detail;
@@ -101,11 +102,11 @@ public class CertificationBean implements Serializable {
         this.voyageFlightNo = voyageFlightNo;
     }
 
-    public String getSailingFlightDate() {
+    public Date getSailingFlightDate() {
         return sailingFlightDate;
     }
 
-    public void setSailingFlightDate(String sailingFlightDate) {
+    public void setSailingFlightDate(Date sailingFlightDate) {
         this.sailingFlightDate = sailingFlightDate;
     }
 
