@@ -5,6 +5,7 @@
  */
 package com.totoland.web.filter;
 
+import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.UserType;
 import com.totoland.web.controller.login.LoginController;
 import static com.totoland.web.controller.permission.PermissionController.ADMIN_PAGES;
@@ -87,13 +88,13 @@ public class LoginFilter implements Filter {
         }
 
         HttpSession session = req.getSession(true);
-        LoginController authenticated = (LoginController) session.getAttribute("loginController");
+        ViewUser authenticated = (ViewUser) session.getAttribute("userAuthen");
 
         String loginURL = req.getContextPath() + "/pages/login/login.xhtml";
         String errorPage = req.getContextPath() + "/errors/session_expired.xhtml";
         String accessDenied = req.getContextPath() + "/errors/access_denie.xhtml";
 
-        if ((authenticated == null || !authenticated.isLoggedIn())
+        if ((authenticated == null)
                 && !req.getRequestURI().equals(loginURL) && !req.getRequestURI().equals(errorPage)) {
 
             if ("partial/ajax".equals(req.getHeader("Faces-Request"))) {

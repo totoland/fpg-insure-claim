@@ -101,6 +101,17 @@
                                 <h:outputLabel value="#{msg.label_consignee_name}"/>
                                 <p:inputText value="#{insuranceFormController.claimInsure.consigneeName}"/>
 
+                                <h:outputLabel value="Invoice Value" title="invoice*exchange rate*valuation"/>
+                                <pe:inputNumber id="insuredValue"/>
+                                
+                                <h:outputLabel value="#{msg.label_valuation}"/>
+                                <p:selectOneMenu id="valuation" styleClass="selectOne120">
+                                    <f:selectItem itemLabel="105%" itemValue="105" />
+                                    <f:selectItem itemLabel="110%" itemValue="110" />
+                                    <f:selectItem itemLabel="115%" itemValue="115" />
+                                    <f:selectItem itemLabel="120%" itemValue="120" />
+                                </p:selectOneMenu>
+                                
                                 <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
                                 <pe:inputNumber id="amountOfInsurance" 
                                                 value="#{insuranceFormController.claimInsure.amountOfInsurance}"/>
@@ -123,9 +134,9 @@
                                 </h:panelGroup>
 
                                 <h:outputLabel value="#{msg.label_exchange_rate}"/>
-                                <p:inputText value="#{insuranceFormController.claimInsure.exchangeRate}"/>
+                                <pe:inputNumber id="exchangeRate" value="#{insuranceFormController.claimInsure.exchangeRate}" disabled="true"/>
 
-                                <h:outputLabel value="#{msg.label_local_amount_of_insurance}"/>
+                                <h:outputLabel value="Insured Value" title="* exchange rate"/>
                                 <pe:inputNumber id="localAmountOfInsurance"
                                                 value="#{insuranceFormController.claimInsure.localAmountOfInsurance}"/>
 
@@ -147,8 +158,8 @@
                                     </p:selectOneMenu>
                                     <toto:requireLabel forId="form:originCountryCode"/>
                                 </h:panelGroup>
-                                <h:outputLabel value="#{msg.label_origin_status_prov}"/>
-                                <p:inputText value="#{insuranceFormController.claimInsure.originStateProv}"/>
+<!--                                <h:outputLabel value="#{msg.label_origin_status_prov}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.originStateProv}"/>-->
 
                                 <h:outputLabel value="#{msg.label_origin_desc}"/>
                                 <h:panelGroup>
@@ -162,6 +173,9 @@
                                 <h:outputLabel value="#{msg.label_transshipment_port}"/>
                                 <p:inputText value="#{insuranceFormController.claimInsure.transshipmentPort}"/>
 
+                                <h:outputLabel/>
+                                <h:outputLabel/>
+                                
                                 <h:outputLabel value="#{msg.label_destination_country}"/>
                                 <h:panelGroup>
                                     <p:selectOneMenu id="destinationCountryCode" 
@@ -177,8 +191,8 @@
                                     <toto:requireLabel forId="form:destinationCountryCode"/>
                                 </h:panelGroup>
 
-                                <h:outputLabel value="#{msg.label_destination_status_prov}"/>
-                                <p:inputText value="#{insuranceFormController.claimInsure.destinationStateProv}"/>
+<!--                                <h:outputLabel value="#{msg.label_destination_status_prov}"/>
+                                <p:inputText value="#{insuranceFormController.claimInsure.destinationStateProv}"/>-->
 
                                 <h:outputLabel value="#{msg.label_destination_desc}"/>
                                 <h:panelGroup>
@@ -212,15 +226,12 @@
                                     <toto:requireLabel forId="form:selectInsureType2"/>
                                 </h:panelGroup>
 
-                                <h:outputLabel value=""/>
-                                <h:outputLabel value=""/>    
-
                                 <h:outputLabel value="#{msg.label_invoice}"/>
                                 <h:panelGroup>
                                     <pe:inputNumber id="invoiceNumber" thousandSeparator="" decimalPlaces="0"
                                                     value="#{insuranceFormController.claimInsure.invoiceNumber}"
                                                     required="true"
-                                                    requiredMessage="#{msg.require_generic}"/>
+                                                    requiredMessage="#{msg.require_generic}" />
                                     <toto:requireLabel forId="form:invoiceNumber"/>
                                 </h:panelGroup>
 
@@ -272,13 +283,7 @@
                                     </p:selectOneMenu>
                                     <toto:requireLabel forId="form:coverageTypeId"/>
                                 </h:panelGroup>
-                                <h:outputLabel value="#{msg.label_valuation}"/>
-                                <p:selectOneMenu styleClass="selectOne120">
-                                    <f:selectItem itemLabel="105%" itemValue="105" />
-                                    <f:selectItem itemLabel="110%" itemValue="110" />
-                                    <f:selectItem itemLabel="115%" itemValue="115" />
-                                    <f:selectItem itemLabel="120%" itemValue="120" />
-                                </p:selectOneMenu>
+                                
 
                                 <h:outputLabel value="#{msg.label_insuring_terms}"/>
                                 <p:selectOneMenu styleClass="selectOne120" value="#{insuranceFormController.claimInsure.insuringTermsId}">
@@ -290,9 +295,6 @@
 
                                 <h:outputLabel value="#{msg.label_additional_info}"/>
                                 <p:inputTextarea value="#{insuranceFormController.claimInsure.additionalInfomation}"/>
-
-                                <h:outputLabel value=""/>
-                                <h:outputLabel value=""/>
 
                                 <h:outputLabel value="#{msg.label_claim_surveyor}"/>
                                 <h:panelGroup>
@@ -509,7 +511,7 @@
                                                  showEffect="fade" hideEffect="fade">
                                     <p:commandButton value="#{msg.yes}" 
                                                      ajax="false" onclick="PF('printDebitNotePopup').hide();
-                                                             PrimeFaces.monitorDownload(start, function(){
+                                                             PrimeFaces.monitorDownload(start, function () {
                                                                  stop();
                                                                  location.reload();
                                                              })" 
@@ -629,6 +631,20 @@
             <script>
                 $("#form\\:originCountryCode").attr("style", "");
                 $("#form\\:destinationCountryCode").attr("style", "");
+            </script>
+            <script>
+                function calAmountOfInsurance(){
+                    var amoi = $("#form\\:amountOfInsurance_input").val();
+                    var exch = $("#form\\:exchangeRate_input").val();
+                    var valuat = $("#form\\:valuation_input").val();
+                    var inv = $("#form\\:invoiceNumber_input").val();
+                    
+                    if(isNaN(amoi) || isNaN(exch) || isNaN(valuat) || isNaN(inv)){
+                        $("#form\\:amountOfInsurance_input").val(0.00);
+                    }
+                    
+                    return $("#form\\:amountOfInsurance_input").val(((inv*exch)*valuat)/100);
+                }
             </script>
         </h:form>
     </ui:define>

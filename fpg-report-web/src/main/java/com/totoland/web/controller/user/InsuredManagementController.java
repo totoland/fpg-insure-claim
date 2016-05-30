@@ -79,6 +79,9 @@ public class InsuredManagementController extends BaseController {
         LOGGER.trace("create new User");
         svUser = new SvUser();
         svUser.setSex(0);
+        //Hardcode 3 For Insured Account
+        svUser.setUserGroupLvl(3);
+        svUser.setUserGroupId(1);
         svUser.setIsActive(Boolean.TRUE);
         keyMatch = new KeyMatch();
         openDialog("modalDialogCreate");

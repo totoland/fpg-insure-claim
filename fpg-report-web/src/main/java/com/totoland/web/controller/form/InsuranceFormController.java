@@ -280,9 +280,9 @@ public class InsuranceFormController extends BaseController {
             certRpt.setFrom(findCountryName(this.claimInsure.getOriginCountryCode()));
             certRpt.setTo(findCountryName(this.claimInsure.getDestinationCountryCode()));
 
-            certRpt.setCompanyLogoURL(JsfUtil.getFullURI()+RESOURCES_LOGO);
-            certRpt.setSignature1URL(JsfUtil.getFullURI()+RESOURCES_SIGNATURE1);
-            certRpt.setSignature2URL(JsfUtil.getFullURI()+RESOURCES_SIGNATURE2);
+            certRpt.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
+            certRpt.setSignature1URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE1);
+            certRpt.setSignature2URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE2);
 
             //Init ConditionOfCover for print Certificate
             List<ViewConditionsOfCover> listCondition = conditionsOfCoverService.findByCriteria(new ConditionsOfCoverCriteria(this.claimInsure.getInsuredId()));

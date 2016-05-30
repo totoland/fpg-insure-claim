@@ -12,10 +12,13 @@ import com.totoland.web.controller.LocaleBean;
 import com.totoland.web.utils.WebUtils;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
+import java.io.IOException;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -47,7 +50,7 @@ public class LoginController extends BaseController {
         logger.info("init");
     }
 
-    public void loginProcess() {
+    public void loginProcess() throws IOException {
 
         sessionId = WebUtils.generateToken();
 
@@ -115,15 +118,17 @@ public class LoginController extends BaseController {
 
         logger.trace("path : {}", path);
 
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        
         if (UserType.ADMIN.getId() == loginUser.getUserGroupLvl()) {
-            executeJavaScript("setTimeout(function(){PF('statusDialog').show();window.location='" + path
-                    + "/pages/user/userManagement.xhtml?firstLogin=true';},100);");
+            executeJavaScript("setTimeout(function(){PF('statusDialog').show();");
+            externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
         } else if (UserType.OFFICIAL_USER.getId() == loginUser.getUserGroupLvl()) {
-            executeJavaScript("setTimeout(function(){PF('statusDialog').show();window.location='" + path
-                    + "/pages/user/userManagement.xhtml?firstLogin=true';},100);");
+            executeJavaScript("setTimeout(function(){PF('statusDialog').show();");
+            externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
         } else if (UserType.CUSTOMER.getId() == loginUser.getUserGroupLvl()) {
-            executeJavaScript("setTimeout(function(){PF('statusDialog').show();window.location='" + path
-                    + "/pages/form/insuranceManagement.xhtml?firstLogin=true';},100);");
+            executeJavaScript("setTimeout(function(){PF('statusDialog').show();");
+            externalContext.redirect(path+"/pages/form/insuranceManagement.xhtml?firstLogin=true");
         }
 
     }
