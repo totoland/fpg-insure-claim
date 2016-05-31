@@ -31,6 +31,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -48,6 +49,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ProductRate implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -59,6 +61,23 @@ public class ProductRate implements Serializable {
     private Integer customerId;
     @Column(name = "product_id")
     private Integer productId;
+    @Column(name = "open_policy_no")
+    private String openPolicyNo;
+    @Lob
+    @Column(name = "clauses_air")
+    private String clausesAir;
+    @Lob
+    @Column(name = "clauses_vessel")
+    private String clausesVessel;
+    @Lob
+    @Column(name = "clauses_truck")
+    private String clausesTruck;
+    @Lob
+    @Column(name = "valuation")
+    private String valuation;
+    @Lob
+    @Column(name = "broker_name")
+    private String brokerName;
 
     public ProductRate() {
     }
@@ -126,8 +145,56 @@ public class ProductRate implements Serializable {
         return true;
     }
 
+    public String getOpenPolicyNo() {
+        return openPolicyNo;
+    }
+
+    public void setOpenPolicyNo(String openPolicyNo) {
+        this.openPolicyNo = openPolicyNo;
+    }
+
+    public String getClausesAir() {
+        return clausesAir;
+    }
+
+    public void setClausesAir(String clausesAir) {
+        this.clausesAir = clausesAir;
+    }
+
+    public String getClausesVessel() {
+        return clausesVessel;
+    }
+
+    public void setClausesVessel(String clausesVessel) {
+        this.clausesVessel = clausesVessel;
+    }
+
+    public String getClausesTruck() {
+        return clausesTruck;
+    }
+
+    public void setClausesTruck(String clausesTruck) {
+        this.clausesTruck = clausesTruck;
+    }
+
+    public String getValuation() {
+        return valuation;
+    }
+
+    public void setValuation(String valuation) {
+        this.valuation = valuation;
+    }
+
+    public String getBrokerName() {
+        return brokerName;
+    }
+
+    public void setBrokerName(String brokerName) {
+        this.brokerName = brokerName;
+    }
+
     @Override
     public String toString() {
-        return "ProductRate{" + "productRateId=" + productRateId + ", productRate=" + productRate + ", customerId=" + customerId + ", productId=" + productId + '}';
+        return "ProductRate{" + "productRateId=" + productRateId + ", productRate=" + productRate + ", customerId=" + customerId + ", productId=" + productId + ", openPolicyNo=" + openPolicyNo + ", clausesAir=" + clausesAir + ", clausesVessel=" + clausesVessel + ", clausesTruck=" + clausesTruck + ", valuation=" + valuation + ", brokerName=" + brokerName + '}';
     }
 }
