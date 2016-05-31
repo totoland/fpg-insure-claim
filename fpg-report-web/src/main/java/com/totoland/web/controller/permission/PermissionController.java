@@ -55,7 +55,8 @@ public class PermissionController extends BaseController {
         "/pages/rate/rateManagement.xhtml",
         "/pages/admin/conditionsOfCover.xhtml",
         "/pages/report/certificateActiveReport.xhtml",
-        "/pages/product/productManagement.xhtml"
+        "/pages/product/productManagement.xhtml",
+        "/pages/openpolicy/openpolicy.xhtml"
     };
 
     public static final String[] ADMIN_PAGES = {
@@ -67,7 +68,8 @@ public class PermissionController extends BaseController {
         "/pages/rate/rateManagement.xhtml",
         "/pages/admin/conditionsOfCover.xhtml",
         "/pages/report/certificateActiveReport.xhtml",
-        "/pages/product/productManagement.xhtml"
+        "/pages/product/productManagement.xhtml",
+        "/pages/openpolicy/openpolicy.xhtml"
     };
 
     public static final String[] ADMIN_MODULE = {

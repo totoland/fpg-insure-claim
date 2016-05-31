@@ -7,7 +7,7 @@ package com.totoland.web.filter;
 
 import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.UserType;
-import com.totoland.web.controller.login.LoginController;
+import com.totoland.web.controller.exception.AccessDenieException;
 import static com.totoland.web.controller.permission.PermissionController.ADMIN_PAGES;
 import static com.totoland.web.controller.permission.PermissionController.CUSTOMER_PAGES;
 import static com.totoland.web.controller.permission.PermissionController.OFFICIAL_PAGES;
@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.AccessDeniedException;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -88,7 +89,7 @@ public class LoginFilter implements Filter {
         }
 
         HttpSession session = req.getSession(true);
-        ViewUser authenticated = (ViewUser) session.getAttribute("userAuthen");
+        final ViewUser authenticated = (ViewUser) session.getAttribute("userAuthen");
 
         String loginURL = req.getContextPath() + "/pages/login/login.xhtml";
         String errorPage = req.getContextPath() + "/errors/session_expired.xhtml";
@@ -112,12 +113,15 @@ public class LoginFilter implements Filter {
         }
     }
 
-    public boolean isCanAccessPage(String page, LoginController authenticated) {
-        if (UserType.ADMIN.getId() == authenticated.getLoginUser().getUserGroupLvl()) {
+    public boolean isCanAccessPage(String page, final ViewUser authenticated) {
+        if (authenticated == null) {
+            return true;
+        }
+        if (UserType.ADMIN.getId() == authenticated.getUserGroupLvl()) {
             return Arrays.asList(ADMIN_PAGES).contains(page);
-        } else if (UserType.OFFICIAL_USER.getId() == authenticated.getLoginUser().getUserGroupLvl()) {
+        } else if (UserType.OFFICIAL_USER.getId() == authenticated.getUserGroupLvl()) {
             return Arrays.asList(OFFICIAL_PAGES).contains(page);
-        } else if (UserType.CUSTOMER.getId() == authenticated.getLoginUser().getUserGroupLvl()) {
+        } else if (UserType.CUSTOMER.getId() == authenticated.getUserGroupLvl()) {
             return Arrays.asList(CUSTOMER_PAGES).contains(page);
         }
 

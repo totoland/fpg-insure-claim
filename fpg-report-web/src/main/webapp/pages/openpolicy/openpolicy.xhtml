@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The MIT License
+
+Copyright 2016 totoland.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:toto="http://java.sun.com/jsf/composite/components"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="subheader">
+        Forms
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">
+            <p:messages id="messages" closable="true"/>
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card">
+                        <div class="CardTopic"> 
+                            <i class="fa fa-edit Fs30 Fleft MarRight10"></i>
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            #{msg.menu_openpolicy} 
+                            <div class="EmptyBox10 ShowOnMobile"></div>
+                            <p:commandButton icon="fa fa-plus White" 
+                                             styleClass="Fright GreenButton" 
+                                             title="#{msg.label_create_new_openpolicy}"
+                                             action="#{openPolicyManagementController.initCreate()}"
+                                             process="@this"
+                                             update="dlgNewRateMnm"
+                                             oncomplete="PF('dlgNewRateMnm').show()"/>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:button value="#{msg.yes}" href="insuranceForm.xhtml" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white" />
+                                <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                            </p:confirmDialog>
+                            <br/>
+                        </div>
+
+                        <div class="SeparatorFull"></div>
+                        <div class="Container100 Responsive50">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid id="searchPn"
+                                             columns="2" 
+                                             layout="grid" 
+                                             columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                             style="border:0px !important; background:none;">
+                                    <h:outputLabel value="#{msg.label_Policy_number}"/>
+                                    <p:inputText value="#{openPolicyManagementController.criteria.openPolicyNo}" maxlength="20"/>
+
+                                    <h:outputLabel value="#{msg.label_product}"/>
+                                    <p:selectOneMenu styleClass="selectOne115" value="#{openPolicyManagementController.criteria.productId}">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{openPolicyManagementController.ddlProduct}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value=""/>
+                                    <h:panelGroup>
+                                        <p:commandButton value="#{msg.panel_search}" action="#{openPolicyManagementController.search()}"
+                                                         process=":form:searchPn"
+                                                         update=":form:pnResult"/>
+                                        <p:commandButton value="#{msg.btn_reset}" action="#{openPolicyManagementController.init()}"
+                                                         immediate="true"
+                                                         process=":form:searchPn"
+                                                         update=":form:searchPn,:form:pnResult"/>
+                                    </h:panelGroup>
+                                    <h:outputLabel value=""/>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ContainerIndent">
+                <p:panel id="pnResult">
+                    <p:dataTable id="singleDT" var="item" value="#{openPolicyManagementController.dataSource}" rendered="#{openPolicyManagementController.dataSource!=null}" 
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" reflow="true">
+                        <f:facet name="header">
+                            Search Result
+                        </f:facet>
+
+                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{item.customerName}" footerText="#{msg.label_insured_name}">
+                            <h:outputText value="#{item.customerName}" />
+                        </p:column>
+                        <p:column headerText="#{msg.label_product}" sortBy="#{item.productName}" footerText="#{msg.label_product}">
+                            <h:outputText value="#{item.productName}" />
+                        </p:column>
+                        <p:column headerText="#{msg.label_rate}" sortBy="#{item.productRate}" footerText="#{msg.label_rate}">
+                            <h:outputText value="#{item.productRate}" />
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" 
+                                             action="#{openPolicyManagementController.initEdit(item)}"
+                                             process="@this"
+                                             update=":form:dlgEditRateMnm"
+                                             oncomplete="PF('dlgEditRateMnm').show()"/>
+                            <p:commandButton type="button" value="#{msg.btn_reject}" styleClass="PinkButton RaisedButton" onclick="PF('cmfDelete').show()"/>
+                            <p:confirmDialog widgetVar="cmfDelete" showEffect="fade" hideEffect="fade" 
+                                             header="#{msg.confirmation_head}" message="#{msg.confirmation_message_delete}">
+                                <p:commandButton value="#{msg.yes}" 
+                                                 action="#{openPolicyManagementController.delete(item)}"
+                                                 update=":form:messages :form:pnResult"
+                                                 onclick="PF('cmfDelete').hide()"
+                                                 immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
+
+                                </p:commandButton>
+                                <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:dataTable>
+
+                </p:panel>
+            </div>
+
+            <p:dialog id="dlgNewRateMnm" header="#{msg.menu_openpolicy}" widgetVar="dlgNewRateMnm"  modal="true"
+                      showEffect="explode" hideEffect="bounce" height="350" width="800" minimizable="true" maximizable="true" responsive="true">
+                <p:messages id="newProductRateMsg"/>
+                <p:panel id="pnNewRateMnm" class="Container100" style="border: 0px">
+                    <div class="ContainerIndent">
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="2"
+                                             style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                    <h:outputLabel value="#{msg.label_Policy_number}"/>
+                                    <h:panelGroup>
+                                        <p:inputText id="newOpenPolicyNo" 
+                                                     style="width: 400px"
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"
+                                                     value="#{openPolicyManagementController.selectedItem.openPolicyNo}" maxlength="20"/>
+                                        <toto:requireLabel id="newOpenPolicyNoMsg" forId=":form:newOpenPolicyNo"/>
+                                    </h:panelGroup>
+                                    <h:outputLabel value="#{msg.label_product}"/>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu id="newProductId" style="width: 365px"
+                                                         value="#{openPolicyManagementController.selectedItem.productId}"
+                                                         required="true"
+                                                         requiredMessage="#{msg.require_generic}">
+                                            <f:selectItem/>
+                                            <f:selectItems value="#{openPolicyManagementController.ddlProduct}" var="item"
+                                                           itemValue="#{item.value}"
+                                                           itemLabel="#{item.name}"/>
+                                        </p:selectOneMenu>
+                                        <toto:requireLabel id="newProductIdMsg" forId=":form:newProductId"/>
+                                    </h:panelGroup>
+
+                                    <h:outputLabel value="#{msg.label_rate}"/>
+                                    <h:panelGroup>
+                                        <pe:inputNumber id="newProductRate" 
+                                                        style="width: 400px"
+                                                        value="#{openPolicyManagementController.selectedItem.productRate}"
+                                                        decimalPlaces="2"
+                                                        required="true"
+                                                        requiredMessage="#{msg.require_generic}"/>
+                                        <toto:requireLabel id="popupNewMsg" forId=":form:newProductRate"/>
+                                    </h:panelGroup>
+
+                                    <h:outputLabel value="#{msg.label_clauses_air}"/>
+                                    <h:panelGroup>
+                                        <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
+                                                         value="#{openPolicyManagementController.selectedItem.clausesAir}"/>
+                                    </h:panelGroup>
+
+                                    <h:outputLabel value="#{msg.label_clauses_vessel}"/>
+                                    <h:panelGroup>
+                                        <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
+                                                         value="#{openPolicyManagementController.selectedItem.clausesVessel}"/>
+                                    </h:panelGroup>
+
+                                    <h:outputLabel value="#{msg.label_clauses_truck}"/>
+                                    <h:panelGroup>
+                                        <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
+                                                         value="#{openPolicyManagementController.selectedItem.clausesTruck}"/>
+                                    </h:panelGroup>
+
+                                    <h:outputLabel value="#{msg.label_valuation}"/>
+                                    <h:panelGroup style="border:solid 0px!important; ">
+
+                                        <p:commandButton icon="fa fa-plus White" 
+                                                         styleClass="Fright GreenButton" 
+                                                         title="#{msg.label_create_new_valuation}"
+                                                         process="@this"
+                                                         update=":form:dlgNewValuation"
+                                                         action="#{openPolicyManagementController.initValuation()}"
+                                                         oncomplete="PF('dlgNewValuation').show()"/>
+                                        <p:dataTable id="dtValuation" var="{1}" style="width: 400px;border:solid 0px!important; ">
+                                            <p:column headerText="#{msg.label_short_name}"></p:column>
+                                            <p:column headerText="#{msg.label_percen}"></p:column>
+                                        </p:dataTable>
+                                    </h:panelGroup>
+                                    
+                                    <h:outputLabel value="#{msg.label_broker_name}"/>
+                                    <h:panelGroup>
+                                        <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
+                                                         value="#{openPolicyManagementController.selectedItem.clausesTruck}"/>
+                                    </h:panelGroup>
+                                    
+                                    <h:outputLabel/>
+                                    <p:commandButton value="#{msg.btn_save}"
+                                                     action="#{openPolicyManagementController.save()}"
+                                                     process="dlgNewRateMnm"
+                                                     update=":form:pnResult,pnNewRateMnm"/>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </p:panel>
+            </p:dialog>
+
+            <p:dialog id="dlgNewValuation" header="#{msg.label_valuation}" widgetVar="dlgNewValuation"  modal="true"
+                      showEffect="explode" hideEffect="bounce" height="150" width="600" 
+                      minimizable="true" maximizable="true" responsive="true">
+                <p:panel id="pnNewValuation" class="Container100" style="border: 0px">
+                    <h:panelGrid columns="4">
+                        <h:outputLabel value="#{msg.label_short_name}"/>
+                        <h:panelGroup>
+                            <p:inputText id="valueationShortName" value="#{openPolicyManagementController.valueationShortName}"/>
+                            <toto:requireLabel id="valueationShortNameReq" forId=":form:valueationShortName"/>
+                        </h:panelGroup>
+                        <h:outputLabel value="#{msg.label_percen}"/>
+                        <h:panelGroup>
+                            <pe:inputNumber id="insuredValue" 
+                                            value="#{openPolicyManagementController.valueationPerCen}"
+                                            symbol="%" 
+                                            symbolPosition="s"/>
+                            <toto:requireLabel id="insuredValueReq" forId=":form:insuredValue"/>
+                        </h:panelGroup>
+                        <h:outputLabel/>
+                        <p:commandButton value="#{msg.btn_save}"
+                                         action="#{openPolicyManagementController.addNewValuation()}"
+                                         process=":form:pnNewValuation"
+                                         update=":form:dtValuation"/>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dialog>
+
+            <p:dialog id="dlgEditRateMnm" header="#{msg.menu_rate}" widgetVar="dlgEditRateMnm"  modal="true"
+                      showEffect="explode" hideEffect="bounce" height="250" minimizable="true" maximizable="true" responsive="true">
+                <div class="Container100">
+                    <div class="ContainerIndent">
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent">
+                                <h2 class="BigTopic"></h2>
+                                <p:panelGrid columns="2"
+                                             style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                    <h:outputLabel value="#{msg.label_customer}"/>
+                                    <p:selectOneMenu styleClass="selectOne115" 
+                                                     value="#{openPolicyManagementController.selectedItem.customerId}">
+                                        <f:selectItems value="#{openPolicyManagementController.ddlCustomer}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel value="#{msg.label_product}"/>
+                                    <p:selectOneMenu styleClass="selectOne115"
+                                                     value="#{openPolicyManagementController.selectedItem.productId}">
+                                        <f:selectItems value="#{openPolicyManagementController.ddlProduct}" var="item"
+                                                       itemValue="#{item.value}"
+                                                       itemLabel="#{item.name}"/>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel value="#{msg.label_rate}"/>
+                                    <h:panelGroup>
+                                        <pe:inputNumber id="editProductRate" value="#{openPolicyManagementController.selectedItem.productRate}"
+                                                        decimalPlaces="2"
+                                                        required="true"
+                                                        requiredMessage="#{msg.require_generic}"/>
+                                        <p:message id="popupEditMsg" for="editProductRate"/>
+                                    </h:panelGroup>
+                                    <h:outputLabel/>
+                                    <p:commandButton value="#{msg.btn_save}"
+                                                     action="#{openPolicyManagementController.edit()}"
+                                                     process="dlgEditRateMnm"
+                                                     update=":form:pnResult,popupEditMsg"/>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

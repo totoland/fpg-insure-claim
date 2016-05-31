@@ -105,7 +105,7 @@
     </error-page>
     <error-page>
         <exception-type>com.totoland.web.controller.exception.AccessDenieException</exception-type>
-        <location>/pages/errors/access_denie.xhtml</location>
+        <location>/errors/access_denie.xhtml</location>
     </error-page>
     <welcome-file-list>
         <welcome-file>pages/login/login.xhtml</welcome-file>

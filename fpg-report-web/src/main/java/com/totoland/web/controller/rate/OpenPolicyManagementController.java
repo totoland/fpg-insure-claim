@@ -42,10 +42,10 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public class RateManagementController extends BaseController {
+public class OpenPolicyManagementController extends BaseController {
 
     private static final long serialVersionUID = 4696958820488830897L;
-    private static final Logger LOGGER = LoggerFactory.getLogger(RateManagementController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenPolicyManagementController.class);
 
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
@@ -58,6 +58,9 @@ public class RateManagementController extends BaseController {
     private List<DropDownList> ddlCustomer;
     private List<DropDownList> ddlProduct;
     private ProductRate selectedItem;
+    
+    private String valueationShortName;
+    private String valueationPerCen;
 
     @PostConstruct
     public void init() {
@@ -83,6 +86,18 @@ public class RateManagementController extends BaseController {
         this.selectedItem = new ProductRate(viewItem.getProductRateId(), 
                 viewItem.getProductRate(), viewItem.getCustomerId(), viewItem.getProductId());
         LOGGER.debug("initEdit");
+    }
+    
+    public void initValuation() {
+        this.valueationPerCen = null;
+        this.valueationShortName = null;
+    }
+    
+    public void addNewValuation() {
+        LOGGER.debug("valueationShortName : {}",valueationShortName);
+        LOGGER.debug("valueationPerCen : {}",valueationPerCen);
+        
+        JsfUtil.closeDialog("dlgNewValuation");
     }
 
     public void save() {
@@ -197,5 +212,21 @@ public class RateManagementController extends BaseController {
 
     public void setSelectedItem(ProductRate selectedItem) {
         this.selectedItem = selectedItem;
+    }
+
+    public String getValueationShortName() {
+        return valueationShortName;
+    }
+
+    public void setValueationShortName(String valueationShortName) {
+        this.valueationShortName = valueationShortName;
+    }
+
+    public String getValueationPerCen() {
+        return valueationPerCen;
+    }
+
+    public void setValueationPerCen(String valueationPerCen) {
+        this.valueationPerCen = valueationPerCen;
     }
 }

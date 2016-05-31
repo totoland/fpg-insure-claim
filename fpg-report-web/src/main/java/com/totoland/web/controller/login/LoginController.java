@@ -121,13 +121,10 @@ public class LoginController extends BaseController {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         
         if (UserType.ADMIN.getId() == loginUser.getUserGroupLvl()) {
-            executeJavaScript("setTimeout(function(){PF('statusDialog').show();");
             externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
         } else if (UserType.OFFICIAL_USER.getId() == loginUser.getUserGroupLvl()) {
-            executeJavaScript("setTimeout(function(){PF('statusDialog').show();");
             externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
         } else if (UserType.CUSTOMER.getId() == loginUser.getUserGroupLvl()) {
-            executeJavaScript("setTimeout(function(){PF('statusDialog').show();");
             externalContext.redirect(path+"/pages/form/insuranceManagement.xhtml?firstLogin=true");
         }
 
