@@ -7,7 +7,6 @@ package com.totoland.web.filter;
 
 import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.UserType;
-import com.totoland.web.controller.exception.AccessDenieException;
 import static com.totoland.web.controller.permission.PermissionController.ADMIN_PAGES;
 import static com.totoland.web.controller.permission.PermissionController.CUSTOMER_PAGES;
 import static com.totoland.web.controller.permission.PermissionController.OFFICIAL_PAGES;
@@ -15,7 +14,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.nio.file.AccessDeniedException;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Hashtable;

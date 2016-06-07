@@ -18,6 +18,7 @@ import com.totoland.web.service.ConditionsOfCoverService;
 import com.totoland.web.service.GennericService;
 import com.totoland.web.service.KeyMatchService;
 import com.totoland.web.service.UserService;
+import com.totoland.web.servlet.ImageServlet;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.StringUtils;
@@ -31,6 +32,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
@@ -58,7 +60,6 @@ public class InsuranceFormController extends BaseController {
 
     private String insureType = "Air";
     private List<DropDownList> insureTypeList;
-    private List<DropDownList> insureNameList;
     private List<DropDownList> currencyTypeList;
     private List<DropDownList> countriesList;
     private List<DropDownList> commodityTypeList;
@@ -85,6 +86,7 @@ public class InsuranceFormController extends BaseController {
 
     private Date issueDate;
     private boolean readOnly;
+    private String imageUploadURL;
 
     @PostConstruct
     public void init() {
@@ -107,6 +109,8 @@ public class InsuranceFormController extends BaseController {
         this.claimInsure.setClaimStatusId(InsureState.NEW.getState());
         this.claimInsure.setExchangeRate(new BigDecimal(dropdownFactory.getCurrentExchangeRate()));
         this.claimInsure.setIssueDate(new Date());
+        this.claimInsure.setInsuredId(getUserAuthen().getUserId());
+        this.claimInsure.setInsuredName(getUserAuthen().getCompanyName());
         KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
         this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
     }
@@ -150,7 +154,6 @@ public class InsuranceFormController extends BaseController {
 
     private void initData() {
         this.insureTypeList = getInsureTypeList();
-        this.insureNameList = dropdownFactory.ddlAllInsureName();
         this.currencyTypeList = dropdownFactory.ddlCurrencyType();
         this.countriesList = dropdownFactory.ddlCountries();
         this.commodityTypeList = dropdownFactory.ddlCommodityType();
@@ -163,6 +166,8 @@ public class InsuranceFormController extends BaseController {
             this.rateScheduleList = dropdownFactory.ddlRateSchedule(String.valueOf(getUserAuthen().getUserId()));
         }
         this.readOnly = false;
+        this.imageUploadURL = "/resources/images/no_image.jpg";
+        this.clearImgSession();
     }
 
     @Override
@@ -359,8 +364,20 @@ public class InsuranceFormController extends BaseController {
         return null;
     }
 
-    public void exportCert(CertificateType type) {
+    public void handleFileUpload(FileUploadEvent event) {
+        addInfo(event.getFile().getFileName() + " is uploaded.");
+        super.getRequest().getSession().setAttribute(ImageServlet.FILE_UPLOADED, event.getFile().getContents());
+        super.getRequest().getSession().setAttribute(ImageServlet.FILE_CONTENT_TYPE, event.getFile().getContentType());
+        this.imageUploadURL = "/image?r="+new Date().getTime();
+    }
 
+    public void clearImgSession(){
+        super.getRequest().getSession().setAttribute(ImageServlet.FILE_UPLOADED, null);
+        super.getRequest().getSession().setAttribute(ImageServlet.FILE_CONTENT_TYPE, null);
+    }
+    
+    public String getImageUploadURL() {
+        return imageUploadURL;
     }
 
     public String getCurrentStatus(int claimStatusId) {
@@ -459,20 +476,6 @@ public class InsuranceFormController extends BaseController {
      */
     public void setIssueDate(Date issueDate) {
         this.issueDate = issueDate;
-    }
-
-    /**
-     * @return the insureNameList
-     */
-    public List<DropDownList> getInsureNameList() {
-        return insureNameList;
-    }
-
-    /**
-     * @param insureNameList the insureNameList to set
-     */
-    public void setInsureNameList(List<DropDownList> insureNameList) {
-        this.insureNameList = insureNameList;
     }
 
     /**
