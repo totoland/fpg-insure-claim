@@ -44,6 +44,11 @@ public class PermissionController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PermissionController.class);
 
+    public static final String[] LOGGIN = {
+        "/pages/login/login.xhtml",
+        "/LogoutController"
+    };
+    
     public static final String[] CUSTOMER_PAGES = {
         "/pages/form/insuranceForm.xhtml",
         "/pages/form/insuranceManagement.xhtml"

@@ -7,6 +7,7 @@ package com.totoland.web.filter;
 
 import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.UserType;
+import com.totoland.web.controller.permission.PermissionController;
 import static com.totoland.web.controller.permission.PermissionController.ADMIN_PAGES;
 import static com.totoland.web.controller.permission.PermissionController.CUSTOMER_PAGES;
 import static com.totoland.web.controller.permission.PermissionController.OFFICIAL_PAGES;
@@ -110,12 +111,12 @@ public class LoginFilter implements Filter {
         if (authenticated != null) {
             //Check permission
             System.out.println("Check permission");
-            if (!isCanAccessPage(req.getRequestURI(), authenticated)) {
+            if (!isCanAccessPage(req.getRequestURI().replaceFirst(req.getContextPath(), ""), authenticated)) {
                 System.out.println("permission fail");
-                res.sendRedirect(errorPage);
+                res.sendRedirect(accessDenied);
             }
         }
-        
+
         chain.doFilter(request, response);
     }
 
@@ -123,6 +124,10 @@ public class LoginFilter implements Filter {
         if (authenticated == null) {
             return true;
         }
+        if (Arrays.asList(PermissionController.LOGGIN).contains(page)) {
+            return true;
+        }
+
         if (UserType.ADMIN.getId() == authenticated.getUserGroupLvl()) {
             return Arrays.asList(ADMIN_PAGES).contains(page);
         } else if (UserType.OFFICIAL_USER.getId() == authenticated.getUserGroupLvl()) {
