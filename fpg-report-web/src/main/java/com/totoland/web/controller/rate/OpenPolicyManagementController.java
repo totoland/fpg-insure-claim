@@ -20,12 +20,13 @@ package com.totoland.web.controller.rate;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.totoland.db.bean.ProductRateCriteria;
-import com.totoland.db.bean.Valuation;
+import com.totoland.db.bean.ValuationBean;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ProductRate;
-import com.totoland.db.entity.ViewProductRate;
+import com.totoland.db.entity.Valuation;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
+import com.totoland.web.service.GennericService;
 import com.totoland.web.service.RateManagementService;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
@@ -55,6 +56,8 @@ public class OpenPolicyManagementController extends BaseController {
     private DropdownFactory dropdownFactory;
     @ManagedProperty("#{rateManagementService}")
     private RateManagementService rateManagementService;
+    @ManagedProperty("#{gennericService}")
+    private GennericService<Valuation>valuationService;
 
     private ProductRateCriteria criteria;
     private List<ProductRate> dataSource;
@@ -63,7 +66,7 @@ public class OpenPolicyManagementController extends BaseController {
     private List<DropDownList> ddlProduct;
     private ProductRate selectedItem;
 
-    private List<Valuation> valuations;
+    private List<ValuationBean> valuations;
     private String valueationShortName;
     private String valueationPerCen;
 
@@ -97,13 +100,13 @@ public class OpenPolicyManagementController extends BaseController {
         LOGGER.debug("initEdit");
     }
 
-    private List<Valuation> toListValuation(String valuation) {
+    private List<ValuationBean> toListValuation(String valuation) {
         if (valuation == null) {
             return null;
         }
 
         try {
-            return new Gson().fromJson(valuation, new TypeToken<List<Valuation>>() {
+            return new Gson().fromJson(valuation, new TypeToken<List<ValuationBean>>() {
             }.getType());
         } catch (Exception ex) {
             LOGGER.error("Cannot parse to json", ex);
@@ -116,7 +119,7 @@ public class OpenPolicyManagementController extends BaseController {
         this.valueationShortName = null;
     }
 
-    public void deleteValuationItem(Valuation selectedItem) {
+    public void deleteValuationItem(ValuationBean selectedItem) {
         LOGGER.debug("selectedItem : {}", selectedItem);
         if (valuations == null) {
             return;
@@ -137,7 +140,7 @@ public class OpenPolicyManagementController extends BaseController {
             valuations = new ArrayList<>();
         }
 
-        Valuation valuation = new Valuation(valueationShortName, valueationPerCen);
+        ValuationBean valuation = new ValuationBean(valueationShortName, valueationPerCen);
 
         if (valuations.contains(valuation)) {
             addError(":form:msgNewValuation","Found " + valueationShortName + " in list.");
@@ -160,7 +163,7 @@ public class OpenPolicyManagementController extends BaseController {
             valuations = new ArrayList<>();
         }
 
-        Valuation valuation = new Valuation(valueationShortName, valueationPerCen);
+        ValuationBean valuation = new ValuationBean(valueationShortName, valueationPerCen);
 
         if (valuations.contains(valuation)) {
             addError(":form:msgEditValuation","Found " + valueationShortName + " in list.");
@@ -191,7 +194,12 @@ public class OpenPolicyManagementController extends BaseController {
             
             selectedItem.setValuation(new Gson().toJson(valuations));
 
-            rateManagementService.create(selectedItem);
+            Valuation valuation = new Valuation();
+            valuation.setValuationData(selectedItem.getValuation());
+            valuation.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
+            
+            rateManagementService.createWithValuation(selectedItem,valuation);
+            
             LOGGER.debug("save : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
             JsfUtil.hidePopup("dlgNewRateMnm");
@@ -209,7 +217,13 @@ public class OpenPolicyManagementController extends BaseController {
                 return;
             }
             selectedItem.setValuation(new Gson().toJson(valuations));
-            rateManagementService.edit(selectedItem);
+            
+            Valuation valuation = new Valuation();
+            valuation.setValuationData(selectedItem.getValuation());
+            valuation.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
+            
+            rateManagementService.updateWithValuation(selectedItem,valuation);
+            
             LOGGER.debug("edit : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
             JsfUtil.hidePopup("dlgEditRateMnm");
@@ -220,7 +234,7 @@ public class OpenPolicyManagementController extends BaseController {
         }
     }
 
-    public void delete(ViewProductRate viewItem) {
+    public void delete(ProductRate viewItem) {
         try {
             this.selectedItem = new ProductRate(viewItem.getProductRateId(),
                     viewItem.getProductRate(), viewItem.getCustomerId(), viewItem.getProductId());
@@ -314,11 +328,19 @@ public class OpenPolicyManagementController extends BaseController {
         this.valueationPerCen = valueationPerCen;
     }
 
-    public List<Valuation> getValuations() {
+    public List<ValuationBean> getValuations() {
         return valuations;
     }
 
-    public void setValuations(List<Valuation> valuations) {
+    public void setValuations(List<ValuationBean> valuations) {
         this.valuations = valuations;
+    }
+
+    public GennericService<Valuation> getValuationService() {
+        return valuationService;
+    }
+
+    public void setValuationService(GennericService<Valuation> valuationService) {
+        this.valuationService = valuationService;
     }
 }

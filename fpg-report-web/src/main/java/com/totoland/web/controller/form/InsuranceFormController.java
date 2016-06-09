@@ -25,6 +25,7 @@ import com.totoland.web.utils.StringUtils;
 import com.totoland.web.utils.WebUtils;
 import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -91,7 +92,6 @@ public class InsuranceFormController extends BaseController {
     @PostConstruct
     public void init() {
         LOGGER.debug("init...");
-        initData();
 
         String trxId = super.getParameter("id");
 
@@ -100,6 +100,8 @@ public class InsuranceFormController extends BaseController {
         } else {
             initUpdateMode(trxId);
         }
+        
+        initData();
     }
 
     private void initCreateMode() {
@@ -163,7 +165,7 @@ public class InsuranceFormController extends BaseController {
         if (isAdmin()) {
             this.rateScheduleList = dropdownFactory.ddlRateSchedule();
         } else {
-            this.rateScheduleList = dropdownFactory.ddlRateSchedule(String.valueOf(getUserAuthen().getUserId()));
+            this.rateScheduleList = dropdownFactory.ddlRateSchedule(this.claimInsure.getPolicyNumber());
         }
         this.readOnly = false;
         this.imageUploadURL = "/resources/images/no_image.jpg";
@@ -316,8 +318,9 @@ public class InsuranceFormController extends BaseController {
             String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(certRpt));
             gennericService.edit(this.claimInsure);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
-                    "application/pdf", "OPEN_COVER_" + CertificateType.valueOf(certificateType) + "_BY_" + this.insureType + ".pdf");
+                    "application/pdf", "CERTIFICATE_" + this.claimInsure.getCertificationNumber() + "_" + dateFormat.format(new Date()) + ".pdf");
         } catch (Exception ex) {
             LOGGER.error("download error ", ex);
             JsfUtil.alertJavaScript(ex.getMessage());
@@ -355,8 +358,9 @@ public class InsuranceFormController extends BaseController {
             String jrxmlPath = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(debitNote));
             gennericService.edit(this.claimInsure);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
-                    "application/pdf", "DEBIT_NOTE_" + this.insureType + ".pdf");
+                    "application/pdf", "DEBIT_NOTE_" + this.claimInsure.getCertificationNumber() + "_" + dateFormat.format(new Date()) + ".pdf");
         } catch (Exception ex) {
             LOGGER.error("download error ", ex);
         }
@@ -390,11 +394,16 @@ public class InsuranceFormController extends BaseController {
     }
 
     public void onRateScheduleChange() {
-        if (this.claimInsure.getLocalAmountOfInsurance() == null || this.claimInsure.getRate() == null) {
+        //Change from local amount of insurance
+        LOGGER.debug("InsuredValue : {}",this.claimInsure.getInsuredValue());
+        LOGGER.debug("Rate  : {}",this.claimInsure.getRate());
+        LOGGER.debug("amountOfInsurance  : {}",this.claimInsure.getAmountOfInsurance());
+        
+        if (this.claimInsure.getInsuredValue()== null || this.claimInsure.getRate() == null) {
             this.claimInsure.setPremiumRate(null);
             return;
         }
-        BigDecimal mul = this.claimInsure.getLocalAmountOfInsurance().multiply(this.claimInsure.getRate());
+        BigDecimal mul = this.claimInsure.getInsuredValue().multiply(this.claimInsure.getRate());
         this.claimInsure.setPremiumRate(mul);
     }
 

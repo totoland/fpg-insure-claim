@@ -105,10 +105,18 @@ public class LoginFilter implements Filter {
             } else {
                 res.sendRedirect(errorPage);
             }
-        } else {
-            //Check permission
-            chain.doFilter(request, response);
         }
+
+        if (authenticated != null) {
+            //Check permission
+            System.out.println("Check permission");
+            if (!isCanAccessPage(req.getRequestURI(), authenticated)) {
+                System.out.println("permission fail");
+                res.sendRedirect(errorPage);
+            }
+        }
+        
+        chain.doFilter(request, response);
     }
 
     public boolean isCanAccessPage(String page, final ViewUser authenticated) {

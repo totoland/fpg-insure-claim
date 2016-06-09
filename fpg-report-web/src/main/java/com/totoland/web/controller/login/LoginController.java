@@ -117,6 +117,7 @@ public class LoginController extends BaseController {
         String path = JsfUtil.getContextPath();
 
         logger.trace("path : {}", path);
+        logger.trace("getUserGroupLvl : {}", loginUser.getUserGroupLvl());
 
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         

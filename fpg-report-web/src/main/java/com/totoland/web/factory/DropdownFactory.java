@@ -5,6 +5,9 @@
  */
 package com.totoland.web.factory;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.totoland.db.bean.ValuationBean;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.web.service.CommonService;
 import com.totoland.web.utils.MessageUtils;
@@ -176,7 +179,7 @@ public class DropdownFactory implements Serializable {
         customers = commonService.getDropdownList(criteria);
         return customers;
     }
-    
+
     public List<DropDownList> ddlAllInsureName() {
 
         List<DropDownList> customers = new ArrayList<>();
@@ -298,7 +301,7 @@ public class DropdownFactory implements Serializable {
         DropDownList criteria = new DropDownList();
         criteria.setTableName("view_rate_schedule");
         criteria.setOrderByField("product_name");
-        criteria.setName("CONCAT(product_name , '-------------------------------------------------------------------' , product_rate )");
+        criteria.setName("CONCAT(product_name , '-------------------------------------------------------------------' , product_rate)");
         criteria.setValue("product_rate");
         criteria.setSortName("ASC");
 
@@ -306,15 +309,15 @@ public class DropdownFactory implements Serializable {
         return customers;
     }
 
-    public List<DropDownList> ddlRateSchedule(String customerId) {
+    public List<DropDownList> ddlRateSchedule(String openPolicyNo) {
 
         List<DropDownList> customers = new ArrayList<>();
         DropDownList criteria = new DropDownList();
         criteria.setTableName("view_rate_schedule");
         criteria.setOrderByField("product_name");
-        criteria.setName("CONCAT(product_name , '-------------------------------------------------------------------' , product_rate )");
+        criteria.setName("CONCAT(product_name , '-------------------------------------------------------------------' , product_rate)");
         criteria.setValue("product_rate");
-        criteria.setCondition("customer_id = " + customerId);
+        criteria.setCondition("open_policy_no = '" + openPolicyNo+"'");
         criteria.setSortName("ASC");
 
         customers = commonService.getDropdownList(criteria);
@@ -361,5 +364,41 @@ public class DropdownFactory implements Serializable {
         }
 
         return null;
+    }
+
+    public List<DropDownList> getListOpenPolicyNumber() {
+
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("product_rate");
+        criteria.setOrderByField("open_policy_no");
+        criteria.setName("DISTINCT(open_policy_no)");
+        criteria.setValue("open_policy_no");
+        criteria.setSortName("ASC");
+
+        return commonService.getDropdownList(criteria);
+    }
+    
+    public List<DropDownList> getValuation(String openPolicyNo) {
+
+        List<DropDownList> resList = new ArrayList<>();
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("valuation");
+        criteria.setOrderByField("valuation_id");
+        criteria.setName("valuation_id");
+        criteria.setValue("valuation_data");
+        criteria.setCondition("open_policy_no = '"+openPolicyNo+"'");
+
+        List<DropDownList> ddl = commonService.getDropdownList(criteria);
+        
+        if (ddl != null && !ddl.isEmpty()) {
+            List<ValuationBean>beans = new Gson().fromJson(ddl.get(0).getValue(), new TypeToken<List<ValuationBean>>() {
+            }.getType());
+            
+            for(ValuationBean bean : beans){
+                resList.add(new DropDownList(bean.getName()+" - "+bean.getPercen() + "%", bean.getPercen()));
+            }
+        }
+        
+        return resList;
     }
 }

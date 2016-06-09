@@ -24,24 +24,30 @@
 package com.totoland.web.service.impl;
 
 import com.totoland.db.bean.ProductRateCriteria;
+import com.totoland.db.common.dao.GennericDao;
 import com.totoland.db.entity.ProductRate;
+import com.totoland.db.entity.Valuation;
 import com.totoland.db.entity.ViewProductRate;
 import com.totoland.db.rate.dao.RateManagementDao;
 import com.totoland.web.service.RateManagementService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author totoland
  */
 @Service("rateManagementService")
-public class RateManagementServiceImpl extends GennericServiceImpl<ProductRate> implements RateManagementService{
+public class RateManagementServiceImpl extends GennericServiceImpl<ProductRate> implements RateManagementService {
 
     @Autowired
     RateManagementDao dao;
     
+    @Autowired
+    GennericDao<Valuation>gennericDao;
+
     @Override
     public List<ProductRate> findByCriteria(ProductRateCriteria criteria) {
         return dao.findByCriteria(criteria);
@@ -51,5 +57,19 @@ public class RateManagementServiceImpl extends GennericServiceImpl<ProductRate> 
     public List<ViewProductRate> findDetailByCriteria(ProductRateCriteria criteria) {
         return dao.findDetailByCriteria(criteria);
     }
+
+    @Transactional(rollbackFor = {Throwable.class})
+    @Override
+    public void createWithValuation(ProductRate rate, Valuation valuation) {
+        dao.create(rate);
+        gennericDao.edit(valuation);
+    }
     
+    @Transactional(rollbackFor = {Throwable.class})
+    @Override
+    public void updateWithValuation(ProductRate rate, Valuation valuation) {
+        dao.edit(rate);
+        gennericDao.edit(valuation);
+    }
+
 }
