@@ -21,46 +21,64 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.totoland.db.bean;
+package com.totoland.db.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author totoland
  */
-public class Valuation implements Serializable{
-    private static final long serialVersionUID = -6611128250855153412L;
+@Entity
+@Table(name = "valuation")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Valuation.findAll", query = "SELECT v FROM Valuation v")})
+public class Valuation implements Serializable {
 
-    private String name;
-    private String percen;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "open_policy_no")
+    private String openPolicyNo;
 
-    public Valuation(String name, String percen) {
-        this.name = name;
-        this.percen = percen;
-    }
-    
-    public String getName() {
-        return name;
-    }
+    @Lob
+    @Column(name = "valuation_data")
+    private String valuationData;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPercen() {
-        return percen;
+    public Valuation() {
     }
 
-    public void setPercen(String percen) {
-        this.percen = percen;
+    public String getValuationData() {
+        return valuationData;
+    }
+
+    public void setValuationData(String valuationData) {
+        this.valuationData = valuationData;
+    }
+
+    public String getOpenPolicyNo() {
+        return openPolicyNo;
+    }
+
+    public void setOpenPolicyNo(String openPolicyNo) {
+        this.openPolicyNo = openPolicyNo;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.name);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.openPolicyNo);
         return hash;
     }
 
@@ -73,7 +91,7 @@ public class Valuation implements Serializable{
             return false;
         }
         final Valuation other = (Valuation) obj;
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.openPolicyNo, other.openPolicyNo)) {
             return false;
         }
         return true;
@@ -81,6 +99,6 @@ public class Valuation implements Serializable{
 
     @Override
     public String toString() {
-        return "Valuation{" + "name=" + name + ", percen=" + percen + '}';
+        return "Valuation{" + "openPolicyNo=" + openPolicyNo + ", valuationData=" + valuationData + '}';
     }
 }
