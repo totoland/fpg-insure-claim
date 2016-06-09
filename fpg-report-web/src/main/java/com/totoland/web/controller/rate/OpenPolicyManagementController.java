@@ -17,7 +17,9 @@
  */
 package com.totoland.web.controller.rate;
 
+import com.google.gson.Gson;
 import com.totoland.db.bean.ProductRateCriteria;
+import com.totoland.db.bean.Valuation;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ProductRate;
 import com.totoland.db.entity.ViewProductRate;
@@ -26,6 +28,7 @@ import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.RateManagementService;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,12 +56,13 @@ public class OpenPolicyManagementController extends BaseController {
     private RateManagementService rateManagementService;
 
     private ProductRateCriteria criteria;
-    private List<ViewProductRate> dataSource;
+    private List<ProductRate> dataSource;
 
     private List<DropDownList> ddlCustomer;
     private List<DropDownList> ddlProduct;
     private ProductRate selectedItem;
     
+    private List<Valuation>valuations;
     private String valueationShortName;
     private String valueationPerCen;
 
@@ -70,11 +74,12 @@ public class OpenPolicyManagementController extends BaseController {
         this.criteria = new ProductRateCriteria(null, null);
         this.selectedItem = new ProductRate();
         this.dataSource = null;
+        this.valuations = null;
     }
 
     public void search() {
         LOGGER.debug("search with : {}", getCriteria());
-        dataSource = rateManagementService.findDetailByCriteria(getCriteria());
+        dataSource = rateManagementService.findByCriteria(getCriteria());
     }
 
     public void initCreate() {
@@ -97,6 +102,19 @@ public class OpenPolicyManagementController extends BaseController {
         LOGGER.debug("valueationShortName : {}",valueationShortName);
         LOGGER.debug("valueationPerCen : {}",valueationPerCen);
         
+        if(valuations == null){
+            valuations = new ArrayList<>();
+        }
+        
+        Valuation valuation = new Valuation(valueationShortName, valueationPerCen);
+        
+        if(valuations.contains(valuation)){
+            JsfUtil.alertJavaScript("Found "+valueationShortName+ " in list.");
+            return;
+        }
+        
+        valuations.add(valuation);
+        
         JsfUtil.closeDialog("dlgNewValuation");
     }
 
@@ -111,6 +129,8 @@ public class OpenPolicyManagementController extends BaseController {
                 addError("newProductRateMsg",MessageUtils.getResourceBundleString("product_rate_ins_dupp"));
                 return;
             }
+            
+            selectedItem.setValuation(new Gson().toJson(valuations));
             
             rateManagementService.create(selectedItem);
             LOGGER.debug("save : {}", this.selectedItem);
@@ -198,11 +218,11 @@ public class OpenPolicyManagementController extends BaseController {
         this.criteria = criteria;
     }
 
-    public List<ViewProductRate> getDataSource() {
+    public List<ProductRate> getDataSource() {
         return dataSource;
     }
 
-    public void setDataSource(List<ViewProductRate> dataSource) {
+    public void setDataSource(List<ProductRate> dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -228,5 +248,13 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void setValueationPerCen(String valueationPerCen) {
         this.valueationPerCen = valueationPerCen;
+    }
+
+    public List<Valuation> getValuations() {
+        return valuations;
+    }
+
+    public void setValuations(List<Valuation> valuations) {
+        this.valuations = valuations;
     }
 }

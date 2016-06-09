@@ -110,12 +110,11 @@ THE SOFTWARE.
                         <f:facet name="header">
                             Search Result
                         </f:facet>
-
-                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{item.customerName}" footerText="#{msg.label_insured_name}">
-                            <h:outputText value="#{item.customerName}" />
-                        </p:column>
-                        <p:column headerText="#{msg.label_product}" sortBy="#{item.productName}" footerText="#{msg.label_product}">
-                            <h:outputText value="#{item.productName}" />
+                        <p:column headerText="#{msg.label_Policy_number}" sortBy="#{item.openPolicyNo}" footerText="#{msg.label_Policy_number}">
+                            <h:outputText value="#{item.openPolicyNo}" />
+                        </p:column>    
+                        <p:column headerText="#{msg.label_product}" sortBy="#{item.productId}" footerText="#{msg.label_product}">
+                            <h:outputText value="#{item.productId}" />
                         </p:column>
                         <p:column headerText="#{msg.label_rate}" sortBy="#{item.productRate}" footerText="#{msg.label_rate}">
                             <h:outputText value="#{item.productRate}" />
@@ -216,16 +215,22 @@ THE SOFTWARE.
                                                          update=":form:dlgNewValuation"
                                                          action="#{openPolicyManagementController.initValuation()}"
                                                          oncomplete="PF('dlgNewValuation').show()"/>
-                                        <p:dataTable id="dtValuation" var="{1}" style="width: 400px;border:solid 0px!important; ">
-                                            <p:column headerText="#{msg.label_short_name}"></p:column>
-                                            <p:column headerText="#{msg.label_percen}"></p:column>
+                                        <p:dataTable id="dtValuation" value="#{openPolicyManagementController.valuations}"
+                                                     var="item"
+                                                     style="width: 400px;border:solid 0px!important; ">
+                                            <p:column headerText="#{msg.label_short_name}">
+                                                <p:outputLabel value="#{item.name}"/>
+                                            </p:column>
+                                            <p:column headerText="#{msg.label_percen}">
+                                                <p:outputLabel value="#{item.percen}"/>
+                                            </p:column>
                                         </p:dataTable>
                                     </h:panelGroup>
                                     
                                     <h:outputLabel value="#{msg.label_broker_name}"/>
                                     <h:panelGroup>
                                         <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
-                                                         value="#{openPolicyManagementController.selectedItem.clausesTruck}"/>
+                                                         value="#{openPolicyManagementController.selectedItem.brokerName}"/>
                                     </h:panelGroup>
                                     
                                     <h:outputLabel/>
