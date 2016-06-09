@@ -46,19 +46,19 @@ public class RateManagementDaoImpl extends GennericDaoImpl<ProductRate> implemen
     @Transactional(readOnly = true)
     @Override
     public List<ProductRate> findByCriteria(ProductRateCriteria criteria) {
-        String SQL = "SELECT * FROM product_rate WHERE 1=1 ";
+        String SQL = "SELECT product.product_name, product_rate.* FROM product_rate inner join product on product.product_id = product_rate.product_id WHERE 1=1 ";
 
         List<Object> params = new ArrayList<>();
 
-        if (!StringUtils.isEmpty(criteria.getCustomerId())) {
-            SQL += "and customer_id = ? ";
-            params.add(criteria.getCustomerId());
-        }
         if (!StringUtils.isEmpty(criteria.getProductId())) {
-            SQL += "and product_id = ? ";
+            SQL += "and product_rate.product_id = ? ";
             params.add(criteria.getProductId());
         }
-
+        if (!StringUtils.isEmpty(criteria.getOpenPolicyNo())) {
+            SQL += "and product_rate.open_policy_no = ? ";
+            params.add(criteria.getOpenPolicyNo());
+        }
+        
         return findNativeQuery(SQL, ProductRate.class, params);
     }
 

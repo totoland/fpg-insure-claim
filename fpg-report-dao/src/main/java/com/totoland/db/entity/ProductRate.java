@@ -61,6 +61,8 @@ public class ProductRate implements Serializable {
     private Integer customerId;
     @Column(name = "product_id")
     private Integer productId;
+    @Column(name = "product_name")
+    private String productName;
     @Column(name = "open_policy_no")
     private String openPolicyNo;
     @Lob
@@ -193,8 +195,16 @@ public class ProductRate implements Serializable {
         this.brokerName = brokerName;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     @Override
     public String toString() {
-        return "ProductRate{" + "productRateId=" + productRateId + ", productRate=" + productRate + ", customerId=" + customerId + ", productId=" + productId + ", openPolicyNo=" + openPolicyNo + ", clausesAir=" + clausesAir + ", clausesVessel=" + clausesVessel + ", clausesTruck=" + clausesTruck + ", valuation=" + valuation + ", brokerName=" + brokerName + '}';
+        return "ProductRate{" + "productRateId=" + productRateId + ", productRate=" + productRate + ", customerId=" + customerId + ", productId=" + productId + ", productName=" + productName + ", openPolicyNo=" + openPolicyNo + ", clausesAir=" + clausesAir + ", clausesVessel=" + clausesVessel + ", clausesTruck=" + clausesTruck + ", valuation=" + valuation + ", brokerName=" + brokerName + '}';
     }
 }

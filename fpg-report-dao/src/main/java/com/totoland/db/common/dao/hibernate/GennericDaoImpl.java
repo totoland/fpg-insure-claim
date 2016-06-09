@@ -92,8 +92,7 @@ public class GennericDaoImpl<T> extends BaseDao implements GennericDao<T>, Seria
         Iterator it = hasValue.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pairs = (Map.Entry) it.next();
-            System.out.println(pairs.getKey() + " = " + pairs.getValue());
-            sql.append(" and ").append("c.").append(pairs.getKey()).append(" = ").append(pairs.getValue());
+            sql.append(" and ").append("c.").append(pairs.getKey()).append(" = '").append(pairs.getValue()).append("'");
             it.remove(); 
         }
 
