@@ -18,6 +18,7 @@
 package com.totoland.web.controller.rate;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.totoland.db.bean.ProductRateCriteria;
 import com.totoland.db.bean.Valuation;
 import com.totoland.db.common.entity.DropDownList;
@@ -61,8 +62,8 @@ public class OpenPolicyManagementController extends BaseController {
     private List<DropDownList> ddlCustomer;
     private List<DropDownList> ddlProduct;
     private ProductRate selectedItem;
-    
-    private List<Valuation>valuations;
+
+    private List<Valuation> valuations;
     private String valueationShortName;
     private String valueationPerCen;
 
@@ -85,53 +86,111 @@ public class OpenPolicyManagementController extends BaseController {
     public void initCreate() {
         LOGGER.debug("initCreate");
         this.selectedItem = new ProductRate();
+        this.valuations = null;
     }
 
-    public void initEdit(ViewProductRate viewItem) {
-        this.selectedItem = new ProductRate(viewItem.getProductRateId(), 
-                viewItem.getProductRate(), viewItem.getCustomerId(), viewItem.getProductId());
+    public void initEdit(ProductRate viewItem) {
+        this.selectedItem = viewItem;
+
+        valuations = toListValuation(viewItem.getValuation());
+
         LOGGER.debug("initEdit");
     }
-    
+
+    private List<Valuation> toListValuation(String valuation) {
+        if (valuation == null) {
+            return null;
+        }
+
+        try {
+            return new Gson().fromJson(valuation, new TypeToken<List<Valuation>>() {
+            }.getType());
+        } catch (Exception ex) {
+            LOGGER.error("Cannot parse to json", ex);
+            return null;
+        }
+    }
+
     public void initValuation() {
         this.valueationPerCen = null;
         this.valueationShortName = null;
     }
-    
-    public void addNewValuation() {
-        LOGGER.debug("valueationShortName : {}",valueationShortName);
-        LOGGER.debug("valueationPerCen : {}",valueationPerCen);
-        
-        if(valuations == null){
-            valuations = new ArrayList<>();
+
+    public void deleteValuationItem(Valuation selectedItem) {
+        LOGGER.debug("selectedItem : {}", selectedItem);
+        if (valuations == null) {
+            return;
         }
+
+        valuations.remove(selectedItem);
+    }
+
+    public void addNewValuation() {
         
-        Valuation valuation = new Valuation(valueationShortName, valueationPerCen);
-        
-        if(valuations.contains(valuation)){
-            JsfUtil.alertJavaScript("Found "+valueationShortName+ " in list.");
+        if((valueationShortName == null || valueationShortName.trim().isEmpty())
+                || (valueationPerCen == null || valueationPerCen.trim().isEmpty())){
+            addError(":form:msgNewValuation",MessageUtils.REQUIRE_GENERIC());
             return;
         }
         
+        if (valuations == null) {
+            valuations = new ArrayList<>();
+        }
+
+        Valuation valuation = new Valuation(valueationShortName, valueationPerCen);
+
+        if (valuations.contains(valuation)) {
+            addError(":form:msgNewValuation","Found " + valueationShortName + " in list.");
+            return;
+        }
+
         valuations.add(valuation);
-        
+
         JsfUtil.closeDialog("dlgNewValuation");
     }
 
+    public void addEditValuation() {
+        if((valueationShortName == null || valueationShortName.trim().isEmpty())
+                || (valueationPerCen == null || valueationPerCen.trim().isEmpty())){
+            addError(":form:msgEditValuation",MessageUtils.REQUIRE_GENERIC());
+            return;
+        }
+
+        if (valuations == null) {
+            valuations = new ArrayList<>();
+        }
+
+        Valuation valuation = new Valuation(valueationShortName, valueationPerCen);
+
+        if (valuations.contains(valuation)) {
+            addError(":form:msgEditValuation","Found " + valueationShortName + " in list.");
+            return;
+        }
+
+        valuations.add(valuation);
+
+        JsfUtil.closeDialog("dlgEditValuation");
+    }
+    
     public void save() {
         try {
-            Map<String,Object>paramsMap = new HashMap<>();
-            paramsMap.put("customerId", selectedItem.getCustomerId());
-            paramsMap.put("productId", selectedItem.getProductId());
-            List<ProductRate>listProdcutRate = rateManagementService.findByDynamicField(ProductRate.class, paramsMap);
+            if(valuations == null || valuations.isEmpty()){
+                addError(":form:gwValuationNew","Please add Valuation");
+                return;
+            }
             
-            if(listProdcutRate!=null && !listProdcutRate.isEmpty()){
-                addError("newProductRateMsg",MessageUtils.getResourceBundleString("product_rate_ins_dupp"));
+            Map<String, Object> paramsMap = new HashMap<>();
+            paramsMap.put("openPolicyNo", selectedItem.getOpenPolicyNo());
+            paramsMap.put("productId", selectedItem.getProductId());
+            List<ProductRate> listProdcutRate = rateManagementService.findByDynamicField(ProductRate.class, paramsMap);
+
+            if (listProdcutRate != null && !listProdcutRate.isEmpty()) {
+                addError("newProductRateMsg", MessageUtils.getResourceBundleString("product_rate_ins_dupp"));
                 return;
             }
             
             selectedItem.setValuation(new Gson().toJson(valuations));
-            
+
             rateManagementService.create(selectedItem);
             LOGGER.debug("save : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
@@ -145,6 +204,11 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void edit() {
         try {
+            if(valuations == null || valuations.isEmpty()){
+                addError(":form:gwValuationEdit","Please add Valuation");
+                return;
+            }
+            selectedItem.setValuation(new Gson().toJson(valuations));
             rateManagementService.edit(selectedItem);
             LOGGER.debug("edit : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
@@ -155,11 +219,11 @@ public class OpenPolicyManagementController extends BaseController {
             addError(MessageUtils.SAVE_NOT_SUCCESS());
         }
     }
-    
-    public void delete(ViewProductRate viewItem){
+
+    public void delete(ViewProductRate viewItem) {
         try {
-            this.selectedItem = new ProductRate(viewItem.getProductRateId(), 
-                viewItem.getProductRate(), viewItem.getCustomerId(), viewItem.getProductId());
+            this.selectedItem = new ProductRate(viewItem.getProductRateId(),
+                    viewItem.getProductRate(), viewItem.getCustomerId(), viewItem.getProductId());
             rateManagementService.remove(selectedItem);
             addInfo(MessageUtils.DELETE_SUCCESS());
             search();

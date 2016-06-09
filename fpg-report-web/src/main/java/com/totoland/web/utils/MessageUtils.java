@@ -118,4 +118,8 @@ public class MessageUtils {
     public static String DELETE_NOT_SUCCESS() {
         return getResourceBundleString("delete_not_success");
     }
+
+    public static String REQUIRE_GENERIC() {
+        return getResourceBundleString("require_generic");
+    }
 }
