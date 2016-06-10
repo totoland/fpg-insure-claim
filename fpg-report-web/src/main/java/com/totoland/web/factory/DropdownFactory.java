@@ -229,7 +229,7 @@ public class DropdownFactory implements Serializable {
         criteria.setTableName("commodity_type");
         criteria.setOrderByField("commodity_type_name");
         criteria.setName("commodity_type_name");
-        criteria.setValue("commodity_type_id");
+        criteria.setValue("commodity_type_code");
         criteria.setSortName("ASC");
 
         customers = commonService.getDropdownList(criteria);

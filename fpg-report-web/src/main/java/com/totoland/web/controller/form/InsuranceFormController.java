@@ -24,6 +24,8 @@ import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.StringUtils;
 import com.totoland.web.utils.WebUtils;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -34,6 +36,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
@@ -204,6 +207,18 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("save : {}", this.claimInsure);
 
         try {
+            //save image into database
+//            File file = new File("C:\\mavan-hibernate-image-mysql.gif");
+//            byte[] bFile = new byte[(int) file.length()];
+//
+//            try {
+//                 FileInputStream fileInputStream = new FileInputStream(file);
+//                 //convert file into array of bytes
+//                 fileInputStream.read(bFile);
+//                 fileInputStream.close();
+//            } catch (Exception e) {
+//                 
+//            }
             gennericService.edit(claimInsure);
             addInfo(MessageUtils.SAVE_SUCCESS());
             JsfUtil.openDialog("dlgSave");
@@ -444,7 +459,24 @@ public class InsuranceFormController extends BaseController {
         } catch (Exception ex) {
         }
     }
+    
+    private DropDownList selectedCommodityType;
 
+    public DropDownList getSelectedCommodityType() {
+        return selectedCommodityType;
+    }
+
+    public void setSelectedCommodityType(DropDownList selectedCommodityType) {
+        this.selectedCommodityType = selectedCommodityType;
+    }
+
+    public void onRowselectedCommodityType(SelectEvent event){
+        //((Car) event.getObject()).getId()
+        LOGGER.debug("selected : {}",selectedCommodityType);
+        this.claimInsure.setCommodityTypeCode(selectedCommodityType.getValue());
+        this.claimInsure.setCommodityTypeName(selectedCommodityType.getName());
+    }
+    
     private String findInsureType(String selectedInsureType) {
         for (DropDownList ddl : dropdownFactory.ddlMethodOfTransport()) {
             if (ddl.getValue().equals(selectedInsureType)) {
