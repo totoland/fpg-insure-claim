@@ -356,6 +356,27 @@ public class DropdownFactory implements Serializable {
         criteria.setName("conf_name");
         criteria.setValue("conf_value");
         criteria.setSortName("ASC");
+        criteria.setCondition("conf_name = 'exchange_rate'");
+
+        customers = commonService.getDropdownList(criteria);
+
+        if (customers != null && !customers.isEmpty()) {
+            return customers.get(0).getValue();
+        }
+
+        return null;
+    }
+    
+    public String getMinimumPremium () {
+
+        List<DropDownList> customers = new ArrayList<>();
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("conf");
+        criteria.setOrderByField("conf_name");
+        criteria.setName("conf_name");
+        criteria.setValue("conf_value");
+        criteria.setSortName("ASC");
+        criteria.setCondition("conf_name = 'min_premium'");
 
         customers = commonService.getDropdownList(criteria);
 
