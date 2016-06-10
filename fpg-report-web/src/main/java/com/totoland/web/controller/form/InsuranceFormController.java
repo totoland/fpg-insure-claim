@@ -123,6 +123,8 @@ public class InsuranceFormController extends BaseController {
         this.claimInsure.setIssueDate(new Date());
         this.claimInsure.setInsuredId(getUserAuthen().getUserId());
         this.claimInsure.setInsuredName(getUserAuthen().getCompanyName());
+        this.claimInsure.setMinimumPremiumRate(new BigDecimal(dropdownFactory.getMinimumPremium()));
+
         KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
         this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
     }
@@ -141,6 +143,10 @@ public class InsuranceFormController extends BaseController {
 
         this.certNumber = this.claimInsure.getCertificationNumber();
 //        this.claimInsure.setExchangeRate(new BigDecimal(dropdownFactory.getCurrentExchangeRate()));
+
+        if (this.claimInsure.getMinimumPremiumRate() == null) {
+            this.claimInsure.setMinimumPremiumRate(new BigDecimal(dropdownFactory.getMinimumPremium()));
+        }
 
         //Should not has this case
         if (StringUtils.isBlank(this.claimInsure.getPolicyNumber())) {
@@ -425,17 +431,17 @@ public class InsuranceFormController extends BaseController {
             }
         } catch (Exception ex) {
         }
-        
+
         try {
-            if (this.claimInsure.getAmountOfInsurance() != null && this.claimInsure.getExchangeRate()!= null) {
+            if (this.claimInsure.getAmountOfInsurance() != null && this.claimInsure.getExchangeRate() != null) {
                 this.claimInsure.setInsuredValue(this.claimInsure.getAmountOfInsurance().multiply(this.claimInsure.getExchangeRate()));
             }
         } catch (Exception ex) {
         }
-        
-        try{
+
+        try {
             this.onRateScheduleChange();
-        }catch(Exception ex){
+        } catch (Exception ex) {
         }
     }
 
