@@ -98,7 +98,11 @@
                                 <p:inputText value="#{insuranceFormController.claimInsure.consigneeName}"/>
 
                                 <h:outputLabel value="Invoice Value" title="invoice*exchange rate*valuation"/>
-                                <pe:inputNumber id="insuredValue"/>
+                                <pe:inputNumber id="invoiceValue" value="#{insuranceFormController.claimInsure.invoiceValue}"
+                                                decimalPlaces="2">
+                                    <p:ajax event="blur" listener="#{insuranceFormController.calAmountOfInsurance()}"
+                                            update=":form:amountOfInsurance, :form:localAmountOfInsurance , :form:dtRate"/>
+                                </pe:inputNumber>
 
                                 <h:outputLabel value="#{msg.label_valuation}"/>
                                 <h:panelGroup>
@@ -108,13 +112,17 @@
                                                        var="item" 
                                                        itemLabel="#{item.name}"
                                                        itemValue="#{item.value}"/>
+                                             <p:ajax listener="#{insuranceFormController.calAmountOfInsurance()}"
+                                                     process="@this , :form:invoiceValue , :form:amountOfInsurance , :form:localAmountOfInsurance"
+                                                update=":form:amountOfInsurance , :form:invoiceValue , :form:localAmountOfInsurance , :form:dtRate"/>
                                     </p:selectOneMenu>
                                     <toto:requireLabel forId="form:insuredId"/>
                                 </h:panelGroup>
 
                                 <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
-                                <pe:inputNumber id="amountOfInsurance" 
-                                                value="#{insuranceFormController.claimInsure.amountOfInsurance}"/>
+                                <pe:inputNumber id="amountOfInsurance" disabled="true"
+                                                value="#{insuranceFormController.claimInsure.amountOfInsurance}"
+                                                decimalPlaces="2"/>
 
                                 <h:outputLabel value="#{msg.label_deductible_amount}"/>
                                 <h:outputLabel value="#{insuranceFormController.claimInsure.deductibleAmount}"/>
@@ -137,8 +145,9 @@
                                 <pe:inputNumber id="exchangeRate" value="#{insuranceFormController.claimInsure.exchangeRate}" disabled="true"/>
 
                                 <h:outputLabel value="Insured Value" title="* exchange rate"/>
-                                <pe:inputNumber id="localAmountOfInsurance"
-                                                value="#{insuranceFormController.claimInsure.insuredValue}"/>
+                                <pe:inputNumber id="localAmountOfInsurance" disabled="true"
+                                                value="#{insuranceFormController.claimInsure.insuredValue}"
+                                                decimalPlaces="2"/>
 
                                 <h:outputLabel value=""/>
                                 <h:outputLabel value=""/>
@@ -362,13 +371,13 @@
                                 <h:outputLabel value="#{msg.label_rate_schedule} "/>
                                 <h:panelGroup>
                                     <p:selectOneMenu id="rateScheduleId"
-                                                     required="true" style="width:85%"
+                                                     required="true" 
                                                      requiredMessage="#{msg.require_generic}"
                                                      value="#{insuranceFormController.claimInsure.rate}">
                                         <p:ajax listener="#{insuranceFormController.onRateScheduleChange()}"
                                                 process="@this , :form:amountOfInsurance , :form:localAmountOfInsurance"
                                                 update=":form:dtRate" />
-                                        <f:selectItem itemLabel="" itemValue="" />
+                                        <f:selectItem itemLabel="" itemValue="0" />
                                         <f:selectItems value="#{insuranceFormController.rateScheduleList}" 
                                                        var="item"
                                                        itemLabel="#{item.name}"
@@ -658,7 +667,7 @@
                     var exch = $("#form\\:exchangeRate_input").val().replace(/,/g,'');
                     var valuat = $("#form\\:valuation_input").val().replace(/,/g,'');
                     var rate = $("#form\\:rateScheduleId_input").val().replace(/,/g,'');
-                    var inv = $("#form\\:insuredValue_input").val().replace(/,/g,'');
+                    var inv = $("#form\\:invoiceValue_input").val().replace(/,/g,'');
                     var pr = $("#form\\:dtRate\\:0\\:premiumRate_input").val().replace(/,/g,'');
                     var dtRate = $("#form\\:dtRate\\:0\\:dtRate_input").val().replace(/,/g,'');
 
@@ -693,11 +702,11 @@
                 }
                 
                 $(function(){
-                    $("#form\\:amountOfInsurance_input").change(function(){calAmountOfInsurance()});
-                    $("#form\\:exchangeRate_input").change(function(){calAmountOfInsurance()});
-                    $("#form\\:valuation_input").change(function(){calAmountOfInsurance()});
-                    $("#form\\:insuredValue_input").change(function(){calAmountOfInsurance()});
-                    $("#form\\:rateScheduleId_input").change(function(){calAmountOfInsurance()});
+//                    $("#form\\:amountOfInsurance_input").change(function(){calAmountOfInsurance()});
+//                    $("#form\\:exchangeRate_input").change(function(){calAmountOfInsurance()});
+//                    $("#form\\:valuation_input").change(function(){calAmountOfInsurance()});
+//                    $("#form\\:invoiceValue_input").change(function(){calAmountOfInsurance()});
+//                    $("#form\\:rateScheduleId_input").change(function(){calAmountOfInsurance()});
                     
                 });
             </script>

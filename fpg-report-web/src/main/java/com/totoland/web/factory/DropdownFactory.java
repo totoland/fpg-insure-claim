@@ -301,7 +301,7 @@ public class DropdownFactory implements Serializable {
         DropDownList criteria = new DropDownList();
         criteria.setTableName("view_rate_schedule");
         criteria.setOrderByField("product_name");
-        criteria.setName("CONCAT(product_name , '-------------------------------------------------------------------' , product_rate)");
+        criteria.setName("CONCAT(product_name , '-------------------------' , product_rate)");
         criteria.setValue("product_rate");
         criteria.setSortName("ASC");
 
@@ -315,9 +315,9 @@ public class DropdownFactory implements Serializable {
         DropDownList criteria = new DropDownList();
         criteria.setTableName("view_rate_schedule");
         criteria.setOrderByField("product_name");
-        criteria.setName("CONCAT(product_name , '-------------------------------------------------------------------' , product_rate)");
+        criteria.setName("CONCAT(product_name , '-------------------------' , product_rate)");
         criteria.setValue("product_rate");
-        criteria.setCondition("open_policy_no = '" + openPolicyNo+"'");
+        criteria.setCondition("open_policy_no = '" + openPolicyNo + "'");
         criteria.setSortName("ASC");
 
         customers = commonService.getDropdownList(criteria);
@@ -377,7 +377,7 @@ public class DropdownFactory implements Serializable {
 
         return commonService.getDropdownList(criteria);
     }
-    
+
     public List<DropDownList> getValuation(String openPolicyNo) {
 
         List<DropDownList> resList = new ArrayList<>();
@@ -386,19 +386,19 @@ public class DropdownFactory implements Serializable {
         criteria.setOrderByField("valuation_id");
         criteria.setName("valuation_id");
         criteria.setValue("valuation_data");
-        criteria.setCondition("open_policy_no = '"+openPolicyNo+"'");
+        criteria.setCondition("open_policy_no = '" + openPolicyNo + "'");
 
         List<DropDownList> ddl = commonService.getDropdownList(criteria);
-        
+
         if (ddl != null && !ddl.isEmpty()) {
-            List<ValuationBean>beans = new Gson().fromJson(ddl.get(0).getValue(), new TypeToken<List<ValuationBean>>() {
+            List<ValuationBean> beans = new Gson().fromJson(ddl.get(0).getValue(), new TypeToken<List<ValuationBean>>() {
             }.getType());
-            
-            for(ValuationBean bean : beans){
-                resList.add(new DropDownList(bean.getName()+" - "+bean.getPercen() + "%", bean.getPercen()));
+
+            for (ValuationBean bean : beans) {
+                resList.add(new DropDownList(bean.getName() + " - " + bean.getPercen() + "%", bean.getPercen()));
             }
         }
-        
+
         return resList;
     }
 }

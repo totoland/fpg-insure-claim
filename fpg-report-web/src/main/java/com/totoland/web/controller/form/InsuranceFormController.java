@@ -89,6 +89,16 @@ public class InsuranceFormController extends BaseController {
     private boolean readOnly;
     private String imageUploadURL;
 
+    private double invoiceValue;
+
+    public double getInvoiceValue() {
+        return invoiceValue;
+    }
+
+    public void setInvoiceValue(double invoiceValue) {
+        this.invoiceValue = invoiceValue;
+    }
+
     @PostConstruct
     public void init() {
         LOGGER.debug("init...");
@@ -100,7 +110,7 @@ public class InsuranceFormController extends BaseController {
         } else {
             initUpdateMode(trxId);
         }
-        
+
         initData();
     }
 
@@ -372,14 +382,14 @@ public class InsuranceFormController extends BaseController {
         addInfo(event.getFile().getFileName() + " is uploaded.");
         super.getRequest().getSession().setAttribute(ImageServlet.FILE_UPLOADED, event.getFile().getContents());
         super.getRequest().getSession().setAttribute(ImageServlet.FILE_CONTENT_TYPE, event.getFile().getContentType());
-        this.imageUploadURL = "/image?r="+new Date().getTime();
+        this.imageUploadURL = "/image?r=" + new Date().getTime();
     }
 
-    public void clearImgSession(){
+    public void clearImgSession() {
         super.getRequest().getSession().setAttribute(ImageServlet.FILE_UPLOADED, null);
         super.getRequest().getSession().setAttribute(ImageServlet.FILE_CONTENT_TYPE, null);
     }
-    
+
     public String getImageUploadURL() {
         return imageUploadURL;
     }
@@ -395,16 +405,38 @@ public class InsuranceFormController extends BaseController {
 
     public void onRateScheduleChange() {
         //Change from local amount of insurance
-        LOGGER.debug("InsuredValue : {}",this.claimInsure.getInsuredValue());
-        LOGGER.debug("Rate  : {}",this.claimInsure.getRate());
-        LOGGER.debug("amountOfInsurance  : {}",this.claimInsure.getAmountOfInsurance());
-        
-        if (this.claimInsure.getInsuredValue()== null || this.claimInsure.getRate() == null) {
+        LOGGER.debug("InsuredValue : {}", this.claimInsure.getInsuredValue());
+        LOGGER.debug("Rate  : {}", this.claimInsure.getRate());
+        LOGGER.debug("amountOfInsurance  : {}", this.claimInsure.getAmountOfInsurance());
+
+        if (this.claimInsure.getInsuredValue() == null || this.claimInsure.getRate() == null || this.claimInsure.getRate().intValue() == 0) {
             this.claimInsure.setPremiumRate(null);
             return;
         }
         BigDecimal mul = this.claimInsure.getInsuredValue().multiply(this.claimInsure.getRate());
         this.claimInsure.setPremiumRate(mul);
+    }
+
+    public void calAmountOfInsurance() {
+        //var amountOfIns = ((inv) * valuat) / 100;
+        try {
+            if (this.claimInsure.getInvoiceValue() != null && this.claimInsure.getValuation() != null) {
+                this.claimInsure.setAmountOfInsurance((this.claimInsure.getInvoiceValue().multiply(new BigDecimal(this.claimInsure.getValuation()))).divide(new BigDecimal(100)));
+            }
+        } catch (Exception ex) {
+        }
+        
+        try {
+            if (this.claimInsure.getAmountOfInsurance() != null && this.claimInsure.getExchangeRate()!= null) {
+                this.claimInsure.setInsuredValue(this.claimInsure.getAmountOfInsurance().multiply(this.claimInsure.getExchangeRate()));
+            }
+        } catch (Exception ex) {
+        }
+        
+        try{
+            this.onRateScheduleChange();
+        }catch(Exception ex){
+        }
     }
 
     private String findInsureType(String selectedInsureType) {
