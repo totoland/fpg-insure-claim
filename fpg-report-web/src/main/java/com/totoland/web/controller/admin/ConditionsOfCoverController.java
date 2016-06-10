@@ -87,6 +87,7 @@ public class ConditionsOfCoverController extends BaseController {
         this.selectedItem.setVesselConditions(viewItem.getVesselConditions());
         this.selectedItem.setTruckConditions(viewItem.getTruckConditions());
         this.selectedItem.setCustomerId(viewItem.getCustomerId());
+        this.selectedItem.setOpenPolicyNo(viewItem.getOpenPolicyNo());
     }
 
     public void save() {

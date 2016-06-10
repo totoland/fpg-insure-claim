@@ -1,5 +1,6 @@
 package com.chetty.reporting.engine;
 
+import com.chetty.reporting.beans.CertificationBean;
 import com.totoland.reporting.bean.DebitNote;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -21,11 +23,15 @@ public class Reporter {
 
     @SuppressWarnings("unchecked")
     public static void main(String[] args) throws Exception {
-        InputStream inputStream = new FileInputStream("reports/reportDebitNote.jrxml");
+        InputStream inputStream = new FileInputStream("reports/reportFPG.jrxml");
 
         DebitNote debitNote = new DebitNote();
-
-        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(Arrays.asList(debitNote));
+        CertificationBean certificationBean = new CertificationBean();
+        certificationBean.setIssueDate(new Date());
+        certificationBean.setSailingFlightDate(new Date());
+        certificationBean.setAmountInsuredHereunder("2000");
+        
+        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(Arrays.asList(certificationBean));
 
         Map parameters = new HashMap();
 

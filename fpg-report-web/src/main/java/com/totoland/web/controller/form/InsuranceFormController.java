@@ -6,6 +6,7 @@ import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ImageCertExport;
 import com.totoland.db.entity.KeyMatch;
+import com.totoland.db.entity.Surveyors;
 import com.totoland.db.entity.ViewConditionsOfCover;
 import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.CertificateType;
@@ -17,6 +18,7 @@ import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.ConditionsOfCoverService;
 import com.totoland.web.service.KeyMatchService;
+import com.totoland.web.service.SurveyorService;
 import com.totoland.web.service.UserService;
 import com.totoland.web.servlet.ImageServlet;
 import com.totoland.web.utils.JsfUtil;
@@ -84,6 +86,8 @@ public class InsuranceFormController extends BaseController {
     private UserService userService;
     @ManagedProperty("#{conditionsOfCoverService}")
     private ConditionsOfCoverService conditionsOfCoverService;
+    @ManagedProperty("#{surveyorService}")
+    private SurveyorService surveyorService;
 
     private Date issueDate;
     private boolean readOnly;
@@ -129,6 +133,7 @@ public class InsuranceFormController extends BaseController {
         this.imageUploadURL = NO_IMAGE;
         KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
         this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
+        this.readOnly = false;
     }
 
     private void initUpdateMode(String trxId) {
@@ -187,7 +192,6 @@ public class InsuranceFormController extends BaseController {
         } else {
             this.rateScheduleList = dropdownFactory.ddlRateSchedule(this.claimInsure.getPolicyNumber());
         }
-        this.readOnly = false;
         this.clearImgSession();
     }
 
@@ -323,7 +327,7 @@ public class InsuranceFormController extends BaseController {
             CertificationBean certRpt = new CertificationBean();
             //Init data for print Certificate
             ViewUser userData = userService.findByUserId(this.claimInsure.getInsuredId());
-            certRpt.setNameOfAssured(userData.getCompanyName());
+            certRpt.setNameOfAssured(this.claimInsure.getInsuredName());
             certRpt.setVesselAirline(this.claimInsure.getConveyanceName());
             certRpt.setReferenceNumber(this.claimInsure.getInvoiceNumber());
             certRpt.setAmountInsuredHereunder(String.valueOf(this.claimInsure.getAmountOfInsurance()));
@@ -331,17 +335,33 @@ public class InsuranceFormController extends BaseController {
             certRpt.setVoyageFlightNo("");
             certRpt.setSailingFlightDate(this.claimInsure.getShipmentDate());
             certRpt.setCertificationNumber(this.claimInsure.getCertificationNumber());
-            certRpt.setIssueOn(new Date());
+            certRpt.setIssueOn(this.claimInsure.getIssueDate());
             certRpt.setCopyType(CertificateType.valueOf(certificateType));
             certRpt.setFrom(findCountryName(this.claimInsure.getOriginCountryCode()));
             certRpt.setTo(findCountryName(this.claimInsure.getDestinationCountryCode()));
+            certRpt.setCurrencyType(this.claimInsure.getCurrencyType());
 
             certRpt.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
             certRpt.setSignature1URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE1);
             certRpt.setSignature2URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE2);
-
+            
+            Surveyors surveyor = surveyorService.findById(this.claimInsure.getClaimSurveyorId());
+            LOGGER.debug("surveyor : {}",surveyor);
+            
+            if(surveyor!=null){
+                certRpt.setSurveyorCompany(surveyor.getCompany());
+                certRpt.setSurveyorAddress(surveyor.getAddress());
+                certRpt.setSurveyorTel(surveyor.getTel1());
+                certRpt.setSurveyorFax(surveyor.getFax1());
+                certRpt.setContactName(surveyor.getContactName());
+            }
+            
+            if(this.imageUploadURL!=null && !this.imageUploadURL.equals(NO_IMAGE)){
+                certRpt.setCertImageURL(JsfUtil.getFullURI()+this.imageUploadURL);
+            }
+            
             //Init ConditionOfCover for print Certificate
-            List<ViewConditionsOfCover> listCondition = conditionsOfCoverService.findByCriteria(new ConditionsOfCoverCriteria(this.claimInsure.getInsuredId()));
+            List<ViewConditionsOfCover> listCondition = conditionsOfCoverService.findByCriteria(new ConditionsOfCoverCriteria(this.claimInsure.getPolicyNumber()));
             if (listCondition != null && !listCondition.isEmpty()) {
 
                 String subject = "";
@@ -403,6 +423,7 @@ public class InsuranceFormController extends BaseController {
             debitNote.setTypeOfPolicy(dropdownFactory.ddlConf().get("type_of_policy"));
             debitNote.setPolicyNo(this.claimInsure.getPolicyNumber());
             debitNote.setWarrantyFrom(this.claimInsure.getShipmentDate());
+            debitNote.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
 
             String jrxmlPath = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(debitNote));
@@ -677,5 +698,13 @@ public class InsuranceFormController extends BaseController {
 
     public void setConditionsOfCoverService(ConditionsOfCoverService conditionsOfCoverService) {
         this.conditionsOfCoverService = conditionsOfCoverService;
+    }
+
+    public SurveyorService getSurveyorService() {
+        return surveyorService;
+    }
+
+    public void setSurveyorService(SurveyorService surveyorService) {
+        this.surveyorService = surveyorService;
     }
 }

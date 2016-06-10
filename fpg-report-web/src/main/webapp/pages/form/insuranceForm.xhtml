@@ -550,11 +550,13 @@
                                 </p:commandButton>
                                 <p:commandButton value="#{msg.btn_producer_copy}" immediate="true"
                                                  icon="fa fa-save Fs14 White" styleClass="BlueButton" 
-                                                 type="button" onclick="PF('printProducerCopy').show()">
+                                                 type="button" onclick="PF('printProducerCopy').show()"
+                                                 rendered="false">
                                 </p:commandButton>
                                 <p:commandButton value="#{msg.btn_office_copy}" immediate="true"
                                                  icon="fa fa-save Fs14 White" styleClass="BlueButton" 
-                                                 type="button" onclick="PF('printOfficeCopy').show()">
+                                                 type="button" onclick="PF('printOfficeCopy').show()"
+                                                 rendered="false">
                                 </p:commandButton>
 
                                 <p:confirmDialog widgetVar="printDebitNotePopup" 

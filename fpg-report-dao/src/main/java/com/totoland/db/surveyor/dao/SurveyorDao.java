@@ -21,37 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.totoland.db.bean;
+package com.totoland.db.surveyor.dao;
 
-import java.io.Serializable;
+import com.totoland.db.common.dao.GennericDao;
+import com.totoland.db.entity.Surveyors;
 
 /**
  *
  * @author totoland
  */
-public class ConditionsOfCoverCriteria implements Serializable{
-    private static final long serialVersionUID = -1357023208251326978L;
-    
-    private String openPolicyNo;
+public interface SurveyorDao extends GennericDao<Surveyors> {
 
-    public ConditionsOfCoverCriteria(){
-    
-    }
-    
-    public ConditionsOfCoverCriteria(String openpolicyNo){
-        this.openPolicyNo = openpolicyNo;
-    }
-    
-    public String getOpenPolicyNo() {
-        return openPolicyNo;
-    }
-
-    public void setOpenPolicyNo(String customerId) {
-        this.openPolicyNo = customerId;
-    }
-
-    @Override
-    public String toString() {
-        return "ConditionsOfCoverCriteria{" + "openPolicyNo=" + openPolicyNo + '}';
-    }
+    Surveyors findById(Integer id);
 }

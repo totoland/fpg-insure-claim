@@ -21,37 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.totoland.db.bean;
+package com.totoland.web.service.impl;
 
-import java.io.Serializable;
+import com.totoland.db.common.dao.hibernate.GennericDaoImpl;
+import com.totoland.db.entity.Surveyors;
+import com.totoland.db.surveyor.dao.SurveyorDao;
+import com.totoland.web.service.SurveyorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author totoland
  */
-public class ConditionsOfCoverCriteria implements Serializable{
-    private static final long serialVersionUID = -1357023208251326978L;
-    
-    private String openPolicyNo;
+@Service(value = "surveyorService")
+public class SurveyorServiceImpl extends GennericServiceImpl<Surveyors> implements SurveyorService {
 
-    public ConditionsOfCoverCriteria(){
-    
-    }
-    
-    public ConditionsOfCoverCriteria(String openpolicyNo){
-        this.openPolicyNo = openpolicyNo;
-    }
-    
-    public String getOpenPolicyNo() {
-        return openPolicyNo;
-    }
+    private static final long serialVersionUID = -1233454490726003299L;
 
-    public void setOpenPolicyNo(String customerId) {
-        this.openPolicyNo = customerId;
-    }
-
+    @Autowired
+    SurveyorDao surveyorDao;
+    
     @Override
-    public String toString() {
-        return "ConditionsOfCoverCriteria{" + "openPolicyNo=" + openPolicyNo + '}';
+    public Surveyors findById(Integer id) {
+        return surveyorDao.findById(id);
     }
+
 }

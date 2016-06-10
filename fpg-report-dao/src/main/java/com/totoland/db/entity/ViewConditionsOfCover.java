@@ -28,8 +28,6 @@ import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
@@ -68,6 +66,8 @@ public class ViewConditionsOfCover implements Serializable {
     private Integer customerId;
     @Column(name = "customer_name")
     private String customerName;
+    @Column(name = "open_policy_no")
+    private String openPolicyNo;
 
     public Integer getConditionsCoverId() {
         return conditionsCoverId;
@@ -141,6 +141,14 @@ public class ViewConditionsOfCover implements Serializable {
         this.truckSubject = truckSubject;
     }
 
+    public String getOpenPolicyNo() {
+        return openPolicyNo;
+    }
+
+    public void setOpenPolicyNo(String openPolicyNo) {
+        this.openPolicyNo = openPolicyNo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -165,6 +173,6 @@ public class ViewConditionsOfCover implements Serializable {
 
     @Override
     public String toString() {
-        return "ViewConditionsOfCover{" + "conditionsCoverId=" + conditionsCoverId + ", airConditions=" + airConditions + ", vesselConditions=" + vesselConditions + ", truckConditions=" + truckConditions + ", airSubject=" + airSubject + ", vesselSubject=" + vesselSubject + ", truckSubject=" + truckSubject + ", customerId=" + customerId + ", customerName=" + customerName + '}';
+        return "ViewConditionsOfCover{" + "conditionsCoverId=" + conditionsCoverId + ", airConditions=" + airConditions + ", vesselConditions=" + vesselConditions + ", truckConditions=" + truckConditions + ", airSubject=" + airSubject + ", vesselSubject=" + vesselSubject + ", truckSubject=" + truckSubject + ", customerId=" + customerId + ", customerName=" + customerName + ", openPolicyNo=" + openPolicyNo + '}';
     }
 }

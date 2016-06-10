@@ -39,13 +39,8 @@
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
-                                    <h:outputLabel value="#{msg.label_insured_name}"/>
-                                    <p:selectOneMenu styleClass="selectOne115" value="#{conditionsOfCoverController.criteria.customerId}">
-                                        <f:selectItem itemLabel="" itemValue=""/>
-                                        <f:selectItems value="#{conditionsOfCoverController.ddlCustomer}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
+                                    <h:outputLabel value="#{msg.label_Policy_number}"/>
+                                    <p:inputText maxlength="20" value="#{conditionsOfCoverController.criteria.openPolicyNo}"/>
 
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
@@ -76,16 +71,16 @@
                             Search Result
                         </f:facet>
 
-                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{car.id}" footerText="#{msg.label_insured_name}">
-                            <h:outputText value="#{item.customerName}" />
+                        <p:column headerText="#{msg.label_Policy_number}" footerText="#{msg.label_Policy_number}">
+                            <h:outputText value="#{item.openPolicyNo}" />
                         </p:column>
-                        <p:column headerText="#{msg.option_air}" sortBy="#{car.year}" footerText="#{msg.option_air}">
+                        <p:column headerText="#{msg.option_air}" footerText="#{msg.option_air}">
                             <h:outputText value="#{item.airConditions}" />
                         </p:column>
-                        <p:column headerText="#{msg.option_vessel}" sortBy="#{car.brand}" footerText="#{msg.option_vessel}">
+                        <p:column headerText="#{msg.option_vessel}" footerText="#{msg.option_vessel}">
                             <h:outputText value="#{item.vesselConditions}" />
                         </p:column>
-                        <p:column headerText="#{msg.option_truck}" sortBy="#{car.brand}" footerText="#{msg.option_truck}">
+                        <p:column headerText="#{msg.option_truck}" footerText="#{msg.option_truck}">
                             <h:outputText value="#{item.truckConditions}" />
                         </p:column>
                         <p:column>
@@ -124,13 +119,8 @@
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
-                                    <h:outputLabel value="#{msg.label_insured_name}"/>
-                                    <p:selectOneMenu styleClass="selectOne115" value="#{conditionsOfCoverController.selectedItem.customerId}">
-                                        <f:selectItem itemLabel="" itemValue=""/>
-                                        <f:selectItems value="#{conditionsOfCoverController.ddlCustomer}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
+                                    <h:outputLabel value="#{msg.label_Policy_number}"/>
+                                    <p:inputText maxlength="20" value="#{conditionsOfCoverController.selectedItem.openPolicyNo}"/>
 
                                     <h:outputLabel value="#{msg.label_subject}"/>
                                     <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
@@ -172,9 +162,8 @@
             </p:dialog>
             
             <p:dialog header="#{msg.menu_condition_of_cover}" id="dlgEditConditionOfConver" widgetVar="dlgEditConditionOfConver"  modal="true"
-                      showEffect="explode" hideEffect="bounce" height="350" minimizable="true" maximizable="true" responsive="true">
+                      showEffect="explode" hideEffect="bounce" height="350" width="750" minimizable="true" maximizable="true" responsive="true">
                 <div class="Container100">
-                    <div class="ContainerIndent">
                         <div class="Container100 Responsive100">
                             <div class="ContainerIndent">
                                 <h2 class="BigTopic"></h2>
@@ -182,13 +171,8 @@
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
-                                    <h:outputLabel value="#{msg.label_insured_name}"/>
-                                    <p:selectOneMenu styleClass="selectOne115" value="#{conditionsOfCoverController.selectedItem.customerId}">
-                                        <f:selectItem itemLabel="" itemValue=""/>
-                                        <f:selectItems value="#{conditionsOfCoverController.ddlCustomer}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
+                                    <h:outputLabel value="#{msg.label_Policy_number}" style="width: 150px"/>
+                                    <p:inputText maxlength="20" value="#{conditionsOfCoverController.selectedItem.openPolicyNo}"/>
 
                                     <h:outputLabel value="#{msg.label_subject}"/>
                                     <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
@@ -224,8 +208,6 @@
                                 </p:panelGrid>
                             </div>
                         </div>
-
-                    </div>
                 </div>
             </p:dialog>
         </h:form>

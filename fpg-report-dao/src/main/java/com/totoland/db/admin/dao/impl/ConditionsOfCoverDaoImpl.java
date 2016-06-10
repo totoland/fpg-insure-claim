@@ -54,14 +54,13 @@ public class ConditionsOfCoverDaoImpl extends GennericDaoImpl<ConditionsOfCover>
                 + "conditions_of_cover.truck_subject, "
                 + "conditions_of_cover.truck_conditions, "
                 + "conditions_of_cover.customer_id, "
-                + "sv_user.COMPANY_NAME customer_name "
+                + "conditions_of_cover.open_policy_no, "
+                + "'' customer_name "
                 + "FROM "
-                + "conditions_of_cover "
-                + "INNER JOIN sv_user ON conditions_of_cover.customer_id = sv_user.USER_ID ";
-
-        if (!StringUtils.isEmpty(criteria.getCustomerId())) {
-            SQL += "WHERE conditions_of_cover.customer_id = ?";
-            return findNativeQuery(SQL, ViewConditionsOfCover.class, criteria.getCustomerId());
+                + "conditions_of_cover ";
+        if (!StringUtils.isEmpty(criteria.getOpenPolicyNo())) {
+            SQL += "WHERE conditions_of_cover.open_policy_no = ?";
+            return findNativeQuery(SQL, ViewConditionsOfCover.class, criteria.getOpenPolicyNo());
         }
 
         return findNativeQuery(SQL, ViewConditionsOfCover.class);

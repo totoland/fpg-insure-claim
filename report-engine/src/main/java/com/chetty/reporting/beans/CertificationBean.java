@@ -26,6 +26,7 @@ public class CertificationBean implements Serializable {
     private String policyNumber;
     private String voyageFlightNo;
     private Date sailingFlightDate;
+    private Date issueDate;
 
     private String subject;
     private String detail;
@@ -35,8 +36,19 @@ public class CertificationBean implements Serializable {
     private String companyLogoURL;
     private String signature1URL;
     private String signature2URL;
-    
+    private String certImageURL;
+
+    private String quantity;
+
+    private String surveyorCompany;
+    private String surveyorAddress;
+    private String surveyorTel;
+    private String surveyorFax;
+    private String contactName;
+
     private String commodityDescription;
+
+    private String currencyType;
 
     public String getNameOfAssured() {
         return nameOfAssured;
@@ -190,8 +202,80 @@ public class CertificationBean implements Serializable {
         this.commodityDescription = commodityDescription;
     }
 
+    public String getSurveyorCompany() {
+        return surveyorCompany;
+    }
+
+    public void setSurveyorCompany(String surveyorCompany) {
+        this.surveyorCompany = surveyorCompany;
+    }
+
+    public String getSurveyorAddress() {
+        return surveyorAddress;
+    }
+
+    public void setSurveyorAddress(String surveyorAddress) {
+        this.surveyorAddress = surveyorAddress;
+    }
+
+    public String getSurveyorTel() {
+        return surveyorTel;
+    }
+
+    public void setSurveyorTel(String surveyorTel) {
+        this.surveyorTel = surveyorTel;
+    }
+
+    public String getSurveyorFax() {
+        return surveyorFax;
+    }
+
+    public void setSurveyorFax(String surveyorFax) {
+        this.surveyorFax = surveyorFax;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public Date getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(Date issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public String getCertImageURL() {
+        return certImageURL;
+    }
+
+    public void setCertImageURL(String certImageURL) {
+        this.certImageURL = certImageURL;
+    }
+
+    public String getCurrencyType() {
+        return currencyType;
+    }
+
+    public void setCurrencyType(String currencyType) {
+        this.currencyType = currencyType;
+    }
+
     @Override
     public String toString() {
-        return "CertificationBean{" + "nameOfAssured=" + nameOfAssured + ", vesselAirline=" + vesselAirline + ", referenceNumber=" + referenceNumber + ", voyage=" + voyage + ", from=" + from + ", to=" + to + ", amountInsuredHereunder=" + amountInsuredHereunder + ", policyNumber=" + policyNumber + ", voyageFlightNo=" + voyageFlightNo + ", sailingFlightDate=" + sailingFlightDate + ", subject=" + subject + ", detail=" + detail + ", issueOn=" + issueOn + ", copyType=" + copyType + ", certificationNumber=" + certificationNumber + ", companyLogoURL=" + companyLogoURL + ", signature1URL=" + signature1URL + ", signature2URL=" + signature2URL + ", commodityDescription=" + commodityDescription + '}';
+        return "CertificationBean{" + "nameOfAssured=" + nameOfAssured + ", vesselAirline=" + vesselAirline + ", referenceNumber=" + referenceNumber + ", voyage=" + voyage + ", from=" + from + ", to=" + to + ", amountInsuredHereunder=" + amountInsuredHereunder + ", policyNumber=" + policyNumber + ", voyageFlightNo=" + voyageFlightNo + ", sailingFlightDate=" + sailingFlightDate + ", issueDate=" + issueDate + ", subject=" + subject + ", detail=" + detail + ", issueOn=" + issueOn + ", copyType=" + copyType + ", certificationNumber=" + certificationNumber + ", companyLogoURL=" + companyLogoURL + ", signature1URL=" + signature1URL + ", signature2URL=" + signature2URL + ", certImageURL=" + certImageURL + ", quantity=" + quantity + ", surveyorCompany=" + surveyorCompany + ", surveyorAddress=" + surveyorAddress + ", surveyorTel=" + surveyorTel + ", surveyorFax=" + surveyorFax + ", contactName=" + contactName + ", commodityDescription=" + commodityDescription + ", currencyType=" + currencyType + '}';
     }
 }

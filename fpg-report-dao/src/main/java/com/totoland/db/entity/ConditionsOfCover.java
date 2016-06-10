@@ -76,6 +76,9 @@ public class ConditionsOfCover implements Serializable {
     @Column(name = "customer_id")
     private Integer customerId;
 
+    @Column(name = "open_policy_no")
+    private String openPolicyNo;
+
     public ConditionsOfCover() {
     }
 
@@ -121,6 +124,14 @@ public class ConditionsOfCover implements Serializable {
 
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
+    }
+
+    public String getOpenPolicyNo() {
+        return openPolicyNo;
+    }
+
+    public void setOpenPolicyNo(String openPolicyNo) {
+        this.openPolicyNo = openPolicyNo;
     }
 
     @Override
@@ -169,6 +180,6 @@ public class ConditionsOfCover implements Serializable {
 
     @Override
     public String toString() {
-        return "ConditionsOfCover{" + "conditionsCoverId=" + conditionsCoverId + ", airConditions=" + airConditions + ", vesselConditions=" + vesselConditions + ", truckConditions=" + truckConditions + ", airSubject=" + airSubject + ", vesselSubject=" + vesselSubject + ", truckSubject=" + truckSubject + ", customerId=" + customerId + '}';
+        return "ConditionsOfCover{" + "conditionsCoverId=" + conditionsCoverId + ", airConditions=" + airConditions + ", vesselConditions=" + vesselConditions + ", truckConditions=" + truckConditions + ", airSubject=" + airSubject + ", vesselSubject=" + vesselSubject + ", truckSubject=" + truckSubject + ", customerId=" + customerId + ", openPolicyNo=" + openPolicyNo + '}';
     }
 }

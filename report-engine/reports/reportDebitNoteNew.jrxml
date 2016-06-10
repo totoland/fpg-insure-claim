@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDebitNote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7cc9e6c-39c7-448f-b25c-32e05a2d7e7a">
 	<property name="ireport.zoom" value="1.5000000000000095"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="46"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -20,7 +20,6 @@
 	<field name="warrantyFrom" class="java.util.Date"/>
 	<field name="warrantyTo" class="java.util.Date"/>
 	<field name="grandTotal" class="java.lang.Integer"/>
-	<field name="companyLogoURL" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -47,10 +46,6 @@
 				</textElement>
 				<text><![CDATA["เอกสารออกเป็นชุด และ ไม่ใช่ใบกำกับภาษี"]]></text>
 			</staticText>
-			<image>
-				<reportElement x="3" y="63" width="152" height="51" uuid="48c8490e-912a-444e-9e79-d8193f30e60f"/>
-				<imageExpression><![CDATA[$F{companyLogoURL}]]></imageExpression>
-			</image>
 		</band>
 	</pageHeader>
 	<detail>
@@ -211,7 +206,7 @@
 			<line>
 				<reportElement x="555" y="1" width="1" height="312" uuid="f4bcd686-93b4-4820-9621-1cde98e1ed5b"/>
 			</line>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField>
 				<reportElement x="3" y="81" width="352" height="50" uuid="38a4ca07-3742-44e8-bf14-8d4db48b1fd8"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
@@ -281,14 +276,14 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{vat}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField>
 				<reportElement x="280" y="281" width="91" height="13" uuid="172ae632-5795-43fc-afa1-001a61fd6164"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy",new Locale("en")).format($F{warrantyFrom})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField>
 				<reportElement x="407" y="281" width="91" height="13" uuid="ed698772-257c-41c1-ba48-4da5a2e0fc9c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK"/>

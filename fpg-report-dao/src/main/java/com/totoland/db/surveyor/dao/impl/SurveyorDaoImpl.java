@@ -21,37 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.totoland.db.bean;
+package com.totoland.db.surveyor.dao.impl;
 
-import java.io.Serializable;
+import com.totoland.db.common.dao.hibernate.GennericDaoImpl;
+import com.totoland.db.entity.Surveyors;
+import com.totoland.db.surveyor.dao.SurveyorDao;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author totoland
  */
-public class ConditionsOfCoverCriteria implements Serializable{
-    private static final long serialVersionUID = -1357023208251326978L;
-    
-    private String openPolicyNo;
+@Repository
+public class SurveyorDaoImpl extends GennericDaoImpl<Surveyors> implements SurveyorDao {
 
-    public ConditionsOfCoverCriteria(){
-    
-    }
-    
-    public ConditionsOfCoverCriteria(String openpolicyNo){
-        this.openPolicyNo = openpolicyNo;
-    }
-    
-    public String getOpenPolicyNo() {
-        return openPolicyNo;
-    }
+    private static final long serialVersionUID = -1233454490726003299L;
 
-    public void setOpenPolicyNo(String customerId) {
-        this.openPolicyNo = customerId;
-    }
-
+    @Transactional(readOnly = true)
     @Override
-    public String toString() {
-        return "ConditionsOfCoverCriteria{" + "openPolicyNo=" + openPolicyNo + '}';
+    public Surveyors findById(Integer id) {
+        return (Surveyors) findUniqNativeQuery("SELECT * FROM SURVEYORS WHERE surveyor_id = ?", Surveyors.class, id);
     }
+
 }

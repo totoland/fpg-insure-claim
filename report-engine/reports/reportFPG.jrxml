@@ -29,7 +29,6 @@
 	<field name="signature2URL" class="java.lang.String"/>
 	<field name="companyLogoURL" class="java.lang.String"/>
 	<field name="certImageURL" class="java.lang.String"/>
-	<field name="currencyType" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -260,25 +259,25 @@
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yyyy",new Locale("en")).format($F{sailingFlightDate})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="279" y="58" width="131" height="13" uuid="1c78b4ec-26cb-40fa-b5f4-fd09c159ccda"/>
+				<reportElement x="273" y="58" width="100" height="13" uuid="1c78b4ec-26cb-40fa-b5f4-fd09c159ccda"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{to}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="142" y="58" width="99" height="13" uuid="fc3a9c1d-df32-4b5b-8efd-0fa03c3579de"/>
+				<reportElement x="141" y="58" width="100" height="13" uuid="fc3a9c1d-df32-4b5b-8efd-0fa03c3579de"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{from}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="159" y="77" width="289" height="13" uuid="3a756946-6b48-4401-a4af-5d5f9c00d2df"/>
+				<reportElement x="141" y="78" width="289" height="13" uuid="3a756946-6b48-4401-a4af-5d5f9c00d2df"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Float.valueOf($F{amountInsuredHereunder}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{amountInsuredHereunder}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="2" y="119" width="206" height="50" uuid="659f0f3e-97b8-4f32-8df1-bd28e5c34be9"/>
@@ -464,13 +463,6 @@
 				<reportElement x="2" y="169" width="174" height="51" uuid="719b61a3-e022-49dc-af10-9930c91aecfe"/>
 				<imageExpression><![CDATA[$F{certImageURL}]]></imageExpression>
 			</image>
-			<textField isBlankWhenNull="true">
-				<reportElement x="142" y="77" width="17" height="13" uuid="45c05d23-fb2b-4b3a-a38d-e4df1f52ec52"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{currencyType}]]></textFieldExpression>
-			</textField>
 		</band>
 		<band height="61">
 			<staticText>

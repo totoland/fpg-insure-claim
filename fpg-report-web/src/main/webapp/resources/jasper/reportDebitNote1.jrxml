@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDebitNote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7cc9e6c-39c7-448f-b25c-32e05a2d7e7a">
-	<property name="ireport.zoom" value="2.415765000000001"/>
+	<property name="ireport.zoom" value="1.9965000000000026"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="437"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="taxNo" class="java.lang.String"/>
+	<field name="insuredName" class="java.lang.String"/>
+	<field name="insuredAddress" class="java.lang.String"/>
+	<field name="certificationNumber" class="java.lang.String"/>
+	<field name="issueDate" class="java.util.Date"/>
+	<field name="premium" class="java.lang.Integer"/>
+	<field name="stampDuty" class="java.lang.Integer"/>
+	<field name="typeOfPolicy" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
+	<field name="policyNo" class="java.lang.String"/>
+	<field name="vat" class="java.lang.Integer"/>
+	<field name="warrantyFrom" class="java.util.Date"/>
+	<field name="warrantyTo" class="java.util.Date"/>
+	<field name="grandTotal" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -72,6 +86,13 @@
 			<line>
 				<reportElement x="555" y="0" width="1" height="97" uuid="9d454532-cb51-433f-883c-91489d4c9206"/>
 			</line>
+			<textField>
+				<reportElement x="475" y="81" width="79" height="14" uuid="853a2172-5056-49db-ae37-88b2661eb776"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxNo}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
@@ -79,112 +100,112 @@
 			<staticText>
 				<reportElement x="3" y="0" width="230" height="16" uuid="ebee3374-08da-4406-b1ac-55904040d8b1"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ชื่อและที่อยู่ผู้เอาประกันภัย         Insured Name & Address]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="0" width="42" height="31" uuid="ea2b2878-9eb6-4a01-b43a-2f61d56dda26"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				<reportElement x="338" y="1" width="15" height="30" uuid="ea2b2878-9eb6-4a01-b43a-2f61d56dda26"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[เลขที่  No.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="31" width="42" height="30" uuid="e307180a-fd36-4f7a-8d00-53fb9de14213"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				<reportElement x="338" y="32" width="15" height="29" uuid="e307180a-fd36-4f7a-8d00-53fb9de14213"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[วันที่  Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="62" width="61" height="28" uuid="7749676b-5803-4c7e-88cf-8ec6a8238aab"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				<reportElement x="338" y="62" width="42" height="28" uuid="7749676b-5803-4c7e-88cf-8ec6a8238aab"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[เบี้ยประกันภัย Premium]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="91" width="42" height="28" uuid="0fbb6c43-dfa9-42e0-bb0a-df1f59416afd"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				<reportElement x="338" y="91" width="42" height="28" uuid="0fbb6c43-dfa9-42e0-bb0a-df1f59416afd"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[อากรแสตมป์  Stamp Duty]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="120" width="83" height="28" uuid="e4dc5e3d-28a4-4bd9-a803-1c438cd96980"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				<reportElement x="3" y="120" width="56" height="28" uuid="e4dc5e3d-28a4-4bd9-a803-1c438cd96980"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ประเภทกรมธรรม์ Type of Policy]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="149" width="83" height="28" uuid="712944e5-b2b0-4c8f-917c-93f1fa910089"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				<reportElement x="3" y="149" width="45" height="28" uuid="712944e5-b2b0-4c8f-917c-93f1fa910089"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[กรมธรรม์เลขที่ Policy No.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="3" y="178" width="83" height="12" uuid="09c01250-b69a-4cb6-b2cb-ffa68c6fcde8"/>
 				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ระยะเวลาประกันภัย]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="3" y="190" width="83" height="12" uuid="5e199cc5-b338-44db-962f-35dcf1cb0fd0"/>
 				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Period of Insurance]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="103" y="178" width="28" height="12" uuid="cb8cfd97-77c1-4e41-98b8-8ff690bb5ac9"/>
 				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[จาก]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="103" y="190" width="28" height="12" uuid="d4b71cd1-92a5-43f7-b88e-1b9399080fd8"/>
 				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[From]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="205" y="190" width="28" height="12" uuid="f7a10a9c-f3ca-44f5-89c6-4d8a13602ae6"/>
 				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[To]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="205" y="178" width="28" height="12" uuid="86281663-e287-4149-8a1b-4a16911927ca"/>
 				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ถึง]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="119" width="61" height="28" uuid="9cf85415-1313-401d-8c9d-c63b1c9ac3c0"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				<reportElement x="338" y="120" width="27" height="28" uuid="9cf85415-1313-401d-8c9d-c63b1c9ac3c0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[รวม  Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="149" width="75" height="28" uuid="ed1ef8a6-93bc-4646-b016-afc97741ccea"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				<reportElement x="338" y="149" width="42" height="28" uuid="ed1ef8a6-93bc-4646-b016-afc97741ccea"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ภาษีมูลค่าเพิ่ม VAT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="178" width="75" height="28" uuid="ba8c2100-0d74-4959-aaff-6b4dee4c9dca"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				<reportElement x="338" y="178" width="42" height="28" uuid="ba8c2100-0d74-4959-aaff-6b4dee4c9dca"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[รวมเป็นเงิน  Grand Total]]></text>
 			</staticText>
@@ -205,14 +226,14 @@
 			<staticText>
 				<reportElement x="261" y="207" width="278" height="12" uuid="7812c633-2029-4643-a37c-7458e195470a"/>
 				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[กรุณาเขียนเช็คขีดคร่อมจ่ายในนาม "บริษัท เอฟพีจี ประกันภัย (ประเทศไทย) จำกัด (มหาชน)"]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="261" y="220" width="293" height="12" uuid="e505f387-136d-402a-aafb-547bfdb4dcef"/>
 				<textElement>
-					<font fontName="TH SarabunPSK" size="9" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Please make crossed cheque payable to "FPG Insurance (Thailand) Public Company Limited"]]></text>
 			</staticText>
@@ -255,6 +276,97 @@
 			<line>
 				<reportElement x="555" y="0" width="1" height="236" uuid="f4bcd686-93b4-4820-9621-1cde98e1ed5b"/>
 			</line>
+			<textField>
+				<reportElement x="3" y="48" width="289" height="49" uuid="38a4ca07-3742-44e8-bf14-8d4db48b1fd8"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insuredAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="32" width="100" height="16" uuid="088dff15-5622-46f5-8cba-bcd9f71d1a88"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insuredName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="414" y="32" width="100" height="16" uuid="cf7d051e-8c8d-4f60-8dff-84ac1ff1f87b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yyyy",new Locale("en")).format($F{issueDate})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="414" y="0" width="100" height="15" uuid="27725251-5314-49d8-a707-8e8b91199acd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificationNumber}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="414" y="62" width="100" height="15" uuid="b49bcfe3-e20b-404c-80db-5077d5d1d949"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{premium}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="414" y="91" width="100" height="15" uuid="7d4e3e7f-54f2-4239-9e3a-cc1743c886eb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stampDuty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="120" width="100" height="13" uuid="f9ec4a44-ac4e-4c7c-8f91-75c0e0cde48a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{typeOfPolicy}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="414" y="120" width="100" height="16" uuid="1d1fed02-b726-4c73-8abd-5a16ee97adf5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="149" width="100" height="13" uuid="400aafc9-4888-4fff-a297-693725cb4ebc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{policyNo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="414" y="149" width="100" height="13" uuid="2975383e-6bee-4b47-b776-47717260c7d8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vat}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="131" y="178" width="70" height="13" uuid="172ae632-5795-43fc-afa1-001a61fd6164"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yyyy",new Locale("en")).format($F{warrantyFrom})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="233" y="178" width="91" height="13" uuid="ed698772-257c-41c1-ba48-4da5a2e0fc9c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yyyy",new Locale("en")).format($F{warrantyTo})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="414" y="178" width="100" height="13" uuid="c5d9871c-7613-4bf5-9e6e-2040199899d5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grandTotal}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

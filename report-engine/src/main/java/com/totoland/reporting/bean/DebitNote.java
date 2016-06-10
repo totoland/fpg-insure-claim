@@ -45,6 +45,8 @@ public class DebitNote implements Serializable {
     private BigDecimal grandTotal;
     //นายหน้า/ตัวแทน
     private String brokerName;
+    
+    private String companyLogoURL;
 
     public String getTaxNo() {
         return taxNo;
@@ -166,8 +168,16 @@ public class DebitNote implements Serializable {
         this.brokerName = brokerName;
     }
 
+    public String getCompanyLogoURL() {
+        return companyLogoURL;
+    }
+
+    public void setCompanyLogoURL(String companyLogoURL) {
+        this.companyLogoURL = companyLogoURL;
+    }
+
     @Override
     public String toString() {
-        return "DebitNote{" + "taxNo=" + taxNo + ", insuredName=" + insuredName + ", insuredAddress=" + insuredAddress + ", certificationNumber=" + certificationNumber + ", issueDate=" + issueDate + ", premium=" + premium + ", stampDuty=" + stampDuty + ", typeOfPolicy=" + typeOfPolicy + ", total=" + total + ", policyNo=" + policyNo + ", vat=" + vat + ", warrantyFrom=" + warrantyFrom + ", warrantyTo=" + warrantyTo + ", grandTotal=" + grandTotal + ", brokerName=" + brokerName + '}';
+        return "DebitNote{" + "taxNo=" + taxNo + ", insuredName=" + insuredName + ", insuredAddress=" + insuredAddress + ", certificationNumber=" + certificationNumber + ", issueDate=" + issueDate + ", premium=" + premium + ", stampDuty=" + stampDuty + ", typeOfPolicy=" + typeOfPolicy + ", total=" + total + ", policyNo=" + policyNo + ", vat=" + vat + ", warrantyFrom=" + warrantyFrom + ", warrantyTo=" + warrantyTo + ", grandTotal=" + grandTotal + ", brokerName=" + brokerName + ", companyLogoURL=" + companyLogoURL + '}';
     }
 }
