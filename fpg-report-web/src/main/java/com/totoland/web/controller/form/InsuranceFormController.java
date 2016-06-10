@@ -4,6 +4,7 @@ import com.chetty.reporting.beans.CertificationBean;
 import com.totoland.db.bean.ConditionsOfCoverCriteria;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
+import com.totoland.db.entity.ImageCertExport;
 import com.totoland.db.entity.KeyMatch;
 import com.totoland.db.entity.ViewConditionsOfCover;
 import com.totoland.db.entity.ViewUser;
@@ -15,7 +16,6 @@ import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.ConditionsOfCoverService;
-import com.totoland.web.service.GennericService;
 import com.totoland.web.service.KeyMatchService;
 import com.totoland.web.service.UserService;
 import com.totoland.web.servlet.ImageServlet;
@@ -24,8 +24,6 @@ import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.StringUtils;
 import com.totoland.web.utils.WebUtils;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -57,6 +55,7 @@ public class InsuranceFormController extends BaseController {
     private static final String RESOURCES_LOGO = "/resources/images/logo.png";
     private static final String RESOURCES_SIGNATURE1 = "/resources/images/signature/1.png";
     private static final String RESOURCES_SIGNATURE2 = "/resources/images/signature/2.png";
+    private static final String NO_IMAGE = "/resources/images/no_image.jpg";
 
     private static final int AIR = 1;
     private static final int VESSEL = 2;
@@ -77,8 +76,6 @@ public class InsuranceFormController extends BaseController {
 
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
-    @ManagedProperty("#{gennericService}")
-    private GennericService<ClaimInsure> gennericService;
     @ManagedProperty("#{certificateService}")
     private CertificateService certificateService;
     @ManagedProperty("#{keyMatchService}")
@@ -128,6 +125,8 @@ public class InsuranceFormController extends BaseController {
         this.claimInsure.setInsuredName(getUserAuthen().getCompanyName());
         this.claimInsure.setMinimumPremiumRate(new BigDecimal(dropdownFactory.getMinimumPremium()));
 
+        //Init image
+        this.imageUploadURL = NO_IMAGE;
         KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
         this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
     }
@@ -144,6 +143,8 @@ public class InsuranceFormController extends BaseController {
             return;
         }
 
+        this.imageUploadURL = String.format("/certImage?c=%s&n=%s", this.claimInsure.getClaimId(), trxId);
+        LOGGER.debug("imageUploadURL : {}",this.imageUploadURL);
         this.certNumber = this.claimInsure.getCertificationNumber();
 //        this.claimInsure.setExchangeRate(new BigDecimal(dropdownFactory.getCurrentExchangeRate()));
 
@@ -187,7 +188,6 @@ public class InsuranceFormController extends BaseController {
             this.rateScheduleList = dropdownFactory.ddlRateSchedule(this.claimInsure.getPolicyNumber());
         }
         this.readOnly = false;
-        this.imageUploadURL = "/resources/images/no_image.jpg";
         this.clearImgSession();
     }
 
@@ -207,19 +207,22 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("save : {}", this.claimInsure);
 
         try {
-            //save image into database
-//            File file = new File("C:\\mavan-hibernate-image-mysql.gif");
-//            byte[] bFile = new byte[(int) file.length()];
-//
-//            try {
-//                 FileInputStream fileInputStream = new FileInputStream(file);
-//                 //convert file into array of bytes
-//                 fileInputStream.read(bFile);
-//                 fileInputStream.close();
-//            } catch (Exception e) {
-//                 
-//            }
-            gennericService.edit(claimInsure);
+            //save image
+            ImageCertExport certExport = new ImageCertExport();
+
+            try {
+                byte[] imageUploaded = (byte[]) super.getRequest().getSession().getAttribute(ImageServlet.FILE_UPLOADED);
+                String contentType = (String) super.getRequest().getSession().getAttribute(ImageServlet.FILE_CONTENT_TYPE);
+
+                certExport.setImageContent(imageUploaded);
+                certExport.setImageType(contentType);
+                certExport.setImageName(new Date().getTime() + "");
+
+            } catch (Exception ex) {
+                LOGGER.warn("Cannot get image from session!!", ex.getMessage());
+            }
+
+            certificateService.save(this.claimInsure, certExport);
             addInfo(MessageUtils.SAVE_SUCCESS());
             JsfUtil.openDialog("dlgSave");
         } catch (Exception e) {
@@ -238,7 +241,22 @@ public class InsuranceFormController extends BaseController {
         this.claimInsure.setClaimStatusId(state);
         LOGGER.debug("edit : {}", this.claimInsure);
         try {
-            gennericService.edit(claimInsure);
+            //save image
+            ImageCertExport certExport = new ImageCertExport();
+
+            try {
+                byte[] imageUploaded = (byte[]) super.getRequest().getSession().getAttribute(ImageServlet.FILE_UPLOADED);
+                String contentType = (String) super.getRequest().getSession().getAttribute(ImageServlet.FILE_CONTENT_TYPE);
+
+                certExport.setImageContent(imageUploaded);
+                certExport.setImageType(contentType);
+                certExport.setImageName(new Date().getTime() + "");
+
+            } catch (Exception ex) {
+                LOGGER.warn("Cannot get image from session!!", ex.getMessage());
+            }
+
+            certificateService.save(this.claimInsure, certExport);
             addInfo(MessageUtils.SAVE_SUCCESS());
             JsfUtil.openDialog("dlgSave");
         } catch (Exception e) {
@@ -250,7 +268,7 @@ public class InsuranceFormController extends BaseController {
     public void cancel(String trxId) {
         //Discard transaction
         try {
-            gennericService.remove(claimInsure);
+            certificateService.remove(claimInsure);
             addInfo(MessageUtils.DISCARD_SUCCESS());
         } catch (Exception e) {
             LOGGER.error("ERROR for discard with trxId " + trxId, e);
@@ -348,7 +366,7 @@ public class InsuranceFormController extends BaseController {
 
             String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(certRpt));
-            gennericService.edit(this.claimInsure);
+            certificateService.edit(this.claimInsure);
             SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
                     "application/pdf", "CERTIFICATE_" + this.claimInsure.getCertificationNumber() + "_" + dateFormat.format(new Date()) + ".pdf");
@@ -388,7 +406,7 @@ public class InsuranceFormController extends BaseController {
 
             String jrxmlPath = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(debitNote));
-            gennericService.edit(this.claimInsure);
+            certificateService.edit(this.claimInsure);
             SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
                     "application/pdf", "DEBIT_NOTE_" + this.claimInsure.getCertificationNumber() + "_" + dateFormat.format(new Date()) + ".pdf");
@@ -459,7 +477,7 @@ public class InsuranceFormController extends BaseController {
         } catch (Exception ex) {
         }
     }
-    
+
     private DropDownList selectedCommodityType;
 
     public DropDownList getSelectedCommodityType() {
@@ -470,13 +488,13 @@ public class InsuranceFormController extends BaseController {
         this.selectedCommodityType = selectedCommodityType;
     }
 
-    public void onRowselectedCommodityType(SelectEvent event){
+    public void onRowselectedCommodityType(SelectEvent event) {
         //((Car) event.getObject()).getId()
-        LOGGER.debug("selected : {}",selectedCommodityType);
+        LOGGER.debug("selected : {}", selectedCommodityType);
         this.claimInsure.setCommodityTypeCode(selectedCommodityType.getValue());
         this.claimInsure.setCommodityTypeName(selectedCommodityType.getName());
     }
-    
+
     private String findInsureType(String selectedInsureType) {
         for (DropDownList ddl : dropdownFactory.ddlMethodOfTransport()) {
             if (ddl.getValue().equals(selectedInsureType)) {
@@ -619,20 +637,6 @@ public class InsuranceFormController extends BaseController {
 
     public void setRateScheduleList(List<DropDownList> rateScheduleList) {
         this.rateScheduleList = rateScheduleList;
-    }
-
-    /**
-     * @return the gennericService
-     */
-    public GennericService<ClaimInsure> getGennericService() {
-        return gennericService;
-    }
-
-    /**
-     * @param gennericService the gennericService to set
-     */
-    public void setGennericService(GennericService<ClaimInsure> gennericService) {
-        this.gennericService = gennericService;
     }
 
     public CertificateService getCertificateService() {

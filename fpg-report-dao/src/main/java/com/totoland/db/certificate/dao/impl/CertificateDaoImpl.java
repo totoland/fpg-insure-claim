@@ -26,7 +26,7 @@ package com.totoland.db.certificate.dao.impl;
 import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.certificate.dao.CertificateDao;
-import com.totoland.db.dao.BaseDao;
+import com.totoland.db.common.dao.hibernate.GennericDaoImpl;
 import com.totoland.db.entity.ClaimInsure;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +38,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @author totoland
  */
 @Repository
-public class CertificateDaoImpl extends BaseDao implements CertificateDao {
+public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements CertificateDao {
 
+    private static final long serialVersionUID = -2516485566461068565L;
+    
     @Transactional(readOnly = true)
     @Override
     public List<ViewCertificate> findByCriteria(CertifaicationCriteria criteria) {
@@ -59,43 +61,43 @@ public class CertificateDaoImpl extends BaseDao implements CertificateDao {
                 + "INNER JOIN claim_status ON claim_insure.claim_status_id = claim_status.claim_status_id "
                 + "LEFT JOIN insures ON claim_insure.insured_id = insures.insured_id "
                 + "WHERE 1=1  ";
-
+        
         List<Object> params = new ArrayList<>();
         if (criteria.getIssueDateFrom() != null && criteria.getIssueDateTo() != null) {
             SQL += "and (claim_insure.issue_date >= ? and claim_insure.issue_date <= ?) ";
             params.add(criteria.getIssueDateFrom());
             params.add(criteria.getIssueDateTo());
         }
-
+        
         if (criteria.getCertificateNumber() != null && !criteria.getCertificateNumber().isEmpty()) {
             SQL += "and claim_insure.certification_number = ? ";
             params.add(criteria.getCertificateNumber());
         }
-
+        
         if (criteria.getPolicyNumber() != null && !criteria.getPolicyNumber().isEmpty()) {
             SQL += "and claim_insure.policy_number = ? ";
             params.add(criteria.getPolicyNumber());
         }
-
+        
         if (criteria.getInsuredName() != null && !criteria.getInsuredName().isEmpty()) {
             SQL += "and claim_insure.insured_id = ? ";
             params.add(criteria.getInsuredName());
         }
-
+        
         if (criteria.getStatus() != null && !criteria.getStatus().isEmpty()) {
             SQL += "and claim_insure.claim_status_id = ? ";
             params.add(criteria.getStatus());
         }
-
+        
         SQL += " ORDER BY claim_insure.issue_date DESC";
         
-        return findNativeQuery(SQL, ViewCertificate.class,params);
-
+        return findNativeQuery(SQL, ViewCertificate.class, params);
+        
     }
     
     @Transactional(readOnly = true)
     @Override
-    public ClaimInsure findByTrxId(String trxId){
-        return (ClaimInsure)findUniqNativeQuery("SELECT * FROM claim_insure where trx_id = ?", ClaimInsure.class,trxId);
+    public ClaimInsure findByTrxId(String trxId) {
+        return (ClaimInsure) findUniqNativeQuery("SELECT * FROM claim_insure where trx_id = ?", ClaimInsure.class, trxId);
     }
 }

@@ -31,7 +31,9 @@ import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.ProductService;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -87,6 +89,27 @@ public class ProductManagementController extends BaseController {
 
     public void save() {
         try {
+            //Check dupp
+            Map<String,Object>paramsMap = new HashMap<>();
+            paramsMap.put("productName", this.selectedItem.getProductName());
+            
+            List<Product>listProd = service.findByDynamicField(Product.class, paramsMap);
+            if(listProd !=null && !listProd.isEmpty()){
+                LOGGER.debug("Dupplicate product name");
+                addError("Dupplicate product name "+this.selectedItem.getProductName());
+                return;
+            }
+            
+            paramsMap.clear();
+            paramsMap.put("productCode", this.selectedItem.getProductCode());
+            
+            List<Product>listProds = service.findByDynamicField(Product.class, paramsMap);
+            if(listProds !=null && !listProds.isEmpty()){
+                LOGGER.debug("Dupplicate product code");
+                addError("Dupplicate product code "+this.selectedItem.getProductCode());
+                return;
+            }
+            
             service.create(selectedItem);
             LOGGER.debug("save : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());

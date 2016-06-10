@@ -157,12 +157,16 @@ public class DropdownFactory implements Serializable {
 
     public List<DropDownList> ddlProduct() {
 
-        List<DropDownList> insureTypes = new ArrayList<>();
-        insureTypes.add(new DropDownList("Product A", "1"));
-        insureTypes.add(new DropDownList("Product B", "2"));
-        insureTypes.add(new DropDownList("Product B", "3"));
+        List<DropDownList> customers = new ArrayList<>();
+        DropDownList criteria = new DropDownList();
+        criteria.setTableName("product");
+        criteria.setOrderByField("product_name");
+        criteria.setName("product_name");
+        criteria.setValue("product_id");
+        criteria.setSortName("ASC");
 
-        return insureTypes;
+        customers = commonService.getDropdownList(criteria);
+        return customers;
     }
 
     public List<DropDownList> ddlInsureName() {
@@ -352,19 +356,19 @@ public class DropdownFactory implements Serializable {
         List<DropDownList> customers = new ArrayList<>();
         DropDownList criteria = new DropDownList();
         criteria.setTableName("conf");
-        criteria.setOrderByField("conf_name");
         criteria.setName("conf_name");
         criteria.setValue("conf_value");
-        criteria.setSortName("ASC");
-        criteria.setCondition("conf_name = 'exchange_rate'");
+        criteria.setCondition("conf_name like '%exchange_rate%'");
 
         customers = commonService.getDropdownList(criteria);
 
+        System.out.println(customers);
+        
         if (customers != null && !customers.isEmpty()) {
             return customers.get(0).getValue();
         }
 
-        return null;
+        return "0";
     }
     
     public String getMinimumPremium () {

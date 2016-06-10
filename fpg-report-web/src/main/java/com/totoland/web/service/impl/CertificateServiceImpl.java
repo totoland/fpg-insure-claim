@@ -26,22 +26,28 @@ package com.totoland.web.service.impl;
 import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.certificate.dao.CertificateDao;
+import com.totoland.db.certificate.dao.ImageCertDao;
 import com.totoland.db.entity.ClaimInsure;
+import com.totoland.db.entity.ImageCertExport;
 import com.totoland.web.service.CertificateService;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author totoland
  */
 @Service(value = "certificateService")
-public class CertificateServiceImpl implements CertificateService{
+public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> implements CertificateService{
     
     @Autowired
     CertificateDao certificateDao;
+    
+    @Autowired
+    ImageCertDao imageCertDao;
     
     @Override
     public String getCertificateNO(String insureType){
@@ -65,5 +71,13 @@ public class CertificateServiceImpl implements CertificateService{
     @Override
     public ClaimInsure findByTrxId(String trxId){
         return certificateDao.findByTrxId(trxId);
+    }
+
+    @Transactional(rollbackFor = {Throwable.class} )
+    @Override
+    public void save(ClaimInsure claimInsure, ImageCertExport imageCertExport) {
+        certificateDao.edit(claimInsure);
+        imageCertExport.setClaimInsureId(claimInsure.getClaimId());
+        imageCertDao.edit(imageCertExport);
     }
 }

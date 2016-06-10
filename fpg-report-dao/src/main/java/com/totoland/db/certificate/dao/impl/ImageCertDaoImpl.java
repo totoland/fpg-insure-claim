@@ -21,21 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.totoland.db.certificate.dao;
+package com.totoland.db.certificate.dao.impl;
 
-import com.totoland.db.bean.CertifaicationCriteria;
-import com.totoland.db.bean.ViewCertificate;
-import com.totoland.db.common.dao.GennericDao;
-import com.totoland.db.entity.ClaimInsure;
-import java.util.List;
+import com.totoland.db.certificate.dao.ImageCertDao;
+import com.totoland.db.common.dao.hibernate.GennericDaoImpl;
+import com.totoland.db.entity.ImageCertExport;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author totoland
  */
-public interface CertificateDao extends GennericDao<ClaimInsure>{
-
-    List<ViewCertificate> findByCriteria(CertifaicationCriteria criteria);
-
-    ClaimInsure findByTrxId(String trxId);
+@Repository
+public class ImageCertDaoImpl extends GennericDaoImpl<ImageCertExport> implements ImageCertDao{
+    private static final long serialVersionUID = 1905854833465723724L;
+    
 }

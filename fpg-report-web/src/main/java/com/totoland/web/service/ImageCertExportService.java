@@ -21,21 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.totoland.db.certificate.dao;
+package com.totoland.web.service;
 
-import com.totoland.db.bean.CertifaicationCriteria;
-import com.totoland.db.bean.ViewCertificate;
-import com.totoland.db.common.dao.GennericDao;
-import com.totoland.db.entity.ClaimInsure;
-import java.util.List;
+import com.totoland.db.entity.ImageCertExport;
 
 /**
  *
  * @author totoland
  */
-public interface CertificateDao extends GennericDao<ClaimInsure>{
-
-    List<ViewCertificate> findByCriteria(CertifaicationCriteria criteria);
-
-    ClaimInsure findByTrxId(String trxId);
+public interface ImageCertExportService extends GennericService<ImageCertExport>{
+    
 }

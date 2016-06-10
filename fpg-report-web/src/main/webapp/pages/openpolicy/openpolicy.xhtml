@@ -159,7 +159,10 @@ THE SOFTWARE.
                                                      style="width: 400px"
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                     value="#{openPolicyManagementController.selectedItem.openPolicyNo}" maxlength="20"/>
+                                                     value="#{openPolicyManagementController.selectedItem.openPolicyNo}" maxlength="20">
+                                            <p:ajax event="blur" listener="#{openPolicyManagementController.refreshValuation()}"
+                                                    update=":form:dtValuation"/>
+                                        </p:inputText>
                                         <toto:requireLabel id="newOpenPolicyNoMsg" forId=":form:newOpenPolicyNo"/>
                                     </h:panelGroup>
                                     <h:outputLabel value="#{msg.label_product}"/>

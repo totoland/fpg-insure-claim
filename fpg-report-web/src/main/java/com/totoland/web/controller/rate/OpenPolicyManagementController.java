@@ -57,7 +57,7 @@ public class OpenPolicyManagementController extends BaseController {
     @ManagedProperty("#{rateManagementService}")
     private RateManagementService rateManagementService;
     @ManagedProperty("#{gennericService}")
-    private GennericService<Valuation>valuationService;
+    private GennericService<Valuation> valuationService;
 
     private ProductRateCriteria criteria;
     private List<ProductRate> dataSource;
@@ -129,13 +129,13 @@ public class OpenPolicyManagementController extends BaseController {
     }
 
     public void addNewValuation() {
-        
-        if((valueationShortName == null || valueationShortName.trim().isEmpty())
-                || (valueationPerCen == null || valueationPerCen.trim().isEmpty())){
-            addError(":form:msgNewValuation",MessageUtils.REQUIRE_GENERIC());
+
+        if ((valueationShortName == null || valueationShortName.trim().isEmpty())
+                || (valueationPerCen == null || valueationPerCen.trim().isEmpty())) {
+            addError(":form:msgNewValuation", MessageUtils.REQUIRE_GENERIC());
             return;
         }
-        
+
         if (valuations == null) {
             valuations = new ArrayList<>();
         }
@@ -143,7 +143,7 @@ public class OpenPolicyManagementController extends BaseController {
         ValuationBean valuation = new ValuationBean(valueationShortName, valueationPerCen);
 
         if (valuations.contains(valuation)) {
-            addError(":form:msgNewValuation","Found " + valueationShortName + " in list.");
+            addError(":form:msgNewValuation", "Found " + valueationShortName + " in list.");
             return;
         }
 
@@ -153,9 +153,9 @@ public class OpenPolicyManagementController extends BaseController {
     }
 
     public void addEditValuation() {
-        if((valueationShortName == null || valueationShortName.trim().isEmpty())
-                || (valueationPerCen == null || valueationPerCen.trim().isEmpty())){
-            addError(":form:msgEditValuation",MessageUtils.REQUIRE_GENERIC());
+        if ((valueationShortName == null || valueationShortName.trim().isEmpty())
+                || (valueationPerCen == null || valueationPerCen.trim().isEmpty())) {
+            addError(":form:msgEditValuation", MessageUtils.REQUIRE_GENERIC());
             return;
         }
 
@@ -166,7 +166,7 @@ public class OpenPolicyManagementController extends BaseController {
         ValuationBean valuation = new ValuationBean(valueationShortName, valueationPerCen);
 
         if (valuations.contains(valuation)) {
-            addError(":form:msgEditValuation","Found " + valueationShortName + " in list.");
+            addError(":form:msgEditValuation", "Found " + valueationShortName + " in list.");
             return;
         }
 
@@ -174,14 +174,14 @@ public class OpenPolicyManagementController extends BaseController {
 
         JsfUtil.closeDialog("dlgEditValuation");
     }
-    
+
     public void save() {
         try {
-            if(valuations == null || valuations.isEmpty()){
-                addError(":form:gwValuationNew","Please add Valuation");
+            if (valuations == null || valuations.isEmpty()) {
+                addError(":form:gwValuationNew", "Please add Valuation");
                 return;
             }
-            
+
             Map<String, Object> paramsMap = new HashMap<>();
             paramsMap.put("openPolicyNo", selectedItem.getOpenPolicyNo());
             paramsMap.put("productId", selectedItem.getProductId());
@@ -191,15 +191,15 @@ public class OpenPolicyManagementController extends BaseController {
                 addError("newProductRateMsg", MessageUtils.getResourceBundleString("product_rate_ins_dupp"));
                 return;
             }
-            
+
             selectedItem.setValuation(new Gson().toJson(valuations));
 
             Valuation valuation = new Valuation();
             valuation.setValuationData(selectedItem.getValuation());
             valuation.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
-            
-            rateManagementService.createWithValuation(selectedItem,valuation);
-            
+
+            rateManagementService.createWithValuation(selectedItem, valuation);
+
             LOGGER.debug("save : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
             JsfUtil.hidePopup("dlgNewRateMnm");
@@ -212,18 +212,18 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void edit() {
         try {
-            if(valuations == null || valuations.isEmpty()){
-                addError(":form:gwValuationEdit","Please add Valuation");
+            if (valuations == null || valuations.isEmpty()) {
+                addError(":form:gwValuationEdit", "Please add Valuation");
                 return;
             }
             selectedItem.setValuation(new Gson().toJson(valuations));
-            
+
             Valuation valuation = new Valuation();
             valuation.setValuationData(selectedItem.getValuation());
             valuation.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
-            
-            rateManagementService.updateWithValuation(selectedItem,valuation);
-            
+
+            rateManagementService.updateWithValuation(selectedItem, valuation);
+
             LOGGER.debug("edit : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
             JsfUtil.hidePopup("dlgEditRateMnm");
@@ -247,7 +247,19 @@ public class OpenPolicyManagementController extends BaseController {
         }
     }
 
-    public void close() {
+    public void refreshValuation() {
+        this.selectedItem.getOpenPolicyNo();
+        //Find valuation
+        Map<String,Object>paramsMap = new HashMap<>();
+        paramsMap.put("openPolicyNo", selectedItem.getOpenPolicyNo());
+        List<ProductRate> listProdcutRate = rateManagementService.findByDynamicField(ProductRate.class, paramsMap);
+        
+        if(listProdcutRate==null || listProdcutRate.isEmpty()){
+            valuations = null;
+            return;
+        }
+        
+        valuations = toListValuation(listProdcutRate.get(0).getValuation());
     }
 
     @Override

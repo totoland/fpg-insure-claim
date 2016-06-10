@@ -47,6 +47,10 @@
         <servlet-name>ImageServlet</servlet-name>
         <servlet-class>com.totoland.web.servlet.ImageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ImageCertServlet</servlet-name>
+        <servlet-class>com.totoland.web.servlet.ImageCertServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
@@ -99,6 +103,10 @@
     <servlet-mapping>
         <servlet-name>ImageServlet</servlet-name>
         <url-pattern>/image</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImageCertServlet</servlet-name>
+        <url-pattern>/certImage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

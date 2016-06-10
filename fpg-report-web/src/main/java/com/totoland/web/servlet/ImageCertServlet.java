@@ -23,26 +23,52 @@
  */
 package com.totoland.web.servlet;
 
+import com.totoland.db.certificate.dao.ImageCertDao;
+import com.totoland.db.entity.ImageCertExport;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  *
  * @author totoland
  */
-public class ImageServlet extends HttpServlet {
+public class ImageCertServlet extends HttpServlet {
 
-    public static final String FILE_UPLOADED = "fileUpload";
-    public static final String FILE_NAME = "fileName";
-    public static final String FILE_CONTENT_TYPE = "contentType";
-    
+    private static final String PARAM_FILE_NAME = "n";
+    private static final String PARAM_CERT_ID = "c";
+
+    private WebApplicationContext springContext;
+
+    @Autowired
+    ImageCertDao imageCertDao;
+
+    @Override
+    public void init(final ServletConfig config) throws ServletException {
+        super.init(config);
+        springContext
+                = WebApplicationContextUtils.getRequiredWebApplicationContext(config
+                        .getServletContext());
+        final AutowireCapableBeanFactory beanFactory
+                = springContext.getAutowireCapableBeanFactory();
+        beanFactory.autowireBean(this);
+    }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,19 +80,43 @@ public class ImageServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        byte[] imageUploaded = (byte[]) request.getSession().getAttribute(FILE_UPLOADED);
-        String contentType = (String) request.getSession().getAttribute(FILE_CONTENT_TYPE);
-        if (imageUploaded == null) {
+
+        String fileName = request.getParameter(PARAM_FILE_NAME);
+        String certId = request.getParameter(PARAM_CERT_ID);
+
+        if (fileName == null || certId == null) {
+            writeHTML(request, response, "Invalid URL request!!");
             return;
         }
 
-        response.setContentType(contentType);
+        Map<String,Object>map = new HashMap<>();
+        map.put("claimInsureId", certId);
+        List<ImageCertExport> images = imageCertDao.findByDynamicField(ImageCertExport.class,map);
+        if (images == null) {
+            writeHTML(request, response, "Image not found!!");
+            return;
+        }
+        
+        writeImage(request,response,images.get(0));
+
+    }
+
+    private void writeImage(HttpServletRequest request, HttpServletResponse response,
+            ImageCertExport image) throws IOException {
+
+        // sets MIME type for the file download
+        String mimeType = image.getImageType();
+        if (mimeType == null) {
+            mimeType = "application/octet-stream";
+        }
+
+        response.setContentType(mimeType);
         ServletOutputStream out;
         out = response.getOutputStream();
 
-        BufferedInputStream bin = new BufferedInputStream(new ByteArrayInputStream(imageUploaded));
+        BufferedInputStream bin = new BufferedInputStream(new ByteArrayInputStream(image.getImageContent()));
         BufferedOutputStream bout = new BufferedOutputStream(out);
-        int ch = 0;;
+        int ch = 0;
         while ((ch = bin.read()) != -1) {
             bout.write(ch);
         }
@@ -74,6 +124,15 @@ public class ImageServlet extends HttpServlet {
         bin.close();
         bout.close();
         out.close();
+    }
+
+    private void writeHTML(HttpServletRequest request, HttpServletResponse response, String message)
+            throws IOException {
+
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println(message);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -116,4 +175,3 @@ public class ImageServlet extends HttpServlet {
     }// </editor-fold>
 
 }
-

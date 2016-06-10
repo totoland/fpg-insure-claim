@@ -342,7 +342,7 @@
                                 <h:panelGroup>
                                     <p:fileUpload id="imgUpload" fileUploadListener="#{insuranceFormController.handleFileUpload}" 
                                                   mode="advanced" auto="true" dragDropSupport="true"
-                                                  update="form:gimPhoto" sizeLimit="1048576" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                                  update="form:gimPhoto" sizeLimit="102400" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
                                     <p:growl id="upMessages" showDetail="true" />
                                 </h:panelGroup>
                                 <p:graphicImage id="gimPhoto" url="#{insuranceFormController.imageUploadURL}"

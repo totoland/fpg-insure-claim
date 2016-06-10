@@ -18,11 +18,10 @@
 package com.totoland.db.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -43,10 +42,9 @@ public class ImageCertExport implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "image_id")
-    private Integer imageId;
+    @Column(name = "claim_insure_id")
+    private Integer claimInsureId;
     @Lob
     @Column(name = "image_content")
     private byte[] imageContent;
@@ -54,22 +52,8 @@ public class ImageCertExport implements Serializable {
     private String imageName;
     @Column(name = "image_type")
     private String imageType;
-    @Column(name = "claim_insure_id")
-    private Integer claimInsureId;
 
     public ImageCertExport() {
-    }
-
-    public ImageCertExport(Integer imageId) {
-        this.imageId = imageId;
-    }
-
-    public Integer getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(Integer imageId) {
-        this.imageId = imageId;
     }
 
     public byte[] getImageContent() {
@@ -106,19 +90,21 @@ public class ImageCertExport implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (imageId != null ? imageId.hashCode() : 0);
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.claimInsureId);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ImageCertExport)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        ImageCertExport other = (ImageCertExport) object;
-        if ((this.imageId == null && other.imageId != null) || (this.imageId != null && !this.imageId.equals(other.imageId))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ImageCertExport other = (ImageCertExport) obj;
+        if (!Objects.equals(this.claimInsureId, other.claimInsureId)) {
             return false;
         }
         return true;
@@ -126,7 +112,6 @@ public class ImageCertExport implements Serializable {
 
     @Override
     public String toString() {
-        return "com.totoland.db.entity.ImageCertExport[ imageId=" + imageId + " ]";
+        return "ImageCertExport{" + "claimInsureId=" + claimInsureId + ", imageName=" + imageName + ", imageType=" + imageType + '}';
     }
-    
 }
