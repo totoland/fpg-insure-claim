@@ -29,6 +29,7 @@ import com.totoland.db.certificate.dao.CertificateDao;
 import com.totoland.db.certificate.dao.ImageCertDao;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ImageCertExport;
+import com.totoland.db.enums.InsureState;
 import com.totoland.web.service.CertificateService;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -79,5 +80,10 @@ public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> imp
         certificateDao.edit(claimInsure);
         imageCertExport.setClaimInsureId(claimInsure.getClaimId());
         imageCertDao.edit(imageCertExport);
+    }
+    
+    @Override
+    public void updateStateCertNo(ClaimInsure claimInsure){
+        certificateDao.updateStateCertNo(claimInsure);
     }
 }

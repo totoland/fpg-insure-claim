@@ -9,6 +9,7 @@ import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ImageCertExport;
+import com.totoland.db.enums.InsureState;
 import java.util.List;
 
 /**
@@ -24,4 +25,6 @@ public interface CertificateService extends GennericService<ClaimInsure>{
     ClaimInsure findByTrxId(String trxId);
     
     void save(ClaimInsure claimInsure,ImageCertExport imageCertExport);
+    
+    void updateStateCertNo(ClaimInsure claimInsure);
 }

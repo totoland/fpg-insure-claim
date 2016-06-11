@@ -33,9 +33,11 @@ import java.util.List;
  *
  * @author totoland
  */
-public interface CertificateDao extends GennericDao<ClaimInsure>{
+public interface CertificateDao extends GennericDao<ClaimInsure> {
 
     List<ViewCertificate> findByCriteria(CertifaicationCriteria criteria);
 
     ClaimInsure findByTrxId(String trxId);
+
+    void updateStateCertNo(ClaimInsure claimInsure);
 }

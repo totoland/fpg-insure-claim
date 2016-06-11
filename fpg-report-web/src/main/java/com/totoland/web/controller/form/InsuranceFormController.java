@@ -318,9 +318,8 @@ public class InsuranceFormController extends BaseController {
             try {
                 LOGGER.debug("createCertificateNumber...");
 
-                if (this.claimInsure.getCertificationNumber() == null) {
-                    createCertificateNumber();
-                }
+                createCertificateNumber();
+                certificateService.updateStateCertNo(this.claimInsure);
 
             } catch (Exception ex) {
                 LOGGER.error("Fail when create createCertificateNumber : ", ex);
@@ -332,7 +331,6 @@ public class InsuranceFormController extends BaseController {
 
             CertificationBean certRpt = new CertificationBean();
             //Init data for print Certificate
-            ViewUser userData = userService.findByUserId(this.claimInsure.getInsuredId());
             certRpt.setNameOfAssured(this.claimInsure.getInsuredName());
             certRpt.setVesselAirline(this.claimInsure.getConveyanceName());
             certRpt.setReferenceNumber(this.claimInsure.getInvoiceNumber());
@@ -347,7 +345,7 @@ public class InsuranceFormController extends BaseController {
             certRpt.setTo(findCountryName(this.claimInsure.getDestinationCountryCode()));
             certRpt.setCurrencyType(this.claimInsure.getCurrencyType());
             certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription());
-            
+
             certRpt.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
             certRpt.setSignature1URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE1);
             certRpt.setSignature2URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE2);
@@ -376,7 +374,7 @@ public class InsuranceFormController extends BaseController {
 
                 String subject = listCondition.get(0).getSbujectMatterInsered();
                 String detail = "";
-                    
+
                 if (AIR == this.claimInsure.getMethodOfTransportId()) {
                     detail = listCondition.get(0).getClausesAir();
                 } else if (VESSEL == this.claimInsure.getMethodOfTransportId()) {
@@ -393,7 +391,6 @@ public class InsuranceFormController extends BaseController {
 
             String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(certRpt));
-            certificateService.edit(this.claimInsure);
             SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
                     "application/pdf", "CERTIFICATE_" + this.claimInsure.getCertificationNumber() + "_" + dateFormat.format(new Date()) + ".pdf");
@@ -476,11 +473,11 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("Rate  : {}", this.claimInsure.getRate());
         LOGGER.debug("amountOfInsurance  : {}", this.claimInsure.getAmountOfInsurance());
 
-        if(this.claimInsure.getValuation() == null || this.claimInsure.getValuation().isEmpty()){
+        if (this.claimInsure.getValuation() == null || this.claimInsure.getValuation().isEmpty()) {
             this.claimInsure.setAmountOfInsurance(null);
             this.claimInsure.setInsuredValue(null);
         }
-        
+
         if (this.claimInsure.getInsuredValue() == null || this.claimInsure.getRate() == null || this.claimInsure.getRate().intValue() == 0) {
             this.claimInsure.setPremiumRate(null);
             return;
