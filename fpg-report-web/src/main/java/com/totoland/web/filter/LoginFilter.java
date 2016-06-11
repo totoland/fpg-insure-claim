@@ -110,7 +110,6 @@ public class LoginFilter implements Filter {
 
         if (authenticated != null) {
             //Check permission
-            System.out.println("Check permission");
             if (!isCanAccessPage(req.getRequestURI().replaceFirst(req.getContextPath(), ""), authenticated)) {
                 System.out.println("permission fail");
                 res.sendRedirect(accessDenied);

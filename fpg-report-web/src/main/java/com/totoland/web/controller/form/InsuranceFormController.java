@@ -7,6 +7,7 @@ import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ImageCertExport;
 import com.totoland.db.entity.KeyMatch;
 import com.totoland.db.entity.Surveyors;
+import com.totoland.db.entity.Valuation;
 import com.totoland.db.entity.ViewConditionsOfCover;
 import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.CertificateType;
@@ -17,6 +18,7 @@ import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.ConditionsOfCoverService;
+import com.totoland.web.service.GennericService;
 import com.totoland.web.service.KeyMatchService;
 import com.totoland.web.service.SurveyorService;
 import com.totoland.web.service.UserService;
@@ -30,7 +32,9 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -88,6 +92,8 @@ public class InsuranceFormController extends BaseController {
     private ConditionsOfCoverService conditionsOfCoverService;
     @ManagedProperty("#{surveyorService}")
     private SurveyorService surveyorService;
+    @ManagedProperty("#{gennericService}")
+    private GennericService<Valuation> valuationService;
 
     private Date issueDate;
     private boolean readOnly;
@@ -149,7 +155,7 @@ public class InsuranceFormController extends BaseController {
         }
 
         this.imageUploadURL = String.format("/certImage?c=%s&n=%s", this.claimInsure.getClaimId(), trxId);
-        LOGGER.debug("imageUploadURL : {}",this.imageUploadURL);
+        LOGGER.debug("imageUploadURL : {}", this.imageUploadURL);
         this.certNumber = this.claimInsure.getCertificationNumber();
 //        this.claimInsure.setExchangeRate(new BigDecimal(dropdownFactory.getCurrentExchangeRate()));
 
@@ -340,42 +346,43 @@ public class InsuranceFormController extends BaseController {
             certRpt.setFrom(findCountryName(this.claimInsure.getOriginCountryCode()));
             certRpt.setTo(findCountryName(this.claimInsure.getDestinationCountryCode()));
             certRpt.setCurrencyType(this.claimInsure.getCurrencyType());
-
+            certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription());
+            
             certRpt.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
             certRpt.setSignature1URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE1);
             certRpt.setSignature2URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE2);
-            
+
             Surveyors surveyor = surveyorService.findById(this.claimInsure.getClaimSurveyorId());
-            LOGGER.debug("surveyor : {}",surveyor);
-            
-            if(surveyor!=null){
+            LOGGER.debug("surveyor : {}", surveyor);
+
+            if (surveyor != null) {
                 certRpt.setSurveyorCompany(surveyor.getCompany());
                 certRpt.setSurveyorAddress(surveyor.getAddress());
                 certRpt.setSurveyorTel(surveyor.getTel1());
                 certRpt.setSurveyorFax(surveyor.getFax1());
                 certRpt.setContactName(surveyor.getContactName());
             }
-            
-            if(this.imageUploadURL!=null && !this.imageUploadURL.equals(NO_IMAGE)){
-                certRpt.setCertImageURL(JsfUtil.getFullURI()+this.imageUploadURL);
+
+            if (this.imageUploadURL != null && !this.imageUploadURL.equals(NO_IMAGE)) {
+                certRpt.setCertImageURL(JsfUtil.getFullURI() + this.imageUploadURL);
             }
-            
+
             //Init ConditionOfCover for print Certificate
-            List<ViewConditionsOfCover> listCondition = conditionsOfCoverService.findByCriteria(new ConditionsOfCoverCriteria(this.claimInsure.getPolicyNumber()));
+            Map<String, Object> params = new HashMap<>();
+            params.put("openPolicyNo", this.claimInsure.getPolicyNumber());
+
+            List<Valuation> listCondition = valuationService.findByDynamicField(Valuation.class, params);
             if (listCondition != null && !listCondition.isEmpty()) {
 
-                String subject = "";
+                String subject = listCondition.get(0).getSbujectMatterInsered();
                 String detail = "";
-
+                    
                 if (AIR == this.claimInsure.getMethodOfTransportId()) {
-                    subject = listCondition.get(0).getAirSubject();
-                    detail = listCondition.get(0).getAirConditions();
+                    detail = listCondition.get(0).getClausesAir();
                 } else if (VESSEL == this.claimInsure.getMethodOfTransportId()) {
-                    subject = listCondition.get(0).getVesselSubject();
-                    detail = listCondition.get(0).getVesselConditions();
+                    detail = listCondition.get(0).getClausesVessel();
                 } else if (TRUCK == this.claimInsure.getMethodOfTransportId()) {
-                    subject = listCondition.get(0).getTruckSubject();
-                    detail = listCondition.get(0).getTruckConditions();
+                    detail = listCondition.get(0).getClausesTruck();
                 }
 
                 certRpt.setSubject(subject);
@@ -469,6 +476,11 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("Rate  : {}", this.claimInsure.getRate());
         LOGGER.debug("amountOfInsurance  : {}", this.claimInsure.getAmountOfInsurance());
 
+        if(this.claimInsure.getValuation() == null || this.claimInsure.getValuation().isEmpty()){
+            this.claimInsure.setAmountOfInsurance(null);
+            this.claimInsure.setInsuredValue(null);
+        }
+        
         if (this.claimInsure.getInsuredValue() == null || this.claimInsure.getRate() == null || this.claimInsure.getRate().intValue() == 0) {
             this.claimInsure.setPremiumRate(null);
             return;
@@ -706,5 +718,13 @@ public class InsuranceFormController extends BaseController {
 
     public void setSurveyorService(SurveyorService surveyorService) {
         this.surveyorService = surveyorService;
+    }
+
+    public GennericService<Valuation> getValuationService() {
+        return valuationService;
+    }
+
+    public void setValuationService(GennericService<Valuation> valuationService) {
+        this.valuationService = valuationService;
     }
 }

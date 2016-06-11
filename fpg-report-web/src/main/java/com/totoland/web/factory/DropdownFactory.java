@@ -409,12 +409,11 @@ public class DropdownFactory implements Serializable {
         DropDownList criteria = new DropDownList();
         criteria.setTableName("valuation");
         criteria.setOrderByField("valuation_id");
-        criteria.setName("valuation_id");
+        criteria.setName("'-'");
         criteria.setValue("valuation_data");
         criteria.setCondition("open_policy_no = '" + openPolicyNo + "'");
 
         List<DropDownList> ddl = commonService.getDropdownList(criteria);
-
         if (ddl != null && !ddl.isEmpty()) {
             List<ValuationBean> beans = new Gson().fromJson(ddl.get(0).getValue(), new TypeToken<List<ValuationBean>>() {
             }.getType());

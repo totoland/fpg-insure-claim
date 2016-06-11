@@ -56,6 +56,23 @@ public class Valuation implements Serializable {
     @Column(name = "valuation_data")
     private String valuationData;
 
+    @Column(name = "broker_name")
+    private String brokerName;
+    @Column(name = "valuation_id")
+    private Integer valuationId;
+    @Lob
+    @Column(name = "clauses_air")
+    private String clausesAir;
+    @Lob
+    @Column(name = "clauses_vessel")
+    private String clausesVessel;
+    @Lob
+    @Column(name = "clauses_truck")
+    private String clausesTruck;
+    @Lob
+    @Column(name = "sbuject_matter_insered")
+    private String sbujectMatterInsered;
+
     public Valuation() {
     }
 
@@ -73,6 +90,14 @@ public class Valuation implements Serializable {
 
     public void setOpenPolicyNo(String openPolicyNo) {
         this.openPolicyNo = openPolicyNo;
+    }
+
+    public String getBrokerName() {
+        return brokerName;
+    }
+
+    public void setBrokerName(String brokerName) {
+        this.brokerName = brokerName;
     }
 
     @Override
@@ -97,8 +122,48 @@ public class Valuation implements Serializable {
         return true;
     }
 
+    public Integer getValuationId() {
+        return valuationId;
+    }
+
+    public void setValuationId(Integer valuationId) {
+        this.valuationId = valuationId;
+    }
+
+    public String getClausesAir() {
+        return clausesAir;
+    }
+
+    public void setClausesAir(String clausesAir) {
+        this.clausesAir = clausesAir;
+    }
+
+    public String getClausesVessel() {
+        return clausesVessel;
+    }
+
+    public void setClausesVessel(String clausesVessel) {
+        this.clausesVessel = clausesVessel;
+    }
+
+    public String getClausesTruck() {
+        return clausesTruck;
+    }
+
+    public void setClausesTruck(String clausesTruck) {
+        this.clausesTruck = clausesTruck;
+    }
+
+    public String getSbujectMatterInsered() {
+        return sbujectMatterInsered;
+    }
+
+    public void setSbujectMatterInsered(String sbujectMatterInsered) {
+        this.sbujectMatterInsered = sbujectMatterInsered;
+    }
+
     @Override
     public String toString() {
-        return "Valuation{" + "openPolicyNo=" + openPolicyNo + ", valuationData=" + valuationData + '}';
+        return "Valuation{" + "openPolicyNo=" + openPolicyNo + ", valuationData=" + valuationData + ", brokerName=" + brokerName + '}';
     }
 }

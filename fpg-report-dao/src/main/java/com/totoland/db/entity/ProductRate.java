@@ -35,6 +35,7 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -80,6 +81,8 @@ public class ProductRate implements Serializable {
     @Lob
     @Column(name = "broker_name")
     private String brokerName;
+    @Transient
+    private String subjectMatterInsured;
 
     public ProductRate() {
     }
@@ -201,6 +204,14 @@ public class ProductRate implements Serializable {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getSubjectMatterInsured() {
+        return subjectMatterInsured;
+    }
+
+    public void setSubjectMatterInsured(String subjectMatterInsured) {
+        this.subjectMatterInsured = subjectMatterInsured;
     }
 
     @Override

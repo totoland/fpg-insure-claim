@@ -161,7 +161,7 @@ THE SOFTWARE.
                                                      requiredMessage="#{msg.require_generic}"
                                                      value="#{openPolicyManagementController.selectedItem.openPolicyNo}" maxlength="20">
                                             <p:ajax event="blur" listener="#{openPolicyManagementController.refreshValuation()}"
-                                                    update=":form:dtValuation"/>
+                                                    update=":form:pnNewRateMnm"/>
                                         </p:inputText>
                                         <toto:requireLabel id="newOpenPolicyNoMsg" forId=":form:newOpenPolicyNo"/>
                                     </h:panelGroup>
@@ -190,6 +190,12 @@ THE SOFTWARE.
                                         <toto:requireLabel id="popupNewMsg" forId=":form:newProductRate"/>
                                     </h:panelGroup>
 
+                                    <h:outputLabel value="#{msg.label_subject_matter}"/>
+                                    <h:panelGroup>
+                                        <p:inputTextarea maxlength="2048" rows="3" style="width: 400px"
+                                                         value="#{openPolicyManagementController.selectedItem.subjectMatterInsured}"/>
+                                    </h:panelGroup>
+                                    
                                     <h:outputLabel value="#{msg.label_clauses_air}"/>
                                     <h:panelGroup>
                                         <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
@@ -332,6 +338,12 @@ THE SOFTWARE.
                                         <toto:requireLabel id="popupEditMsg" forId=":form:EditProductRate"/>
                                     </h:panelGroup>
 
+                                    <h:outputLabel value="#{msg.label_subject_matter}"/>
+                                    <h:panelGroup>
+                                        <p:inputTextarea maxlength="2048" rows="3" style="width: 400px"
+                                                         value="#{openPolicyManagementController.selectedItem.subjectMatterInsured}"/>
+                                    </h:panelGroup>
+                                    
                                     <h:outputLabel value="#{msg.label_clauses_air}"/>
                                     <h:panelGroup>
                                         <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"

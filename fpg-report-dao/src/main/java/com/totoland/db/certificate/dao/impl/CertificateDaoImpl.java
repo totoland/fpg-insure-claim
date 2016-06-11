@@ -100,4 +100,6 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
     public ClaimInsure findByTrxId(String trxId) {
         return (ClaimInsure) findUniqNativeQuery("SELECT * FROM claim_insure where trx_id = ?", ClaimInsure.class, trxId);
     }
+    
+    
 }
