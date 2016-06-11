@@ -29,6 +29,7 @@ import com.totoland.web.utils.StringUtils;
 import com.totoland.web.utils.WebUtils;
 import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -227,6 +228,7 @@ public class InsuranceFormController extends BaseController {
                 certExport.setImageContent(imageUploaded);
                 certExport.setImageType(contentType);
                 certExport.setImageName(new Date().getTime() + "");
+                certExport.setClaimInsureId(this.claimInsure.getInsuredId());
 
             } catch (Exception ex) {
                 LOGGER.warn("Cannot get image from session!!", ex.getMessage());
@@ -415,20 +417,40 @@ public class InsuranceFormController extends BaseController {
             debitNote.setCertificationNumber(this.claimInsure.getCertificationNumber());
             debitNote.setIssueDate(this.claimInsure.getIssueDate());
             debitNote.setPremium(this.claimInsure.getPremiumRate());
+            debitNote.setInsuredValue(this.claimInsure.getInsuredValue()+"");
             //Premium rate * 0.4%
             debitNote.setStampDuty(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate(),
                     new BigDecimal(0.4)), new BigDecimal(100)));
+            
+            if(this.claimInsure.getOriginCountryCode().equals("TH")){
+                //ถ้าเป็น export premium * 0.04 ถ้า 1-5 บวก x+1 ถ้านอกเหนื่อ +6
+                if(debitNote.getStampDuty().doubleValue()>=0 && debitNote.getStampDuty().doubleValue()<=5){
+                    LOGGER.debug("Added 1 to StampDuty");
+                    debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(BigInteger.ONE)));
+                }else{
+                    LOGGER.debug("Added 6 to StampDuty");
+                    debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(5)));
+                }
+            }
             //Premium + StampDuty
             debitNote.setTotal(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()));
+            
+            LOGGER.debug("debitNote.getTotal : {}",debitNote.getTotal());
+            
             //Vat = Premium + Stamp * 7%
             debitNote.setVat(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()),
                     new BigDecimal(7)), new BigDecimal(100)));
+            
+            if(this.claimInsure.getOriginCountryCode().equals("TH")){
+                debitNote.setVat(BigDecimal.ZERO);
+            }
+            
             debitNote.setGrandTotal(debitNote.getTotal().add(debitNote.getVat()));
             debitNote.setTypeOfPolicy(dropdownFactory.ddlConf().get("type_of_policy"));
             debitNote.setPolicyNo(this.claimInsure.getPolicyNumber());
             debitNote.setWarrantyFrom(this.claimInsure.getShipmentDate());
             debitNote.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
-
+            
             String jrxmlPath = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(debitNote));
             certificateService.edit(this.claimInsure);
@@ -478,26 +500,29 @@ public class InsuranceFormController extends BaseController {
             this.claimInsure.setInsuredValue(null);
         }
 
-        if (this.claimInsure.getInsuredValue() == null || this.claimInsure.getRate() == null || this.claimInsure.getRate().intValue() == 0) {
+        if (this.claimInsure.getInsuredValue() == null || this.claimInsure.getRate() == null || this.claimInsure.getRate() == null) {
             this.claimInsure.setPremiumRate(null);
             return;
         }
         BigDecimal mul = this.claimInsure.getInsuredValue().multiply(this.claimInsure.getRate());
-        this.claimInsure.setPremiumRate(mul);
+        this.claimInsure.setPremiumRate(mul.divide(new BigDecimal("100")));
+        this.claimInsure.setPremiumRate(this.claimInsure.getPremiumRate().setScale(0, BigDecimal.ROUND_HALF_UP));
+        LOGGER.debug("this.claimInsure.setPremiumRate : "+this.claimInsure.getPremiumRate());
     }
 
     public void calAmountOfInsurance() {
         //var amountOfIns = ((inv) * valuat) / 100;
         try {
             if (this.claimInsure.getInvoiceValue() != null && this.claimInsure.getValuation() != null) {
-                this.claimInsure.setAmountOfInsurance((this.claimInsure.getInvoiceValue().multiply(new BigDecimal(this.claimInsure.getValuation()))).divide(new BigDecimal(100)));
+                this.claimInsure.setAmountOfInsurance((this.claimInsure.getInvoiceValue().multiply(
+                        new BigDecimal(this.claimInsure.getValuation()).add(new BigDecimal(100)))).divide(new BigDecimal(100)));
             }
         } catch (Exception ex) {
         }
 
         try {
             if (this.claimInsure.getAmountOfInsurance() != null && this.claimInsure.getExchangeRate() != null) {
-                this.claimInsure.setInsuredValue(this.claimInsure.getAmountOfInsurance().multiply(this.claimInsure.getExchangeRate()));
+                this.claimInsure.setInsuredValue(this.claimInsure.getAmountOfInsurance().multiply(this.claimInsure.getExchangeRate()).setScale(0, BigDecimal.ROUND_HALF_UP));
             }
         } catch (Exception ex) {
         }

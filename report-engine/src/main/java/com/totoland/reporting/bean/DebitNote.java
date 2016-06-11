@@ -21,6 +21,7 @@ public class DebitNote implements Serializable {
     private String taxNo;
     //ชื่อและที่อยู่ผู้เอาประกัน
     private String insuredName;
+    private String insuredValue;
     private String insuredAddress;
     //เลขที่ No.
     private String certificationNumber;
@@ -45,7 +46,7 @@ public class DebitNote implements Serializable {
     private BigDecimal grandTotal;
     //นายหน้า/ตัวแทน
     private String brokerName;
-    
+
     private String companyLogoURL;
 
     public String getTaxNo() {
@@ -176,8 +177,16 @@ public class DebitNote implements Serializable {
         this.companyLogoURL = companyLogoURL;
     }
 
+    public String getInsuredValue() {
+        return insuredValue;
+    }
+
+    public void setInsuredValue(String insuredValue) {
+        this.insuredValue = insuredValue;
+    }
+
     @Override
     public String toString() {
-        return "DebitNote{" + "taxNo=" + taxNo + ", insuredName=" + insuredName + ", insuredAddress=" + insuredAddress + ", certificationNumber=" + certificationNumber + ", issueDate=" + issueDate + ", premium=" + premium + ", stampDuty=" + stampDuty + ", typeOfPolicy=" + typeOfPolicy + ", total=" + total + ", policyNo=" + policyNo + ", vat=" + vat + ", warrantyFrom=" + warrantyFrom + ", warrantyTo=" + warrantyTo + ", grandTotal=" + grandTotal + ", brokerName=" + brokerName + ", companyLogoURL=" + companyLogoURL + '}';
+        return "DebitNote{" + "taxNo=" + taxNo + ", insuredName=" + insuredName + ", insuredValue=" + insuredValue + ", insuredAddress=" + insuredAddress + ", certificationNumber=" + certificationNumber + ", issueDate=" + issueDate + ", premium=" + premium + ", stampDuty=" + stampDuty + ", typeOfPolicy=" + typeOfPolicy + ", total=" + total + ", policyNo=" + policyNo + ", vat=" + vat + ", warrantyFrom=" + warrantyFrom + ", warrantyTo=" + warrantyTo + ", grandTotal=" + grandTotal + ", brokerName=" + brokerName + ", companyLogoURL=" + companyLogoURL + '}';
     }
 }

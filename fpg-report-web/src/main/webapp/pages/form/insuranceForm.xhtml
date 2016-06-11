@@ -25,16 +25,16 @@
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             <p:commandButton value="#{msg.option_truck}" icon="fa fa-cab" styleClass="Fright PurpleButton FloatNoneOnMobile" 
                                              update="selectInsureType , lbCertNumber , selectInsureType2"
-                                             rendered="#{!insuranceFormController.readOnly}"
+                                             rendered="false"
                                              process="@this"
                                              action="#{insuranceFormController.selectInsureType(3)}"/>
                             <p:commandButton value="#{msg.option_vessel}" icon="fa fa-ship" styleClass="Fright GreenButton FloatNoneOnMobile" 
-                                             rendered="#{!insuranceFormController.readOnly}"
+                                             rendered="false"
                                              update="selectInsureType , lbCertNumber , selectInsureType2" 
                                              process="@this"
                                              action="#{insuranceFormController.selectInsureType(2)}"/>
                             <p:commandButton value="#{msg.option_air}" icon="fa fa-plane" styleClass="Fright FloatNoneOnMobile" 
-                                             rendered="#{!insuranceFormController.readOnly}"
+                                             rendered="false"
                                              process="@this"
                                              update="selectInsureType , lbCertNumber , selectInsureType2" 
                                              action="#{insuranceFormController.selectInsureType(1)}"/> 
@@ -146,10 +146,10 @@
                                 <h:outputLabel value="#{msg.label_exchange_rate}"/>
                                 <pe:inputNumber id="exchangeRate" value="#{insuranceFormController.claimInsure.exchangeRate}" disabled="true"/>
 
-                                <h:outputLabel value="Insured Value" title="* exchange rate"/>
+                                <h:outputLabel value="Insured Value (THB)" title="* exchange rate"/>
                                 <pe:inputNumber id="localAmountOfInsurance" disabled="true"
                                                 value="#{insuranceFormController.claimInsure.insuredValue}"
-                                                decimalPlaces="2"/>
+                                                decimalPlaces="0" roundMethod="U" maxValue="99999999999"/>
 
                                 <h:outputLabel value=""/>
                                 <h:outputLabel value=""/>
@@ -268,6 +268,7 @@
                                 <h:outputLabel value="#{msg.label_issue_date}"/>
                                 <h:panelGroup>
                                     <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}" readonlyInput="true"
+                                                readonly="true"
                                                 value="#{insuranceFormController.claimInsure.issueDate}">
                                         <p:ajax event="dateSelect" update=":form:shipmentDate :form:upMessages" />
                                     </p:calendar>
@@ -297,7 +298,7 @@
                                 <p:inputTextarea value="#{insuranceFormController.claimInsure.commodityDescription}"/>
 
                                 <h:outputLabel value="#{msg.label_marks_and_numbers}"/>
-                                <p:inputText value="#{insuranceFormController.claimInsure.marksAndNumbers}"/>
+                                <p:inputTextarea value="#{insuranceFormController.claimInsure.marksAndNumbers}"/>
 
                                 <h:outputLabel value="#{msg.label_coverage_type}"/>
                                 <h:panelGroup>
@@ -340,7 +341,7 @@
                                 <h:outputLabel value="#{msg.label_claim_payable_at}"/>
                                 <h:outputLabel value="#{msg.fpg_company_name}"/>
 
-                                <h:outputLabel value="File upload"/>
+                                <h:outputLabel value="Shiping Marks upload"/>
                                 <h:panelGroup>
                                     <p:fileUpload id="imgUpload" fileUploadListener="#{insuranceFormController.handleFileUpload}" 
                                                   mode="advanced" auto="true" dragDropSupport="true"
@@ -421,7 +422,7 @@
                                         <f:convertNumber pattern="###,###" type="currency"/>
                                     </h:outputLabel>
                                 </p:column>
-                                <p:column headerText="#{msg.label_local_amount_of_insurance}">
+                                <p:column headerText="Insured Value (THB)">
                                     <h:outputLabel value="#{insuranceFormController.claimInsure.insuredValue}">
                                         <f:convertNumber pattern="###,###" type="currency"/>
                                     </h:outputLabel>
@@ -435,7 +436,6 @@
                                 </p:column>
                                 <p:column headerText="#{msg.label_premium}">
                                     <pe:inputNumber id="premiumRate" value="#{insuranceFormController.claimInsure.premiumRate}"
-                                                    decimalPlaces="2"
                                                     required="true"
                                                     requiredMessage="#{msg.require_generic}"/>
                                 </p:column>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFPG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03c5575f-761a-4e21-ae7f-ce00d78a7c53">
-	<property name="ireport.zoom" value="1.7715610000000053"/>
+	<property name="ireport.zoom" value="1.331000000000004"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="nameOfAssured" class="java.lang.String"/>
@@ -70,7 +70,7 @@
 				<text><![CDATA[Policy No.]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="2" y="51" width="53" height="20" uuid="b714c2cd-bf83-4b91-a781-cfe76c6a7b27"/>
+				<reportElement x="2" y="51" width="157" height="20" uuid="b714c2cd-bf83-4b91-a781-cfe76c6a7b27"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="12" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -81,7 +81,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="12" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{policyNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{certificationNumber}]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="2" y="0" width="152" height="51" uuid="224f31ca-39fe-4e04-b545-28569b0c55e1"/>
@@ -169,25 +169,19 @@
 				<text><![CDATA[by]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="107" y="414" width="19" height="13" uuid="39b7fb69-3366-4056-89be-fb7af31dea3f"/>
+				<reportElement x="24" y="414" width="19" height="13" uuid="39b7fb69-3366-4056-89be-fb7af31dea3f"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="TH SarabunPSK" size="11" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[TEL: 	]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="432" width="553" height="13" uuid="c341a314-6632-4482-a535-8b393d9f64e3"/>
+				<reportElement x="2" y="432" width="553" height="36" uuid="c341a314-6632-4482-a535-8b393d9f64e3"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="TH SarabunPSK" size="11" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[In the event of loss or damage which may involve a claim this insurance, so claim will be admitted unless]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="2" y="445" width="553" height="13" uuid="afe6136f-bb3f-4072-bc79-e058f96e7fbb"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="TH SarabunPSK" size="11" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[In the event of loss or damage which may involve a claim this insurance, so claim will be admitted unless immediate notice for survey has been
+given to and a survey report obtained from or with the approval of:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="208" y="493" width="83" height="13" uuid="e5c05387-30b8-4368-957f-426a53025797"/>
@@ -197,11 +191,11 @@
 				<text><![CDATA[SAME AS ABOVE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="523" width="408" height="13" uuid="a7e4b9ae-61d2-4c79-b619-c1fece7f7b0a"/>
+				<reportElement x="2" y="520" width="408" height="16" uuid="a7e4b9ae-61d2-4c79-b619-c1fece7f7b0a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="11" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[In case where there is no Agents, the ]]></text>
+				<text><![CDATA[In case where there is no Agents, the Lloyd's Agents must be applied for.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="38" y="547" width="28" height="13" uuid="4ef75926-0eb6-42dc-9ab4-9b234fa267dc"/>
@@ -222,7 +216,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="11" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[ประกันรายนี้ Direct Business (89285)]]></text>
+				<text><![CDATA[ประกันรายนี้ ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="373" y="547" width="52" height="13" uuid="0e246454-c55a-4b5d-98de-4c92b99efd0f"/>
@@ -281,21 +275,14 @@
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Float.valueOf($F{amountInsuredHereunder}))]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="2" y="119" width="206" height="50" uuid="659f0f3e-97b8-4f32-8df1-bd28e5c34be9"/>
+				<reportElement x="1" y="120" width="240" height="113" uuid="659f0f3e-97b8-4f32-8df1-bd28e5c34be9"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{subject}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="208" y="120" width="115" height="114" uuid="ad555e95-1eae-4c1a-801b-06d3bd8dc1bc"/>
-				<textElement textAlignment="Center">
-					<font fontName="TH SarabunPSK" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="325" y="119" width="217" height="114" uuid="4cb5f43b-ba74-4432-a7c6-0e2361008d21"/>
+				<reportElement x="279" y="119" width="263" height="114" uuid="4cb5f43b-ba74-4432-a7c6-0e2361008d21"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="11"/>
 				</textElement>
@@ -386,35 +373,35 @@
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="107" y="386" width="411" height="13" uuid="997e31da-c400-41f7-955a-dd7f9645141c"/>
+				<reportElement x="24" y="387" width="494" height="17" uuid="997e31da-c400-41f7-955a-dd7f9645141c"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{surveyorAddress}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="107" y="373" width="411" height="13" uuid="ef6cefa7-35a8-4a8b-a288-4b9592f3aceb"/>
+				<reportElement x="24" y="373" width="494" height="13" uuid="ef6cefa7-35a8-4a8b-a288-4b9592f3aceb"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{surveyorCompany}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="126" y="414" width="97" height="13" uuid="d173722d-dec4-428e-8cb1-dd77b6144686"/>
+				<reportElement x="45" y="414" width="97" height="13" uuid="d173722d-dec4-428e-8cb1-dd77b6144686"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{surveyorTel}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="223" y="414" width="19" height="13" uuid="d89617c1-fb7f-4efa-9fda-86712a8fdc01"/>
+				<reportElement x="154" y="414" width="19" height="13" uuid="d89617c1-fb7f-4efa-9fda-86712a8fdc01"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="TH SarabunPSK" size="11" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[FAX: 	]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="241" y="414" width="97" height="13" uuid="35e8c250-a2a7-4fcf-ae30-59bfc11d9373"/>
+				<reportElement x="173" y="414" width="97" height="13" uuid="35e8c250-a2a7-4fcf-ae30-59bfc11d9373"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="11"/>
 				</textElement>
@@ -428,7 +415,7 @@
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yyyy",new Locale("en")).format($F{issueDate})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="2" y="247" width="540" height="99" isRemoveLineWhenBlank="true" uuid="465a196f-1297-45d0-bd3f-4b11bd2cfcfd"/>
+				<reportElement x="2" y="247" width="239" height="99" isRemoveLineWhenBlank="true" uuid="465a196f-1297-45d0-bd3f-4b11bd2cfcfd"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="11"/>
 				</textElement>
@@ -460,10 +447,6 @@
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<image>
-				<reportElement x="2" y="169" width="174" height="51" uuid="719b61a3-e022-49dc-af10-9930c91aecfe"/>
-				<imageExpression><![CDATA[$F{certImageURL}]]></imageExpression>
-			</image>
 			<textField isBlankWhenNull="true">
 				<reportElement x="142" y="77" width="17" height="13" uuid="45c05d23-fb2b-4b3a-a38d-e4df1f52ec52"/>
 				<textElement verticalAlignment="Middle">
@@ -495,11 +478,11 @@
 				<text><![CDATA[Authorized Signature]]></text>
 			</staticText>
 			<image>
-				<reportElement x="242" y="9" width="118" height="31" uuid="1fc19ea9-d878-4ae5-8ac8-443a0611a42a"/>
+				<reportElement x="45" y="9" width="118" height="31" uuid="1fc19ea9-d878-4ae5-8ac8-443a0611a42a"/>
 				<imageExpression><![CDATA[$F{signature1URL}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="425" y="9" width="118" height="31" uuid="8d50515a-71b9-44d7-9948-f1ca99681aa1"/>
+				<reportElement x="223" y="9" width="118" height="31" uuid="8d50515a-71b9-44d7-9948-f1ca99681aa1"/>
 				<imageExpression><![CDATA[$F{signature2URL}]]></imageExpression>
 			</image>
 		</band>

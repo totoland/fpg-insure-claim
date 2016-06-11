@@ -273,8 +273,8 @@ public class DropdownFactory implements Serializable {
         List<DropDownList> customers = new ArrayList<>();
         DropDownList criteria = new DropDownList();
         criteria.setTableName("surveyors");
-        criteria.setOrderByField("contactName");
-        criteria.setName("CONCAT(Country ,'---', contactName)");
+        criteria.setOrderByField("CONCAT(Country ,'---', Location)");
+        criteria.setName("CONCAT(Country ,'---', Location)");
         criteria.setValue("surveyor_id");
         criteria.setSortName("ASC");
 
@@ -419,7 +419,7 @@ public class DropdownFactory implements Serializable {
             }.getType());
 
             for (ValuationBean bean : beans) {
-                resList.add(new DropDownList(bean.getName() + " - " + bean.getPercen() + "%", bean.getPercen()));
+                resList.add(new DropDownList(bean.getName() + " + " + bean.getPercen() + "%", bean.getPercen()));
             }
         }
 
