@@ -8,28 +8,28 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 package com.totoland.web.controller.rate;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.totoland.db.bean.ProductRateCriteria;
+import com.totoland.db.bean.OpenPolicyCriteria;
 import com.totoland.db.bean.ValuationBean;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ConditionsOfCover;
 import com.totoland.db.entity.ProductRate;
-import com.totoland.db.entity.Valuation;
+import com.totoland.db.entity.OpenPolicy;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.ConditionsOfCoverService;
 import com.totoland.web.service.GennericService;
-import com.totoland.web.service.RateManagementService;
+import com.totoland.web.service.OpenPolicyService;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
 import java.util.ArrayList;
@@ -52,19 +52,20 @@ import org.slf4j.LoggerFactory;
 public class OpenPolicyManagementController extends BaseController {
 
     private static final long serialVersionUID = 4696958820488830897L;
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenPolicyManagementController.class);
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(OpenPolicyManagementController.class);
 
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
-    @ManagedProperty("#{rateManagementService}")
-    private RateManagementService rateManagementService;
     @ManagedProperty("#{gennericService}")
-    private GennericService<Valuation> valuationService;
+    private GennericService<OpenPolicy> valuationService;
     @ManagedProperty("#{conditionsOfCoverService}")
     private ConditionsOfCoverService conditionsOfCoverService;
+    @ManagedProperty("#{openPolicyService}")
+    private OpenPolicyService openPolicyService;
 
-    private ProductRateCriteria criteria;
-    private List<ProductRate> dataSource;
+    private OpenPolicyCriteria criteria;
+    private List<OpenPolicy> dataSource;
 
     private List<DropDownList> ddlCustomer;
     private List<DropDownList> ddlProduct;
@@ -82,7 +83,7 @@ public class OpenPolicyManagementController extends BaseController {
         LOGGER.debug("init...");
         this.ddlCustomer = dropdownFactory.ddlCustomer();
         this.ddlProduct = dropdownFactory.ddlProduct();
-        this.criteria = new ProductRateCriteria(null, null);
+        this.criteria = new OpenPolicyCriteria(null, null);
         this.selectedItem = new ProductRate();
         this.dataSource = null;
         this.valuations = null;
@@ -92,7 +93,7 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void search() {
         LOGGER.debug("search with : {}", getCriteria());
-        dataSource = rateManagementService.findByCriteria(getCriteria());
+        dataSource = openPolicyService.findByCriteria(getCriteria());
     }
 
     public void initCreate() {
@@ -103,13 +104,13 @@ public class OpenPolicyManagementController extends BaseController {
         this.brokerName = null;
     }
 
-    public void initEdit(ProductRate viewItem) {
-        this.selectedItem = viewItem;
+    public void initEdit(OpenPolicy viewItem) {
+        this.selectedItem.setOpenPolicyNo(viewItem.getOpenPolicyNo());
 
         Map<String, Object> params = new HashMap<>();
         params.put("openPolicyNo", viewItem.getOpenPolicyNo());
 
-        List<Valuation> list = valuationService.findByDynamicField(Valuation.class, params);
+        List<OpenPolicy> list = valuationService.findByDynamicField(OpenPolicy.class, params);
 
         if (list != null && !list.isEmpty()) {
             valuations = toListValuation(list.get(0).getValuationData());
@@ -117,7 +118,6 @@ public class OpenPolicyManagementController extends BaseController {
             this.selectedItem.setClausesAir(list.get(0).getClausesAir());
             this.selectedItem.setClausesTruck(list.get(0).getClausesTruck());
             this.selectedItem.setClausesVessel(list.get(0).getClausesVessel());
-            this.selectedItem.setSubjectMatterInsured(list.get(0).getSbujectMatterInsered());
         } else {
             valuations = null;
         }
@@ -130,8 +130,8 @@ public class OpenPolicyManagementController extends BaseController {
         }
 
         try {
-            return new Gson().fromJson(valuation, new TypeToken<List<ValuationBean>>() {
-            }.getType());
+            return new Gson().fromJson(valuation,
+                    new TypeToken<List<ValuationBean>>() {}.getType());
         } catch (Exception ex) {
             LOGGER.error("Cannot parse to json", ex);
             return null;
@@ -206,28 +206,27 @@ public class OpenPolicyManagementController extends BaseController {
                 return;
             }
 
-            Map<String, Object> paramsMap = new HashMap<>();
-            paramsMap.put("openPolicyNo", selectedItem.getOpenPolicyNo());
-            paramsMap.put("productId", selectedItem.getProductId());
-            List<ProductRate> listProdcutRate = rateManagementService.findByDynamicField(ProductRate.class, paramsMap);
+            List<OpenPolicy> listProdcutRate =
+                    openPolicyService.findByCriteria(new OpenPolicyCriteria(
+                            selectedItem.getProductId(), selectedItem.getOpenPolicyNo()));
 
             if (listProdcutRate != null && !listProdcutRate.isEmpty()) {
-                addError("newProductRateMsg", MessageUtils.getResourceBundleString("product_rate_ins_dupp"));
+                addError("newProductRateMsg",
+                        MessageUtils.getResourceBundleString("product_rate_ins_dupp"));
                 return;
             }
 
             selectedItem.setValuation(new Gson().toJson(valuations));
 
-            Valuation valuation = new Valuation();
-            valuation.setValuationData(selectedItem.getValuation());
-            valuation.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
-            valuation.setBrokerName(selectedItem.getBrokerName());
-            valuation.setClausesAir(selectedItem.getClausesAir());
-            valuation.setClausesTruck(selectedItem.getClausesTruck());
-            valuation.setClausesVessel(selectedItem.getClausesVessel());
-            valuation.setSbujectMatterInsered(selectedItem.getSubjectMatterInsured());
+            OpenPolicy open = new OpenPolicy();
+            open.setValuationData(selectedItem.getValuation());
+            open.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
+            open.setBrokerName(selectedItem.getBrokerName());
+            open.setClausesAir(selectedItem.getClausesAir());
+            open.setClausesTruck(selectedItem.getClausesTruck());
+            open.setClausesVessel(selectedItem.getClausesVessel());
 
-            rateManagementService.createWithValuation(selectedItem, valuation);
+            openPolicyService.edit(open);
 
             LOGGER.debug("save : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
@@ -247,16 +246,15 @@ public class OpenPolicyManagementController extends BaseController {
             }
             selectedItem.setValuation(new Gson().toJson(valuations));
 
-            Valuation valuation = new Valuation();
-            valuation.setValuationData(selectedItem.getValuation());
-            valuation.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
-            valuation.setBrokerName(selectedItem.getBrokerName());
-            valuation.setClausesAir(selectedItem.getClausesAir());
-            valuation.setClausesTruck(selectedItem.getClausesTruck());
-            valuation.setClausesVessel(selectedItem.getClausesVessel());
-            valuation.setSbujectMatterInsered(selectedItem.getSubjectMatterInsured());
+            OpenPolicy open = new OpenPolicy();
+            open.setValuationData(selectedItem.getValuation());
+            open.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
+            open.setBrokerName(selectedItem.getBrokerName());
+            open.setClausesAir(selectedItem.getClausesAir());
+            open.setClausesTruck(selectedItem.getClausesTruck());
+            open.setClausesVessel(selectedItem.getClausesVessel());
 
-            rateManagementService.updateWithValuation(selectedItem, valuation);
+            openPolicyService.edit(open);
 
             LOGGER.debug("edit : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
@@ -268,22 +266,20 @@ public class OpenPolicyManagementController extends BaseController {
         }
     }
 
-    public void delete(ProductRate viewItem) {
+    public void delete(OpenPolicy viewItem) {
         try {
-            this.selectedItem = new ProductRate(viewItem.getProductRateId(),
-                    viewItem.getProductRate(), viewItem.getCustomerId(), viewItem.getProductId());
-            rateManagementService.remove(selectedItem);
 
-            Valuation valuation = new Valuation();
-            valuation.setValuationData(selectedItem.getValuation());
-            valuation.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
-            valuation.setBrokerName(selectedItem.getBrokerName());
-            valuation.setClausesAir(selectedItem.getClausesAir());
-            valuation.setClausesTruck(selectedItem.getClausesTruck());
-            valuation.setClausesVessel(selectedItem.getClausesVessel());
-            valuation.setSbujectMatterInsered(selectedItem.getSubjectMatterInsured());
+            openPolicyService.remove(viewItem);
 
-            valuationService.remove(valuation);
+            OpenPolicy open = new OpenPolicy();
+            open.setValuationData(selectedItem.getValuation());
+            open.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
+            open.setBrokerName(selectedItem.getBrokerName());
+            open.setClausesAir(selectedItem.getClausesAir());
+            open.setClausesTruck(selectedItem.getClausesTruck());
+            open.setClausesVessel(selectedItem.getClausesVessel());
+
+            valuationService.remove(open);
 
             addInfo(MessageUtils.DELETE_SUCCESS());
             search();
@@ -295,30 +291,20 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void refreshValuation() {
         this.selectedItem.getOpenPolicyNo();
-        //Find valuation
-        Map<String, Object> paramsMap = new HashMap<>();
-        paramsMap.put("openPolicyNo", selectedItem.getOpenPolicyNo());
-        List<ProductRate> listProdcutRate = rateManagementService.findByDynamicField(ProductRate.class, paramsMap);
+
+        // Find valuation
+        List<OpenPolicy> listProdcutRate = openPolicyService
+                .findByCriteria(new OpenPolicyCriteria(null, selectedItem.getOpenPolicyNo()));
 
         if (listProdcutRate == null || listProdcutRate.isEmpty()) {
             valuations = null;
-        } else {
-            valuations = toListValuation(listProdcutRate.get(0).getValuation());
-        }
-
-        //Condition of cover
-        Map<String, Object> params = new HashMap<>();
-        params.put("openPolicyNo", selectedItem.getOpenPolicyNo());
-
-        List<Valuation> listCondition = valuationService.findByDynamicField(Valuation.class, params);
-        if (listCondition == null || listCondition.isEmpty()) {
             conditionsOfCover = new ConditionsOfCover();
         } else {
-            this.selectedItem.setBrokerName(listCondition.get(0).getBrokerName());
-            this.selectedItem.setClausesAir(listCondition.get(0).getClausesAir());
-            this.selectedItem.setClausesTruck(listCondition.get(0).getClausesTruck());
-            this.selectedItem.setClausesVessel(listCondition.get(0).getClausesVessel());
-            this.selectedItem.setSubjectMatterInsured(listCondition.get(0).getSbujectMatterInsered());
+            valuations = toListValuation(listProdcutRate.get(0).getValuationData());
+            this.selectedItem.setBrokerName(listProdcutRate.get(0).getBrokerName());
+            this.selectedItem.setClausesAir(listProdcutRate.get(0).getClausesAir());
+            this.selectedItem.setClausesTruck(listProdcutRate.get(0).getClausesTruck());
+            this.selectedItem.setClausesVessel(listProdcutRate.get(0).getClausesVessel());
         }
     }
 
@@ -352,27 +338,19 @@ public class OpenPolicyManagementController extends BaseController {
         this.ddlProduct = ddlProduct;
     }
 
-    public RateManagementService getRateManagementService() {
-        return rateManagementService;
-    }
-
-    public void setRateManagementService(RateManagementService rateManagementService) {
-        this.rateManagementService = rateManagementService;
-    }
-
-    public ProductRateCriteria getCriteria() {
+    public OpenPolicyCriteria getCriteria() {
         return criteria;
     }
 
-    public void setCriteria(ProductRateCriteria criteria) {
+    public void setCriteria(OpenPolicyCriteria criteria) {
         this.criteria = criteria;
     }
 
-    public List<ProductRate> getDataSource() {
+    public List<OpenPolicy> getDataSource() {
         return dataSource;
     }
 
-    public void setDataSource(List<ProductRate> dataSource) {
+    public void setDataSource(List<OpenPolicy> dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -408,11 +386,11 @@ public class OpenPolicyManagementController extends BaseController {
         this.valuations = valuations;
     }
 
-    public GennericService<Valuation> getValuationService() {
+    public GennericService<OpenPolicy> getValuationService() {
         return valuationService;
     }
 
-    public void setValuationService(GennericService<Valuation> valuationService) {
+    public void setValuationService(GennericService<OpenPolicy> valuationService) {
         this.valuationService = valuationService;
     }
 
@@ -438,5 +416,13 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void setBrokerName(String brokerName) {
         this.brokerName = brokerName;
+    }
+
+    public OpenPolicyService getOpenPolicyService() {
+        return openPolicyService;
+    }
+
+    public void setOpenPolicyService(OpenPolicyService openPolicyService) {
+        this.openPolicyService = openPolicyService;
     }
 }

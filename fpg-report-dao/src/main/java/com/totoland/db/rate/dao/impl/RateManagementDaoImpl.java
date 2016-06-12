@@ -23,7 +23,7 @@
  */
 package com.totoland.db.rate.dao.impl;
 
-import com.totoland.db.bean.ProductRateCriteria;
+import com.totoland.db.bean.OpenPolicyCriteria;
 import com.totoland.db.common.dao.hibernate.GennericDaoImpl;
 import com.totoland.db.entity.ProductRate;
 import com.totoland.db.entity.ViewProductRate;
@@ -45,7 +45,7 @@ public class RateManagementDaoImpl extends GennericDaoImpl<ProductRate> implemen
 
     @Transactional(readOnly = true)
     @Override
-    public List<ProductRate> findByCriteria(ProductRateCriteria criteria) {
+    public List<ProductRate> findByCriteria(OpenPolicyCriteria criteria) {
         String SQL = "SELECT product.product_name, product_rate.* FROM product_rate inner join product on product.product_id = product_rate.product_id WHERE 1=1 ";
 
         List<Object> params = new ArrayList<>();
@@ -64,7 +64,7 @@ public class RateManagementDaoImpl extends GennericDaoImpl<ProductRate> implemen
 
     @Transactional(readOnly = true)
     @Override
-    public List<ViewProductRate> findDetailByCriteria(ProductRateCriteria criteria) {
+    public List<ViewProductRate> findDetailByCriteria(OpenPolicyCriteria criteria) {
         String SQL = "SELECT "
                 + "product_rate.product_rate_id, "
                 + "product_rate.product_rate, "
@@ -79,10 +79,6 @@ public class RateManagementDaoImpl extends GennericDaoImpl<ProductRate> implemen
 
         List<Object> params = new ArrayList<>();
 
-        if (!StringUtils.isEmpty(criteria.getCustomerId())) {
-            SQL += "and product_rate.customer_id = ? ";
-            params.add(criteria.getCustomerId());
-        }
         if (!StringUtils.isEmpty(criteria.getProductId())) {
             SQL += "and product_rate.product_id = ? ";
             params.add(criteria.getProductId());

@@ -23,10 +23,10 @@
  */
 package com.totoland.web.service.impl;
 
-import com.totoland.db.bean.ProductRateCriteria;
+import com.totoland.db.bean.OpenPolicyCriteria;
 import com.totoland.db.common.dao.GennericDao;
 import com.totoland.db.entity.ProductRate;
-import com.totoland.db.entity.Valuation;
+import com.totoland.db.entity.OpenPolicy;
 import com.totoland.db.entity.ViewProductRate;
 import com.totoland.db.rate.dao.RateManagementDao;
 import com.totoland.web.service.RateManagementService;
@@ -46,28 +46,28 @@ public class RateManagementServiceImpl extends GennericServiceImpl<ProductRate> 
     RateManagementDao dao;
     
     @Autowired
-    GennericDao<Valuation>gennericDao;
+    GennericDao<OpenPolicy>gennericDao;
 
     @Override
-    public List<ProductRate> findByCriteria(ProductRateCriteria criteria) {
+    public List<ProductRate> findByCriteria(OpenPolicyCriteria criteria) {
         return dao.findByCriteria(criteria);
     }
 
     @Override
-    public List<ViewProductRate> findDetailByCriteria(ProductRateCriteria criteria) {
+    public List<ViewProductRate> findDetailByCriteria(OpenPolicyCriteria criteria) {
         return dao.findDetailByCriteria(criteria);
     }
 
     @Transactional(rollbackFor = {Throwable.class})
     @Override
-    public void createWithValuation(ProductRate rate, Valuation valuation) {
+    public void createWithValuation(ProductRate rate, OpenPolicy valuation) {
         dao.create(rate);
         gennericDao.edit(valuation);
     }
     
     @Transactional(rollbackFor = {Throwable.class})
     @Override
-    public void updateWithValuation(ProductRate rate, Valuation valuation) {
+    public void updateWithValuation(ProductRate rate, OpenPolicy valuation) {
         dao.edit(rate);
         gennericDao.edit(valuation);
     }

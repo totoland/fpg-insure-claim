@@ -23,7 +23,7 @@
  */
 package com.totoland.db.rate.dao;
 
-import com.totoland.db.bean.ProductRateCriteria;
+import com.totoland.db.bean.OpenPolicyCriteria;
 import com.totoland.db.common.dao.GennericDao;
 import com.totoland.db.entity.ProductRate;
 import com.totoland.db.entity.ViewProductRate;
@@ -35,6 +35,6 @@ import java.util.List;
  */
 public interface RateManagementDao extends GennericDao<ProductRate>{
 
-    List<ProductRate> findByCriteria(ProductRateCriteria criteria);
-    List<ViewProductRate> findDetailByCriteria(ProductRateCriteria criteria);
+    List<ProductRate> findByCriteria(OpenPolicyCriteria criteria);
+    List<ViewProductRate> findDetailByCriteria(OpenPolicyCriteria criteria);
 }

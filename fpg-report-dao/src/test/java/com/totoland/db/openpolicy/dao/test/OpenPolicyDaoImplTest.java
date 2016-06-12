@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package com.totoland.db.openpolicy.dao.test;
 
-package com.totoland.test;
-
-import com.totoland.web.factory.DropdownFactory;
+import com.totoland.db.bean.OpenPolicyCriteria;
+import com.totoland.db.entity.OpenPolicy;
+import com.totoland.db.openpolicy.dao.OpenPolicyDao;
+import java.util.List;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +23,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
     "classpath:spring/config/BeanLocations.xml"
-    })
-public class App {
-    
+})
+public class OpenPolicyDaoImplTest {
+
     @Autowired
-    DropdownFactory dropdownFactory;
-    
+    OpenPolicyDao openPolicyDao;
+
     @Test
-    public void test(){
-        
+    public void testQueryByCriteria() {
+        //ABC-345345534
+        List<OpenPolicy> list = openPolicyDao.findByCriteria(new OpenPolicyCriteria(null, null));
+        System.out.println("list : "+list);
+        Assert.assertTrue(true);
     }
-    
+
 }

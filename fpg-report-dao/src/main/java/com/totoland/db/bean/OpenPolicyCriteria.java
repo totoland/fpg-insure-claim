@@ -29,32 +29,23 @@ import java.io.Serializable;
  *
  * @author totoland
  */
-public class ProductRateCriteria implements Serializable {
-    
+public class OpenPolicyCriteria implements Serializable {
+
     public static final long serialVersionUID = 1L;
-    
-    private String customerId;
-    private String productId;
+
+    private Integer productId;
     private String openPolicyNo;
 
-    public ProductRateCriteria(String productId,String openPolicyNo) {
+    public OpenPolicyCriteria(Integer productId, String openPolicyNo) {
         this.productId = productId;
         this.openPolicyNo = openPolicyNo;
     }
 
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
@@ -68,6 +59,6 @@ public class ProductRateCriteria implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductRateCriteria{" + "customerId=" + customerId + ", productId=" + productId + ", openPolicyNo=" + openPolicyNo + '}';
+        return "OpenPolicyCriteria{" + "productId=" + productId + ", openPolicyNo=" + openPolicyNo + '}';
     }
 }

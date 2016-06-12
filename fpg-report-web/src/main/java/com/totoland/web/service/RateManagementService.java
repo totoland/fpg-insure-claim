@@ -23,9 +23,9 @@
  */
 package com.totoland.web.service;
 
-import com.totoland.db.bean.ProductRateCriteria;
+import com.totoland.db.bean.OpenPolicyCriteria;
 import com.totoland.db.entity.ProductRate;
-import com.totoland.db.entity.Valuation;
+import com.totoland.db.entity.OpenPolicy;
 import com.totoland.db.entity.ViewProductRate;
 import java.util.List;
 
@@ -35,8 +35,8 @@ import java.util.List;
  */
 public interface RateManagementService extends GennericService<ProductRate> {
 
-    List<ProductRate> findByCriteria(ProductRateCriteria criteria);
-    List<ViewProductRate> findDetailByCriteria(ProductRateCriteria criteria);
-    void createWithValuation(ProductRate rate, Valuation valuation);
-    void updateWithValuation(ProductRate rate, Valuation valuation);
+    List<ProductRate> findByCriteria(OpenPolicyCriteria criteria);
+    List<ViewProductRate> findDetailByCriteria(OpenPolicyCriteria criteria);
+    void createWithValuation(ProductRate rate, OpenPolicy valuation);
+    void updateWithValuation(ProductRate rate, OpenPolicy valuation);
 }

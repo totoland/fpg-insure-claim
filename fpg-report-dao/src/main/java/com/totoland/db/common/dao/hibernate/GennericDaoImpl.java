@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,7 +48,9 @@ public class GennericDaoImpl<T> extends BaseDao implements GennericDao<T>, Seria
     @Override
     @Transactional
     public T find(Long id, Class<T> entityClass) {
-        return getHibernateTemplate().load(entityClass, id);
+        T t = getHibernateTemplate().load(entityClass, id);
+        Hibernate.initialize(t);
+        return t;
     }
 
     @Override

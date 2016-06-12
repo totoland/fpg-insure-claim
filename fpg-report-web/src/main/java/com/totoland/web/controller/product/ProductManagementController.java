@@ -23,7 +23,7 @@
  */
 package com.totoland.web.controller.product;
 
-import com.totoland.db.bean.ProductRateCriteria;
+import com.totoland.db.bean.OpenPolicyCriteria;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.Product;
 import com.totoland.web.controller.BaseController;
@@ -58,7 +58,7 @@ public class ProductManagementController extends BaseController {
     @ManagedProperty("#{productService}")
     private ProductService service;
 
-    private ProductRateCriteria criteria;
+    private OpenPolicyCriteria criteria;
     private List<Product> dataSource;
 
     private List<DropDownList> ddlProduct;
@@ -68,13 +68,13 @@ public class ProductManagementController extends BaseController {
     public void init() {
         LOGGER.debug("init...");
         this.ddlProduct = dropdownFactory.ddlProduct();
-        this.criteria = new ProductRateCriteria(null, null);
+        this.criteria = new OpenPolicyCriteria(null, null);
         this.selectedItem = new Product();
         this.dataSource = null;
     }
 
     public void search() {
-        dataSource = service.findById(getCriteria().getProductId());
+        dataSource = service.findById(String.valueOf(getCriteria().getProductId()));
     }
 
     public void initCreate() {
@@ -90,26 +90,26 @@ public class ProductManagementController extends BaseController {
     public void save() {
         try {
             //Check dupp
-            Map<String,Object>paramsMap = new HashMap<>();
+            Map<String, Object> paramsMap = new HashMap<>();
             paramsMap.put("productName", this.selectedItem.getProductName());
-            
-            List<Product>listProd = service.findByDynamicField(Product.class, paramsMap);
-            if(listProd !=null && !listProd.isEmpty()){
+
+            List<Product> listProd = service.findByDynamicField(Product.class, paramsMap);
+            if (listProd != null && !listProd.isEmpty()) {
                 LOGGER.debug("Dupplicate product name");
-                addError("Dupplicate product name "+this.selectedItem.getProductName());
+                addError("Dupplicate product name " + this.selectedItem.getProductName());
                 return;
             }
-            
+
             paramsMap.clear();
             paramsMap.put("productCode", this.selectedItem.getProductCode());
-            
-            List<Product>listProds = service.findByDynamicField(Product.class, paramsMap);
-            if(listProds !=null && !listProds.isEmpty()){
+
+            List<Product> listProds = service.findByDynamicField(Product.class, paramsMap);
+            if (listProds != null && !listProds.isEmpty()) {
                 LOGGER.debug("Dupplicate product code");
-                addError("Dupplicate product code "+this.selectedItem.getProductCode());
+                addError("Dupplicate product code " + this.selectedItem.getProductCode());
                 return;
             }
-            
+
             service.create(selectedItem);
             LOGGER.debug("save : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
@@ -133,8 +133,8 @@ public class ProductManagementController extends BaseController {
             addError(MessageUtils.SAVE_NOT_SUCCESS());
         }
     }
-    
-    public void delete(Product selectedItem){
+
+    public void delete(Product selectedItem) {
         try {
             service.remove(selectedItem);
             addInfo(MessageUtils.DELETE_SUCCESS());
@@ -161,7 +161,7 @@ public class ProductManagementController extends BaseController {
     public void setDropdownFactory(DropdownFactory dropdownFactory) {
         this.dropdownFactory = dropdownFactory;
     }
-    
+
     public List<DropDownList> getDdlProduct() {
         return ddlProduct;
     }
@@ -178,11 +178,11 @@ public class ProductManagementController extends BaseController {
         this.service = service;
     }
 
-    public ProductRateCriteria getCriteria() {
+    public OpenPolicyCriteria getCriteria() {
         return criteria;
     }
 
-    public void setCriteria(ProductRateCriteria criteria) {
+    public void setCriteria(OpenPolicyCriteria criteria) {
         this.criteria = criteria;
     }
 

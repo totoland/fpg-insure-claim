@@ -30,8 +30,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -40,11 +38,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author totoland
  */
 @Entity
-@Table(name = "valuation")
+@Table(name = "open_policy")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Valuation.findAll", query = "SELECT v FROM Valuation v")})
-public class Valuation implements Serializable {
+public class OpenPolicy implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,13 +49,16 @@ public class Valuation implements Serializable {
     private String openPolicyNo;
 
     @Lob
+    @Column(name = "product_rate_data")
+    private String productRateDate;
+
+    @Lob
     @Column(name = "valuation_data")
     private String valuationData;
 
     @Column(name = "broker_name")
     private String brokerName;
-    @Column(name = "valuation_id")
-    private Integer valuationId;
+
     @Lob
     @Column(name = "clauses_air")
     private String clausesAir;
@@ -69,11 +68,8 @@ public class Valuation implements Serializable {
     @Lob
     @Column(name = "clauses_truck")
     private String clausesTruck;
-    @Lob
-    @Column(name = "sbuject_matter_insered")
-    private String sbujectMatterInsered;
 
-    public Valuation() {
+    public OpenPolicy() {
     }
 
     public String getValuationData() {
@@ -115,19 +111,11 @@ public class Valuation implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Valuation other = (Valuation) obj;
+        final OpenPolicy other = (OpenPolicy) obj;
         if (!Objects.equals(this.openPolicyNo, other.openPolicyNo)) {
             return false;
         }
         return true;
-    }
-
-    public Integer getValuationId() {
-        return valuationId;
-    }
-
-    public void setValuationId(Integer valuationId) {
-        this.valuationId = valuationId;
     }
 
     public String getClausesAir() {
@@ -154,16 +142,16 @@ public class Valuation implements Serializable {
         this.clausesTruck = clausesTruck;
     }
 
-    public String getSbujectMatterInsered() {
-        return sbujectMatterInsered;
+    public String getProductRateDate() {
+        return productRateDate;
     }
 
-    public void setSbujectMatterInsered(String sbujectMatterInsered) {
-        this.sbujectMatterInsered = sbujectMatterInsered;
+    public void setProductRateDate(String productRateDate) {
+        this.productRateDate = productRateDate;
     }
 
     @Override
     public String toString() {
-        return "Valuation{" + "openPolicyNo=" + openPolicyNo + ", valuationData=" + valuationData + ", brokerName=" + brokerName + '}';
+        return "OpenPolicy{" + "openPolicyNo=" + openPolicyNo + ", productRateDate=" + productRateDate + ", valuationData=" + valuationData + ", brokerName=" + brokerName + ", clausesAir=" + clausesAir + ", clausesVessel=" + clausesVessel + ", clausesTruck=" + clausesTruck + '}';
     }
 }

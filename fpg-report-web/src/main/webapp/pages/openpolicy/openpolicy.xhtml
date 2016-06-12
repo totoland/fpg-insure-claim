@@ -73,14 +73,6 @@ THE SOFTWARE.
                                     <h:outputLabel value="#{msg.label_Policy_number}"/>
                                     <p:inputText id="criteria_openPolicyNo" value="#{openPolicyManagementController.criteria.openPolicyNo}" maxlength="20"/>
 
-                                    <h:outputLabel value="#{msg.label_product}"/>
-                                    <p:selectOneMenu id="criteria_productId" styleClass="selectOne115" value="#{openPolicyManagementController.criteria.productId}">
-                                        <f:selectItem itemLabel="" itemValue=""/>
-                                        <f:selectItems value="#{openPolicyManagementController.ddlProduct}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
-
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
                                         <p:commandButton value="#{msg.panel_search}" action="#{openPolicyManagementController.search()}"
@@ -112,12 +104,6 @@ THE SOFTWARE.
                         </f:facet>
                         <p:column headerText="#{msg.label_Policy_number}" sortBy="#{item.openPolicyNo}" footerText="#{msg.label_Policy_number}">
                             <h:outputText value="#{item.openPolicyNo}" />
-                        </p:column>    
-                        <p:column headerText="#{msg.label_product}" sortBy="#{item.productName}" footerText="#{msg.label_product}">
-                            <h:outputText value="#{item.productName}" />
-                        </p:column>
-                        <p:column headerText="#{msg.label_rate}" sortBy="#{item.productRate}" footerText="#{msg.label_rate}">
-                            <h:outputText value="#{item.productRate}" />
                         </p:column>
                         <p:column>
                             <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" 

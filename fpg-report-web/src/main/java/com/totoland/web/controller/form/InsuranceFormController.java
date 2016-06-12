@@ -7,7 +7,7 @@ import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ImageCertExport;
 import com.totoland.db.entity.KeyMatch;
 import com.totoland.db.entity.Surveyors;
-import com.totoland.db.entity.Valuation;
+import com.totoland.db.entity.OpenPolicy;
 import com.totoland.db.entity.ViewConditionsOfCover;
 import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.CertificateType;
@@ -94,7 +94,7 @@ public class InsuranceFormController extends BaseController {
     @ManagedProperty("#{surveyorService}")
     private SurveyorService surveyorService;
     @ManagedProperty("#{gennericService}")
-    private GennericService<Valuation> valuationService;
+    private GennericService<OpenPolicy> valuationService;
 
     private Date issueDate;
     private boolean readOnly;
@@ -371,7 +371,7 @@ public class InsuranceFormController extends BaseController {
             Map<String, Object> params = new HashMap<>();
             params.put("openPolicyNo", this.claimInsure.getPolicyNumber());
 
-            List<Valuation> listCondition = valuationService.findByDynamicField(Valuation.class, params);
+            List<OpenPolicy> listCondition = valuationService.findByDynamicField(OpenPolicy.class, params);
             if (listCondition != null && !listCondition.isEmpty()) {
 
                 String subject = listCondition.get(0).getSbujectMatterInsered();
@@ -742,11 +742,11 @@ public class InsuranceFormController extends BaseController {
         this.surveyorService = surveyorService;
     }
 
-    public GennericService<Valuation> getValuationService() {
+    public GennericService<OpenPolicy> getValuationService() {
         return valuationService;
     }
 
-    public void setValuationService(GennericService<Valuation> valuationService) {
+    public void setValuationService(GennericService<OpenPolicy> valuationService) {
         this.valuationService = valuationService;
     }
 }
