@@ -71,7 +71,7 @@ THE SOFTWARE.
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
                                     <h:outputLabel value="#{msg.label_Policy_number}"/>
-                                    <p:inputText id="criteria_openPolicyNo" value="#{openPolicyManagementController.criteria.openPolicyNo}" maxlength="20"/>
+                                    <p:inputText id="criteria_openPolicyNo" value="#{openPolicyManagementController.criteria.openPolicyNo}" maxlength="30" size="30"/>
 
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
@@ -145,43 +145,43 @@ THE SOFTWARE.
                                                      style="width: 400px"
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                     value="#{openPolicyManagementController.selectedItem.openPolicyNo}" maxlength="20">
-                                            <p:ajax event="blur" listener="#{openPolicyManagementController.refreshValuation()}"
-                                                    update=":form:pnNewRateMnm"/>
+                                                     value="#{openPolicyManagementController.selectedItem.openPolicyNo}" maxlength="30">
                                         </p:inputText>
                                         <toto:requireLabel id="newOpenPolicyNoMsg" forId=":form:newOpenPolicyNo"/>
                                     </h:panelGroup>
-                                    <h:outputLabel value="#{msg.label_product}"/>
-                                    <h:panelGroup>
-                                        <p:selectOneMenu id="newProductId" style="width: 365px"
-                                                         value="#{openPolicyManagementController.selectedItem.productId}"
-                                                         required="true"
-                                                         requiredMessage="#{msg.require_generic}">
-                                            <f:selectItem/>
-                                            <f:selectItems value="#{openPolicyManagementController.ddlProduct}" var="item"
-                                                           itemValue="#{item.value}"
-                                                           itemLabel="#{item.name}"/>
-                                        </p:selectOneMenu>
-                                        <toto:requireLabel id="newProductIdMsg" forId=":form:newProductId"/>
+                                    <h:outputLabel value="#{msg.label_product_rate}"/>
+                                    <h:panelGroup style="border:solid 0px!important; ">
+
+                                        <p:commandButton icon="fa fa-plus White" 
+                                                         styleClass="Fright GreenButton" 
+                                                         title="#{msg.label_create_new_product_rate}"
+                                                         process="@this"
+                                                         update=":form:dlgNewProductRate"
+                                                         action="#{openPolicyManagementController.initProductRate()}"
+                                                         oncomplete="PF('dlgNewProductRate').show()"/>
+                                        <p:dataTable id="dtNewProductRate" value="#{openPolicyManagementController.productRateBeans}"
+                                                     var="item"
+                                                     style="width: 400px;border:solid 0px!important; ">
+                                            <p:column headerText="#{msg.label_product_rate}">
+                                                <p:outputLabel value="#{item.productRateDetail}"/>
+                                            </p:column>
+                                            <p:column headerText="#{msg.label_rate}">
+                                                <p:outputLabel value="#{item.rate}">
+                                                    <f:convertNumber pattern="#0.0000 '%'"/>
+                                                </p:outputLabel>
+                                            </p:column>
+                                            <p:column style="text-align: center">
+                                                <p:commandButton icon="fa fa-remove White" 
+                                                                 styleClass="Fright RedButton" 
+                                                                 process="@this"
+                                                                 value="#{msg.btn_delete}"
+                                                                 update=":form:dtNewProductRate"
+                                                                 action="#{openPolicyManagementController.deleteProductRateItem(item)}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <p:messages id="gwProductRateNew" closable="true"/>
                                     </h:panelGroup>
 
-                                    <h:outputLabel value="#{msg.label_rate}"/>
-                                    <h:panelGroup>
-                                        <pe:inputNumber id="newProductRate" 
-                                                        style="width: 400px"
-                                                        value="#{openPolicyManagementController.selectedItem.productRate}"
-                                                        decimalPlaces="2"
-                                                        required="true"
-                                                        requiredMessage="#{msg.require_generic}"/>
-                                        <toto:requireLabel id="popupNewMsg" forId=":form:newProductRate"/>
-                                    </h:panelGroup>
-
-                                    <h:outputLabel value="#{msg.label_subject_matter}"/>
-                                    <h:panelGroup>
-                                        <p:inputTextarea maxlength="2048" rows="3" style="width: 400px"
-                                                         value="#{openPolicyManagementController.selectedItem.subjectMatterInsured}"/>
-                                    </h:panelGroup>
-                                    
                                     <h:outputLabel value="#{msg.label_clauses_air}"/>
                                     <h:panelGroup>
                                         <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
@@ -216,16 +216,16 @@ THE SOFTWARE.
                                             <p:column headerText="#{msg.label_short_name}">
                                                 <p:outputLabel value="#{item.name}"/>
                                             </p:column>
-                                            <p:column headerText="#{msg.label_percen}t">
+                                            <p:column headerText="#{msg.label_percen}">
                                                 <p:outputLabel value="#{item.percen} %"/>
                                             </p:column>
                                             <p:column style="text-align: center">
                                                 <p:commandButton icon="fa fa-remove White" 
-                                                         styleClass="Fright RedButton" 
-                                                         process="@this"
-                                                         value="#{msg.btn_delete}"
-                                                         update=":form:dtValuation"
-                                                         action="#{openPolicyManagementController.deleteValuationItem(item)}"/>
+                                                                 styleClass="Fright RedButton" 
+                                                                 process="@this"
+                                                                 value="#{msg.btn_delete}"
+                                                                 update=":form:dtValuation"
+                                                                 action="#{openPolicyManagementController.deleteValuationItem(item)}"/>
                                             </p:column>
                                         </p:dataTable>
                                         <p:messages id="gwValuationNew" closable="true"/>
@@ -233,8 +233,20 @@ THE SOFTWARE.
 
                                     <h:outputLabel value="#{msg.label_broker_name}"/>
                                     <h:panelGroup>
-                                        <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
-                                                         value="#{openPolicyManagementController.selectedItem.brokerName}"/>
+                                        <p:inputTextarea id="brokerNameNew" maxlength="2048" rows="2" style="width: 400px"
+                                                         value="#{openPolicyManagementController.selectedItem.brokerName}"
+                                                         required="true"
+                                                         requiredMessage="#{msg.require_generic}"/>
+                                        <toto:requireLabel id="brokerNameNewReq" forId=":form:brokerNameNew"/>
+                                    </h:panelGroup>
+                                    
+                                    <h:outputLabel value="#{msg.label_broker_license}"/>
+                                    <h:panelGroup>
+                                        <p:inputText id="brokerNameLicenseNew" maxlength="30" style="width: 400px"
+                                                         value="#{openPolicyManagementController.selectedItem.brokerLicense}"
+                                                         required="true"
+                                                         requiredMessage="#{msg.require_generic}"/>
+                                        <toto:requireLabel id="brokerNameLicenseNewReq" forId=":form:brokerNameLicenseNew"/>
                                     </h:panelGroup>
 
                                     <h:outputLabel/>
@@ -255,25 +267,63 @@ THE SOFTWARE.
                       minimizable="true" maximizable="true" responsive="true">
                 <p:messages id="msgNewValuation" closable="true"/>
                 <p:panel id="pnNewValuation" class="Container100" style="border: 0px">
-                    <h:panelGrid columns="4">
+                    <h:panelGrid columns="2">
                         <h:outputLabel value="#{msg.label_short_name}"/>
                         <h:panelGroup>
-                            <p:inputText id="valueationShortName" value="#{openPolicyManagementController.valueationShortName}"/>
+                            <p:inputText id="valueationShortName" 
+                                         value="#{openPolicyManagementController.valueationShortName}"
+                                         class="width400"
+                                         maxlength="30"/>
                             <toto:requireLabel id="valueationShortNameReq" forId=":form:valueationShortName"/>
                         </h:panelGroup>
                         <h:outputLabel value="#{msg.label_percen}"/>
                         <h:panelGroup>
-                            <pe:inputNumber id="insuredValue" 
+                            <pe:inputNumber id="valueationPerCen" 
                                             value="#{openPolicyManagementController.valueationPerCen}"
                                             symbol="%" 
-                                            symbolPosition="s"/>
-                            <toto:requireLabel id="insuredValueReq" forId=":form:insuredValue"/>
+                                            decimalPlaces="0"
+                                            symbolPosition="s"
+                                            maxlength="4"
+                                            style="width: 400px"/>
+                            <toto:requireLabel id="valueationPerCenReq" forId=":form:valueationPerCen"/>
                         </h:panelGroup>
                         <h:outputLabel/>
                         <p:commandButton value="#{msg.btn_save}"
                                          action="#{openPolicyManagementController.addNewValuation()}"
                                          process=":form:pnNewValuation"
                                          update=":form:dtValuation , :form:msgNewValuation"/>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dialog>
+
+            <p:dialog id="dlgNewProductRate" header="#{msg.label_product_rate}" widgetVar="dlgNewProductRate"  modal="true"
+                      showEffect="explode" hideEffect="bounce" height="150" width="600" 
+                      minimizable="true" maximizable="true" responsive="true">
+                <p:messages id="msgNewProductRate" closable="true"/>
+                <p:panel id="pnNewProductRate" class="Container100" style="border: 0px">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{msg.label_product_rate}"/>
+                        <h:panelGroup>
+                            <p:inputText id="productRateDetail" value="#{openPolicyManagementController.productRateDetail}" 
+                                         maxlength="255" 
+                                         class="width400"/>
+                            <toto:requireLabel id="productRateDetailReq" forId=":form:productRateDetail"/>
+                        </h:panelGroup>
+                        <h:outputLabel value="#{msg.label_rate}"/>
+                        <h:panelGroup>
+                            <pe:inputNumber id="productRateValue" 
+                                            value="#{openPolicyManagementController.productRate}"
+                                            symbol="%" 
+                                            decimalPlaces="4"
+                                            symbolPosition="s"
+                                            style="width: 400px"/>
+                            <toto:requireLabel id="productRateValueReq" forId=":form:productRateValue"/>
+                        </h:panelGroup>
+                        <h:outputLabel/>
+                        <p:commandButton value="#{msg.btn_save}"
+                                         action="#{openPolicyManagementController.addNewProductRate()}"
+                                         process=":form:pnNewProductRate"
+                                         update=":form:dtNewProductRate , :form:msgNewProductRate"/>
                     </h:panelGrid>
                 </p:panel>
             </p:dialog>
@@ -294,42 +344,42 @@ THE SOFTWARE.
                                                      style="width: 400px"
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                     value="#{openPolicyManagementController.selectedItem.openPolicyNo}" maxlength="20"
+                                                     value="#{openPolicyManagementController.selectedItem.openPolicyNo}" maxlength="30"
                                                      readonly="true"/>
                                         <toto:requireLabel id="EditOpenPolicyNoMsg" forId=":form:EditOpenPolicyNo"/>
                                     </h:panelGroup>
-                                    <h:outputLabel value="#{msg.label_product}"/>
-                                    <h:panelGroup>
-                                        <p:selectOneMenu id="EditProductId" style="width: 365px"
-                                                         value="#{openPolicyManagementController.selectedItem.productId}"
-                                                         required="true"
-                                                         requiredMessage="#{msg.require_generic}"
-                                                         disabled="true">
-                                            <f:selectItem/>
-                                            <f:selectItems value="#{openPolicyManagementController.ddlProduct}" var="item"
-                                                           itemValue="#{item.value}"
-                                                           itemLabel="#{item.name}"/>
-                                        </p:selectOneMenu>
-                                        <toto:requireLabel id="EditProductIdMsg" forId=":form:EditProductId"/>
+                                    <h:outputLabel value="#{msg.label_product_rate}"/>
+                                    <h:panelGroup style="border:solid 0px!important; ">
+                                        <p:commandButton icon="fa fa-plus White" 
+                                                         styleClass="Fright GreenButton" 
+                                                         title="#{msg.label_create_new_product_rate}"
+                                                         process="@this"
+                                                         update=":form:dlgEditProductRate"
+                                                         action="#{openPolicyManagementController.initProductRate()}"
+                                                         oncomplete="PF('dlgEditProductRate').show()"/>
+                                        <p:dataTable id="dtEditProductRate" value="#{openPolicyManagementController.productRateBeans}"
+                                                     var="item"
+                                                     style="width: 400px;border:solid 0px!important; ">
+                                            <p:column headerText="#{msg.label_product_rate}">
+                                                <p:outputLabel value="#{item.productRateDetail}"/>
+                                            </p:column>
+                                            <p:column headerText="#{msg.label_rate}">
+                                                <p:outputLabel value="#{item.rate}">
+                                                    <f:convertNumber pattern="#0.0000 '%'"/>
+                                                </p:outputLabel>
+                                            </p:column>
+                                            <p:column style="text-align: center">
+                                                <p:commandButton icon="fa fa-remove White" 
+                                                                 styleClass="Fright RedButton" 
+                                                                 process="@this"
+                                                                 value="#{msg.btn_delete}"
+                                                                 update=":form:dtEditProductRate"
+                                                                 action="#{openPolicyManagementController.deleteProductRateItem(item)}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <p:messages id="gwProductRateEdit" closable="true"/>
                                     </h:panelGroup>
 
-                                    <h:outputLabel value="#{msg.label_rate}"/>
-                                    <h:panelGroup>
-                                        <pe:inputNumber id="EditProductRate" 
-                                                        style="width: 400px"
-                                                        value="#{openPolicyManagementController.selectedItem.productRate}"
-                                                        decimalPlaces="2"
-                                                        required="true"
-                                                        requiredMessage="#{msg.require_generic}"/>
-                                        <toto:requireLabel id="popupEditMsg" forId=":form:EditProductRate"/>
-                                    </h:panelGroup>
-
-                                    <h:outputLabel value="#{msg.label_subject_matter}"/>
-                                    <h:panelGroup>
-                                        <p:inputTextarea maxlength="2048" rows="3" style="width: 400px"
-                                                         value="#{openPolicyManagementController.selectedItem.subjectMatterInsured}"/>
-                                    </h:panelGroup>
-                                    
                                     <h:outputLabel value="#{msg.label_clauses_air}"/>
                                     <h:panelGroup>
                                         <p:inputTextarea maxlength="2048" rows="13" style="width: 400px"
@@ -364,16 +414,16 @@ THE SOFTWARE.
                                             <p:column headerText="#{msg.label_short_name}">
                                                 <p:outputLabel value="#{item.name}"/>
                                             </p:column>
-                                            <p:column headerText="#{msg.label_percen}t">
+                                            <p:column headerText="#{msg.label_percen}">
                                                 <p:outputLabel value="#{item.percen} %"/>
                                             </p:column>
                                             <p:column style="text-align: center">
                                                 <p:commandButton icon="fa fa-remove White" 
-                                                         styleClass="Fright RedButton" 
-                                                         process="@this"
-                                                         value="#{msg.btn_delete}"
-                                                         update=":form:dtValuationEdit"
-                                                         action="#{openPolicyManagementController.deleteValuationItem(item)}"/>
+                                                                 styleClass="Fright RedButton" 
+                                                                 process="@this"
+                                                                 value="#{msg.btn_delete}"
+                                                                 update=":form:dtValuationEdit"
+                                                                 action="#{openPolicyManagementController.deleteValuationItem(item)}"/>
                                             </p:column>
                                         </p:dataTable>
                                         <p:messages id="gwValuationEdit" closable="true"/>
@@ -381,10 +431,22 @@ THE SOFTWARE.
 
                                     <h:outputLabel value="#{msg.label_broker_name}"/>
                                     <h:panelGroup>
-                                        <p:inputTextarea maxlength="2048" rows="2" style="width: 400px"
-                                                         value="#{openPolicyManagementController.selectedItem.brokerName}"/>
+                                        <p:inputTextarea id="brokerNameEdit" maxlength="2048" rows="2" style="width: 400px"
+                                                         value="#{openPolicyManagementController.selectedItem.brokerName}"
+                                                         required="true"
+                                                         requiredMessage="#{msg.require_generic}"/>
+                                        <toto:requireLabel id="brokerNameEditReq" forId=":form:brokerNameEdit"/>
                                     </h:panelGroup>
 
+                                    <h:outputLabel value="#{msg.label_broker_license}"/>
+                                    <h:panelGroup>
+                                        <p:inputText id="brokerNameLicenseEdit" maxlength="30" style="width: 400px"
+                                                         value="#{openPolicyManagementController.selectedItem.brokerLicense}"
+                                                         required="true"
+                                                         requiredMessage="#{msg.require_generic}"/>
+                                        <toto:requireLabel id="brokerNameLicenseEditReq" forId=":form:brokerNameLicenseEdit"/>
+                                    </h:panelGroup>
+                                    
                                     <h:outputLabel/>
                                     <p:commandButton value="#{msg.btn_save}"
                                                      action="#{openPolicyManagementController.edit()}"
@@ -398,24 +460,60 @@ THE SOFTWARE.
                 </p:panel>
             </p:dialog>
 
+            <p:dialog id="dlgEditProductRate" header="#{msg.label_product_rate}" widgetVar="dlgEditProductRate"  modal="true"
+                      showEffect="explode" hideEffect="bounce" height="150" width="600" 
+                      minimizable="true" maximizable="true" responsive="true">
+                <p:messages id="msgEditProductRate" closable="true"/>
+                <p:panel id="pnEditProductRate" class="Container100" style="border: 0px">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{msg.label_product_rate}"/>
+                        <h:panelGroup>
+                            <p:inputText id="productRateDetailEdit" value="#{openPolicyManagementController.productRateDetail}" 
+                                         maxlength="255" 
+                                         class="width400"/>
+                            <toto:requireLabel id="productRateDetailEditReq" forId=":form:productRateDetailEdit"/>
+                        </h:panelGroup>
+                        <h:outputLabel value="#{msg.label_rate}"/>
+                        <h:panelGroup>
+                            <pe:inputNumber id="productRateValueEdit" 
+                                            value="#{openPolicyManagementController.productRate}"
+                                            symbol="%" 
+                                            decimalPlaces="4"
+                                            symbolPosition="s"
+                                            style="width: 400px"/>
+                            <toto:requireLabel id="productRateValueEditReq" forId=":form:productRateValueEdit"/>
+                        </h:panelGroup>
+                        <h:outputLabel/>
+                        <p:commandButton value="#{msg.btn_save}"
+                                         action="#{openPolicyManagementController.addEditProductRate()}"
+                                         process=":form:pnEditProductRate"
+                                         update=":form:dtEditProductRate , :form:msgEditProductRate"/>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dialog>
+
             <p:dialog id="dlgEditValuation" header="#{msg.label_valuation}" widgetVar="dlgEditValuation"  modal="true"
                       showEffect="explode" hideEffect="bounce" height="150" width="600" 
                       minimizable="true" maximizable="true" responsive="true">
                 <p:panel id="pnEditValuation" class="Container100" style="border: 0px">
                     <p:messages id="msgEditValuation" closable="true"/>
-                    <h:panelGrid columns="4">
+                    <h:panelGrid columns="2">
                         <h:outputLabel value="#{msg.label_short_name}"/>
                         <h:panelGroup>
-                            <p:inputText id="valueationShortNameEdit" value="#{openPolicyManagementController.valueationShortName}"/>
+                            <p:inputText id="valueationShortNameEdit" value="#{openPolicyManagementController.valueationShortName}"
+                                         class="width400" maxlength="30"/>
                             <toto:requireLabel id="valueationShortNameReqEdit" forId=":form:valueationShortName"/>
                         </h:panelGroup>
                         <h:outputLabel value="#{msg.label_percen}"/>
                         <h:panelGroup>
-                            <pe:inputNumber id="insuredValueEdit" 
+                            <pe:inputNumber id="valueationPerCenEdit" 
                                             value="#{openPolicyManagementController.valueationPerCen}"
                                             symbol="%" 
-                                            symbolPosition="s"/>
-                            <toto:requireLabel id="insuredValueReqEdit" forId=":form:insuredValue"/>
+                                            decimalPlaces="0"
+                                            symbolPosition="s"
+                                            maxlength="4"
+                                            style="width: 400px"/>
+                            <toto:requireLabel id="valueationPerCenEditReq" forId=":form:valueationPerCenEdit"/>
                         </h:panelGroup>
                         <h:outputLabel/>
                         <p:commandButton value="#{msg.btn_save}"

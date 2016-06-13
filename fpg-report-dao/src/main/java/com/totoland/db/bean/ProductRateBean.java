@@ -24,63 +24,41 @@
 package com.totoland.db.bean;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  *
  * @author totoland
  */
-public class ValuationBean implements Serializable{
-    private static final long serialVersionUID = -6611128250855153412L;
+public class ProductRateBean implements Serializable {
 
-    private String name;
-    private Integer percen;
+    private static final long serialVersionUID = -7361047796405290658L;
 
-    public ValuationBean(String name, Integer percen) {
-        this.name = name;
-        this.percen = percen;
-    }
-    
-    public String getName() {
-        return name;
+    private String productRateDetail;
+    private double rate;
+
+    public ProductRateBean(String productRateDetail, double rate) {
+        this.productRateDetail = productRateDetail;
+        this.rate = rate;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getProductRateDetail() {
+        return productRateDetail;
     }
 
-    public Integer getPercen() {
-        return percen;
+    public void setProductRateDetail(String productRateDetail) {
+        this.productRateDetail = productRateDetail;
     }
 
-    public void setPercen(Integer percen) {
-        this.percen = percen;
+    public double getRate() {
+        return rate;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.name);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ValuationBean other = (ValuationBean) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return true;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     @Override
     public String toString() {
-        return "Valuation{" + "name=" + name + ", percen=" + percen + '}';
+        return "ProductRateBean{" + "productRateDetail=" + productRateDetail + ", rate=" + rate + '}';
     }
 }

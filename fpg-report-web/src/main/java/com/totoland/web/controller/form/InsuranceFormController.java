@@ -1,14 +1,12 @@
 package com.totoland.web.controller.form;
 
 import com.chetty.reporting.beans.CertificationBean;
-import com.totoland.db.bean.ConditionsOfCoverCriteria;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ImageCertExport;
 import com.totoland.db.entity.KeyMatch;
 import com.totoland.db.entity.Surveyors;
 import com.totoland.db.entity.OpenPolicy;
-import com.totoland.db.entity.ViewConditionsOfCover;
 import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.CertificateType;
 import com.totoland.db.enums.InsureState;
@@ -36,6 +34,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -147,18 +146,20 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("initUpdateMode... with : {}", trxId);
         this.claimInsure = certificateService.findByTrxId(trxId);
 
-        LOGGER.debug("claimInsure : {}", claimInsure);
-
         if (claimInsure == null) {
             LOGGER.warn("TrxId is gone, redirect to create page...");
             super.redirectPage("insuranceForm.xhtml");
             return;
         }
 
+        if(!Objects.equals(this.claimInsure.getCreatedBy(), getUserAuthen().getUserId()) && !isAdmin()){
+            super.redirectPage(JsfUtil.getContextPath()+"/errors/access_denie.xhtml");
+            return;
+        }
+        
         this.imageUploadURL = String.format("/certImage?c=%s&n=%s", this.claimInsure.getClaimId(), trxId);
-        LOGGER.debug("imageUploadURL : {}", this.imageUploadURL);
+        
         this.certNumber = this.claimInsure.getCertificationNumber();
-//        this.claimInsure.setExchangeRate(new BigDecimal(dropdownFactory.getCurrentExchangeRate()));
 
         if (this.claimInsure.getMinimumPremiumRate() == null) {
             this.claimInsure.setMinimumPremiumRate(new BigDecimal(dropdownFactory.getMinimumPremium()));
@@ -194,11 +195,9 @@ public class InsuranceFormController extends BaseController {
         this.coverageTypeList = dropdownFactory.ddlCoverageType();
         this.insuringTermsTypeList = dropdownFactory.ddlInsuringTermsType();
         this.claimSurveyorsList = dropdownFactory.ddlClaimSurveyors();
-        if (isAdmin()) {
-            this.rateScheduleList = dropdownFactory.ddlRateSchedule();
-        } else {
-            this.rateScheduleList = dropdownFactory.ddlRateSchedule(this.claimInsure.getPolicyNumber());
-        }
+
+        this.rateScheduleList = dropdownFactory.ddlRateSchedule(this.claimInsure.getPolicyNumber());
+
         this.clearImgSession();
     }
 
@@ -363,10 +362,9 @@ public class InsuranceFormController extends BaseController {
                 certRpt.setContactName(surveyor.getContactName());
             }
 
-            if (this.imageUploadURL != null && !this.imageUploadURL.equals(NO_IMAGE)) {
-                certRpt.setCertImageURL(JsfUtil.getFullURI() + this.imageUploadURL);
-            }
-
+//            if (this.imageUploadURL != null && !this.imageUploadURL.equals(NO_IMAGE)) {
+//                certRpt.setCertImageURL(JsfUtil.getFullURI() + this.imageUploadURL);
+//            }
             //Init ConditionOfCover for print Certificate
             Map<String, Object> params = new HashMap<>();
             params.put("openPolicyNo", this.claimInsure.getPolicyNumber());
@@ -374,7 +372,7 @@ public class InsuranceFormController extends BaseController {
             List<OpenPolicy> listCondition = valuationService.findByDynamicField(OpenPolicy.class, params);
             if (listCondition != null && !listCondition.isEmpty()) {
 
-                String subject = listCondition.get(0).getSbujectMatterInsered();
+                String subject = "";
                 String detail = "";
 
                 if (AIR == this.claimInsure.getMethodOfTransportId()) {
@@ -416,41 +414,47 @@ public class InsuranceFormController extends BaseController {
             debitNote.setInsuredAddress(userData.getAddress());
             debitNote.setCertificationNumber(this.claimInsure.getCertificationNumber());
             debitNote.setIssueDate(this.claimInsure.getIssueDate());
+            
+            if(this.claimInsure.getPremiumRate().intValue()< 500){
+                LOGGER.debug("Premium rate lower than 500 use Minimum Premium = 500");
+                this.claimInsure.setPremiumRate(new BigDecimal(500));
+            }
+            
             debitNote.setPremium(this.claimInsure.getPremiumRate());
-            debitNote.setInsuredValue(this.claimInsure.getInsuredValue()+"");
+            debitNote.setInsuredValue(this.claimInsure.getInsuredValue() + "");
             //Premium rate * 0.4%
             debitNote.setStampDuty(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate(),
                     new BigDecimal(0.4)), new BigDecimal(100)));
-            
-            if(this.claimInsure.getOriginCountryCode().equals("TH")){
+
+            if (this.claimInsure.getOriginCountryCode().equals("TH")) {
                 //ถ้าเป็น export premium * 0.04 ถ้า 1-5 บวก x+1 ถ้านอกเหนื่อ +6
-                if(debitNote.getStampDuty().doubleValue()>=0 && debitNote.getStampDuty().doubleValue()<=5){
+                if (debitNote.getStampDuty().doubleValue() >= 0 && debitNote.getStampDuty().doubleValue() <= 5) {
                     LOGGER.debug("Added 1 to StampDuty");
                     debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(BigInteger.ONE)));
-                }else{
+                } else {
                     LOGGER.debug("Added 6 to StampDuty");
                     debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(5)));
                 }
             }
             //Premium + StampDuty
             debitNote.setTotal(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()));
-            
-            LOGGER.debug("debitNote.getTotal : {}",debitNote.getTotal());
-            
+
+            LOGGER.debug("debitNote.getTotal : {}", debitNote.getTotal());
+
             //Vat = Premium + Stamp * 7%
             debitNote.setVat(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()),
                     new BigDecimal(7)), new BigDecimal(100)));
-            
-            if(this.claimInsure.getOriginCountryCode().equals("TH")){
+
+            if (this.claimInsure.getOriginCountryCode().equals("TH")) {
                 debitNote.setVat(BigDecimal.ZERO);
             }
-            
+
             debitNote.setGrandTotal(debitNote.getTotal().add(debitNote.getVat()));
             debitNote.setTypeOfPolicy(dropdownFactory.ddlConf().get("type_of_policy"));
             debitNote.setPolicyNo(this.claimInsure.getPolicyNumber());
             debitNote.setWarrantyFrom(this.claimInsure.getShipmentDate());
             debitNote.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
-            
+
             String jrxmlPath = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(debitNote));
             certificateService.edit(this.claimInsure);
@@ -507,7 +511,7 @@ public class InsuranceFormController extends BaseController {
         BigDecimal mul = this.claimInsure.getInsuredValue().multiply(this.claimInsure.getRate());
         this.claimInsure.setPremiumRate(mul.divide(new BigDecimal("100")));
         this.claimInsure.setPremiumRate(this.claimInsure.getPremiumRate().setScale(0, BigDecimal.ROUND_HALF_UP));
-        LOGGER.debug("this.claimInsure.setPremiumRate : "+this.claimInsure.getPremiumRate());
+        LOGGER.debug("this.claimInsure.setPremiumRate : " + this.claimInsure.getPremiumRate());
     }
 
     public void calAmountOfInsurance() {

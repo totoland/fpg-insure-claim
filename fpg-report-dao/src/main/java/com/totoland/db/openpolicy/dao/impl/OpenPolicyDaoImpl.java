@@ -43,7 +43,7 @@ public class OpenPolicyDaoImpl extends GennericDaoImpl<OpenPolicy> implements Op
         List<Object> params = new ArrayList<>();
 
         if (criteria.getOpenPolicyNo() != null && !criteria.getOpenPolicyNo().trim().isEmpty()) {
-            SQL += "and open_policy = ?";
+            SQL += "and open_policy_no = ?";
             params.add(criteria.getOpenPolicyNo());
         }
         

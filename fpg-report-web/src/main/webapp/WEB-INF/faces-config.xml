@@ -18,7 +18,6 @@
         <locale-config>  
             <default-locale>en_US</default-locale>  
             <supported-locale>en_US</supported-locale>  
-            <supported-locale>th_TH</supported-locale>  
         </locale-config>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
         <!--        <resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>-->

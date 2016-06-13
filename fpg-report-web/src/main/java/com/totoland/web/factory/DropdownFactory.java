@@ -7,11 +7,13 @@ package com.totoland.web.factory;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.totoland.db.bean.ProductRateBean;
 import com.totoland.db.bean.ValuationBean;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.web.service.CommonService;
 import com.totoland.web.utils.MessageUtils;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -313,19 +315,29 @@ public class DropdownFactory implements Serializable {
         return customers;
     }
 
+    private static DecimalFormat formatter = new DecimalFormat("#0.0000");
+
     public List<DropDownList> ddlRateSchedule(String openPolicyNo) {
 
-        List<DropDownList> customers = new ArrayList<>();
+        List<DropDownList> resList = new ArrayList<>();
         DropDownList criteria = new DropDownList();
-        criteria.setTableName("view_rate_schedule");
-        criteria.setOrderByField("product_name");
-        criteria.setName("CONCAT(product_name , '-------------------------' , product_rate)");
-        criteria.setValue("product_rate");
+        criteria.setTableName("open_policy");
+        criteria.setOrderByField("open_policy_no");
+        criteria.setName("'-'");
+        criteria.setValue("product_rate_data");
         criteria.setCondition("open_policy_no = '" + openPolicyNo + "'");
-        criteria.setSortName("ASC");
 
-        customers = commonService.getDropdownList(criteria);
-        return customers;
+        List<DropDownList> ddl = commonService.getDropdownList(criteria);
+        if (ddl != null && !ddl.isEmpty()) {
+            List<ProductRateBean> beans = new Gson().fromJson(ddl.get(0).getValue(), new TypeToken<List<ProductRateBean>>() {
+            }.getType());
+
+            for (ProductRateBean bean : beans) {
+                resList.add(new DropDownList(bean.getProductRateDetail() + " + " + formatter.format(bean.getRate()) + "%", formatter.format(bean.getRate())));
+            }
+        }
+
+        return resList;
     }
 
     public Map<String, String> ddlConf() {
@@ -363,15 +375,15 @@ public class DropdownFactory implements Serializable {
         customers = commonService.getDropdownList(criteria);
 
         System.out.println(customers);
-        
+
         if (customers != null && !customers.isEmpty()) {
             return customers.get(0).getValue();
         }
 
         return "0";
     }
-    
-    public String getMinimumPremium () {
+
+    public String getMinimumPremium() {
 
         List<DropDownList> customers = new ArrayList<>();
         DropDownList criteria = new DropDownList();
@@ -407,8 +419,8 @@ public class DropdownFactory implements Serializable {
 
         List<DropDownList> resList = new ArrayList<>();
         DropDownList criteria = new DropDownList();
-        criteria.setTableName("valuation");
-        criteria.setOrderByField("valuation_id");
+        criteria.setTableName("open_policy");
+        criteria.setOrderByField("open_policy_no");
         criteria.setName("'-'");
         criteria.setValue("valuation_data");
         criteria.setCondition("open_policy_no = '" + openPolicyNo + "'");
@@ -419,7 +431,7 @@ public class DropdownFactory implements Serializable {
             }.getType());
 
             for (ValuationBean bean : beans) {
-                resList.add(new DropDownList(bean.getName() + " + " + bean.getPercen() + "%", bean.getPercen()));
+                resList.add(new DropDownList(bean.getName() + " + " + bean.getPercen() + "%", String.valueOf(bean.getPercen())));
             }
         }
 

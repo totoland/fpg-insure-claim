@@ -122,4 +122,16 @@ public class MessageUtils {
     public static String REQUIRE_GENERIC() {
         return getResourceBundleString("require_generic");
     }
+
+    public static String REQUIRE_MORE_THAN_ZERO() {
+        return getResourceBundleString("require_more_than_zero");
+    }
+
+    public static String REQUIRE_PRODUCT_RATE() {
+        return getResourceBundleString("require_product_rate");
+    }
+
+    public static String REQUIRE_VALUATION() {
+        return getResourceBundleString("require_valuation");
+    }
 }

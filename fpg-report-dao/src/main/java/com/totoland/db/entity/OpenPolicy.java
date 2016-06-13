@@ -50,7 +50,7 @@ public class OpenPolicy implements Serializable {
 
     @Lob
     @Column(name = "product_rate_data")
-    private String productRateDate;
+    private String productRateData;
 
     @Lob
     @Column(name = "valuation_data")
@@ -58,6 +58,9 @@ public class OpenPolicy implements Serializable {
 
     @Column(name = "broker_name")
     private String brokerName;
+
+    @Column(name = "broker_license")
+    private String brokerLicense;
 
     @Lob
     @Column(name = "clauses_air")
@@ -142,16 +145,24 @@ public class OpenPolicy implements Serializable {
         this.clausesTruck = clausesTruck;
     }
 
-    public String getProductRateDate() {
-        return productRateDate;
+    public String getProductRateData() {
+        return productRateData;
     }
 
-    public void setProductRateDate(String productRateDate) {
-        this.productRateDate = productRateDate;
+    public void setProductRateData(String productRateData) {
+        this.productRateData = productRateData;
+    }
+
+    public String getBrokerLicense() {
+        return brokerLicense;
+    }
+
+    public void setBrokerLicense(String brokerLicense) {
+        this.brokerLicense = brokerLicense;
     }
 
     @Override
     public String toString() {
-        return "OpenPolicy{" + "openPolicyNo=" + openPolicyNo + ", productRateDate=" + productRateDate + ", valuationData=" + valuationData + ", brokerName=" + brokerName + ", clausesAir=" + clausesAir + ", clausesVessel=" + clausesVessel + ", clausesTruck=" + clausesTruck + '}';
+        return "OpenPolicy{" + "openPolicyNo=" + openPolicyNo + ", productRateData=" + productRateData + ", valuationData=" + valuationData + ", brokerName=" + brokerName + ", brokerLicense=" + brokerLicense + ", clausesAir=" + clausesAir + ", clausesVessel=" + clausesVessel + ", clausesTruck=" + clausesTruck + '}';
     }
 }

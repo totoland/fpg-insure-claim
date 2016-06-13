@@ -235,10 +235,6 @@
                                             required="true" requiredMessage="#{msg.require_generic}"/>
                                 <toto:requireLabel forId=":formUser:password2"/>
                             </h:panelGroup>
-<!--                            <h:outputLabel for="userGroupLvl" value="User Type" />
-                            <p:selectOneMenu styleClass="selectOne115" id="userGroupLvl" value="#{insuredManagementController.svUser.userGroupLvl}">
-                                <f:selectItems value="#{insuredManagementController.dropdownFactory.ddlCustomerLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                            </p:selectOneMenu>-->
                             <h:outputLabel for="campanyName" value="#{msg.label_insured_name}" />
                             <h:panelGroup>
                                 <p:inputText id="campanyName" value="#{insuredManagementController.svUser.companyName}"
@@ -263,15 +259,6 @@
                                 </p:selectOneMenu>   
                                 <toto:requireLabel forId=":formUser:policyNumber"/>
                             </h:panelGroup>
-<!--                            <h:outputLabel for="fname" value="First name" />
-                            <p:inputText id="fname" value="#{insuredManagementController.svUser.fname}"/>
-                            <h:outputLabel for="lname" value="Last name" />
-                            <p:inputText id="lname" value="#{insuredManagementController.svUser.lname}"/>
-                            <h:outputLabel for="sex" value="Gender" />
-                            <p:selectOneRadio styleClass="selectOne115" id="sex" value="#{insuredManagementController.svUser.sex}" style="border-style:none">  
-                                <f:selectItem itemLabel="Male" itemValue="0" />  
-                                <f:selectItem itemLabel="Female" itemValue="1" /> 
-                            </p:selectOneRadio>-->
                             <h:outputLabel for="isactive" value="Status" style="width:200px"/>
                             <p:selectOneRadio id="isactive" value="#{insuredManagementController.svUser.isActive}" style="border-style:none">  
                                 <f:selectItem itemLabel="Active" itemValue="#{true}" />  

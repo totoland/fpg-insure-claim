@@ -20,10 +20,10 @@ package com.totoland.web.controller.rate;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.totoland.db.bean.OpenPolicyCriteria;
+import com.totoland.db.bean.ProductRateBean;
 import com.totoland.db.bean.ValuationBean;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ConditionsOfCover;
-import com.totoland.db.entity.ProductRate;
 import com.totoland.db.entity.OpenPolicy;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
@@ -33,9 +33,7 @@ import com.totoland.web.service.OpenPolicyService;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -52,8 +50,8 @@ import org.slf4j.LoggerFactory;
 public class OpenPolicyManagementController extends BaseController {
 
     private static final long serialVersionUID = 4696958820488830897L;
-    private static final Logger LOGGER =
-            LoggerFactory.getLogger(OpenPolicyManagementController.class);
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(OpenPolicyManagementController.class);
 
     @ManagedProperty("#{dropdownFactory}")
     private DropdownFactory dropdownFactory;
@@ -69,11 +67,15 @@ public class OpenPolicyManagementController extends BaseController {
 
     private List<DropDownList> ddlCustomer;
     private List<DropDownList> ddlProduct;
-    private ProductRate selectedItem;
+    private OpenPolicy selectedItem;
 
     private List<ValuationBean> valuations;
     private String valueationShortName;
-    private String valueationPerCen;
+    private Integer valueationPerCen;
+
+    private List<ProductRateBean> productRateBeans;
+    private String productRateDetail;
+    private Double productRate;
 
     private ConditionsOfCover conditionsOfCover;
     private String brokerName;
@@ -84,9 +86,10 @@ public class OpenPolicyManagementController extends BaseController {
         this.ddlCustomer = dropdownFactory.ddlCustomer();
         this.ddlProduct = dropdownFactory.ddlProduct();
         this.criteria = new OpenPolicyCriteria(null, null);
-        this.selectedItem = new ProductRate();
+        this.selectedItem = new OpenPolicy();
         this.dataSource = null;
         this.valuations = null;
+        this.productRateBeans = null;
         this.conditionsOfCover = null;
         this.brokerName = null;
     }
@@ -98,8 +101,9 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void initCreate() {
         LOGGER.debug("initCreate");
-        this.selectedItem = new ProductRate();
+        this.selectedItem = new OpenPolicy();
         this.valuations = null;
+        this.productRateBeans = null;
         this.conditionsOfCover = null;
         this.brokerName = null;
     }
@@ -107,13 +111,13 @@ public class OpenPolicyManagementController extends BaseController {
     public void initEdit(OpenPolicy viewItem) {
         this.selectedItem.setOpenPolicyNo(viewItem.getOpenPolicyNo());
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("openPolicyNo", viewItem.getOpenPolicyNo());
-
-        List<OpenPolicy> list = valuationService.findByDynamicField(OpenPolicy.class, params);
+        List<OpenPolicy> list
+                = openPolicyService.findByCriteria(new OpenPolicyCriteria(
+                                null, viewItem.getOpenPolicyNo()));
 
         if (list != null && !list.isEmpty()) {
             valuations = toListValuation(list.get(0).getValuationData());
+            productRateBeans = toListProductRate(list.get(0).getProductRateData());
             this.selectedItem.setBrokerName(list.get(0).getBrokerName());
             this.selectedItem.setClausesAir(list.get(0).getClausesAir());
             this.selectedItem.setClausesTruck(list.get(0).getClausesTruck());
@@ -131,7 +135,23 @@ public class OpenPolicyManagementController extends BaseController {
 
         try {
             return new Gson().fromJson(valuation,
-                    new TypeToken<List<ValuationBean>>() {}.getType());
+                    new TypeToken<List<ValuationBean>>() {
+                    }.getType());
+        } catch (Exception ex) {
+            LOGGER.error("Cannot parse to json", ex);
+            return null;
+        }
+    }
+
+    private List<ProductRateBean> toListProductRate(String productRate) {
+        if (productRate == null) {
+            return null;
+        }
+
+        try {
+            return new Gson().fromJson(productRate,
+                    new TypeToken<List<ProductRateBean>>() {
+                    }.getType());
         } catch (Exception ex) {
             LOGGER.error("Cannot parse to json", ex);
             return null;
@@ -143,6 +163,11 @@ public class OpenPolicyManagementController extends BaseController {
         this.valueationShortName = null;
     }
 
+    public void initProductRate() {
+        this.productRateDetail = null;
+        this.productRate = null;
+    }
+
     public void deleteValuationItem(ValuationBean selectedItem) {
         LOGGER.debug("selectedItem : {}", selectedItem);
         if (valuations == null) {
@@ -152,10 +177,19 @@ public class OpenPolicyManagementController extends BaseController {
         valuations.remove(selectedItem);
     }
 
+    public void deleteProductRateItem(ProductRateBean selectedItem) {
+        LOGGER.debug("selectedItem : {}", selectedItem);
+        if (productRateBeans == null) {
+            return;
+        }
+
+        productRateBeans.remove(selectedItem);
+    }
+
     public void addNewValuation() {
 
         if ((valueationShortName == null || valueationShortName.trim().isEmpty())
-                || (valueationPerCen == null || valueationPerCen.trim().isEmpty())) {
+                || (valueationPerCen == null)) {
             addError(":form:msgNewValuation", MessageUtils.REQUIRE_GENERIC());
             return;
         }
@@ -165,7 +199,7 @@ public class OpenPolicyManagementController extends BaseController {
         }
 
         ValuationBean valuation = new ValuationBean(valueationShortName, valueationPerCen);
-
+        LOGGER.debug("valuation : {}", valuation);
         if (valuations.contains(valuation)) {
             addError(":form:msgNewValuation", "Found " + valueationShortName + " in list.");
             return;
@@ -176,9 +210,38 @@ public class OpenPolicyManagementController extends BaseController {
         JsfUtil.closeDialog("dlgNewValuation");
     }
 
+    public void addNewProductRate() {
+
+        if ((productRateDetail == null || productRateDetail.trim().isEmpty())
+                || productRate == null) {
+            addError(":form:msgNewValuation", MessageUtils.REQUIRE_GENERIC());
+            return;
+        }
+
+        if (productRate == 0.00) {
+            addError(":form:msgEditValuation", MessageUtils.REQUIRE_MORE_THAN_ZERO());
+            return;
+        }
+
+        if (productRateBeans == null) {
+            productRateBeans = new ArrayList<>();
+        }
+
+        ProductRateBean item = new ProductRateBean(productRateDetail, productRate);
+
+        if (productRateBeans.contains(item)) {
+            addError(":form:msgNewValuation", "Found " + valueationShortName + " in list.");
+            return;
+        }
+
+        productRateBeans.add(item);
+
+        JsfUtil.closeDialog("dlgNewProductRate");
+    }
+
     public void addEditValuation() {
         if ((valueationShortName == null || valueationShortName.trim().isEmpty())
-                || (valueationPerCen == null || valueationPerCen.trim().isEmpty())) {
+                || (valueationPerCen == null)) {
             addError(":form:msgEditValuation", MessageUtils.REQUIRE_GENERIC());
             return;
         }
@@ -199,16 +262,50 @@ public class OpenPolicyManagementController extends BaseController {
         JsfUtil.closeDialog("dlgEditValuation");
     }
 
+    public void addEditProductRate() {
+
+        if ((productRateDetail == null || productRateDetail.trim().isEmpty())
+                || productRate == null) {
+            addError(":form:msgEditValuation", MessageUtils.REQUIRE_GENERIC());
+            return;
+        }
+
+        if (productRate == 0.00) {
+            addError(":form:msgEditValuation", MessageUtils.REQUIRE_MORE_THAN_ZERO());
+            return;
+        }
+
+        if (productRateBeans == null) {
+            productRateBeans = new ArrayList<>();
+        }
+
+        ProductRateBean item = new ProductRateBean(productRateDetail, productRate);
+
+        if (productRateBeans.contains(item)) {
+            addError(":form:msgEditValuation", "Found " + valueationShortName + " in list.");
+            return;
+        }
+
+        productRateBeans.add(item);
+
+        JsfUtil.closeDialog("dlgEditProductRate");
+    }
+
     public void save() {
         try {
+            if (productRateBeans == null || productRateBeans.isEmpty()) {
+                addError(":form:gwValuationEdit", MessageUtils.REQUIRE_PRODUCT_RATE());
+                return;
+            }
+            
             if (valuations == null || valuations.isEmpty()) {
-                addError(":form:gwValuationNew", "Please add Valuation");
+                addError(":form:gwValuationNew", MessageUtils.REQUIRE_VALUATION());
                 return;
             }
 
-            List<OpenPolicy> listProdcutRate =
-                    openPolicyService.findByCriteria(new OpenPolicyCriteria(
-                            selectedItem.getProductId(), selectedItem.getOpenPolicyNo()));
+            List<OpenPolicy> listProdcutRate
+                    = openPolicyService.findByCriteria(new OpenPolicyCriteria(
+                                    null, selectedItem.getOpenPolicyNo()));
 
             if (listProdcutRate != null && !listProdcutRate.isEmpty()) {
                 addError("newProductRateMsg",
@@ -216,17 +313,10 @@ public class OpenPolicyManagementController extends BaseController {
                 return;
             }
 
-            selectedItem.setValuation(new Gson().toJson(valuations));
+            selectedItem.setValuationData(new Gson().toJson(valuations));
+            selectedItem.setProductRateData(new Gson().toJson(productRateBeans));
 
-            OpenPolicy open = new OpenPolicy();
-            open.setValuationData(selectedItem.getValuation());
-            open.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
-            open.setBrokerName(selectedItem.getBrokerName());
-            open.setClausesAir(selectedItem.getClausesAir());
-            open.setClausesTruck(selectedItem.getClausesTruck());
-            open.setClausesVessel(selectedItem.getClausesVessel());
-
-            openPolicyService.edit(open);
+            openPolicyService.edit(selectedItem);
 
             LOGGER.debug("save : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
@@ -240,21 +330,20 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void edit() {
         try {
-            if (valuations == null || valuations.isEmpty()) {
-                addError(":form:gwValuationEdit", "Please add Valuation");
+            if (productRateBeans == null || productRateBeans.isEmpty()) {
+                addError(":form:gwValuationEdit", MessageUtils.REQUIRE_PRODUCT_RATE());
                 return;
             }
-            selectedItem.setValuation(new Gson().toJson(valuations));
+            
+            if (valuations == null || valuations.isEmpty()) {
+                addError(":form:gwValuationEdit", MessageUtils.REQUIRE_VALUATION());
+                return;
+            }
+            
+            selectedItem.setValuationData(new Gson().toJson(valuations));
+            selectedItem.setProductRateData(new Gson().toJson(productRateBeans));
 
-            OpenPolicy open = new OpenPolicy();
-            open.setValuationData(selectedItem.getValuation());
-            open.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
-            open.setBrokerName(selectedItem.getBrokerName());
-            open.setClausesAir(selectedItem.getClausesAir());
-            open.setClausesTruck(selectedItem.getClausesTruck());
-            open.setClausesVessel(selectedItem.getClausesVessel());
-
-            openPolicyService.edit(open);
+            openPolicyService.edit(selectedItem);
 
             LOGGER.debug("edit : {}", this.selectedItem);
             addInfo(MessageUtils.SAVE_SUCCESS());
@@ -271,16 +360,6 @@ public class OpenPolicyManagementController extends BaseController {
 
             openPolicyService.remove(viewItem);
 
-            OpenPolicy open = new OpenPolicy();
-            open.setValuationData(selectedItem.getValuation());
-            open.setOpenPolicyNo(selectedItem.getOpenPolicyNo());
-            open.setBrokerName(selectedItem.getBrokerName());
-            open.setClausesAir(selectedItem.getClausesAir());
-            open.setClausesTruck(selectedItem.getClausesTruck());
-            open.setClausesVessel(selectedItem.getClausesVessel());
-
-            valuationService.remove(open);
-
             addInfo(MessageUtils.DELETE_SUCCESS());
             search();
         } catch (Exception ex) {
@@ -290,22 +369,22 @@ public class OpenPolicyManagementController extends BaseController {
     }
 
     public void refreshValuation() {
-        this.selectedItem.getOpenPolicyNo();
-
-        // Find valuation
-        List<OpenPolicy> listProdcutRate = openPolicyService
-                .findByCriteria(new OpenPolicyCriteria(null, selectedItem.getOpenPolicyNo()));
-
-        if (listProdcutRate == null || listProdcutRate.isEmpty()) {
-            valuations = null;
-            conditionsOfCover = new ConditionsOfCover();
-        } else {
-            valuations = toListValuation(listProdcutRate.get(0).getValuationData());
-            this.selectedItem.setBrokerName(listProdcutRate.get(0).getBrokerName());
-            this.selectedItem.setClausesAir(listProdcutRate.get(0).getClausesAir());
-            this.selectedItem.setClausesTruck(listProdcutRate.get(0).getClausesTruck());
-            this.selectedItem.setClausesVessel(listProdcutRate.get(0).getClausesVessel());
-        }
+//        this.selectedItem.getOpenPolicyNo();
+//
+//        // Find valuation
+//        List<OpenPolicy> listProdcutRate = openPolicyService
+//                .findByCriteria(new OpenPolicyCriteria(null, selectedItem.getOpenPolicyNo()));
+//
+//        if (listProdcutRate == null || listProdcutRate.isEmpty()) {
+//            valuations = null;
+//            conditionsOfCover = new ConditionsOfCover();
+//        } else {
+//            valuations = toListValuation(listProdcutRate.get(0).getValuationData());
+//            this.selectedItem.setBrokerName(listProdcutRate.get(0).getBrokerName());
+//            this.selectedItem.setClausesAir(listProdcutRate.get(0).getClausesAir());
+//            this.selectedItem.setClausesTruck(listProdcutRate.get(0).getClausesTruck());
+//            this.selectedItem.setClausesVessel(listProdcutRate.get(0).getClausesVessel());
+//        }
     }
 
     @Override
@@ -354,11 +433,11 @@ public class OpenPolicyManagementController extends BaseController {
         this.dataSource = dataSource;
     }
 
-    public ProductRate getSelectedItem() {
+    public OpenPolicy getSelectedItem() {
         return selectedItem;
     }
 
-    public void setSelectedItem(ProductRate selectedItem) {
+    public void setSelectedItem(OpenPolicy selectedItem) {
         this.selectedItem = selectedItem;
     }
 
@@ -370,11 +449,11 @@ public class OpenPolicyManagementController extends BaseController {
         this.valueationShortName = valueationShortName;
     }
 
-    public String getValueationPerCen() {
+    public Integer getValueationPerCen() {
         return valueationPerCen;
     }
 
-    public void setValueationPerCen(String valueationPerCen) {
+    public void setValueationPerCen(Integer valueationPerCen) {
         this.valueationPerCen = valueationPerCen;
     }
 
@@ -424,5 +503,29 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void setOpenPolicyService(OpenPolicyService openPolicyService) {
         this.openPolicyService = openPolicyService;
+    }
+
+    public List<ProductRateBean> getProductRateBeans() {
+        return productRateBeans;
+    }
+
+    public void setProductRateBeans(List<ProductRateBean> productRateBeans) {
+        this.productRateBeans = productRateBeans;
+    }
+
+    public String getProductRateDetail() {
+        return productRateDetail;
+    }
+
+    public void setProductRateDetail(String productRateDetail) {
+        this.productRateDetail = productRateDetail;
+    }
+
+    public Double getProductRate() {
+        return productRate;
+    }
+
+    public void setProductRate(Double productRate) {
+        this.productRate = productRate;
     }
 }

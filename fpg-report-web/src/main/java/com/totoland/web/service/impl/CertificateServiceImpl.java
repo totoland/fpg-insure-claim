@@ -29,9 +29,11 @@ import com.totoland.db.certificate.dao.CertificateDao;
 import com.totoland.db.certificate.dao.ImageCertDao;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ImageCertExport;
-import com.totoland.db.enums.InsureState;
 import com.totoland.web.service.CertificateService;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,48 +44,46 @@ import org.springframework.transaction.annotation.Transactional;
  * @author totoland
  */
 @Service(value = "certificateService")
-public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> implements CertificateService{
-    
+public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> implements CertificateService {
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyMM",Locale.ENGLISH);
+
     @Autowired
     CertificateDao certificateDao;
-    
+
     @Autowired
     ImageCertDao imageCertDao;
-    
-    @Override
-    public String getCertificateNO(String insureType){
-        String certNumber = "";
-        if (insureType != null || !insureType.trim().isEmpty() && insureType.length()>1) {
-            try{
-                certNumber = insureType.substring(0,1).toUpperCase();
-            }catch(Exception ex){}
-        }
 
-        certNumber += RandomStringUtils.randomNumeric(7);
+    @Override
+    public String getCertificateNO(String insureType) {
+        //F-1606-000001
+        String certNumber = "F";
+
+        certNumber = certNumber + "-" + dateFormat.format(new Date()) + "-" + RandomStringUtils.randomNumeric(6);
 
         return certNumber;
     }
-    
+
     @Override
-    public List<ViewCertificate>searchCertificate(CertifaicationCriteria criteria){
+    public List<ViewCertificate> searchCertificate(CertifaicationCriteria criteria) {
         return certificateDao.findByCriteria(criteria);
     }
-    
+
     @Override
-    public ClaimInsure findByTrxId(String trxId){
+    public ClaimInsure findByTrxId(String trxId) {
         return certificateDao.findByTrxId(trxId);
     }
 
-    @Transactional(rollbackFor = {Throwable.class} )
+    @Transactional(rollbackFor = {Throwable.class})
     @Override
     public void save(ClaimInsure claimInsure, ImageCertExport imageCertExport) {
         certificateDao.edit(claimInsure);
         imageCertExport.setClaimInsureId(claimInsure.getClaimId());
         imageCertDao.edit(imageCertExport);
     }
-    
+
     @Override
-    public void updateStateCertNo(ClaimInsure claimInsure){
+    public void updateStateCertNo(ClaimInsure claimInsure) {
         certificateDao.updateStateCertNo(claimInsure);
     }
 }

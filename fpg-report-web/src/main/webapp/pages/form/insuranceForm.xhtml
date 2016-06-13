@@ -86,7 +86,7 @@
                                          style="border:0px none; background-color:transparent;">
                                 <h:outputLabel value="#{msg.label_insured_name}"/>
                                 <h:panelGroup>
-                                    <p:inplace id="editInsuredName" editor="true">
+                                    <p:inplace id="editInsuredName" editor="#{!insuranceFormController.readOnly}">
                                         <p:inputText id="insuredId"
                                                      value="#{insuranceFormController.claimInsure.insuredName}" 
                                                      required="true"
@@ -340,8 +340,8 @@
 
                                 <h:outputLabel value="#{msg.label_claim_payable_at}"/>
                                 <h:outputLabel value="#{msg.fpg_company_name}"/>
-
-                                <h:outputLabel value="Shiping Marks upload"/>
+                                <p:growl id="upMessages" showDetail="true" />
+<!--                                <h:outputLabel value="Shiping Marks upload"/>
                                 <h:panelGroup>
                                     <p:fileUpload id="imgUpload" fileUploadListener="#{insuranceFormController.handleFileUpload}" 
                                                   mode="advanced" auto="true" dragDropSupport="true"
@@ -349,7 +349,7 @@
                                     <p:growl id="upMessages" showDetail="true" />
                                 </h:panelGroup>
                                 <p:graphicImage id="gimPhoto" url="#{insuranceFormController.imageUploadURL}"
-                                                style="width: 100px"/>
+                                                style="width: 100px"/>-->
                             </p:panelGrid>
                         </fnc:disablePanel>
                         <div class="Container50 Responsive50">
@@ -430,7 +430,7 @@
                                 <p:column headerText="#{msg.label_rate}">
                                     <pe:inputNumber id="dtRate" 
                                                     value="#{insuranceFormController.claimInsure.rate}"
-                                                    decimalPlaces="2"
+                                                    decimalPlaces="4"
                                                     required="true"
                                                     requiredMessage="#{msg.require_generic}"/>
                                 </p:column>
@@ -470,6 +470,7 @@
                                                  icon="fa fa-save Fs14 White"
                                                  process="@form"
                                                  update="@form"
+                                                 rendered="false"
                                                  action="#{insuranceFormController.save(2)}"/>
                                 <p:dialog widgetVar="dlgSave" modal="true" onHide="window.location = ''">
                                     <p:messages id="messages" closable="false"/>
