@@ -117,6 +117,22 @@ public abstract class BaseDao extends HibernateDaoSupport {
         return (BigInteger) t;
     }
     
+    public Object oneColumnNativeQuery(final String SQL, final Object... value) {
+        Object t = getHibernateTemplate().execute(new HibernateCallback() {
+            @Override
+            public Object doInHibernate(Session sn) throws HibernateException, SQLException {
+                SQLQuery query = sn.createSQLQuery(SQL);
+                
+                for (int i = 0; i < value.length; i++) {
+                    query.setParameter(i, value[i]);
+                }
+
+                return ((Object) query.uniqueResult());
+            }
+        });
+        return t;
+    }
+    
     public BigInteger countNativeQuery(final String SQL) {
         return countNativeQuery(SQL, new Object[]{});
     }

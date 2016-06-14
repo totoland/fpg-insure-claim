@@ -13,6 +13,7 @@ import com.totoland.db.common.entity.DropDownList;
 import com.totoland.web.service.CommonService;
 import com.totoland.web.utils.MessageUtils;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -333,7 +334,7 @@ public class DropdownFactory implements Serializable {
             }.getType());
 
             for (ProductRateBean bean : beans) {
-                resList.add(new DropDownList(bean.getProductRateDetail() + " + " + formatter.format(bean.getRate()) + "%", formatter.format(bean.getRate())));
+                resList.add(new DropDownList(bean.getProductRateDetail() + " + " + formatter.format(bean.getRate()) + "%", String.valueOf(bean.getRate()),BigDecimal.valueOf(bean.getRate())));
             }
         }
 

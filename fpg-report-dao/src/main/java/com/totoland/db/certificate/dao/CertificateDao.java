@@ -40,4 +40,6 @@ public interface CertificateDao extends GennericDao<ClaimInsure> {
     ClaimInsure findByTrxId(String trxId);
 
     void updateStateCertNo(ClaimInsure claimInsure);
+    
+    String getCertificateNO(ClaimInsure claimInsure);
 }

@@ -57,6 +57,10 @@ public class SvUser extends DomainEntity implements Serializable {
     private String address;
     @Column(name = "POLICY_NO")
     private String policyNo;
+    @Column(name = "COMPANY_TYPE")
+    private String companyType;
+    @Column(name = "BRANCH_DESC")
+    private String branchDesc;
 
     public SvUser() {
     }
@@ -161,6 +165,22 @@ public class SvUser extends DomainEntity implements Serializable {
         this.policyNo = policyNo;
     }
 
+    public String getCompanyType() {
+        return companyType;
+    }
+
+    public void setCompanyType(String companyType) {
+        this.companyType = companyType;
+    }
+
+    public String getBranchDesc() {
+        return branchDesc;
+    }
+
+    public void setBranchDesc(String branchDesc) {
+        this.branchDesc = branchDesc;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -183,6 +203,6 @@ public class SvUser extends DomainEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "SvUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupLvl=" + userGroupLvl + ", companyName=" + companyName + ", address=" + address + ", policyNo=" + policyNo + '}';
+        return "SvUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupLvl=" + userGroupLvl + ", companyName=" + companyName + ", address=" + address + ", policyNo=" + policyNo + ", companyType=" + companyType + ", branchDesc=" + branchDesc + '}';
     }
 }

@@ -28,7 +28,6 @@ import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.certificate.dao.CertificateDao;
 import com.totoland.db.common.dao.hibernate.GennericDaoImpl;
 import com.totoland.db.entity.ClaimInsure;
-import com.totoland.db.enums.InsureState;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -107,5 +106,14 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
     public void updateStateCertNo(ClaimInsure claimInsure){
         updateNativeQuery("UPDATE claim_insure set certification_number=?,claim_status_id=? where claim_id=?", claimInsure.getCertificationNumber(),
                 claimInsure.getClaimStatusId(),claimInsure.getClaimId());
+        
+        updateNativeQuery("INSERT INTO cert_no values (?,?,?)", claimInsure.getCertificationNumber(),
+                claimInsure.getCreatedBy(),claimInsure.getCreatedDateTime());
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public String getCertificateNO(ClaimInsure claimInsure) {
+        return oneColumnNativeQuery("select CONCAT('F',DATE_FORMAT(SYSDATE(), '%Y%m'),'-', LPAD('"+claimInsure.getClaimId()+"',7,'0'))").toString();
     }
 }

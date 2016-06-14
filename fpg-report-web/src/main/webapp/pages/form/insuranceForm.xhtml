@@ -394,9 +394,9 @@
                                          columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
                                          styleClass="ui-panelgrid-blank" 
                                          style="border:0px none; background-color:transparent;">
-                                <h:outputLabel value="#{msg.label_rate_schedule} "/>
+                                <h:outputLabel value="#{msg.label_rate_schedule}"/>
                                 <h:panelGroup>
-                                    <p:selectOneMenu id="rateScheduleId"
+                                    <p:selectOneMenu id="rateScheduleId" 
                                                      required="true" 
                                                      requiredMessage="#{msg.require_generic}"
                                                      value="#{insuranceFormController.claimInsure.rate}">
@@ -428,7 +428,7 @@
                                     </h:outputLabel>
                                 </p:column>
                                 <p:column headerText="#{msg.label_rate}">
-                                    <pe:inputNumber id="dtRate" 
+                                    <pe:inputNumber id="dtRate" symbol=" %" symbolPosition="s"
                                                     value="#{insuranceFormController.claimInsure.rate}"
                                                     decimalPlaces="4"
                                                     required="true"
@@ -493,6 +493,31 @@
                                 <p:dialog widgetVar="dlgCancel" modal="true" onHide="window.location = 'insuranceForm.xhtml'">
                                     <p:messages id="messagesDiscard" closable="false"/>
                                 </p:dialog> 
+                                <p:commandButton value="#{msg.btn_print_preview}" immediate="true"
+                                                 icon="fa fa-save Fs14 White" styleClass="BlueButton" 
+                                                 type="button" onclick="PF('printPreviewPopup').show()">
+                                </p:commandButton>
+                                <p:confirmDialog widgetVar="printPreviewPopup" 
+                                                 header="#{msg.confirmation_head}" 
+                                                 message="#{msg.msg_confirm_preview}"
+                                                 showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="#{msg.yes}" 
+                                                     ajax="false"
+                                                     process="@form"
+                                                     update="@form"
+                                                     styleClass="ui-confirmdialog-yes GreenButton"
+                                                     onclick="PF('printPreviewPopup').hide();
+                                                             PrimeFaces.monitorDownload(start, function () {
+                                                                 stop();
+                                                             });" 
+                                                     icon="ui-icon-check fa fa-check Fs14 white">
+                                        <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile(0)}"/>
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msg.btn_cancel}"
+                                                     onclick="PF('printPopup').hide()"
+                                                     type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                </p:confirmDialog>
+                                
                                 <p:commandButton value="#{msg.btn_print_cert}" immediate="true"
                                                  icon="fa fa-save Fs14 White" styleClass="GreenButton" 
                                                  type="button" onclick="PF('printPopup').show()">
@@ -688,55 +713,6 @@
             <script>
                 $("#form\\:originCountryCode").attr("style", "");
                 $("#form\\:destinationCountryCode").attr("style", "");
-            </script>
-            <script>
-                function calAmountOfInsurance() {
-                    var amoi = $("#form\\:amountOfInsurance_input").val().replace(/,/g, '');
-                    var exch = $("#form\\:exchangeRate_input").val().replace(/,/g, '');
-                    var valuat = $("#form\\:valuation_input").val().replace(/,/g, '');
-                    var rate = $("#form\\:rateScheduleId_input").val().replace(/,/g, '');
-                    var inv = $("#form\\:invoiceValue_input").val().replace(/,/g, '');
-                    var pr = $("#form\\:dtRate\\:0\\:premiumRate_input").val().replace(/,/g, '');
-                    var dtRate = $("#form\\:dtRate\\:0\\:dtRate_input").val().replace(/,/g, '');
-
-                    if (isNaN(amoi) || isNaN(exch) || isNaN(valuat) || isNaN(inv)) {
-                        $("#form\\:amountOfInsurance_input").val(0.00);
-                        $("#form\\:localAmountOfInsurance_input").val(0.00)
-                    }
-
-                    var amountOfIns = ((inv) * valuat) / 100;
-
-                    $("#form\\:amountOfInsurance_input").val(amountOfIns);
-                    $("#form\\:amountOfInsurance_input").keyup();
-
-                    $("#form\\:localAmountOfInsurance_input").val(amountOfIns * exch);
-                    $("#form\\:localAmountOfInsurance_input").keyup();
-
-//                    if(!isNaN(rate)){
-//                        $("#form\\:dtRate\\:0\\:dtRate_input").val(rate);
-//                    }
-//                    
-//                    if (isNaN(inv) || isNaN(rate)) {
-//                        $("#form\\:dtRate\\:0\\:premiumRate_input").val("");
-//                    }else{
-//                        if(isNaN(inv/rate)){
-//                            $("#form\\:dtRate\\:0\\:premiumRate_input").val("");
-//                        }else{
-//                            $("#form\\:dtRate\\:0\\:premiumRate_input").val(inv/rate);
-//                            }
-//                        $("#form\\:dtRate\\:0\\:premiumRate_input").keyup();
-//                        $("#form\\:dtRate\\:lbPremiumRate").html($("#form\\:dtRate\\:0\\:premiumRate_input").val());
-//                    }
-                }
-
-                $(function () {
-//                    $("#form\\:amountOfInsurance_input").change(function(){calAmountOfInsurance()});
-//                    $("#form\\:exchangeRate_input").change(function(){calAmountOfInsurance()});
-//                    $("#form\\:valuation_input").change(function(){calAmountOfInsurance()});
-//                    $("#form\\:invoiceValue_input").change(function(){calAmountOfInsurance()});
-//                    $("#form\\:rateScheduleId_input").change(function(){calAmountOfInsurance()});
-
-                });
             </script>
         </h:form>
     </ui:define>

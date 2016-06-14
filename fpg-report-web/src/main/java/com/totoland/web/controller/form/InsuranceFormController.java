@@ -152,13 +152,13 @@ public class InsuranceFormController extends BaseController {
             return;
         }
 
-        if(!Objects.equals(this.claimInsure.getCreatedBy(), getUserAuthen().getUserId()) && !isAdmin()){
-            super.redirectPage(JsfUtil.getContextPath()+"/errors/access_denie.xhtml");
+        if (!Objects.equals(this.claimInsure.getCreatedBy(), getUserAuthen().getUserId()) && !isAdmin()) {
+            super.redirectPage(JsfUtil.getContextPath() + "/errors/access_denie.xhtml");
             return;
         }
-        
+
         this.imageUploadURL = String.format("/certImage?c=%s&n=%s", this.claimInsure.getClaimId(), trxId);
-        
+
         this.certNumber = this.claimInsure.getCertificationNumber();
 
         if (this.claimInsure.getMinimumPremiumRate() == null) {
@@ -288,10 +288,22 @@ public class InsuranceFormController extends BaseController {
     }
 
     private void createCertificateNumber() {
-        LOGGER.debug("createCertificateNumber...");
-        this.certNumber = certificateService.getCertificateNO(insureType);
-        this.claimInsure.setCertificationNumber(certNumber);
         this.claimInsure.setClaimStatusId(InsureState.PRINT_CERT.getState());
+        this.claimInsure.setCreatedBy(getUserAuthen().getUserId());
+        this.claimInsure.setCreatedDateTime(new Date());
+        if (this.claimInsure.getTrxId() == null) {
+            this.claimInsure.setTrxId(WebUtils.generateToken());
+        }
+
+        if (this.claimInsure.getClaimId() == null || this.claimInsure.getClaimId() == 0) {
+            certificateService.create(this.claimInsure);
+        }else{
+            certificateService.edit(this.claimInsure);
+        }
+        this.certNumber = certificateService.getCertificateNO(this.claimInsure);
+        LOGGER.debug("createCertificateNumber... {}", this.claimInsure);
+        this.claimInsure.setCertificationNumber(certNumber);
+        certificateService.updateStateCertNo(this.claimInsure);
         readOnly = true;
         LOGGER.info("Print Certificate number : {} by user {}", certNumber, getUserAuthen().getUserId());
     }
@@ -302,10 +314,13 @@ public class InsuranceFormController extends BaseController {
             this.countriesList = dropdownFactory.ddlCountries();
         }
 
-        for (DropDownList ddl : this.countriesList) {
-            if (code.equals(ddl.getValue())) {
-                return ddl.getName();
+        try {
+            for (DropDownList ddl : this.countriesList) {
+                if (code.equals(ddl.getValue())) {
+                    return ddl.getName();
+                }
             }
+        } catch (Exception ex) {
         }
 
         return null;
@@ -320,7 +335,6 @@ public class InsuranceFormController extends BaseController {
                 LOGGER.debug("createCertificateNumber...");
 
                 createCertificateNumber();
-                certificateService.updateStateCertNo(this.claimInsure);
 
             } catch (Exception ex) {
                 LOGGER.error("Fail when create createCertificateNumber : ", ex);
@@ -414,12 +428,12 @@ public class InsuranceFormController extends BaseController {
             debitNote.setInsuredAddress(userData.getAddress());
             debitNote.setCertificationNumber(this.claimInsure.getCertificationNumber());
             debitNote.setIssueDate(this.claimInsure.getIssueDate());
-            
-            if(this.claimInsure.getPremiumRate().intValue()< 500){
+
+            if (this.claimInsure.getPremiumRate().intValue() < 500) {
                 LOGGER.debug("Premium rate lower than 500 use Minimum Premium = 500");
                 this.claimInsure.setPremiumRate(new BigDecimal(500));
             }
-            
+
             debitNote.setPremium(this.claimInsure.getPremiumRate());
             debitNote.setInsuredValue(this.claimInsure.getInsuredValue() + "");
             //Premium rate * 0.4%
@@ -438,8 +452,6 @@ public class InsuranceFormController extends BaseController {
             }
             //Premium + StampDuty
             debitNote.setTotal(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()));
-
-            LOGGER.debug("debitNote.getTotal : {}", debitNote.getTotal());
 
             //Vat = Premium + Stamp * 7%
             debitNote.setVat(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()),
@@ -498,6 +510,7 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("InsuredValue : {}", this.claimInsure.getInsuredValue());
         LOGGER.debug("Rate  : {}", this.claimInsure.getRate());
         LOGGER.debug("amountOfInsurance  : {}", this.claimInsure.getAmountOfInsurance());
+        LOGGER.debug("valuation  : {}", this.claimInsure.getValuation());
 
         if (this.claimInsure.getValuation() == null || this.claimInsure.getValuation().isEmpty()) {
             this.claimInsure.setAmountOfInsurance(null);

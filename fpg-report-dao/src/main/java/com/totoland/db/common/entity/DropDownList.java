@@ -5,6 +5,7 @@
 package com.totoland.db.common.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -35,6 +36,9 @@ public class DropDownList implements Serializable {
     private String orderByField;
     @Column(name = "sort_by")
     private String sortName = "asc";
+    
+    @Transient
+    private BigDecimal decimalValue;
 
     public DropDownList() {
 
@@ -45,6 +49,12 @@ public class DropDownList implements Serializable {
         this.value = value;
     }
 
+    public DropDownList(String name, String value, BigDecimal decimalValue) {
+        this.name = name;
+        this.value = value;
+        this.decimalValue = decimalValue;
+    }
+    
     /**
      * @return the name
      */
@@ -143,6 +153,14 @@ public class DropDownList implements Serializable {
         this.condition = condition;
     }
 
+    public BigDecimal getDecimalValue() {
+        return decimalValue;
+    }
+
+    public void setDecimalValue(BigDecimal decimalValue) {
+        this.decimalValue = decimalValue;
+    }
+    
     @Override
     public String toString() {
         return "TableName : " + this.getTableName() + " name : " + this.getName() + " value : " + this.getValue();

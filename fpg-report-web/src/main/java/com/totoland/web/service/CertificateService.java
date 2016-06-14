@@ -9,7 +9,6 @@ import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ImageCertExport;
-import com.totoland.db.enums.InsureState;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ import java.util.List;
  */
 public interface CertificateService extends GennericService<ClaimInsure>{
 
-    String getCertificateNO(String insureType);
+    String getCertificateNO(ClaimInsure claimInsure);
 
     List<ViewCertificate> searchCertificate(CertifaicationCriteria criteria);
 

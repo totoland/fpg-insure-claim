@@ -55,13 +55,13 @@ public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> imp
     ImageCertDao imageCertDao;
 
     @Override
-    public String getCertificateNO(String insureType) {
+    public String getCertificateNO(ClaimInsure claimInsure) {
         //F-1606-000001
+        //select  CONCAT('F',DATE_FORMAT(SYSDATE(), '%Y%m'),'-', LPAD('1',7,'0'))
         String certNumber = "F";
-
         certNumber = certNumber + "-" + dateFormat.format(new Date()) + "-" + RandomStringUtils.randomNumeric(6);
 
-        return certNumber;
+        return certificateDao.getCertificateNO(claimInsure);
     }
 
     @Override
