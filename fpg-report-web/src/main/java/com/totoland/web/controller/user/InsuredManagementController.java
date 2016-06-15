@@ -76,7 +76,7 @@ public class InsuredManagementController extends BaseController {
     }
 
     public void initCreateUser() {
-        LOGGER.trace("create new User");
+        LOGGER.trace("initCreateUser");
         svUser = new SvUser();
         svUser.setSex(0);
         //Hardcode 3 For Insured Account
@@ -105,6 +105,10 @@ public class InsuredManagementController extends BaseController {
             this.svUser.setCompanyName(selsvUser.getCompanyName());
             this.svUser.setAddress(selsvUser.getAddress());
             this.svUser.setPolicyNo(selsvUser.getPolicyNo());
+            this.svUser.setCompanyType(selsvUser.getCompanyType());
+            this.svUser.setCompanyName(selsvUser.getCompanyName());
+            this.svUser.setBranchDesc(selsvUser.getBranchDesc());
+            this.svUser.setTaxId(selsvUser.getTaxId());
             
             //Find KeyMatching
             keyMatch = keyMatchService.findByCustomerId(String.valueOf(selsvUser.getUserId()));
@@ -195,6 +199,10 @@ public class InsuredManagementController extends BaseController {
         userCriteria.setGroupLvl(UserType.CUSTOMER.getId());
     }
 
+    public void onChangeCompanyType(){
+        LOGGER.debug("companyType : {}",this.svUser.getCompanyType());
+    }
+    
     /**
      * @return the svUsers
      */

@@ -51,6 +51,12 @@ public class ViewUser extends DomainEntity {
     private String address;
     @Column(name = "POLICY_NO")
     private String policyNo;
+    @Column(name = "COMPANY_TYPE")
+    private String companyType;
+    @Column(name = "BRANCH_DESC")
+    private String branchDesc;
+    @Column(name = "TAX_ID")
+    private String taxId;
     @Transient
     private String sessionId;
 
@@ -246,6 +252,30 @@ public class ViewUser extends DomainEntity {
         this.policyNo = policyNo;
     }
 
+    public String getCompanyType() {
+        return companyType;
+    }
+
+    public void setCompanyType(String companyType) {
+        this.companyType = companyType;
+    }
+
+    public String getBranchDesc() {
+        return branchDesc;
+    }
+
+    public void setBranchDesc(String branchDesc) {
+        this.branchDesc = branchDesc;
+    }
+
+    public String getTaxId() {
+        return taxId;
+    }
+
+    public void setTaxId(String taxId) {
+        this.taxId = taxId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -270,6 +300,6 @@ public class ViewUser extends DomainEntity {
 
     @Override
     public String toString() {
-        return "ViewUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupName=" + userGroupName + ", userGroupLvl=" + userGroupLvl + ", userGroupLvlName=" + userGroupLvlName + ", companyName=" + companyName + ", address=" + address + ", policyNo=" + policyNo + ", sessionId=" + sessionId + '}';
+        return "ViewUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupName=" + userGroupName + ", userGroupLvl=" + userGroupLvl + ", userGroupLvlName=" + userGroupLvlName + ", companyName=" + companyName + ", address=" + address + ", policyNo=" + policyNo + ", companyType=" + companyType + ", branchDesc=" + branchDesc + ", taxId=" + taxId + ", sessionId=" + sessionId + '}';
     }
 }

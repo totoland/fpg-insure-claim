@@ -61,6 +61,8 @@ public class SvUser extends DomainEntity implements Serializable {
     private String companyType;
     @Column(name = "BRANCH_DESC")
     private String branchDesc;
+    @Column(name = "TAX_ID")
+    private String taxId;
 
     public SvUser() {
     }
@@ -181,6 +183,14 @@ public class SvUser extends DomainEntity implements Serializable {
         this.branchDesc = branchDesc;
     }
 
+    public String getTaxId() {
+        return taxId;
+    }
+
+    public void setTaxId(String taxId) {
+        this.taxId = taxId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -203,6 +213,6 @@ public class SvUser extends DomainEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "SvUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupLvl=" + userGroupLvl + ", companyName=" + companyName + ", address=" + address + ", policyNo=" + policyNo + ", companyType=" + companyType + ", branchDesc=" + branchDesc + '}';
+        return "SvUser{" + "userId=" + userId + ", username=" + username + ", password= ******** , isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupLvl=" + userGroupLvl + ", companyName=" + companyName + ", address=" + address + ", policyNo=" + policyNo + ", companyType=" + companyType + ", branchDesc=" + branchDesc + ", taxId=" + taxId + '}';
     }
 }

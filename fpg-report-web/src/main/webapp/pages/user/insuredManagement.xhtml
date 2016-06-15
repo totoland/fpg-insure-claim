@@ -263,18 +263,49 @@
                                 <toto:requireLabel forId=":formUser:policyNumber"/>
                             </h:panelGroup>
 
-<!--                            <h:outputLabel value="Office Type"/>
+                            <h:outputLabel value="Office Type"/>
                             <h:panelGroup>
-                                <p:selectOneRadio id="companyType" 
-                                                  value="#{insuredManagementController.svUser.companyType}" 
-                                                  style="border-style:none">  
-                                    <f:selectItem itemLabel="Home Office" itemValue="#{'1'}" />  
-                                    <f:selectItem itemLabel="Branch" itemValue="#{'2'}" /> 
-                                </p:selectOneRadio>
-                            </h:panelGroup>-->
+                                <h:panelGrid columns="2">
+                                    <p:selectOneRadio id="companyType" 
+                                                      required="true"
+                                                      requiredMessage="#{msg.require_generic}"
+                                                      value="#{insuredManagementController.svUser.companyType}" 
+                                                      style="border-style:none;width: 230px">
+                                        <p:ajax listener="#{insuredManagementController.onChangeCompanyType()}" 
+                                                event="change"
+                                                process=":formUser:pnGridNew"
+                                                update=":formUser:pnGridNew"/>
+                                        <f:selectItem itemLabel="Home Office" itemValue="#{'1'}" />  
+                                        <f:selectItem itemLabel="Branch" itemValue="#{'2'}" />
+                                    </p:selectOneRadio><span style="color: red">*</span>
+                                    <p:messages for=":formUser:companyType"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
 
+                            <h:outputLabel id="lbCompanyType"
+                                           value="Branch Name"
+                                           rendered="#{'2' == insuredManagementController.svUser.companyType}"/>
+                            <h:panelGroup rendered="#{'2' == insuredManagementController.svUser.companyType}">
+                                <p:inputText id="branchName" 
+                                             value="#{insuredManagementController.svUser.branchDesc}"
+                                             maxlength="255" 
+                                             required="true"
+                                             requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel id="branchNameReq" forId=":formUser:branchName"/>
+                            </h:panelGroup>
+                            <h:outputLabel value="TAX ID"/>
+                            <h:panelGroup>
+                                <p:inputText id="taxId" 
+                                             value="#{insuredManagementController.svUser.taxId}"
+                                             maxlength="30" 
+                                             required="true"
+                                             requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel id="taxIdReq" forId=":formUser:taxId"/>
+                            </h:panelGroup>
                             <h:outputLabel for="isactive" value="Status" style="width:200px"/>
-                            <p:selectOneRadio id="isactive" value="#{insuredManagementController.svUser.isActive}" style="border-style:none">  
+                            <p:selectOneRadio id="isactive" 
+                                              value="#{insuredManagementController.svUser.isActive}" 
+                                              style="border-style:none;width: 230px">  
                                 <f:selectItem itemLabel="Active" itemValue="#{true}" />  
                                 <f:selectItem itemLabel="In Active" itemValue="#{false}" /> 
                             </p:selectOneRadio>
@@ -312,11 +343,6 @@
                                             required="true" requiredMessage="#{msg.require_generic}"/>
                                 <toto:requireLabel forId=":formUser:password2"/>
                             </h:panelGroup>
-                            <!--                            <h:outputLabel for="userGroupLvlEdit" value="User Type" style="width:200px"/>
-                                                        <p:selectOneMenu id="userGroupLvlEdit" styleClass="selectOne115" value="#{insuredManagementController.svUser.userGroupLvl}">
-                                                            <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                                                            <f:selectItems value="#{insuredManagementController.dropdownFactory.ddlCustomerLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                                        </p:selectOneMenu>-->
                             <h:outputLabel for="companyNameEdit" value="#{msg.label_insured_name}" />
                             <h:panelGroup>
                                 <p:inputText id="companyNameEdit" value="#{insuredManagementController.svUser.companyName}"
@@ -341,15 +367,45 @@
                                 </p:selectOneMenu> 
                                 <toto:requireLabel forId=":formUser:policyNumberEdit"/>
                             </h:panelGroup>
-                            <!--                            <h:outputLabel for="fnameEdit" value="First name" />
-                                                        <p:inputText id="fnameEdit" value="#{insuredManagementController.svUser.fname}"/>
-                                                        <h:outputLabel for="lnameEdit" value="Last name" />
-                                                        <p:inputText id="lnameEdit" value="#{insuredManagementController.svUser.lname}"/>
-                                                        <h:outputLabel for="sexEdit" value="Gender" />
-                                                        <p:selectOneRadio id="sexEdit" value="#{insuredManagementController.svUser.sex}" style="border-style:none">  
-                                                            <f:selectItem itemLabel="Male" itemValue="0" />  
-                                                            <f:selectItem itemLabel="Female" itemValue="1" /> 
-                                                        </p:selectOneRadio>-->
+                            <h:outputLabel value="Office Type"/>
+                            <h:panelGroup>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneRadio id="companyTypeEdit" 
+                                                      required="true"
+                                                      requiredMessage="#{msg.require_generic}"
+                                                      value="#{insuredManagementController.svUser.companyType}" 
+                                                      style="border-style:none;width: 230px">
+                                        <p:ajax listener="#{insuredManagementController.onChangeCompanyType()}" 
+                                                event="change"
+                                                process=":formUser:pnGridUpdate"
+                                                update=":formUser:pnGridUpdate"/>
+                                        <f:selectItem itemLabel="Home Office" itemValue="#{'1'}" />  
+                                        <f:selectItem itemLabel="Branch" itemValue="#{'2'}" />
+                                    </p:selectOneRadio><span style="color: red">*</span>
+                                    <p:messages for=":formUser:companyTypeEdit"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+
+                            <h:outputLabel id="lbCompanyTypeEdit"
+                                           value="Branch Name"
+                                           rendered="#{'2' == insuredManagementController.svUser.companyType}"/>
+                            <h:panelGroup rendered="#{'2' == insuredManagementController.svUser.companyType}">
+                                <p:inputText id="branchNameEdit" 
+                                             value="#{insuredManagementController.svUser.branchDesc}"
+                                             maxlength="255" 
+                                             required="true"
+                                             requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel id="branchNameEditReq" forId=":formUser:branchNameEdit"/>
+                            </h:panelGroup>
+                            <h:outputLabel value="TAX ID"/>
+                            <h:panelGroup>
+                                <p:inputText id="taxIdEdit" 
+                                             value="#{insuredManagementController.svUser.taxId}"
+                                             maxlength="30" 
+                                             required="true"
+                                             requiredMessage="#{msg.require_generic}"/>
+                                <toto:requireLabel id="taxIdEditReq" forId=":formUser:taxIdEdit"/>
+                            </h:panelGroup>
                             <h:outputLabel for="isactiveEdit" value="Status" style="width:200px"/>
                             <p:selectOneRadio id="isactiveEdit" value="#{insuredManagementController.svUser.isActive}" style="border-style:none">  
                                 <f:selectItem itemLabel="Active" itemValue="true" />  
