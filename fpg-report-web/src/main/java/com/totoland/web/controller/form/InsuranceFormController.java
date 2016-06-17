@@ -12,7 +12,9 @@ import com.totoland.db.enums.CertificateType;
 import com.totoland.db.enums.InsureState;
 import com.totoland.reporting.bean.DebitNote;
 import com.totoland.reporting.service.impl.PDFReportExporter;
+import com.totoland.rss.kbank.Rss;
 import com.totoland.web.controller.BaseController;
+import com.totoland.web.controller.exception.RssException;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.ConditionsOfCoverService;
@@ -20,6 +22,7 @@ import com.totoland.web.service.GennericService;
 import com.totoland.web.service.KeyMatchService;
 import com.totoland.web.service.SurveyorService;
 import com.totoland.web.service.UserService;
+import com.totoland.web.service.impl.XMLService;
 import com.totoland.web.servlet.ImageServlet;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
@@ -95,6 +98,8 @@ public class InsuranceFormController extends BaseController {
     @ManagedProperty("#{gennericService}")
     private GennericService<OpenPolicy> valuationService;
 
+    private XMLService<Rss> xMLService;
+
     private Date issueDate;
     private boolean readOnly;
     private String imageUploadURL;
@@ -129,7 +134,6 @@ public class InsuranceFormController extends BaseController {
         this.certNumber = null;
         this.claimInsure = new ClaimInsure(0);
         this.claimInsure.setClaimStatusId(InsureState.NEW.getState());
-        this.claimInsure.setExchangeRate(new BigDecimal(dropdownFactory.getCurrentExchangeRate()));
         this.claimInsure.setIssueDate(new Date());
         this.claimInsure.setInsuredId(getUserAuthen().getUserId());
         this.claimInsure.setInsuredName(getUserAuthen().getCompanyName());
@@ -189,7 +193,12 @@ public class InsuranceFormController extends BaseController {
 
     private void initData() {
         this.insureTypeList = getInsureTypeList();
-        this.currencyTypeList = dropdownFactory.ddlCurrencyType();
+        try {
+            this.currencyTypeList = dropdownFactory.getRssExchangeRate();
+        } catch (Exception ex) {
+            LOGGER.error("Cannot fetch RSS feed : ", ex);
+            super.redirectPage(JsfUtil.getContextPath()+"/errors/505.xhtml");
+        }
         this.countriesList = dropdownFactory.ddlCountries();
         this.commodityTypeList = dropdownFactory.ddlCommodityType();
         this.coverageTypeList = dropdownFactory.ddlCoverageType();
@@ -297,7 +306,7 @@ public class InsuranceFormController extends BaseController {
 
         if (this.claimInsure.getClaimId() == null || this.claimInsure.getClaimId() == 0) {
             certificateService.create(this.claimInsure);
-        }else{
+        } else {
             certificateService.edit(this.claimInsure);
         }
         this.certNumber = certificateService.getCertificateNO(this.claimInsure);
@@ -503,6 +512,13 @@ public class InsuranceFormController extends BaseController {
     public void selectInsureType(String selectedInsureType) {
         this.insureType = findInsureType(selectedInsureType);
         this.claimInsure.setMethodOfTransportId(Integer.parseInt(selectedInsureType));
+    }
+
+    public void onCurrencyChange() {
+        LOGGER.debug("this.claimInsure.getCurrencyType() : {}", this.claimInsure.getCurrencyType());
+        this.claimInsure.setExchangeRate(new BigDecimal(this.claimInsure.getCurrencyType()));
+        calAmountOfInsurance();
+        onRateScheduleChange();
     }
 
     public void onRateScheduleChange() {
@@ -765,5 +781,13 @@ public class InsuranceFormController extends BaseController {
 
     public void setValuationService(GennericService<OpenPolicy> valuationService) {
         this.valuationService = valuationService;
+    }
+
+    public XMLService<Rss> getxMLService() {
+        return xMLService;
+    }
+
+    public void setxMLService(XMLService<Rss> xMLService) {
+        this.xMLService = xMLService;
     }
 }

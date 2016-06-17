@@ -123,6 +123,10 @@
         <exception-type>com.totoland.web.controller.exception.AccessDenieException</exception-type>
         <location>/errors/access_denie.xhtml</location>
     </error-page>
+    <error-page>
+        <exception-type>com.totoland.web.controller.exception.RssException</exception-type>
+        <location>/errors/505.xhtml</location>
+    </error-page>
     <welcome-file-list>
         <welcome-file>pages/login/login.xhtml</welcome-file>
     </welcome-file-list>

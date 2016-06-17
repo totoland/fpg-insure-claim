@@ -136,6 +136,10 @@
                                                      requiredMessage="#{msg.require_generic}"
                                                      styleClass="selectOne120" 
                                                      value="#{insuranceFormController.claimInsure.currencyType}">
+                                        <p:ajax event="change" 
+                                                listener="#{insuranceFormController.onCurrencyChange()}"
+                                                process="@this ,:form:valuation , :form:invoiceValue , :form:amountOfInsurance"
+                                                update=":form:exchangeRate ,:form:localAmountOfInsurance"/>
                                         <f:selectItem itemLabel="" itemValue="" />
                                         <f:selectItems value="#{insuranceFormController.currencyTypeList}"
                                                        var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />

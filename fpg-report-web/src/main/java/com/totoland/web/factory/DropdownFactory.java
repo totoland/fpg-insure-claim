@@ -10,8 +10,11 @@ import com.google.gson.reflect.TypeToken;
 import com.totoland.db.bean.ProductRateBean;
 import com.totoland.db.bean.ValuationBean;
 import com.totoland.db.common.entity.DropDownList;
+import com.totoland.rss.kbank.Rss;
 import com.totoland.web.service.CommonService;
+import com.totoland.web.service.impl.XMLService;
 import com.totoland.web.utils.MessageUtils;
+import com.totoland.web.utils.StringUtils;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -334,7 +337,7 @@ public class DropdownFactory implements Serializable {
             }.getType());
 
             for (ProductRateBean bean : beans) {
-                resList.add(new DropDownList(bean.getProductRateDetail() + " + " + formatter.format(bean.getRate()) + "%", String.valueOf(bean.getRate()),BigDecimal.valueOf(bean.getRate())));
+                resList.add(new DropDownList(bean.getProductRateDetail() + " + " + formatter.format(bean.getRate()) + "%", String.valueOf(bean.getRate()), BigDecimal.valueOf(bean.getRate())));
             }
         }
 
@@ -382,6 +385,26 @@ public class DropdownFactory implements Serializable {
         }
 
         return "0";
+    }
+
+    public List<DropDownList> getRssExchangeRate() throws Exception {
+
+        List<DropDownList> ddlRssExchangeRate = new ArrayList<>();
+
+        XMLService<Rss> xml = new XMLService<>();
+        Rss rss = xml.xmlToObject(Rss.class);
+        
+        ddlRssExchangeRate.add(new DropDownList("THB", "1"));
+        for (Rss.Channel.Item item : rss.getChannel().getItem()) {
+            if (StringUtils.isNumeric(item.getBuy())) {
+                System.out.println(item.getSname().trim()+" | "+item.getBuy());
+                ddlRssExchangeRate.add(new DropDownList(item.getSname().trim(), item.getBuy().trim()));
+            }else{
+                //System.out.println(item.getSname().trim()+" | "+item.getBuy());
+            }
+        }
+
+        return ddlRssExchangeRate;
     }
 
     public String getMinimumPremium() {

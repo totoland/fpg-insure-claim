@@ -4,6 +4,8 @@
  */
 package com.totoland.web.utils;
 
+import com.lowagie.text.xml.xmp.DublinCoreSchema;
+
 /**
  *
  * @author Totoland
@@ -26,5 +28,14 @@ public class StringUtils {
     public static String[] split(String s,String rex){
         String[] arr = s.split(rex);
         return arr;
+    }
+    
+    public static boolean isNumeric(String number){
+        try{
+            Double.parseDouble(number);
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
     }
 }

@@ -58,8 +58,8 @@ public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> imp
     public String getCertificateNO(ClaimInsure claimInsure) {
         //F-1606-000001
         //select  CONCAT('F',DATE_FORMAT(SYSDATE(), '%Y%m'),'-', LPAD('1',7,'0'))
-        String certNumber = "F";
-        certNumber = certNumber + "-" + dateFormat.format(new Date()) + "-" + RandomStringUtils.randomNumeric(6);
+        //String certNumber = "F";
+//        certNumber = certNumber + "-" + dateFormat.format(new Date()) + "-" + RandomStringUtils.randomNumeric(6);
 
         return certificateDao.getCertificateNO(claimInsure);
     }

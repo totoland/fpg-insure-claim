@@ -109,6 +109,8 @@ public class OpenPolicyManagementController extends BaseController {
     }
 
     public void initEdit(OpenPolicy viewItem) {
+        LOGGER.debug("initEdit");
+        
         this.selectedItem.setOpenPolicyNo(viewItem.getOpenPolicyNo());
 
         List<OpenPolicy> list
@@ -122,10 +124,11 @@ public class OpenPolicyManagementController extends BaseController {
             this.selectedItem.setClausesAir(list.get(0).getClausesAir());
             this.selectedItem.setClausesTruck(list.get(0).getClausesTruck());
             this.selectedItem.setClausesVessel(list.get(0).getClausesVessel());
+            this.selectedItem.setBrokerName(list.get(0).getBrokerName());
+            this.selectedItem.setBrokerLicense(list.get(0).getBrokerLicense());
         } else {
             valuations = null;
         }
-        LOGGER.debug("initEdit");
     }
 
     private List<ValuationBean> toListValuation(String valuation) {

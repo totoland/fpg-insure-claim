@@ -114,6 +114,6 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
     @Transactional(readOnly = true)
     @Override
     public String getCertificateNO(ClaimInsure claimInsure) {
-        return oneColumnNativeQuery("select CONCAT('F',DATE_FORMAT(SYSDATE(), '%Y%m'), LPAD('"+claimInsure.getClaimId()+"',7,'0'))").toString();
+        return oneColumnNativeQuery("select CONCAT('F',DATE_FORMAT(SYSDATE(), '%y%m'),'-', LPAD('"+claimInsure.getClaimId()+"',7,'0'))").toString();
     }
 }
