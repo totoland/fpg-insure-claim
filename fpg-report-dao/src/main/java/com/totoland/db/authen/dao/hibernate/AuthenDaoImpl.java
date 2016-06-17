@@ -40,7 +40,11 @@ public class AuthenDaoImpl extends BaseDao implements AuthenDao, Serializable {
         sql.append("sv_user.ADDRESS, ");
         sql.append("sv_user.COMPANY_NAME, ");
         sql.append("sv_user.POLICY_NO, ");
-        sql.append("group_lvl.GROUP_LVL_NAME ");
+        sql.append("group_lvl.GROUP_LVL_NAME, ");
+        sql.append("sv_user.POLICY_NO, ");
+        sql.append("sv_user.BRANCH_DESC, ");
+        sql.append("sv_user.TAX_ID, ");
+        sql.append("sv_user.COMPANY_TYPE ");
         sql.append("FROM ");
         sql.append("sv_user ");
         sql.append("INNER JOIN user_group ON sv_user.USER_GROUP_ID = user_group.USER_GROUP_ID ");
