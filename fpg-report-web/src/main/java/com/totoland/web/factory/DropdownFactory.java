@@ -407,7 +407,7 @@ public class DropdownFactory implements Serializable {
     public List<DropDownList> getListOpenPolicyNumber() {
 
         DropDownList criteria = new DropDownList();
-        criteria.setTableName("product_rate");
+        criteria.setTableName("open_policy");
         criteria.setOrderByField("open_policy_no");
         criteria.setName("DISTINCT(open_policy_no)");
         criteria.setValue("open_policy_no");
