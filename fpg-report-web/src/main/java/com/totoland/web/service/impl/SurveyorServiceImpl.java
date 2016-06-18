@@ -23,14 +23,11 @@
  */
 package com.totoland.web.service.impl;
 
-import com.totoland.db.common.dao.hibernate.GennericDaoImpl;
 import com.totoland.db.entity.Surveyors;
 import com.totoland.db.surveyor.dao.SurveyorDao;
 import com.totoland.web.service.SurveyorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *

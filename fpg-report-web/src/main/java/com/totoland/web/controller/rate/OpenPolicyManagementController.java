@@ -23,17 +23,21 @@ import com.totoland.db.bean.OpenPolicyCriteria;
 import com.totoland.db.bean.ProductRateBean;
 import com.totoland.db.bean.ValuationBean;
 import com.totoland.db.common.entity.DropDownList;
+import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ConditionsOfCover;
 import com.totoland.db.entity.OpenPolicy;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
+import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.ConditionsOfCoverService;
 import com.totoland.web.service.GennericService;
 import com.totoland.web.service.OpenPolicyService;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -61,6 +65,8 @@ public class OpenPolicyManagementController extends BaseController {
     private ConditionsOfCoverService conditionsOfCoverService;
     @ManagedProperty("#{openPolicyService}")
     private OpenPolicyService openPolicyService;
+    @ManagedProperty("#{certificateService}")
+    private CertificateService certificateService;
 
     private OpenPolicyCriteria criteria;
     private List<OpenPolicy> dataSource;
@@ -110,7 +116,7 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void initEdit(OpenPolicy viewItem) {
         LOGGER.debug("initEdit");
-        
+
         this.selectedItem.setOpenPolicyNo(viewItem.getOpenPolicyNo());
 
         List<OpenPolicy> list
@@ -295,7 +301,7 @@ public class OpenPolicyManagementController extends BaseController {
                 addError(":form:gwValuationEdit", MessageUtils.REQUIRE_PRODUCT_RATE());
                 return;
             }
-            
+
             if (valuations == null || valuations.isEmpty()) {
                 addError(":form:gwValuationNew", MessageUtils.REQUIRE_VALUATION());
                 return;
@@ -332,12 +338,12 @@ public class OpenPolicyManagementController extends BaseController {
                 addError(":form:gwValuationEdit", MessageUtils.REQUIRE_PRODUCT_RATE());
                 return;
             }
-            
+
             if (valuations == null || valuations.isEmpty()) {
                 addError(":form:gwValuationEdit", MessageUtils.REQUIRE_VALUATION());
                 return;
             }
-            
+
             selectedItem.setValuationData(new Gson().toJson(valuations));
             selectedItem.setProductRateData(new Gson().toJson(productRateBeans));
 
@@ -353,13 +359,26 @@ public class OpenPolicyManagementController extends BaseController {
         }
     }
 
-    public void delete(OpenPolicy viewItem) {
+    public void delete(OpenPolicy selectedItem) {
         try {
+            LOGGER.debug("Delete openpolicy number : {}", selectedItem.getOpenPolicyNo());
 
-            openPolicyService.remove(viewItem);
+            //Find OpenPolicy if it already used by someone must be cannot delete
+            Map<String, Object> params = new HashMap<>();
+            params.put("policyNumber", selectedItem.getOpenPolicyNo());
 
+            List<ClaimInsure> insures = certificateService.findByDynamicField(ClaimInsure.class, params);
+
+            if (insures != null && !insures.isEmpty()) {
+                LOGGER.warn("cannot delete OpenPolicy Nuber '{}' someone already used it",selectedItem.getOpenPolicyNo());
+                addError(MessageUtils.getResourceBundleString("warn_delete_openpolicy_used",selectedItem.getOpenPolicyNo()));
+                return;
+            }
+
+            openPolicyService.remove(selectedItem);
             addInfo(MessageUtils.DELETE_SUCCESS());
             search();
+
         } catch (Exception ex) {
             LOGGER.error("", ex);
             addError(MessageUtils.DELETE_NOT_SUCCESS());
@@ -525,5 +544,13 @@ public class OpenPolicyManagementController extends BaseController {
 
     public void setProductRate(Double productRate) {
         this.productRate = productRate;
+    }
+
+    public CertificateService getCertificateService() {
+        return certificateService;
+    }
+
+    public void setCertificateService(CertificateService certificateService) {
+        this.certificateService = certificateService;
     }
 }

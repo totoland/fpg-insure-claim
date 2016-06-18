@@ -38,8 +38,8 @@ public class DropDownList implements Serializable {
     private String sortName = "asc";
     
     @Transient
-    private BigDecimal decimalValue;
-
+    private String value2;
+    
     public DropDownList() {
 
     }
@@ -48,11 +48,11 @@ public class DropDownList implements Serializable {
         this.name = name;
         this.value = value;
     }
-
-    public DropDownList(String name, String value, BigDecimal decimalValue) {
+    
+    public DropDownList(String name, String value, String value2) {
         this.name = name;
         this.value = value;
-        this.decimalValue = decimalValue;
+        this.value2 = value2;
     }
     
     /**
@@ -153,16 +153,16 @@ public class DropDownList implements Serializable {
         this.condition = condition;
     }
 
-    public BigDecimal getDecimalValue() {
-        return decimalValue;
+    public String getValue2() {
+        return value2;
     }
 
-    public void setDecimalValue(BigDecimal decimalValue) {
-        this.decimalValue = decimalValue;
+    public void setValue2(String value2) {
+        this.value2 = value2;
     }
     
     @Override
     public String toString() {
-        return "TableName : " + this.getTableName() + " name : " + this.getName() + " value : " + this.getValue();
+        return this.getName() + " | " + this.getValue() + " | " + this.getValue2();
     }
 }

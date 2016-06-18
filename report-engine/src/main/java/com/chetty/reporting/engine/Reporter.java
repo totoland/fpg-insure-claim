@@ -1,6 +1,6 @@
 package com.chetty.reporting.engine;
 
-import com.chetty.reporting.beans.CertificationBean;
+import com.totoland.reporting.bean.CertificationBean;
 import com.totoland.reporting.bean.DebitNote;
 import java.io.FileInputStream;
 import java.io.InputStream;

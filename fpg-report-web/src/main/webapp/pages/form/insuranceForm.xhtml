@@ -108,7 +108,7 @@
 
                                 <h:outputLabel value="#{msg.label_valuation}"/>
                                 <h:panelGroup>
-                                    <p:selectOneMenu id="valuation" styleClass="selectOne120"
+                                    <p:selectOneMenu id="valuation" 
                                                      value="#{insuranceFormController.claimInsure.valuation}">
                                         <f:selectItem/>
                                         <f:selectItems value="#{insuranceFormController.dropdownFactory.getValuation(insuranceFormController.claimInsure.policyNumber)}"
@@ -135,7 +135,7 @@
                                     <p:selectOneMenu id="currencyType"
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                     styleClass="selectOne120" 
+                                                      
                                                      value="#{insuranceFormController.claimInsure.currencyType}">
                                         <p:ajax event="change" 
                                                 listener="#{insuranceFormController.onCurrencyChange()}"
@@ -165,8 +165,8 @@
 
                                 <h:outputLabel value="#{msg.label_origin_country}"/>
                                 <h:panelGroup>
-                                    <p:selectOneMenu id="originCountryCode" 
-                                                     styleClass="selectOne120"
+                                    <p:selectOneMenu id="originCountryCode"
+                                                     filter="true"
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
                                                      value="#{insuranceFormController.claimInsure.originCountryCode}">
@@ -178,8 +178,6 @@
                                     </p:selectOneMenu>
                                     <toto:requireLabel forId="form:originCountryCode"/>
                                 </h:panelGroup>
-<!--                                <h:outputLabel value="#{msg.label_origin_status_prov}"/>
-                                <p:inputText value="#{insuranceFormController.claimInsure.originStateProv}"/>-->
 
                                 <h:outputLabel value="#{msg.label_origin_desc}"/>
                                 <h:panelGroup>
@@ -199,9 +197,10 @@
                                 <h:outputLabel value="#{msg.label_destination_country}"/>
                                 <h:panelGroup>
                                     <p:selectOneMenu id="destinationCountryCode" 
+                                                     filter="true"
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                     styleClass="selectOne120" value="#{insuranceFormController.claimInsure.destinationCountryCode}">
+                                                      value="#{insuranceFormController.claimInsure.destinationCountryCode}">
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{insuranceFormController.countriesList}" 
                                                        var="item"
@@ -210,9 +209,6 @@
                                     </p:selectOneMenu>
                                     <toto:requireLabel forId="form:destinationCountryCode"/>
                                 </h:panelGroup>
-
-<!--                                <h:outputLabel value="#{msg.label_destination_status_prov}"/>
-                                <p:inputText value="#{insuranceFormController.claimInsure.destinationStateProv}"/>-->
 
                                 <h:outputLabel value="#{msg.label_destination_desc}"/>
                                 <h:panelGroup>
@@ -240,7 +236,12 @@
                                     <p:selectOneMenu id="selectInsureType2" 
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                     styleClass="selectOne120" value="#{insuranceFormController.claimInsure.methodOfTransportId}">
+                                                      
+                                                     value="#{insuranceFormController.claimInsure.methodOfTransportId}">
+                                        <p:ajax event="change" 
+                                                listener="#{insuranceFormController.onMethodOfTransportChange()}"
+                                                process="@this"
+                                                update=":form:shipmentDate"/>
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{insuranceFormController.dropdownFactory.ddlMethodOfTransport()}" 
                                                        var="item"
@@ -268,16 +269,18 @@
                                                 required="true"
                                                 requiredMessage="#{msg.require_generic}"
                                                 mask="99/99/9999" pattern="dd/MM/yyyy" 
-                                                value="#{insuranceFormController.claimInsure.shipmentDate}" maxdate="#{insuranceFormController.claimInsure.issueDate}">
-                                        <p:ajax event="dateSelect" update=":form:calendar :form:upMessages" />
+                                                value="#{insuranceFormController.claimInsure.shipmentDate}" 
+                                                mindate="#{insuranceFormController.minShipmentDate}">
                                     </p:calendar>
                                     <toto:requireLabel forId="form:shipmentDate"/>
                                 </h:panelGroup>
 
                                 <h:outputLabel value="#{msg.label_issue_date}"/>
                                 <h:panelGroup>
-                                    <p:calendar id="calendar" pattern="dd/MM/yyyy" placeholder="#{msg.require_field}" readonlyInput="true"
-                                                readonly="true"
+                                    <p:calendar id="calendar" pattern="dd/MM/yyyy" 
+                                                placeholder="#{msg.require_field}" 
+                                                readonlyInput="true"
+                                                disabled="true"
                                                 value="#{insuranceFormController.claimInsure.issueDate}">
                                         <p:ajax event="dateSelect" update=":form:shipmentDate :form:upMessages" />
                                     </p:calendar>
@@ -289,7 +292,7 @@
                                                      filter="true" filterMatchMode="contains"                                                                                                                     
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                     styleClass="selectOne120" value="#{insuranceFormController.claimInsure.commodityTypeCode}">
+                                                      value="#{insuranceFormController.claimInsure.commodityTypeCode}">
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{insuranceFormController.commodityTypeList}" 
                                                        var="item" itemLabel="#{item.name}" itemValue="#{item.value}"/>
@@ -311,7 +314,7 @@
 
                                 <h:outputLabel value="#{msg.label_coverage_type}"/>
                                 <h:panelGroup>
-                                    <p:selectOneMenu id='coverageTypeId' styleClass="selectOne120" 
+                                    <p:selectOneMenu id='coverageTypeId'  
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
                                                      value="#{insuranceFormController.claimInsure.coverageTypeId}">
@@ -323,7 +326,7 @@
 
 
                                 <h:outputLabel value="#{msg.label_insuring_terms}"/>
-                                <p:selectOneMenu styleClass="selectOne120" value="#{insuranceFormController.claimInsure.insuringTermsId}">
+                                <p:selectOneMenu  value="#{insuranceFormController.claimInsure.insuringTermsId}">
                                     <f:selectItems value="#{insuranceFormController.insuringTermsTypeList}" 
                                                    var="item"
                                                    itemLabel="#{item.name}"
@@ -339,7 +342,12 @@
                                                      filter="true" filterMatchMode="contains"
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                     styleClass="selectOne120" value="#{insuranceFormController.claimInsure.claimSurveyorId}">
+                                                     value="#{insuranceFormController.claimInsure.claimSurveyorId}">
+                                        <p:ajax event="change"
+                                                listener="#{insuranceFormController.onClaimSurveyorChange}"
+                                                process="@this" resetValues="true"
+                                                update=":form:claimSurveyorDesc" 
+                                                oncomplete="if($('#form\\:claimSurveyorId_input').val()==''){$('#form\\:claimPayableAtAddress').html('');$('#form\\:claimPayableAtCompany').html('');$('#form\\:claimPayableAtTel').html('');$('#form\\:claimPayableAtFax').html('')}"/>
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{insuranceFormController.claimSurveyorsList}"
                                                        var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
@@ -348,7 +356,16 @@
                                 </h:panelGroup>
 
                                 <h:outputLabel value="#{msg.label_claim_payable_at}"/>
-                                <h:outputLabel value="#{msg.fpg_company_name}"/>
+                                <h:panelGroup id="claimSurveyorDesc">
+                                    <h:outputLabel id="claimPayableAtCompany" value="#{insuranceFormController.claimInsure.claimPayableAtCompany}"/>
+                                    <br/>
+                                    <h:outputLabel id="claimPayableAtAddress" value="#{insuranceFormController.claimInsure.claimPayableAtAddress}"/>
+                                    <br/>
+                                    <h:outputLabel id="claimPayableAtTel" value="#{insuranceFormController.claimInsure.claimPayableAtTel}"/>
+                                    <br/>
+                                    <h:outputLabel id="claimPayableAtFax" value="#{insuranceFormController.claimInsure.claimPayableAtFax}"/>
+                                </h:panelGroup>
+
                                 <p:growl id="upMessages" showDetail="true" />
                                 <!--                                <h:outputLabel value="Shiping Marks upload"/>
                                                                 <h:panelGroup>
@@ -496,7 +513,8 @@
                                                      immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
 
                                     </p:commandButton>
-                                    <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                    <p:commandButton value="#{msg.btn_cancel}" onclick="PF('cmfDiscard').hide();PF('dlgCancel').show();" 
+                                                     type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
 
                                 <p:dialog widgetVar="dlgCancel" modal="true" onHide="window.location = 'insuranceForm.xhtml'">
@@ -719,21 +737,21 @@
                 $("#form\\:originCountryCode").attr("style", "");
                 $("#form\\:destinationCountryCode").attr("style", "");
                 //<![CDATA[
-                    var maxOfInsureValue = "#{insuranceFormController.maxOfInsureValue}";
-                    function printCert() {
-                        var insureValue = $('#form\\:localAmountOfInsurance_input').val().replace(/,/g, '');
-                        if (parseInt(insureValue) > parseInt(maxOfInsureValue)) {
-                            PF('genericDialog').show();
-                            PF('printPopup').hide();
-                            return false;
-                        } else {
-                            PF('printPopup').hide();
-                            PrimeFaces.monitorDownload(start, function () {
-                                stop();
-                                PF('cmPrintDone').show();
-                            });
-                        }
+                var maxOfInsureValue = "#{insuranceFormController.maxOfInsureValue}";
+                function printCert() {
+                    var insureValue = $('#form\\:localAmountOfInsurance_input').val().replace(/,/g, '');
+                    if (parseInt(insureValue) > parseInt(maxOfInsureValue)) {
+                        PF('genericDialog').show();
+                        PF('printPopup').hide();
+                        return false;
+                    } else {
+                        PF('printPopup').hide();
+                        PrimeFaces.monitorDownload(start, function () {
+                            stop();
+                            PF('cmPrintDone').show();
+                        });
                     }
+                }
                 //]]>
             </script>
 
@@ -754,6 +772,18 @@
                     </div>
                 </div>
             </p:dialog>
+
+            <style>
+                .ui-inputfield{
+                    width: 250px !important;
+                }
+                .ui-selectonemenu{
+                    width: 218px !important;
+                }
+                .ui-selectonemenu-label{
+                    width: 218px !important;
+                } 
+            </style>
         </h:form>
     </ui:define>
 

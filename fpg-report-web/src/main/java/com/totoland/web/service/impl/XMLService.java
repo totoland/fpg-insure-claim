@@ -23,8 +23,7 @@
  */
 package com.totoland.web.service.impl;
 
-import com.totoland.rss.kbank.Rss;
-import com.totoland.rss.kbank.Rss.Channel.Item;
+import com.totoland.web.utils.MessageUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,7 +49,7 @@ public class XMLService<T> {
 
     public XMLService() {
         try {
-            url = new URL("http://www.kasikornbank.com/_layouts/KB/ContentDisp.aspx?url=[/EN/RatesAndFees/Pages/RssExchange.aspx]&content=[rss]&tag=[[37]xml,rss]&row=[item]&filter=[Neq,UNQUOTE]%E2%80%8B");
+            url = new URL(MessageUtils.getConf("rss.exchange.ws"));
         } catch (MalformedURLException ex) {
             throw new RuntimeException(ex);
         }

@@ -4,8 +4,6 @@
  */
 package com.totoland.web.utils;
 
-import com.lowagie.text.xml.xmp.DublinCoreSchema;
-
 /**
  *
  * @author Totoland

@@ -62,7 +62,7 @@ public class Surveyors implements Serializable {
     private String location;
     @Column(name = "GMT")
     private String gmt;
-    @Column(name = "Area_description")
+    @Column(name = "Area description")
     private String areadescription;
     @Column(name = "Company")
     private String company;

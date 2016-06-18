@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -24,11 +25,11 @@ import org.springframework.stereotype.Repository;
 @Repository("commonDao")
 public class CommonDaoImpl extends BaseDao implements CommonDao {
 
-    private static Logger logger = LoggerFactory.getLogger(CommonDaoImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommonDaoImpl.class);
 
+    @Transactional(readOnly = true)
     @Override
     public List<DropDownList> getDropdownList(DropDownList dropDownList) {
-//        logger.info("getDropdownList");
         
         String orderBy = dropDownList.getOrderByField()==null?dropDownList.getName():dropDownList.getOrderByField().toLowerCase();
         String sortBy = dropDownList.getSortName()==null?"ASC":dropDownList.getSortName().toLowerCase();

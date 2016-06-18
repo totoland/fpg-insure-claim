@@ -100,7 +100,7 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
         return (ClaimInsure) findUniqNativeQuery("SELECT * FROM claim_insure where trx_id = ?", ClaimInsure.class, trxId);
     }
     
-    @Transactional
+    @Transactional(rollbackFor = {Throwable.class})
     @Override
     public void updateStateCertNo(ClaimInsure claimInsure){
         updateNativeQuery("UPDATE claim_insure set certification_number=?,claim_status_id=? where claim_id=?", claimInsure.getCertificationNumber(),

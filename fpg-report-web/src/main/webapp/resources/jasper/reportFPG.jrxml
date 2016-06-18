@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFPG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03c5575f-761a-4e21-ae7f-ce00d78a7c53">
-	<property name="ireport.zoom" value="1.331000000000004"/>
+	<property name="ireport.zoom" value="2.357947691000009"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="916"/>
 	<field name="nameOfAssured" class="java.lang.String"/>
 	<field name="vesselAirline" class="java.lang.String"/>
 	<field name="referenceNumber" class="java.lang.String"/>
@@ -14,12 +14,14 @@
 	<field name="voyageFlightNo" class="java.lang.String"/>
 	<field name="sailingFlightDate" class="java.util.Date"/>
 	<field name="issueDate" class="java.util.Date"/>
+	<field name="shipmentDate" class="java.util.Date"/>
 	<field name="subject" class="java.lang.String"/>
 	<field name="detail" class="java.lang.String"/>
 	<field name="issueOn" class="java.util.Date"/>
 	<field name="copyType" class="java.lang.String"/>
 	<field name="certificationNumber" class="java.lang.String"/>
 	<field name="amountInsuredHereunder" class="java.lang.String"/>
+	<field name="amountInsuredHereunderWord" class="java.lang.String"/>
 	<field name="commodityDescription" class="java.lang.String"/>
 	<field name="surveyorAddress" class="java.lang.String"/>
 	<field name="surveyorCompany" class="java.lang.String"/>
@@ -27,9 +29,14 @@
 	<field name="surveyorFax" class="java.lang.String"/>
 	<field name="signature1URL" class="java.lang.String"/>
 	<field name="signature2URL" class="java.lang.String"/>
+	<field name="signature3URL" class="java.lang.String"/>
 	<field name="companyLogoURL" class="java.lang.String"/>
 	<field name="certImageURL" class="java.lang.String"/>
 	<field name="currencyType" class="java.lang.String"/>
+	<field name="fullCurrencyType" class="java.lang.String"/>
+	<field name="brokerName" class="java.lang.String"/>
+	<field name="brokerLicense" class="java.lang.String"/>
+	<field name="additionalInfomation" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -212,7 +219,7 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<text><![CDATA[นายหน้า]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="154" y="547" width="125" height="13" uuid="29a18092-e64a-4865-ad6e-425aa6782e04"/>
+				<reportElement x="144" y="547" width="54" height="13" uuid="29a18092-e64a-4865-ad6e-425aa6782e04"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="11" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -251,7 +258,7 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textElement textAlignment="Justified" verticalAlignment="Top">
 					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yyyy",new Locale("en")).format($F{sailingFlightDate})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("en")).format($F{sailingFlightDate})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="279" y="58" width="131" height="13" uuid="1c78b4ec-26cb-40fa-b5f4-fd09c159ccda"/>
@@ -268,7 +275,7 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textFieldExpression><![CDATA[$F{from}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="159" y="77" width="289" height="13" uuid="3a756946-6b48-4401-a4af-5d5f9c00d2df"/>
+				<reportElement x="159" y="77" width="194" height="13" uuid="3a756946-6b48-4401-a4af-5d5f9c00d2df"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -408,11 +415,11 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textFieldExpression><![CDATA[$F{surveyorFax}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="154" y="575" width="97" height="13" uuid="f0b0b405-6626-4a6a-82a1-f36a9ea5f4cb"/>
+				<reportElement x="103" y="571" width="97" height="13" uuid="f0b0b405-6626-4a6a-82a1-f36a9ea5f4cb"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yyyy",new Locale("en")).format($F{issueDate})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("en")).format($F{shipmentDate})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="2" y="247" width="239" height="99" isRemoveLineWhenBlank="true" uuid="465a196f-1297-45d0-bd3f-4b11bd2cfcfd"/>
@@ -454,6 +461,48 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{currencyType}]]></textFieldExpression>
 			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="159" y="91" width="396" height="13" uuid="66713a81-b8b7-48c0-86e1-a9908e00bf5f"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amountInsuredHereunderWord}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="142" y="91" width="17" height="13" uuid="f7a0e996-7e91-46f1-9144-4ec3c01ae39b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{currencyType}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="426" y="547" width="97" height="13" uuid="a379c240-4354-41e7-8d2a-dd6e47d4b89e"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{brokerLicense}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="200" y="547" width="173" height="13" uuid="33b763c1-9649-4248-93c3-dd578cd4c22a"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{brokerName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="375" y="77" width="129" height="13" uuid="f7261b6f-20a9-45df-904e-afc41913026e"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fullCurrencyType}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="279" y="247" width="263" height="99" isRemoveLineWhenBlank="true" uuid="23ab308f-94c8-49b8-8e01-0e1ca623e217"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{additionalInfomation}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="61">
 			<staticText>
@@ -478,12 +527,16 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<text><![CDATA[Authorized Signature]]></text>
 			</staticText>
 			<image>
-				<reportElement x="45" y="9" width="118" height="31" uuid="1fc19ea9-d878-4ae5-8ac8-443a0611a42a"/>
+				<reportElement x="67" y="9" width="128" height="31" uuid="1fc19ea9-d878-4ae5-8ac8-443a0611a42a"/>
 				<imageExpression><![CDATA[$F{signature1URL}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="223" y="9" width="118" height="31" uuid="8d50515a-71b9-44d7-9948-f1ca99681aa1"/>
+				<reportElement x="235" y="9" width="118" height="31" uuid="8d50515a-71b9-44d7-9948-f1ca99681aa1"/>
 				<imageExpression><![CDATA[$F{signature2URL}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="410" y="9" width="118" height="31" uuid="82a753d5-f67b-428a-a3ea-d713c1e84b07"/>
+				<imageExpression><![CDATA[$F{signature3URL}]]></imageExpression>
 			</image>
 		</band>
 	</detail>

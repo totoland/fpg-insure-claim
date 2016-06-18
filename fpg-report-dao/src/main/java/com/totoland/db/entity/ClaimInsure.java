@@ -136,6 +136,15 @@ public class ClaimInsure implements Serializable {
     @Column(name = "minimum_premium_rate")
     private BigDecimal minimumPremiumRate;
 
+    @Transient
+    private String claimPayableAtCompany;
+    @Transient
+    private String claimPayableAtAddress;
+    @Transient
+    private String claimPayableAtTel;
+    @Transient
+    private String claimPayableAtFax;
+    
     public ClaimInsure() {
     }
 
@@ -541,6 +550,38 @@ public class ClaimInsure implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public String getClaimPayableAtCompany() {
+        return claimPayableAtCompany;
+    }
+
+    public void setClaimPayableAtCompany(String claimPayableAtCompany) {
+        this.claimPayableAtCompany = claimPayableAtCompany;
+    }
+
+    public String getClaimPayableAtAddress() {
+        return claimPayableAtAddress;
+    }
+
+    public void setClaimPayableAtAddress(String claimPayableAtAddress) {
+        this.claimPayableAtAddress = claimPayableAtAddress;
+    }
+
+    public String getClaimPayableAtTel() {
+        return claimPayableAtTel;
+    }
+
+    public void setClaimPayableAtTel(String claimPayableAtTel) {
+        this.claimPayableAtTel = claimPayableAtTel;
+    }
+
+    public String getClaimPayableAtFax() {
+        return claimPayableAtFax;
+    }
+
+    public void setClaimPayableAtFax(String claimPayableAtFax) {
+        this.claimPayableAtFax = claimPayableAtFax;
     }
 
     @Override

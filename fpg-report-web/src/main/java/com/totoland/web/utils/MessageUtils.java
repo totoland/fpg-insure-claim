@@ -32,6 +32,15 @@ public class MessageUtils {
         return ResourceBundle.getBundle(WebConstant.CONF_PROP).getString(key);
     }
 
+    public static int getConfAsInt(String key,int defaultInt) {
+        try {
+            return Integer.parseInt(ResourceBundle.getBundle(WebConstant.CONF_PROP).getString(key));
+        } catch (Exception ex) {
+        }
+
+        return defaultInt;
+    }
+
     public static String getString(String key) {
         return getResourceBundleString(key);
     }

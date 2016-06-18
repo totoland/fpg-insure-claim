@@ -279,8 +279,8 @@ public class DropdownFactory implements Serializable {
         List<DropDownList> customers = new ArrayList<>();
         DropDownList criteria = new DropDownList();
         criteria.setTableName("surveyors");
-        criteria.setOrderByField("CONCAT(Country ,'---', Location)");
-        criteria.setName("CONCAT(Country ,'---', Location)");
+        criteria.setOrderByField("feild_name");
+        criteria.setName("CONCAT(Country,' - ',Location)");
         criteria.setValue("surveyor_id");
         criteria.setSortName("ASC");
 
@@ -337,7 +337,7 @@ public class DropdownFactory implements Serializable {
             }.getType());
 
             for (ProductRateBean bean : beans) {
-                resList.add(new DropDownList(bean.getProductRateDetail() + " + " + formatter.format(bean.getRate()) + "%", String.valueOf(bean.getRate()), BigDecimal.valueOf(bean.getRate())));
+                resList.add(new DropDownList(bean.getProductRateDetail() + " + " + formatter.format(bean.getRate()) + "%", String.valueOf(bean.getRate())));
             }
         }
 
@@ -378,8 +378,6 @@ public class DropdownFactory implements Serializable {
 
         customers = commonService.getDropdownList(criteria);
 
-        System.out.println(customers);
-
         if (customers != null && !customers.isEmpty()) {
             return customers.get(0).getValue();
         }
@@ -394,11 +392,10 @@ public class DropdownFactory implements Serializable {
         XMLService<Rss> xml = new XMLService<>();
         Rss rss = xml.xmlToObject(Rss.class);
         
-        ddlRssExchangeRate.add(new DropDownList("THB", "1"));
+        ddlRssExchangeRate.add(new DropDownList("THB", "THB","1"));
         for (Rss.Channel.Item item : rss.getChannel().getItem()) {
             if (StringUtils.isNumeric(item.getBuy())) {
-                System.out.println(item.getSname().trim()+" | "+item.getBuy());
-                ddlRssExchangeRate.add(new DropDownList(item.getSname().trim(), item.getBuy().trim()));
+                ddlRssExchangeRate.add(new DropDownList(item.getSname().trim(),item.getSname().trim(), item.getBuy().trim()));
             }else{
                 //System.out.println(item.getSname().trim()+" | "+item.getBuy());
             }

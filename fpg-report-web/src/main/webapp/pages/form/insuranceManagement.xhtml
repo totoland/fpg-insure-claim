@@ -39,9 +39,10 @@
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
-                                    <h:outputLabel value="#{msg.label_cert_no}"/>
+                                    <h:outputLabel value="#{msg.label_cert_no}" rendered="#{insuranceManagementController.adminOffice}"/>
                                     <p:inputText value="#{insuranceManagementController.criteria.certificateNumber}"
-                                                 maxlength="20"/>
+                                                 maxlength="20"
+                                                 rendered="#{insuranceManagementController.adminOffice}"/>
 
                                     <h:outputLabel value="#{msg.label_Policy_number}"/>
                                     <p:inputText value="#{insuranceManagementController.criteria.policyNumber}"
@@ -58,9 +59,10 @@
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
 
-                                    <h:outputLabel value="#{msg.label_status}"/>
+                                    <h:outputLabel value="#{msg.label_status}" rendered="#{insuranceManagementController.adminOffice}"/>
                                     <p:selectOneMenu styleClass="selectOne115"
-                                                     value="#{insuranceManagementController.criteria.status}">
+                                                     value="#{insuranceManagementController.criteria.status}"
+                                                     rendered="#{insuranceManagementController.adminOffice}">
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{insuranceManagementController.statusTypeList}" var="item"
                                                        itemValue="#{item.value}"

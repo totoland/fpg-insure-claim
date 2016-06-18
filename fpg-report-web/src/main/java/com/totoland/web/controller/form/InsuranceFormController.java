@@ -1,10 +1,10 @@
 package com.totoland.web.controller.form;
 
-import com.chetty.reporting.beans.CertificationBean;
+import com.totoland.reporting.bean.CertificationBean;
+import com.totoland.db.bean.OpenPolicyCriteria;
 import com.totoland.db.common.entity.DropDownList;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ImageCertExport;
-import com.totoland.db.entity.KeyMatch;
 import com.totoland.db.entity.Surveyors;
 import com.totoland.db.entity.OpenPolicy;
 import com.totoland.db.entity.ViewUser;
@@ -18,13 +18,15 @@ import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.ConditionsOfCoverService;
 import com.totoland.web.service.GennericService;
+import com.totoland.web.service.OpenPolicyService;
 import com.totoland.web.service.SurveyorService;
 import com.totoland.web.service.UserService;
 import com.totoland.web.service.impl.XMLService;
 import com.totoland.web.servlet.ImageServlet;
+import com.totoland.web.utils.DateTimeUtils;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
-import com.totoland.web.utils.StringUtils;
+import com.totoland.web.utils.NumberToWord;
 import com.totoland.web.utils.WebUtils;
 import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
@@ -40,6 +42,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.AjaxBehaviorEvent;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -62,6 +66,7 @@ public class InsuranceFormController extends BaseController {
     private static final String RESOURCES_LOGO = "/resources/images/logo.png";
     private static final String RESOURCES_SIGNATURE1 = "/resources/images/signature/1.png";
     private static final String RESOURCES_SIGNATURE2 = "/resources/images/signature/2.png";
+    private static final String RESOURCES_SIGNATURE3 = "/resources/images/signature/sign_authorized_signature.jpg";
     private static final String NO_IMAGE = "/resources/images/no_image.jpg";
 
     private static final BigDecimal DEFAULT_MAX_INSURE_VALUE = new BigDecimal(10000000);
@@ -69,6 +74,10 @@ public class InsuranceFormController extends BaseController {
     private static final int AIR = 1;
     private static final int VESSEL = 2;
     private static final int TRUCK = 3;
+
+    private static final int SHIPMENT_AIR_BEFORE_DATE = MessageUtils.getConfAsInt("shipment.air.before.date", 1);
+    private static final int SHIPMENT_VESSEL_BEFORE_DATE = MessageUtils.getConfAsInt("shipment.vessel.before.date", 4);
+    private static final int SHIPMENT_TRUCK_BEFORE_DATE = MessageUtils.getConfAsInt("shipment.truck.before.date", 0);
 
     private String insureType = "Air";
     private List<DropDownList> insureTypeList;
@@ -95,6 +104,8 @@ public class InsuranceFormController extends BaseController {
     private SurveyorService surveyorService;
     @ManagedProperty("#{gennericService}")
     private GennericService<OpenPolicy> valuationService;
+    @ManagedProperty("#{openPolicyService}")
+    private OpenPolicyService openPolicyService;
 
     private XMLService<Rss> xMLService;
 
@@ -105,6 +116,8 @@ public class InsuranceFormController extends BaseController {
     private double invoiceValue;
 
     private BigDecimal maxOfInsureValue;
+    private DropDownList selectedCommodityType;
+    private Date minShipmentDate = new Date();
 
     public double getInvoiceValue() {
         return invoiceValue;
@@ -142,8 +155,6 @@ public class InsuranceFormController extends BaseController {
         //Init image
         this.imageUploadURL = NO_IMAGE;
         this.claimInsure.setPolicyNumber(getUserAuthen().getPolicyNo());
-        this.maxOfInsureValue = getUserAuthen().getMaxInsureValue() != null ? getUserAuthen().getMaxInsureValue() : DEFAULT_MAX_INSURE_VALUE;
-        LOGGER.debug("maxOfInsureValue : {}",maxOfInsureValue);
         this.readOnly = false;
     }
 
@@ -170,13 +181,6 @@ public class InsuranceFormController extends BaseController {
             this.claimInsure.setMinimumPremiumRate(new BigDecimal(dropdownFactory.getMinimumPremium()));
         }
 
-        //Should not has this case
-        if (StringUtils.isBlank(this.claimInsure.getPolicyNumber())) {
-            LOGGER.warn("Open policyNumber is null try to set default by find customerId...");
-            KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
-            this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
-        }
-
         if (this.claimInsure.getClaimStatusId() == InsureState.PRINT_CERT.getState()) {
             LOGGER.debug("Transaction has been printed set page to mode readOnly...");
             readOnly = true;
@@ -196,6 +200,7 @@ public class InsuranceFormController extends BaseController {
         this.insureTypeList = getInsureTypeList();
         try {
             this.currencyTypeList = dropdownFactory.getRssExchangeRate();
+            LOGGER.debug("currencyTypeList for user [{}] : {}", getUserAuthen().getUsername(), currencyTypeList);
         } catch (Exception ex) {
             LOGGER.error("Cannot fetch RSS feed : ", ex);
             super.redirectPage(JsfUtil.getContextPath() + "/errors/505.xhtml");
@@ -208,7 +213,14 @@ public class InsuranceFormController extends BaseController {
 
         this.rateScheduleList = dropdownFactory.ddlRateSchedule(this.claimInsure.getPolicyNumber());
 
+        List<OpenPolicy> openpolicys = openPolicyService.findByCriteria(new OpenPolicyCriteria(null, getUserAuthen().getPolicyNo()));
+        if (openpolicys != null && !openpolicys.isEmpty()) {
+            this.maxOfInsureValue = openpolicys.get(0).getMaxInsureValue() != null ? openpolicys.get(0).getMaxInsureValue() : DEFAULT_MAX_INSURE_VALUE;
+        }
+        LOGGER.debug("maxOfInsureValue : {}", maxOfInsureValue);
+
         this.clearImgSession();
+        this.onMethodOfTransportChange();
     }
 
     @Override
@@ -216,9 +228,8 @@ public class InsuranceFormController extends BaseController {
         init();
     }
 
-    
     public void save(int state) {
-        
+
         Date sysdate = new Date();
         this.claimInsure.setCreatedBy(getUserAuthen().getUserId());
         this.claimInsure.setUpdatedBy(getUserAuthen().getUserId());
@@ -341,16 +352,20 @@ public class InsuranceFormController extends BaseController {
     }
 
     public StreamedContent getCertificateCopyFile(int certificateType) {
-        
-        
+
         //Validate insure value
-        if(this.claimInsure.getInsuredValue()!=null && this.claimInsure.getInsuredValue().compareTo(maxOfInsureValue)>0){
-            LOGGER.warn("Insure value < {}",maxOfInsureValue);
+        if (this.claimInsure.getInsuredValue() != null && this.claimInsure.getInsuredValue().compareTo(maxOfInsureValue) > 0) {
+            LOGGER.warn("Insure value < {}", maxOfInsureValue);
             super.updateCliend(":form:genericDialog");
             super.openDialog("genericDialog");
             return null;
         }
-        
+
+        //If valid shipment date return only case hack from javascript client!!
+        if (this.claimInsure.getShipmentDate() != null && this.claimInsure.getShipmentDate().before(this.minShipmentDate)) {
+            return null;
+        }
+
         LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
 
         //If first time export must be export with ORIGINAL and need to create new Certificate number
@@ -367,6 +382,11 @@ public class InsuranceFormController extends BaseController {
         }
 
         try {
+            //Init ConditionOfCover for print Certificate
+            Map<String, Object> params = new HashMap<>();
+            params.put("openPolicyNo", this.claimInsure.getPolicyNumber());
+
+            List<OpenPolicy> listPolicy = openPolicyService.findByDynamicField(OpenPolicy.class, params);
 
             CertificationBean certRpt = new CertificationBean();
             //Init data for print Certificate
@@ -374,23 +394,28 @@ public class InsuranceFormController extends BaseController {
             certRpt.setVesselAirline(this.claimInsure.getConveyanceName());
             certRpt.setReferenceNumber(this.claimInsure.getInvoiceNumber());
             certRpt.setAmountInsuredHereunder(String.valueOf(this.claimInsure.getAmountOfInsurance()));
+            certRpt.setAmountInsuredHereunderWord(new NumberToWord.DefaultProcessor().getName(String.valueOf(this.claimInsure.getAmountOfInsurance())).toUpperCase());
             certRpt.setPolicyNumber(this.claimInsure.getPolicyNumber());
+            certRpt.setCertificationNumber(this.claimInsure.getCertificationNumber());
             certRpt.setVoyageFlightNo("");
             certRpt.setSailingFlightDate(this.claimInsure.getShipmentDate());
-            certRpt.setCertificationNumber(this.claimInsure.getCertificationNumber());
             certRpt.setIssueOn(this.claimInsure.getIssueDate());
             certRpt.setCopyType(CertificateType.valueOf(certificateType));
             certRpt.setFrom(findCountryName(this.claimInsure.getOriginCountryCode()));
             certRpt.setTo(findCountryName(this.claimInsure.getDestinationCountryCode()));
             certRpt.setCurrencyType(this.claimInsure.getCurrencyType());
             certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription());
-
+            certRpt.setShipmentDate(DateTimeUtils.getInstance().add(this.claimInsure.getShipmentDate(), -1));
+            certRpt.setSubject(this.claimInsure.getMarksAndNumbers());
+            certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription());
+            certRpt.setAdditionalInfomation(this.claimInsure.getAdditionalInfomation());
+            
             certRpt.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
             certRpt.setSignature1URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE1);
             certRpt.setSignature2URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE2);
+            certRpt.setSignature3URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE3);
 
             Surveyors surveyor = surveyorService.findById(this.claimInsure.getClaimSurveyorId());
-            LOGGER.debug("surveyor : {}", surveyor);
 
             if (surveyor != null) {
                 certRpt.setSurveyorCompany(surveyor.getCompany());
@@ -400,29 +425,22 @@ public class InsuranceFormController extends BaseController {
                 certRpt.setContactName(surveyor.getContactName());
             }
 
-//            if (this.imageUploadURL != null && !this.imageUploadURL.equals(NO_IMAGE)) {
-//                certRpt.setCertImageURL(JsfUtil.getFullURI() + this.imageUploadURL);
-//            }
-            //Init ConditionOfCover for print Certificate
-            Map<String, Object> params = new HashMap<>();
-            params.put("openPolicyNo", this.claimInsure.getPolicyNumber());
+            if (listPolicy != null && !listPolicy.isEmpty()) {
 
-            List<OpenPolicy> listCondition = valuationService.findByDynamicField(OpenPolicy.class, params);
-            if (listCondition != null && !listCondition.isEmpty()) {
-
-                String subject = "";
                 String detail = "";
 
                 if (AIR == this.claimInsure.getMethodOfTransportId()) {
-                    detail = listCondition.get(0).getClausesAir();
+                    detail = listPolicy.get(0).getClausesAir();
                 } else if (VESSEL == this.claimInsure.getMethodOfTransportId()) {
-                    detail = listCondition.get(0).getClausesVessel();
+                    detail = listPolicy.get(0).getClausesVessel();
                 } else if (TRUCK == this.claimInsure.getMethodOfTransportId()) {
-                    detail = listCondition.get(0).getClausesTruck();
+                    detail = listPolicy.get(0).getClausesTruck();
                 }
 
-                certRpt.setSubject(subject);
                 certRpt.setDetail(detail);
+                certRpt.setBrokerName(listPolicy.get(0).getBrokerName());
+                certRpt.setBrokerLicense(listPolicy.get(0).getBrokerLicense());
+                certRpt.setFullCurrencyType("(" + certRpt.getCurrencyType() + "$ 1 = BATH " + this.claimInsure.getExchangeRate().doubleValue() + ")");
             }
 
             LOGGER.debug("certRpt : {}", certRpt);
@@ -529,9 +547,24 @@ public class InsuranceFormController extends BaseController {
         this.claimInsure.setMethodOfTransportId(Integer.parseInt(selectedInsureType));
     }
 
+    public DropDownList findDropDown(String key) {
+        if (this.getCurrencyTypeList() == null) {
+            return null;
+        }
+        for (DropDownList ddl : this.getCurrencyTypeList()) {
+            if (ddl.getValue().equals(key)) {
+                return ddl;
+            }
+        }
+        return null;
+    }
+
     public void onCurrencyChange() {
         LOGGER.debug("this.claimInsure.getCurrencyType() : {}", this.claimInsure.getCurrencyType());
-        this.claimInsure.setExchangeRate(new BigDecimal(this.claimInsure.getCurrencyType()));
+        DropDownList ddl = findDropDown(this.claimInsure.getCurrencyType());
+        if (ddl != null) {
+            this.claimInsure.setExchangeRate(new BigDecimal(ddl.getValue2()));
+        }
         calAmountOfInsurance();
         onRateScheduleChange();
     }
@@ -542,7 +575,7 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("Rate  : {}", this.claimInsure.getRate());
         LOGGER.debug("amountOfInsurance  : {}", this.claimInsure.getAmountOfInsurance());
         LOGGER.debug("valuation  : {}", this.claimInsure.getValuation());
-        
+
         if (this.claimInsure.getValuation() == null || this.claimInsure.getValuation().isEmpty()) {
             this.claimInsure.setAmountOfInsurance(null);
             this.claimInsure.setInsuredValue(null);
@@ -581,7 +614,56 @@ public class InsuranceFormController extends BaseController {
         }
     }
 
-    private DropDownList selectedCommodityType;
+    public void onMethodOfTransportChange() {
+        if (this.claimInsure.getMethodOfTransportId() == null) {
+            return;
+        }
+        if (AIR == this.claimInsure.getMethodOfTransportId()) {
+            this.minShipmentDate = DateTimeUtils.getInstance().add(this.claimInsure.getIssueDate(), -SHIPMENT_AIR_BEFORE_DATE);
+        } else if (VESSEL == this.claimInsure.getMethodOfTransportId()) {
+            this.minShipmentDate = DateTimeUtils.getInstance().add(this.claimInsure.getIssueDate(), -SHIPMENT_VESSEL_BEFORE_DATE);
+        } else if (TRUCK == this.claimInsure.getMethodOfTransportId()) {
+            this.minShipmentDate = DateTimeUtils.getInstance().add(this.claimInsure.getIssueDate(), -SHIPMENT_TRUCK_BEFORE_DATE);
+        }
+
+        if (this.claimInsure.getShipmentDate() != null && this.claimInsure.getShipmentDate().before(this.minShipmentDate)) {
+            this.claimInsure.setShipmentDate(null);
+        }
+        LOGGER.debug("maxShipmentDate : {}", this.minShipmentDate);
+    }
+
+    public void onClaimSurveyorChange(AjaxBehaviorEvent actionEvent) {
+        LOGGER.debug("onClaimSurveyorChange : {}", this.claimInsure.getClaimSurveyorId());
+        Integer surveyorId = this.claimInsure.getClaimSurveyorId();
+        if (surveyorId == null) {
+            this.claimInsure.setClaimPayableAt(null);
+            this.claimInsure.setClaimPayableAtCompany(null);
+            this.claimInsure.setClaimPayableAtAddress(null);
+            this.claimInsure.setClaimPayableAtTel(null);
+            this.claimInsure.setClaimPayableAtFax(null);
+            return;
+        }
+        //Find syrveyor detail
+        Surveyors surveyors = surveyorService.findById(surveyorId);
+        if (surveyors == null) {
+            LOGGER.warn("surveyors is null should not be is null!!");
+            this.claimInsure.setClaimPayableAt(null);
+            this.claimInsure.setClaimPayableAtCompany(null);
+            this.claimInsure.setClaimPayableAtAddress(null);
+            this.claimInsure.setClaimPayableAtTel(null);
+            this.claimInsure.setClaimPayableAtFax(null);
+            return;
+        }
+        this.claimInsure.setClaimPayableAt(surveyors.getCompany().trim() + "\n " + surveyors.getAddress().trim());
+        this.claimInsure.setClaimPayableAtCompany(StringEscapeUtils.unescapeEcmaScript(surveyors.getCompany().trim()));
+        this.claimInsure.setClaimPayableAtAddress(StringEscapeUtils.unescapeEcmaScript(surveyors.getAddress().trim()));
+        if (surveyors.getTel1() != null && !surveyors.getTel1().trim().isEmpty()) {
+            this.claimInsure.setClaimPayableAtTel("Tel " + StringEscapeUtils.unescapeEcmaScript(surveyors.getTel1().trim()));
+        }
+        if (surveyors.getFax1() != null && !surveyors.getFax1().trim().isEmpty()) {
+            this.claimInsure.setClaimPayableAtFax("Fax " + StringEscapeUtils.unescapeEcmaScript(surveyors.getFax1().trim()));
+        }
+    }
 
     public DropDownList getSelectedCommodityType() {
         return selectedCommodityType;
@@ -805,8 +887,24 @@ public class InsuranceFormController extends BaseController {
     public void setMaxOfInsureValue(BigDecimal maxOfInsureValue) {
         this.maxOfInsureValue = maxOfInsureValue;
     }
-    
-    public float getDefaultMaxInsureValue(){
+
+    public float getDefaultMaxInsureValue() {
         return DEFAULT_MAX_INSURE_VALUE.floatValue();
+    }
+
+    public OpenPolicyService getOpenPolicyService() {
+        return openPolicyService;
+    }
+
+    public void setOpenPolicyService(OpenPolicyService openPolicyService) {
+        this.openPolicyService = openPolicyService;
+    }
+
+    public Date getMinShipmentDate() {
+        return minShipmentDate;
+    }
+
+    public void setMinShipmentDate(Date minShipmentDate) {
+        this.minShipmentDate = minShipmentDate;
     }
 }

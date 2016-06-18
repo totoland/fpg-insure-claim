@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.chetty.reporting.beans;
+package com.totoland.reporting.bean;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,6 +23,7 @@ public class CertificationBean implements Serializable {
     private String from;
     private String to;
     private String amountInsuredHereunder;
+    private String amountInsuredHereunderWord;
     private String policyNumber;
     private String voyageFlightNo;
     private Date sailingFlightDate;
@@ -36,6 +37,7 @@ public class CertificationBean implements Serializable {
     private String companyLogoURL;
     private String signature1URL;
     private String signature2URL;
+    private String signature3URL;
     private String certImageURL;
 
     private String quantity;
@@ -49,6 +51,11 @@ public class CertificationBean implements Serializable {
     private String commodityDescription;
 
     private String currencyType;
+    private String brokerName;
+    private String brokerLicense;
+    private String fullCurrencyType;
+    private Date shipmentDate;
+    private String additionalInfomation;
 
     public String getNameOfAssured() {
         return nameOfAssured;
@@ -274,8 +281,64 @@ public class CertificationBean implements Serializable {
         this.currencyType = currencyType;
     }
 
+    public String getAmountInsuredHereunderWord() {
+        return amountInsuredHereunderWord;
+    }
+
+    public void setAmountInsuredHereunderWord(String amountInsuredHereunderWord) {
+        this.amountInsuredHereunderWord = amountInsuredHereunderWord;
+    }
+
+    public String getBrokerName() {
+        return brokerName;
+    }
+
+    public void setBrokerName(String brokerName) {
+        this.brokerName = brokerName;
+    }
+
+    public String getBrokerLicense() {
+        return brokerLicense;
+    }
+
+    public void setBrokerLicense(String brokerLicense) {
+        this.brokerLicense = brokerLicense;
+    }
+
+    public String getFullCurrencyType() {
+        return fullCurrencyType;
+    }
+
+    public void setFullCurrencyType(String fullCurrencyType) {
+        this.fullCurrencyType = fullCurrencyType;
+    }
+
+    public Date getShipmentDate() {
+        return shipmentDate;
+    }
+
+    public void setShipmentDate(Date shipmentDate) {
+        this.shipmentDate = shipmentDate;
+    }
+
+    public String getAdditionalInfomation() {
+        return additionalInfomation;
+    }
+
+    public void setAdditionalInfomation(String additionalInfomation) {
+        this.additionalInfomation = additionalInfomation;
+    }
+
+    public String getSignature3URL() {
+        return signature3URL;
+    }
+
+    public void setSignature3URL(String signature3URL) {
+        this.signature3URL = signature3URL;
+    }
+
     @Override
     public String toString() {
-        return "CertificationBean{" + "nameOfAssured=" + nameOfAssured + ", vesselAirline=" + vesselAirline + ", referenceNumber=" + referenceNumber + ", voyage=" + voyage + ", from=" + from + ", to=" + to + ", amountInsuredHereunder=" + amountInsuredHereunder + ", policyNumber=" + policyNumber + ", voyageFlightNo=" + voyageFlightNo + ", sailingFlightDate=" + sailingFlightDate + ", issueDate=" + issueDate + ", subject=" + subject + ", detail=" + detail + ", issueOn=" + issueOn + ", copyType=" + copyType + ", certificationNumber=" + certificationNumber + ", companyLogoURL=" + companyLogoURL + ", signature1URL=" + signature1URL + ", signature2URL=" + signature2URL + ", certImageURL=" + certImageURL + ", quantity=" + quantity + ", surveyorCompany=" + surveyorCompany + ", surveyorAddress=" + surveyorAddress + ", surveyorTel=" + surveyorTel + ", surveyorFax=" + surveyorFax + ", contactName=" + contactName + ", commodityDescription=" + commodityDescription + ", currencyType=" + currencyType + '}';
+        return "CertificationBean{" + "nameOfAssured=" + nameOfAssured + ", vesselAirline=" + vesselAirline + ", referenceNumber=" + referenceNumber + ", voyage=" + voyage + ", from=" + from + ", to=" + to + ", amountInsuredHereunder=" + amountInsuredHereunder + ", amountInsuredHereunderWord=" + amountInsuredHereunderWord + ", policyNumber=" + policyNumber + ", voyageFlightNo=" + voyageFlightNo + ", sailingFlightDate=" + sailingFlightDate + ", issueDate=" + issueDate + ", subject=" + subject + ", detail=" + detail + ", issueOn=" + issueOn + ", copyType=" + copyType + ", certificationNumber=" + certificationNumber + ", companyLogoURL=" + companyLogoURL + ", signature1URL=" + signature1URL + ", signature2URL=" + signature2URL + ", signature3URL=" + signature3URL + ", certImageURL=" + certImageURL + ", quantity=" + quantity + ", surveyorCompany=" + surveyorCompany + ", surveyorAddress=" + surveyorAddress + ", surveyorTel=" + surveyorTel + ", surveyorFax=" + surveyorFax + ", contactName=" + contactName + ", commodityDescription=" + commodityDescription + ", currencyType=" + currencyType + ", brokerName=" + brokerName + ", brokerLicense=" + brokerLicense + ", fullCurrencyType=" + fullCurrencyType + ", shipmentDate=" + shipmentDate + ", additionalInfomation=" + additionalInfomation + '}';
     }
 }
