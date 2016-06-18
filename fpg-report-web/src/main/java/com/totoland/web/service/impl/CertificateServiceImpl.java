@@ -25,16 +25,18 @@ package com.totoland.web.service.impl;
 
 import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
+import com.totoland.db.certificate.dao.CertificateCopyDao;
 import com.totoland.db.certificate.dao.CertificateDao;
 import com.totoland.db.certificate.dao.ImageCertDao;
+import com.totoland.db.common.dao.GennericDao;
 import com.totoland.db.entity.ClaimInsure;
+import com.totoland.db.entity.ClaimInsureCopy;
 import com.totoland.db.entity.ImageCertExport;
 import com.totoland.web.service.CertificateService;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +48,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service(value = "certificateService")
 public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> implements CertificateService {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyMM",Locale.ENGLISH);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CertificateServiceImpl.class);
 
     @Autowired
     CertificateDao certificateDao;
@@ -54,13 +56,11 @@ public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> imp
     @Autowired
     ImageCertDao imageCertDao;
 
+    @Autowired
+    CertificateCopyDao copyDao;
+    
     @Override
     public String getCertificateNO(ClaimInsure claimInsure) {
-        //F-1606-000001
-        //select  CONCAT('F',DATE_FORMAT(SYSDATE(), '%Y%m'),'-', LPAD('1',7,'0'))
-        //String certNumber = "F";
-//        certNumber = certNumber + "-" + dateFormat.format(new Date()) + "-" + RandomStringUtils.randomNumeric(6);
-
         return certificateDao.getCertificateNO(claimInsure);
     }
 
@@ -85,5 +85,16 @@ public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> imp
     @Override
     public void updateStateCertNo(ClaimInsure claimInsure) {
         certificateDao.updateStateCertNo(claimInsure);
+    }
+
+    @Transactional(rollbackFor = {Throwable.class})
+    @Override
+    public void removeAndBackup(ClaimInsure claimInsure)throws Exception{
+        ClaimInsure insure = findByTrxId(claimInsure.getTrxId());
+        LOGGER.debug("insure : {}",insure);
+        ClaimInsureCopy insureCopy = new ClaimInsureCopy();
+        BeanUtils.copyProperties(insure,insureCopy);
+        copyDao.edit(insureCopy);
+        certificateDao.remove(insure);
     }
 }

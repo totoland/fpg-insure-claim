@@ -120,12 +120,7 @@ public class OpenPolicyManagementController extends BaseController {
         if (list != null && !list.isEmpty()) {
             valuations = toListValuation(list.get(0).getValuationData());
             productRateBeans = toListProductRate(list.get(0).getProductRateData());
-            this.selectedItem.setBrokerName(list.get(0).getBrokerName());
-            this.selectedItem.setClausesAir(list.get(0).getClausesAir());
-            this.selectedItem.setClausesTruck(list.get(0).getClausesTruck());
-            this.selectedItem.setClausesVessel(list.get(0).getClausesVessel());
-            this.selectedItem.setBrokerName(list.get(0).getBrokerName());
-            this.selectedItem.setBrokerLicense(list.get(0).getBrokerLicense());
+            this.selectedItem = viewItem;
         } else {
             valuations = null;
         }

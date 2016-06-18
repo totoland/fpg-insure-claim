@@ -26,4 +26,6 @@ public interface CertificateService extends GennericService<ClaimInsure>{
     void save(ClaimInsure claimInsure,ImageCertExport imageCertExport);
     
     void updateStateCertNo(ClaimInsure claimInsure);
+    
+    void removeAndBackup(ClaimInsure claimInsure)throws Exception;
 }

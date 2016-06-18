@@ -111,6 +111,10 @@ public abstract class BaseController implements Serializable {
         return UserType.ADMIN.getId() == getUserAuthen().getUserGroupLvl();
     }
 
+    public boolean isAdminOffice() {
+        return UserType.ADMIN.getId() == getUserAuthen().getUserGroupLvl() || UserType.OFFICIAL_USER.getId() == getUserAuthen().getUserGroupLvl();
+    }
+    
     public void sendError(int code, String message) {
         try {
             FacesContext faces = FacesContext.getCurrentInstance();

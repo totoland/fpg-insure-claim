@@ -3,11 +3,14 @@ package com.totoland.web.controller.form;
 import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.common.entity.DropDownList;
+import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.enums.UserType;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
+import com.totoland.web.utils.MessageUtils;
 import java.util.List;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -23,6 +26,7 @@ import org.slf4j.LoggerFactory;
 @ManagedBean
 public class InsuranceManagementController extends BaseController {
 
+    private static final long serialVersionUID = 478497708332805188L;
     private static final Logger LOGGER = LoggerFactory.getLogger(InsuranceManagementController.class);
 
     @ManagedProperty(value = "#{dropdownFactory}")
@@ -32,6 +36,8 @@ public class InsuranceManagementController extends BaseController {
     private CertificateService certificateService;
 
     private List<ViewCertificate> listViewCertificate;
+    
+    private ViewCertificate selectedRecord;
 
     @PostConstruct
     public void init() {
@@ -59,6 +65,26 @@ public class InsuranceManagementController extends BaseController {
         return null;
     }
 
+    public void selecteRecord(ViewCertificate selectedRecord){
+        this.selectedRecord = selectedRecord;
+    }
+    
+    public void rejectTransaction(){
+        if(this.selectedRecord == null){
+            return;
+        }
+        
+        LOGGER.debug("reject certification record : {}",this.selectedRecord);
+        
+        try {
+            certificateService.removeAndBackup(new ClaimInsure(this.selectedRecord.getTrxId()));
+            addInfo(MessageUtils.DELETE_SUCCESS());
+        } catch (Exception ex) {
+            LOGGER.error("Cannot reject trasaction : {}",ex);
+            addError(MessageUtils.DELETE_NOT_SUCCESS());
+        }
+    }
+    
     public void prepareView() {
 
     }
@@ -114,5 +140,13 @@ public class InsuranceManagementController extends BaseController {
 
     public void setListViewCertificate(List<ViewCertificate> listViewCertificate) {
         this.listViewCertificate = listViewCertificate;
+    }
+
+    public ViewCertificate getSelectedRecord() {
+        return selectedRecord;
+    }
+
+    public void setSelectedRecord(ViewCertificate selectedRecord) {
+        this.selectedRecord = selectedRecord;
     }
 }

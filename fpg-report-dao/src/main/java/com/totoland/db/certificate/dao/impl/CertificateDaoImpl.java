@@ -52,14 +52,13 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
                 + "claim_insure.insured_id, "
                 + "claim_insure.claim_status_id, "
                 + "claim_status.claim_status_name, "
-                + "insures.insured_name, "
+                + "claim_insure.insured_name, "
                 + "claim_insure.method_of_transport_id, "
                 + "claim_insure.issue_date, "
                 + "claim_insure.trx_id "
                 + "FROM "
                 + "claim_insure "
                 + "INNER JOIN claim_status ON claim_insure.claim_status_id = claim_status.claim_status_id "
-                + "LEFT JOIN insures ON claim_insure.insured_id = insures.insured_id "
                 + "WHERE 1=1  ";
         
         List<Object> params = new ArrayList<>();

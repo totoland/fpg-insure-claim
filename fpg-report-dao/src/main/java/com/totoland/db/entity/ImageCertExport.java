@@ -44,7 +44,7 @@ public class ImageCertExport implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "claim_insure_id")
-    private Integer claimInsureId;
+    private Long claimInsureId;
     @Lob
     @Column(name = "image_content")
     private byte[] imageContent;
@@ -80,11 +80,11 @@ public class ImageCertExport implements Serializable {
         this.imageType = imageType;
     }
 
-    public Integer getClaimInsureId() {
+    public Long getClaimInsureId() {
         return claimInsureId;
     }
 
-    public void setClaimInsureId(Integer claimInsureId) {
+    public void setClaimInsureId(Long claimInsureId) {
         this.claimInsureId = claimInsureId;
     }
 

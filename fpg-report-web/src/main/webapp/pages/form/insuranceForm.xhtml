@@ -99,7 +99,8 @@
 
                                 <h:outputLabel value="Invoice Value" title="invoice*exchange rate*valuation"/>
                                 <pe:inputNumber id="invoiceValue" value="#{insuranceFormController.claimInsure.invoiceValue}"
-                                                decimalPlaces="2">
+                                                decimalPlaces="2"
+                                                maxValue="#{insuranceFormController.defaultMaxInsureValue}">
                                     <p:ajax event="blur" listener="#{insuranceFormController.calAmountOfInsurance()}"
                                             process="@this , :form:valuation"
                                             update=":form:amountOfInsurance, :form:localAmountOfInsurance , :form:dtRate"/>
@@ -121,7 +122,7 @@
                                     <toto:requireLabel forId="form:insuredId"/>
                                 </h:panelGroup>
 
-                                <h:outputLabel value="#{msg.label_amount_of_insurance}" title="invoice*exchange rate*valuation"/>
+                                <h:outputLabel value="#{msg.label_amount_of_insurance}"/>
                                 <pe:inputNumber id="amountOfInsurance" disabled="true"
                                                 value="#{insuranceFormController.claimInsure.amountOfInsurance}"
                                                 decimalPlaces="2"/>
@@ -150,10 +151,14 @@
                                 <h:outputLabel value="#{msg.label_exchange_rate}"/>
                                 <pe:inputNumber id="exchangeRate" value="#{insuranceFormController.claimInsure.exchangeRate}" disabled="true"/>
 
-                                <h:outputLabel value="Insured Value (THB)" title="* exchange rate"/>
-                                <pe:inputNumber id="localAmountOfInsurance" disabled="true"
-                                                value="#{insuranceFormController.claimInsure.insuredValue}"
-                                                decimalPlaces="0" roundMethod="U" maxValue="99999999999"/>
+                                <h:outputLabel value="Insured Value (THB)"/>
+                                <h:panelGroup>
+                                    <pe:inputNumber id="localAmountOfInsurance" disabled="true"
+                                                    value="#{insuranceFormController.claimInsure.insuredValue}"
+                                                    decimalPlaces="0" roundMethod="U">
+                                    </pe:inputNumber>
+                                    <toto:requireLabel forId="form:localAmountOfInsurance"/>
+                                </h:panelGroup>
 
                                 <h:outputLabel value=""/>
                                 <h:outputLabel value=""/>
@@ -290,12 +295,12 @@
                                                        var="item" itemLabel="#{item.name}" itemValue="#{item.value}"/>
                                     </p:selectOneMenu>
                                     <toto:requireLabel forId="form:commodityTypeId"/>
-                                    
-<!--                                    <p:commandButton icon="fa fa-plus White" 
-                                                     styleClass="GreenButton" 
-                                                     process="@this"
-                                                     update=":form:dgCommodityTypeId"
-                                                     oncomplete="PF('dgCommodityTypeId').show()"/>-->
+
+                                    <!--                                    <p:commandButton icon="fa fa-plus White" 
+                                                                                         styleClass="GreenButton" 
+                                                                                         process="@this"
+                                                                                         update=":form:dgCommodityTypeId"
+                                                                                         oncomplete="PF('dgCommodityTypeId').show()"/>-->
                                 </h:panelGroup>
 
                                 <h:outputLabel value="#{msg.label_commodity_description}"/>
@@ -345,15 +350,15 @@
                                 <h:outputLabel value="#{msg.label_claim_payable_at}"/>
                                 <h:outputLabel value="#{msg.fpg_company_name}"/>
                                 <p:growl id="upMessages" showDetail="true" />
-<!--                                <h:outputLabel value="Shiping Marks upload"/>
-                                <h:panelGroup>
-                                    <p:fileUpload id="imgUpload" fileUploadListener="#{insuranceFormController.handleFileUpload}" 
-                                                  mode="advanced" auto="true" dragDropSupport="true"
-                                                  update="form:gimPhoto" sizeLimit="102400" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-                                    <p:growl id="upMessages" showDetail="true" />
-                                </h:panelGroup>
-                                <p:graphicImage id="gimPhoto" url="#{insuranceFormController.imageUploadURL}"
-                                                style="width: 100px"/>-->
+                                <!--                                <h:outputLabel value="Shiping Marks upload"/>
+                                                                <h:panelGroup>
+                                                                    <p:fileUpload id="imgUpload" fileUploadListener="#{insuranceFormController.handleFileUpload}" 
+                                                                                  mode="advanced" auto="true" dragDropSupport="true"
+                                                                                  update="form:gimPhoto" sizeLimit="102400" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                                                    <p:growl id="upMessages" showDetail="true" />
+                                                                </h:panelGroup>
+                                                                <p:graphicImage id="gimPhoto" url="#{insuranceFormController.imageUploadURL}"
+                                                                                style="width: 100px"/>-->
                             </p:panelGrid>
                         </fnc:disablePanel>
                         <div class="Container50 Responsive50">
@@ -521,7 +526,7 @@
                                                      onclick="PF('printPopup').hide()"
                                                      type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
-                                
+
                                 <p:commandButton value="#{msg.btn_print_cert}" immediate="true"
                                                  icon="fa fa-save Fs14 White" styleClass="GreenButton" 
                                                  type="button" onclick="PF('printPopup').show()">
@@ -536,11 +541,7 @@
                                                      process="@form"
                                                      update="@form"
                                                      styleClass="ui-confirmdialog-yes GreenButton"
-                                                     onclick="PF('printPopup').hide();
-                                                             PrimeFaces.monitorDownload(start, function () {
-                                                                 stop();
-                                                                 PF('cmPrintDone').show()
-                                                             });" 
+                                                     onclick="return printCert()" 
                                                      icon="ui-icon-check fa fa-check Fs14 white">
                                         <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile(1)}"/>
                                     </p:commandButton>
@@ -617,7 +618,7 @@
                                     <p:commandButton value="#{msg.yes}" 
                                                      ajax="false" onclick="PF('printCopyPopup').hide();
                                                              PrimeFaces.monitorDownload(start, stop)" 
-                                                     process="@form"
+                                                     process="@this"
                                                      styleClass="ui-confirmdialog-yes GreenButton" 
                                                      icon="ui-icon-check fa fa-check Fs14 white">
                                         <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile('6')}"/>
@@ -717,7 +718,42 @@
             <script>
                 $("#form\\:originCountryCode").attr("style", "");
                 $("#form\\:destinationCountryCode").attr("style", "");
+                //<![CDATA[
+                    var maxOfInsureValue = "#{insuranceFormController.maxOfInsureValue}";
+                    function printCert() {
+                        var insureValue = $('#form\\:localAmountOfInsurance_input').val().replace(/,/g, '');
+                        if (parseInt(insureValue) > parseInt(maxOfInsureValue)) {
+                            PF('genericDialog').show();
+                            PF('printPopup').hide();
+                            return false;
+                        } else {
+                            PF('printPopup').hide();
+                            PrimeFaces.monitorDownload(start, function () {
+                                stop();
+                                PF('cmPrintDone').show();
+                            });
+                        }
+                    }
+                //]]>
             </script>
+
+            <p:dialog id="genericDialog" widgetVar="genericDialog" showEffect="fade" modal="true" 
+                      onHide="PF('genericDialog').hide();">
+                <div class="ui-messages ui-widget" aria-live="polite">
+                    <div class="ui-messages-error ui-corner-all">
+                        <span class="ui-messages-error-icon"></span>
+                        <ul>
+                            <li>
+                                <span class="ui-messages-error-summary">Insure value must be less than 
+                                    <p:outputLabel value="#{insuranceFormController.maxOfInsureValue}">
+                                        <f:convertNumber pattern="###,###.##"/>
+                                    </p:outputLabel>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </p:dialog>
         </h:form>
     </ui:define>
 

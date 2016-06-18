@@ -14,12 +14,10 @@ import com.totoland.reporting.bean.DebitNote;
 import com.totoland.reporting.service.impl.PDFReportExporter;
 import com.totoland.rss.kbank.Rss;
 import com.totoland.web.controller.BaseController;
-import com.totoland.web.controller.exception.RssException;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
 import com.totoland.web.service.ConditionsOfCoverService;
 import com.totoland.web.service.GennericService;
-import com.totoland.web.service.KeyMatchService;
 import com.totoland.web.service.SurveyorService;
 import com.totoland.web.service.UserService;
 import com.totoland.web.service.impl.XMLService;
@@ -66,6 +64,8 @@ public class InsuranceFormController extends BaseController {
     private static final String RESOURCES_SIGNATURE2 = "/resources/images/signature/2.png";
     private static final String NO_IMAGE = "/resources/images/no_image.jpg";
 
+    private static final BigDecimal DEFAULT_MAX_INSURE_VALUE = new BigDecimal(10000000);
+
     private static final int AIR = 1;
     private static final int VESSEL = 2;
     private static final int TRUCK = 3;
@@ -87,8 +87,6 @@ public class InsuranceFormController extends BaseController {
     private DropdownFactory dropdownFactory;
     @ManagedProperty("#{certificateService}")
     private CertificateService certificateService;
-    @ManagedProperty("#{keyMatchService}")
-    private KeyMatchService keyMatchService;
     @ManagedProperty("#{userService}")
     private UserService userService;
     @ManagedProperty("#{conditionsOfCoverService}")
@@ -105,6 +103,8 @@ public class InsuranceFormController extends BaseController {
     private String imageUploadURL;
 
     private double invoiceValue;
+
+    private BigDecimal maxOfInsureValue;
 
     public double getInvoiceValue() {
         return invoiceValue;
@@ -132,7 +132,7 @@ public class InsuranceFormController extends BaseController {
     private void initCreateMode() {
         LOGGER.debug("initCreateMode...");
         this.certNumber = null;
-        this.claimInsure = new ClaimInsure(0);
+        this.claimInsure = new ClaimInsure(0L);
         this.claimInsure.setClaimStatusId(InsureState.NEW.getState());
         this.claimInsure.setIssueDate(new Date());
         this.claimInsure.setInsuredId(getUserAuthen().getUserId());
@@ -141,8 +141,9 @@ public class InsuranceFormController extends BaseController {
 
         //Init image
         this.imageUploadURL = NO_IMAGE;
-        KeyMatch keyMatch = keyMatchService.findByCustomerId(String.valueOf(getUserAuthen().getUserId()));
-        this.claimInsure.setPolicyNumber(keyMatch != null ? keyMatch.getOpenPolicyNo() : "");
+        this.claimInsure.setPolicyNumber(getUserAuthen().getPolicyNo());
+        this.maxOfInsureValue = getUserAuthen().getMaxInsureValue() != null ? getUserAuthen().getMaxInsureValue() : DEFAULT_MAX_INSURE_VALUE;
+        LOGGER.debug("maxOfInsureValue : {}",maxOfInsureValue);
         this.readOnly = false;
     }
 
@@ -197,7 +198,7 @@ public class InsuranceFormController extends BaseController {
             this.currencyTypeList = dropdownFactory.getRssExchangeRate();
         } catch (Exception ex) {
             LOGGER.error("Cannot fetch RSS feed : ", ex);
-            super.redirectPage(JsfUtil.getContextPath()+"/errors/505.xhtml");
+            super.redirectPage(JsfUtil.getContextPath() + "/errors/505.xhtml");
         }
         this.countriesList = dropdownFactory.ddlCountries();
         this.commodityTypeList = dropdownFactory.ddlCommodityType();
@@ -215,7 +216,9 @@ public class InsuranceFormController extends BaseController {
         init();
     }
 
+    
     public void save(int state) {
+        
         Date sysdate = new Date();
         this.claimInsure.setCreatedBy(getUserAuthen().getUserId());
         this.claimInsure.setUpdatedBy(getUserAuthen().getUserId());
@@ -226,23 +229,25 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("save : {}", this.claimInsure);
 
         try {
-            //save image
-            ImageCertExport certExport = new ImageCertExport();
+            //save image 
+            //disable this feature
+//            ImageCertExport certExport = new ImageCertExport();
+//
+//            try {
+//                byte[] imageUploaded = (byte[]) super.getRequest().getSession().getAttribute(ImageServlet.FILE_UPLOADED);
+//                String contentType = (String) super.getRequest().getSession().getAttribute(ImageServlet.FILE_CONTENT_TYPE);
+//
+//                certExport.setImageContent(imageUploaded);
+//                certExport.setImageType(contentType);
+//                certExport.setImageName(new Date().getTime() + "");
+//                certExport.setClaimInsureId(this.claimInsure.getClaimId());
+//
+//            } catch (Exception ex) {
+//                LOGGER.warn("Cannot get image from session!!", ex.getMessage());
+//            }
 
-            try {
-                byte[] imageUploaded = (byte[]) super.getRequest().getSession().getAttribute(ImageServlet.FILE_UPLOADED);
-                String contentType = (String) super.getRequest().getSession().getAttribute(ImageServlet.FILE_CONTENT_TYPE);
+            certificateService.create(this.claimInsure);
 
-                certExport.setImageContent(imageUploaded);
-                certExport.setImageType(contentType);
-                certExport.setImageName(new Date().getTime() + "");
-                certExport.setClaimInsureId(this.claimInsure.getInsuredId());
-
-            } catch (Exception ex) {
-                LOGGER.warn("Cannot get image from session!!", ex.getMessage());
-            }
-
-            certificateService.save(this.claimInsure, certExport);
             addInfo(MessageUtils.SAVE_SUCCESS());
             JsfUtil.openDialog("dlgSave");
         } catch (Exception e) {
@@ -336,6 +341,16 @@ public class InsuranceFormController extends BaseController {
     }
 
     public StreamedContent getCertificateCopyFile(int certificateType) {
+        
+        
+        //Validate insure value
+        if(this.claimInsure.getInsuredValue()!=null && this.claimInsure.getInsuredValue().compareTo(maxOfInsureValue)>0){
+            LOGGER.warn("Insure value < {}",maxOfInsureValue);
+            super.updateCliend(":form:genericDialog");
+            super.openDialog("genericDialog");
+            return null;
+        }
+        
         LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
 
         //If first time export must be export with ORIGINAL and need to create new Certificate number
@@ -527,7 +542,7 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("Rate  : {}", this.claimInsure.getRate());
         LOGGER.debug("amountOfInsurance  : {}", this.claimInsure.getAmountOfInsurance());
         LOGGER.debug("valuation  : {}", this.claimInsure.getValuation());
-
+        
         if (this.claimInsure.getValuation() == null || this.claimInsure.getValuation().isEmpty()) {
             this.claimInsure.setAmountOfInsurance(null);
             this.claimInsure.setInsuredValue(null);
@@ -743,14 +758,6 @@ public class InsuranceFormController extends BaseController {
         this.readOnly = readOnly;
     }
 
-    public KeyMatchService getKeyMatchService() {
-        return keyMatchService;
-    }
-
-    public void setKeyMatchService(KeyMatchService keyMatchService) {
-        this.keyMatchService = keyMatchService;
-    }
-
     public UserService getUserService() {
         return userService;
     }
@@ -789,5 +796,17 @@ public class InsuranceFormController extends BaseController {
 
     public void setxMLService(XMLService<Rss> xMLService) {
         this.xMLService = xMLService;
+    }
+
+    public BigDecimal getMaxOfInsureValue() {
+        return maxOfInsureValue;
+    }
+
+    public void setMaxOfInsureValue(BigDecimal maxOfInsureValue) {
+        this.maxOfInsureValue = maxOfInsureValue;
+    }
+    
+    public float getDefaultMaxInsureValue(){
+        return DEFAULT_MAX_INSURE_VALUE.floatValue();
     }
 }

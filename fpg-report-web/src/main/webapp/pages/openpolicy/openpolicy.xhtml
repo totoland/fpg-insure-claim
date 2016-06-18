@@ -121,7 +121,10 @@ THE SOFTWARE.
                                                  immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
 
                                 </p:commandButton>
-                                <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                <p:commandButton value="#{msg.btn_cancel}" 
+                                                 onclick="PF('cmfDelete').hide()"
+                                                 type="button" 
+                                                 styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                             </p:confirmDialog>
                         </p:column>
                     </p:dataTable>
@@ -239,14 +242,27 @@ THE SOFTWARE.
                                                          requiredMessage="#{msg.require_generic}"/>
                                         <toto:requireLabel id="brokerNameNewReq" forId=":form:brokerNameNew"/>
                                     </h:panelGroup>
-                                    
+
                                     <h:outputLabel value="#{msg.label_broker_license}"/>
                                     <h:panelGroup>
                                         <p:inputText id="brokerNameLicenseNew" maxlength="30" style="width: 400px"
-                                                         value="#{openPolicyManagementController.selectedItem.brokerLicense}"
-                                                         required="true"
-                                                         requiredMessage="#{msg.require_generic}"/>
+                                                     value="#{openPolicyManagementController.selectedItem.brokerLicense}"
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"/>
                                         <toto:requireLabel id="brokerNameLicenseNewReq" forId=":form:brokerNameLicenseNew"/>
+                                    </h:panelGroup>
+
+                                    <h:outputLabel/>
+
+                                    <h:outputLabel value="#{msg.label_max_insure_value}"/>
+                                    <h:panelGroup>
+                                        <pe:inputNumber id="maxInsureValueNew" maxlength="30" style="width: 400px"
+                                                     value="#{openPolicyManagementController.selectedItem.maxInsureValue}"
+                                                     maxValue="10000000"
+                                                     decimalPlaces="2"
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"/>
+                                        <toto:requireLabel id="maxInsureValueNewReq" forId=":form:maxInsureValueNew"/>
                                     </h:panelGroup>
 
                                     <h:outputLabel/>
@@ -441,12 +457,23 @@ THE SOFTWARE.
                                     <h:outputLabel value="#{msg.label_broker_license}"/>
                                     <h:panelGroup>
                                         <p:inputText id="brokerNameLicenseEdit" maxlength="30" style="width: 400px"
-                                                         value="#{openPolicyManagementController.selectedItem.brokerLicense}"
-                                                         required="true"
-                                                         requiredMessage="#{msg.require_generic}"/>
+                                                     value="#{openPolicyManagementController.selectedItem.brokerLicense}"
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"/>
                                         <toto:requireLabel id="brokerNameLicenseEditReq" forId=":form:brokerNameLicenseEdit"/>
                                     </h:panelGroup>
                                     
+                                    <h:outputLabel value="#{msg.label_max_insure_value}"/>
+                                    <h:panelGroup>
+                                        <pe:inputNumber id="maxInsureValueEdit" maxlength="30" style="width: 400px"
+                                                     value="#{openPolicyManagementController.selectedItem.maxInsureValue}"
+                                                     maxValue="10000000"
+                                                     decimalPlaces="2"
+                                                     required="true"
+                                                     requiredMessage="#{msg.require_generic}"/>
+                                        <toto:requireLabel id="maxInsureValueEditReq" forId=":form:maxInsureValueEdit"/>
+                                    </h:panelGroup>
+
                                     <h:outputLabel/>
                                     <p:commandButton value="#{msg.btn_save}"
                                                      action="#{openPolicyManagementController.edit()}"

@@ -5,6 +5,7 @@
 package com.totoland.db.entity;
 
 import com.totoland.db.domain.entity.DomainEntity;
+import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -57,6 +58,9 @@ public class ViewUser extends DomainEntity {
     private String branchDesc;
     @Column(name = "TAX_ID")
     private String taxId;
+    @Column(name = "max_insure_value")
+    private BigDecimal maxInsureValue;
+
     @Transient
     private String sessionId;
 
@@ -298,8 +302,16 @@ public class ViewUser extends DomainEntity {
         return true;
     }
 
+    public BigDecimal getMaxInsureValue() {
+        return maxInsureValue;
+    }
+
+    public void setMaxInsureValue(BigDecimal maxInsureValue) {
+        this.maxInsureValue = maxInsureValue;
+    }
+
     @Override
     public String toString() {
-        return "ViewUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupName=" + userGroupName + ", userGroupLvl=" + userGroupLvl + ", userGroupLvlName=" + userGroupLvlName + ", companyName=" + companyName + ", address=" + address + ", policyNo=" + policyNo + ", companyType=" + companyType + ", branchDesc=" + branchDesc + ", taxId=" + taxId + ", sessionId=" + sessionId + '}';
+        return "ViewUser{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", isActive=" + isActive + ", fname=" + fname + ", lname=" + lname + ", sex=" + sex + ", userGroupId=" + userGroupId + ", userGroupName=" + userGroupName + ", userGroupLvl=" + userGroupLvl + ", userGroupLvlName=" + userGroupLvlName + ", companyName=" + companyName + ", address=" + address + ", policyNo=" + policyNo + ", companyType=" + companyType + ", branchDesc=" + branchDesc + ", taxId=" + taxId + ", maxInsureValue=" + maxInsureValue + ", sessionId=" + sessionId + '}';
     }
 }

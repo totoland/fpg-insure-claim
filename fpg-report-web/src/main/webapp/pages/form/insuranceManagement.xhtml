@@ -12,6 +12,7 @@
 
     <ui:define name="content">
         <h:form id="form">
+            <p:messages id="messageInsureMgr" closable="true"/>
             <div class="Container100">
                 <div class="ContainerIndent">
                     <div class="Card">
@@ -85,12 +86,6 @@
                                 </p:panelGrid>
                             </div>
                         </div>
-                        <div class="Container50 Responsive50">
-                            <div class="ContainerIndent">
-                                <!--<h2 class="BigTopic">TextArea</h2>-->
-                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -114,20 +109,20 @@
                                   sortBy="#{item.policyNumber}" footerText="#{msg.label_Policy_number}">
                             <h:outputText value="#{item.policyNumber}" />
                         </p:column>
-<!--                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{item.insuredName}" footerText="#{msg.label_insured_name}">
+                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{item.insuredName}" footerText="#{msg.label_insured_name}">
                             <h:outputText value="#{item.insuredName}" />
-                        </p:column>-->
+                        </p:column>
                         <p:column headerText="#{msg.label_method_of_transport}" 
                                   width="150"
                                   sortBy="#{item.transportMethod}" 
                                   footerText="#{msg.label_method_of_transport}">
                             <h:outputText value="#{insuranceManagementController.findMethodTransport(item.transportMethod)}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_status}" width="70"
+<!--                        <p:column headerText="#{msg.label_status}" width="70"
                                   sortBy="#{item.statusName}" 
                                   footerText="#{msg.label_status}">
                             <h:outputText value="#{item.statusName}" />
-                        </p:column>
+                        </p:column>-->
                         <p:column headerText="#{msg.label_issue_date}" 
                                   width="120"
                                   sortBy="#{item.issueDate}" footerText="#{msg.label_issue_date}">
@@ -136,15 +131,36 @@
                             </h:outputText>
                         </p:column>
                         <p:column>
-                            <p:button value="#{msg.btn_view}" styleClass="CyanButton" onclick="window.location = 'insuranceForm.xhtml?id=#{item.trxId}';return false;"/>
-                            <!--<p:commandButton value="#{msg.btn_reject}" styleClass="PinkButton RaisedButton"/>-->
+                            <p:button value="#{msg.btn_view}" styleClass="CyanButton" onclick="window.location = 'insuranceForm.xhtml?id=#{item.trxId}';
+                                    return false;"/>
+                            <p:commandButton value="#{msg.btn_reject}" 
+                                             rendered="#{insuranceManagementController.adminOffice}"
+                                             styleClass="PinkButton RaisedButton"
+                                             action="#{insuranceManagementController.selecteRecord(item)}"
+                                             oncomplete="PF('confirmReject').show()"/>
                         </p:column>
                     </p:dataTable>
 
                 </p:panel>
             </div>
 
-
+            <p:confirmDialog widgetVar="confirmReject" 
+                             header="#{msg.confirmation_head}" 
+                             message="#{msg.msg_confirm_reject}"
+                             showEffect="fade" hideEffect="fade"
+                             rendered="#{insuranceManagementController.adminOffice}">
+                <p:commandButton value="#{msg.yes}" 
+                                 process="@this"
+                                 update=":form:messageInsureMgr"
+                                 styleClass="ui-confirmdialog-yes GreenButton" 
+                                 icon="ui-icon-check fa fa-check Fs14 white"
+                                 action="#{insuranceManagementController.rejectTransaction()}"
+                                 oncomplete="PF('confirmReject').hide()">
+                </p:commandButton>
+                <p:commandButton value="#{msg.btn_cancel}"
+                                 onclick="PF('confirmReject').hide()"
+                                 type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+            </p:confirmDialog>
         </h:form>
     </ui:define>
 

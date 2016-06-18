@@ -23,15 +23,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author totoland
  */
 @Entity
-@Table(name = "claim_insure")
+@Table(name = "claim_insure_copy")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ClaimInsure.findAll", query = "SELECT c FROM ClaimInsure c")})
-public class ClaimInsure implements Serializable {
+    @NamedQuery(name = "ClaimInsureCopy.findAll", query = "SELECT c FROM ClaimInsureCopy c")})
+public class ClaimInsureCopy implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "claim_id")
     private Long claimId;
@@ -136,15 +135,11 @@ public class ClaimInsure implements Serializable {
     @Column(name = "minimum_premium_rate")
     private BigDecimal minimumPremiumRate;
 
-    public ClaimInsure() {
+    public ClaimInsureCopy() {
     }
 
-    public ClaimInsure(Long claimId) {
+    public ClaimInsureCopy(Long claimId) {
         this.claimId = claimId;
-    }
-    
-    public ClaimInsure(String trxId) {
-        this.trxId = trxId;
     }
 
     public Long getClaimId() {
@@ -533,10 +528,10 @@ public class ClaimInsure implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ClaimInsure)) {
+        if (!(object instanceof ClaimInsureCopy)) {
             return false;
         }
-        ClaimInsure other = (ClaimInsure) object;
+        ClaimInsureCopy other = (ClaimInsureCopy) object;
         if ((this.claimId == null && other.claimId != null) || (this.claimId != null && !this.claimId.equals(other.claimId))) {
             return false;
         }

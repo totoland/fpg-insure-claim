@@ -24,6 +24,7 @@
 package com.totoland.db.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -71,6 +72,8 @@ public class OpenPolicy implements Serializable {
     @Lob
     @Column(name = "clauses_truck")
     private String clausesTruck;
+    @Column(name = "max_insure_value")
+    private BigDecimal maxInsureValue;
 
     public OpenPolicy() {
     }
@@ -159,6 +162,14 @@ public class OpenPolicy implements Serializable {
 
     public void setBrokerLicense(String brokerLicense) {
         this.brokerLicense = brokerLicense;
+    }
+
+    public BigDecimal getMaxInsureValue() {
+        return maxInsureValue;
+    }
+
+    public void setMaxInsureValue(BigDecimal maxInsureValue) {
+        this.maxInsureValue = maxInsureValue;
     }
 
     @Override

@@ -107,19 +107,4 @@ public class XMLService<T> {
         jaxbMarshaller.marshal(source, System.out);
         return file;
     }
-    
-    public static void main(String ...args){
-        try{ 
-            XMLService<Rss> xml = new XMLService<>();
-            Rss rss = xml.xmlToObject(Rss.class);
-            
-            for(Item item : rss.getChannel().getItem()){
-                System.out.println(item.getSname().trim()+" | "+item.getBuy());
-            }
-            
-            System.out.println(xml.objectToXML(rss));
-        } catch (JAXBException|IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 }
