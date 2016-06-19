@@ -371,21 +371,22 @@ public class InsuranceFormController extends BaseController {
 
             //If valid shipment date return only case hack from javascript client!!
             if (this.claimInsure.getShipmentDate() != null && this.claimInsure.getShipmentDate().before(this.minShipmentDate)) {
-                LOGGER.warn("If valid shipment date return only case hack from javascript client!! minShipmentDate : {} getShipmentDate : {}",minShipmentDate,this.claimInsure.getShipmentDate());
+                LOGGER.warn("If valid shipment date return only case hack from javascript client!! minShipmentDate : {} getShipmentDate : {}", minShipmentDate, this.claimInsure.getShipmentDate());
                 return null;
             }
 
-            //Check invoice value cannot duplicate
-            LOGGER.debug("countInvoiceNumberByOpenPolicy invoice number : {} : openpolicy {}",claimInsure.getInvoiceNumber(),claimInsure.getPolicyNumber());
-            int count = certificateService.countInvoiceNumberByOpenPolicy(claimInsure);
-            if(count>0){
-                LOGGER.debug("Duplicate [{}] invoice number",claimInsure.getInvoiceNumber());
-                JsfUtil.alertJavaScript("Found Invoice Number "+claimInsure.getInvoiceNumber()+ " in system, Please try again with new Invoice Number.");
-                return null;
+            if (CertificateType.ORIGINAL.getValue() == certificateType) {
+                //Check invoice value cannot duplicate
+                LOGGER.debug("countInvoiceNumberByOpenPolicy invoice number : {} : openpolicy {}", claimInsure.getInvoiceNumber(), claimInsure.getPolicyNumber());
+                int count = certificateService.countInvoiceNumberByOpenPolicy(claimInsure);
+                if (count > 0) {
+                    LOGGER.debug("Duplicate [{}] invoice number", claimInsure.getInvoiceNumber());
+                    JsfUtil.alertJavaScript("Found Invoice Number " + claimInsure.getInvoiceNumber() + " in system, Please try again with new Invoice Number.");
+                    return null;
+                }
             }
-            
         }
-        
+
         LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
 
         //If first time export must be export with ORIGINAL and need to create new Certificate number
@@ -716,7 +717,7 @@ public class InsuranceFormController extends BaseController {
         } else if (TRUCK == this.claimInsure.getMethodOfTransportId()) {
             this.minShipmentDate = DateTimeUtils.getInstance().add(this.claimInsure.getIssueDate(), -SHIPMENT_TRUCK_BEFORE_DATE);
         }
-        
+
         if (this.claimInsure.getShipmentDate() != null && this.claimInsure.getShipmentDate().before(this.minShipmentDate)) {
             this.claimInsure.setShipmentDate(null);
         }
