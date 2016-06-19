@@ -10,7 +10,6 @@ import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
 import com.totoland.web.utils.MessageUtils;
 import java.util.List;
-import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -79,6 +78,7 @@ public class InsuranceManagementController extends BaseController {
         try {
             certificateService.removeAndBackup(new ClaimInsure(this.selectedRecord.getTrxId()));
             addInfo(MessageUtils.DELETE_SUCCESS());
+            search();
         } catch (Exception ex) {
             LOGGER.error("Cannot reject trasaction : {}",ex);
             addError(MessageUtils.DELETE_NOT_SUCCESS());

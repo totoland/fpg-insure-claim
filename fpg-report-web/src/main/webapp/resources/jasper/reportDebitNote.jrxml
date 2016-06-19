@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDebitNote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7cc9e6c-39c7-448f-b25c-32e05a2d7e7a">
-	<property name="ireport.zoom" value="1.5000000000000095"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="105"/>
-	<queryString>
-		<![CDATA[]]>
-	</queryString>
+	<property name="ireport.zoom" value="3.8906136901500266"/>
+	<property name="ireport.x" value="115"/>
+	<property name="ireport.y" value="678"/>
 	<field name="taxNo" class="java.lang.String"/>
 	<field name="insuredName" class="java.lang.String"/>
 	<field name="insuredValue" class="java.lang.String"/>
@@ -22,18 +19,18 @@
 	<field name="warrantyTo" class="java.util.Date"/>
 	<field name="grandTotal" class="java.lang.Integer"/>
 	<field name="companyLogoURL" class="java.lang.String"/>
+	<field name="authorizedSignatureURL" class="java.lang.String"/>
+	<field name="homeOfficeLogoURL" class="java.lang.String"/>
+	<field name="branchCheckBoxURL" class="java.lang.String"/>
+	<field name="brokerName" class="java.lang.String"/>
+	<field name="branchNo" class="java.lang.String"/>
+	<field name="taxId" class="java.lang.String"/>
+	<field name="copyType" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
 		<band height="138" splitType="Stretch">
-			<staticText>
-				<reportElement x="427" y="77" width="127" height="15" forecolor="#999999" uuid="024d73fe-9dd5-41a5-94a9-621aeb77e329"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="TH SarabunPSK" size="13" isBold="true" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[DEBIT NOTE COPY]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="427" y="100" width="127" height="14" uuid="e85994db-bd83-433d-b22f-ba00877cf9c8"/>
 				<textElement textAlignment="Right" verticalAlignment="Top">
@@ -52,6 +49,13 @@
 				<reportElement x="3" y="63" width="152" height="51" uuid="48c8490e-912a-444e-9e79-d8193f30e60f"/>
 				<imageExpression><![CDATA[$F{companyLogoURL}]]></imageExpression>
 			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="427" y="73" width="127" height="15" forecolor="#999999" uuid="e70ccecd-0c50-45d6-9ebd-713f1efedfd1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="13" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{copyType}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
@@ -233,7 +237,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("en")).format($F{issueDate})]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="439" y="50" width="100" height="15" uuid="27725251-5314-49d8-a707-8e8b91199acd"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
@@ -375,11 +379,11 @@
 				<reportElement x="373" y="385" width="181" height="1" uuid="52682978-8a0b-4a64-abf3-3f99442db90a"/>
 			</line>
 			<staticText>
-				<reportElement x="3" y="287" width="71" height="24" uuid="73943bf3-1885-4b70-b1f6-0da853d5cf21"/>
+				<reportElement x="3" y="287" width="51" height="17" uuid="73943bf3-1885-4b70-b1f6-0da853d5cf21"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="10" pdfFontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Broker/Argent           Direct Business (89285)]]></text>
+				<text><![CDATA[Broker/Argent           ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="3" y="276" width="71" height="12" uuid="4ff8b51b-2fa2-4ecf-a932-6c4120c99aae"/>
@@ -388,24 +392,52 @@
 				</textElement>
 				<text><![CDATA[นายหน้า/ตัวแทน]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement x="23" y="172" width="12" height="12" uuid="0f6f8019-c702-45f1-b4bd-6871845100ba"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="140" y="172" width="12" height="12" uuid="6fcb0e7d-bbef-4803-b946-361e9fdfe211"/>
-			</rectangle>
-			<line>
-				<reportElement x="194" y="188" width="17" height="1" uuid="8ff786ea-c4ad-4430-8bc0-d340c7ac19d2"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
-			</line>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="235" y="209" width="100" height="16" uuid="da069c41-061f-4562-b5ed-71cd724d1b24"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Float.valueOf($F{insuredValue}))]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="54" y="287" width="92" height="25" uuid="64ae080c-b3cb-4ffa-8328-f161fafe3cc6"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{brokerName}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="26" y="167" width="13" height="13" uuid="c9ae9d77-1462-47e6-873b-7972ebeac3e2"/>
+				<imageExpression><![CDATA[$F{homeOfficeLogoURL}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="143" y="166" width="13" height="13" uuid="fb4eb259-7700-408a-a6ec-c4a1d7fb6c9f"/>
+				<imageExpression><![CDATA[$F{branchCheckBoxURL}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="207" y="166" width="100" height="15" uuid="4f44461e-282b-4373-8c01-691dbb08ae68"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{branchNo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="244" width="100" height="15" uuid="03df2488-a94d-4a34-8f7c-ae56d4280ef4"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxId}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="395" y="329" width="138" height="56" uuid="1a31e481-55b8-41da-acd2-9ee3ed987af3"/>
+				<imageExpression><![CDATA[$F{authorizedSignatureURL}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="103" y="149" width="157" height="15" uuid="2b9856f9-92ed-49b1-8bba-ee98cba4f66b"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxId}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

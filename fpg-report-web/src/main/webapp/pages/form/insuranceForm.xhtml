@@ -620,7 +620,7 @@
                                                                  stop();
                                                                  location.reload();
                                                              })" 
-                                                     process="@form"
+                                                     process="@this"
                                                      styleClass="ui-confirmdialog-yes GreenButton" 
                                                      icon="ui-icon-check fa fa-check Fs14 white">
                                         <p:fileDownload value="#{insuranceFormController.getDebitNote()}"/>
@@ -653,7 +653,7 @@
                                     <p:commandButton value="#{msg.yes}" 
                                                      ajax="false" onclick="PF('printCopyDupp').hide();
                                                              PrimeFaces.monitorDownload(start, stop)"
-                                                     process="@form"
+                                                     process="@this"
                                                      styleClass="ui-confirmdialog-yes GreenButton" 
                                                      icon="ui-icon-check fa fa-check Fs14 white" oncomplete="window.location = ''">
                                         <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile('2')}"/>
@@ -670,7 +670,7 @@
                                     <p:commandButton value="#{msg.yes}" 
                                                      ajax="false" onclick="PF('printInsureCopy').hide();
                                                              PrimeFaces.monitorDownload(start, stop)"
-                                                     process="@form"
+                                                     process="@this"
                                                      styleClass="ui-confirmdialog-yes GreenButton" 
                                                      icon="ui-icon-check fa fa-check Fs14 white" oncomplete="window.location = ''">
                                         <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile('3')}"/>
@@ -687,7 +687,7 @@
                                     <p:commandButton value="#{msg.yes}" 
                                                      ajax="false" onclick="PF('printProducerCopy').hide();
                                                              PrimeFaces.monitorDownload(start, stop)"
-                                                     process="@form"
+                                                     process="@this"
                                                      styleClass="ui-confirmdialog-yes GreenButton" 
                                                      icon="ui-icon-check fa fa-check Fs14 white" oncomplete="window.location = ''">
                                         <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile('4')}"/>

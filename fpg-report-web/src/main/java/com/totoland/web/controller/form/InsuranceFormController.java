@@ -9,7 +9,9 @@ import com.totoland.db.entity.Surveyors;
 import com.totoland.db.entity.OpenPolicy;
 import com.totoland.db.entity.ViewUser;
 import com.totoland.db.enums.CertificateType;
+import com.totoland.db.enums.DebitNoteType;
 import com.totoland.db.enums.InsureState;
+import com.totoland.reporting.bean.ArrayCollectionBean;
 import com.totoland.reporting.bean.DebitNote;
 import com.totoland.reporting.service.impl.PDFReportExporter;
 import com.totoland.rss.kbank.Rss;
@@ -32,6 +34,7 @@ import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,6 +53,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 
 /**
  *
@@ -63,10 +67,13 @@ public class InsuranceFormController extends BaseController {
     private static final long serialVersionUID = -4658297318038575831L;
     private static final String MARINE_PDF_TEMPLATE = "/resources/jasper/reportFPG.jrxml";
     private static final String DEBIT_NOTE_PDF_TEMPLATE = "/resources/jasper/reportDebitNote.jrxml";
-    private static final String RESOURCES_LOGO = "/resources/images/logo.png";
+    private static final String RESOURCES_LOGO = "/resources/images/fpg/logo.png";
     private static final String RESOURCES_SIGNATURE1 = "/resources/images/signature/1.png";
     private static final String RESOURCES_SIGNATURE2 = "/resources/images/signature/2.png";
     private static final String RESOURCES_SIGNATURE3 = "/resources/images/signature/sign_authorized_signature.jpg";
+    private static final String RESOURCES_PREVIEW = "/resources/images/preview.png";
+    private static final String RESOURCES_CHECKED = "/resources/images/checked.png";
+    private static final String RESOURCES_UNCHECKED = "/resources/images/unchecked.png";
     private static final String NO_IMAGE = "/resources/images/no_image.jpg";
 
     private static final BigDecimal DEFAULT_MAX_INSURE_VALUE = new BigDecimal(10000000);
@@ -402,18 +409,32 @@ public class InsuranceFormController extends BaseController {
             certRpt.setIssueOn(this.claimInsure.getIssueDate());
             certRpt.setCopyType(CertificateType.valueOf(certificateType));
             certRpt.setFrom(findCountryName(this.claimInsure.getOriginCountryCode()));
+            certRpt.setFromDesc(this.claimInsure.getOriginDescription());
             certRpt.setTo(findCountryName(this.claimInsure.getDestinationCountryCode()));
-            certRpt.setCurrencyType(this.claimInsure.getCurrencyType());
-            certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription());
+            certRpt.setToDesc(this.claimInsure.getDestinationDescription());
+            certRpt.setCurrencyType(this.claimInsure.getCurrencyType() != null
+                    && this.claimInsure.getCurrencyType().contains("USD") ? "USD" : this.claimInsure.getCurrencyType());
             certRpt.setShipmentDate(DateTimeUtils.getInstance().add(this.claimInsure.getShipmentDate(), -1));
             certRpt.setSubject(this.claimInsure.getMarksAndNumbers());
             certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription());
+
+            if (this.claimInsure.getBillOfLadingNumber() != null
+                    && !this.claimInsure.getBillOfLadingNumber().trim().isEmpty()) {
+                String newLine = this.claimInsure.getCommodityDescription() != null
+                        && !this.claimInsure.getCommodityDescription().trim().isEmpty() ? "\n" : "";
+                certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription() + newLine + "B/L no : "
+                        + this.claimInsure.getBillOfLadingNumber().trim());
+            }
+
             certRpt.setAdditionalInfomation(this.claimInsure.getAdditionalInfomation());
-            
+
             certRpt.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
             certRpt.setSignature1URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE1);
             certRpt.setSignature2URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE2);
             certRpt.setSignature3URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE3);
+            if (certificateType == 0) {
+                certRpt.setPreviewURL(JsfUtil.getFullURI() + RESOURCES_PREVIEW);
+            }
 
             Surveyors surveyor = surveyorService.findById(this.claimInsure.getClaimSurveyorId());
 
@@ -446,7 +467,37 @@ public class InsuranceFormController extends BaseController {
             LOGGER.debug("certRpt : {}", certRpt);
 
             String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
-            byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(certRpt));
+            List<ArrayCollectionBean> collectionBeans = new ArrayList<>();
+
+            if (CertificateType.COMPANY_COPY.getValue() == certificateType) {
+                certRpt.setCopyType(CertificateType.ORIGINAL.name());
+                collectionBeans.add(new ArrayCollectionBean(jrxmlPath, Arrays.asList(certRpt)));
+
+                CertificationBean bean1 = new CertificationBean();
+                BeanUtils.copyProperties(certRpt, bean1);
+                bean1.setCopyType(CertificateType.DUPPICATE.name());
+                collectionBeans.add(new ArrayCollectionBean(jrxmlPath, Arrays.asList(bean1)));
+
+                CertificationBean bean2 = new CertificationBean();
+                BeanUtils.copyProperties(certRpt, bean2);
+                bean2.setCopyType(CertificateType.INSURED_COPY.name());
+                collectionBeans.add(new ArrayCollectionBean(jrxmlPath, Arrays.asList(bean2)));
+                
+                //For Debit note
+                String jrxmlPathDebit = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
+                DebitNote debitNoteOri = getDebitNoteBean();
+                debitNoteOri.setCopyType(DebitNoteType.ORIGINAL.getName());
+                collectionBeans.add(new ArrayCollectionBean(jrxmlPathDebit, Arrays.asList(debitNoteOri)));
+                
+                DebitNote debitNoteCopy = new DebitNote();
+                BeanUtils.copyProperties(debitNoteOri, debitNoteCopy);
+                debitNoteCopy.setCopyType(DebitNoteType.COPY.getName());
+                collectionBeans.add(new ArrayCollectionBean(jrxmlPathDebit, Arrays.asList(debitNoteCopy)));
+            } else {
+                collectionBeans.add(new ArrayCollectionBean(jrxmlPath, Arrays.asList(certRpt)));
+            }
+            
+            byte[] data = new PDFReportExporter().exporterToByteList(collectionBeans);
             SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
                     "application/pdf", "CERTIFICATE_" + this.claimInsure.getCertificationNumber() + "_" + dateFormat.format(new Date()) + ".pdf");
@@ -458,18 +509,37 @@ public class InsuranceFormController extends BaseController {
         return null;
     }
 
-    public StreamedContent getDebitNote() {
-        LOGGER.debug("export Debit Note...");
+    private DebitNote getDebitNoteBean(){
+        DebitNote debitNote = new DebitNote();
+            //Init data for Open Policy
+            Map<String, Object> params = new HashMap<>();
+            params.put("openPolicyNo", this.claimInsure.getPolicyNumber());
+            List<OpenPolicy> listPolicy = openPolicyService.findByDynamicField(OpenPolicy.class, params);
+            if (listPolicy != null && !listPolicy.isEmpty()) {
+                debitNote.setBrokerName(listPolicy.get(0).getBrokerName());
+            }
 
-        try {
-            DebitNote debitNote = new DebitNote();
             //Init data for print Debit note
             ViewUser userData = userService.findByUserId(this.claimInsure.getInsuredId());
+            LOGGER.debug("userData : {}", userData);
             debitNote.setTaxNo(dropdownFactory.ddlConf().get("tax_no"));
             debitNote.setInsuredName(userData.getCompanyName());
             debitNote.setInsuredAddress(userData.getAddress());
             debitNote.setCertificationNumber(this.claimInsure.getCertificationNumber());
             debitNote.setIssueDate(this.claimInsure.getIssueDate());
+            debitNote.setTaxId(userData.getTaxId());
+
+            if (userData.getCompanyType() != null && userData.getCompanyType().equals("1")) {
+                debitNote.setBranchNo(null);
+                debitNote.setBranchCheckBoxURL(JsfUtil.getFullURI() + RESOURCES_UNCHECKED);
+                debitNote.setHomeOfficeLogoURL(JsfUtil.getFullURI() + RESOURCES_CHECKED);
+            } else if (userData.getCompanyType() != null && userData.getCompanyType().equals("2")) {
+                debitNote.setBranchNo(userData.getBranchDesc());
+                debitNote.setBranchCheckBoxURL(JsfUtil.getFullURI() + RESOURCES_CHECKED);
+                debitNote.setHomeOfficeLogoURL(JsfUtil.getFullURI() + RESOURCES_UNCHECKED);
+            }
+
+            debitNote.setAuthorizedSignatureURL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE3);
 
             if (this.claimInsure.getPremiumRate().intValue() < 500) {
                 LOGGER.debug("Premium rate lower than 500 use Minimum Premium = 500");
@@ -508,6 +578,15 @@ public class InsuranceFormController extends BaseController {
             debitNote.setPolicyNo(this.claimInsure.getPolicyNumber());
             debitNote.setWarrantyFrom(this.claimInsure.getShipmentDate());
             debitNote.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
+            
+            return debitNote;
+    }
+    
+    public StreamedContent getDebitNote() {
+        LOGGER.debug("export Debit Note...");
+
+        try {
+            DebitNote debitNote = getDebitNoteBean();
 
             String jrxmlPath = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(debitNote));

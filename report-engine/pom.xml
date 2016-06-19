@@ -29,6 +29,11 @@
             <version>1.0</version>
         </dependency>
         <dependency>
+            <groupId>com.totoland.jasper.fonts</groupId>
+            <artifactId>tahoma</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>1.7.5</version>

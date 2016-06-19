@@ -16,7 +16,7 @@ import java.util.Date;
 public class DebitNote implements Serializable {
 
     private static final long serialVersionUID = 7410557423558657621L;
-
+    
     //เลขประจำตัวผู้เสียภาษี
     private String taxNo;
     //ชื่อและที่อยู่ผู้เอาประกัน
@@ -49,6 +49,17 @@ public class DebitNote implements Serializable {
 
     private String companyLogoURL;
 
+    private String homeOffice;
+    private String branchNo;
+    private String homeOfficeLogoURL;
+    private String branchCheckBoxURL;
+    
+    private String taxId;
+    private String authorizedSignatureURL;
+    private String previewURL;
+
+    private String copyType;
+    
     public String getTaxNo() {
         return taxNo;
     }
@@ -185,8 +196,72 @@ public class DebitNote implements Serializable {
         this.insuredValue = insuredValue;
     }
 
+    public String getHomeOffice() {
+        return homeOffice;
+    }
+
+    public void setHomeOffice(String homeOffice) {
+        this.homeOffice = homeOffice;
+    }
+
+    public String getBranchNo() {
+        return branchNo;
+    }
+
+    public void setBranchNo(String branchNo) {
+        this.branchNo = branchNo;
+    }
+
+    public String getHomeOfficeLogoURL() {
+        return homeOfficeLogoURL;
+    }
+
+    public void setHomeOfficeLogoURL(String homeOfficeLogoURL) {
+        this.homeOfficeLogoURL = homeOfficeLogoURL;
+    }
+
+    public String getBranchCheckBoxURL() {
+        return branchCheckBoxURL;
+    }
+
+    public void setBranchCheckBoxURL(String branchCheckBoxURL) {
+        this.branchCheckBoxURL = branchCheckBoxURL;
+    }
+
+    public String getTaxId() {
+        return taxId;
+    }
+
+    public void setTaxId(String taxId) {
+        this.taxId = taxId;
+    }
+
+    public String getAuthorizedSignatureURL() {
+        return authorizedSignatureURL;
+    }
+
+    public void setAuthorizedSignatureURL(String authorizedSignatureURL) {
+        this.authorizedSignatureURL = authorizedSignatureURL;
+    }
+
+    public String getPreviewURL() {
+        return previewURL;
+    }
+
+    public void setPreviewURL(String previewURL) {
+        this.previewURL = previewURL;
+    }
+
+    public String getCopyType() {
+        return copyType;
+    }
+
+    public void setCopyType(String copyType) {
+        this.copyType = copyType;
+    }
+
     @Override
     public String toString() {
-        return "DebitNote{" + "taxNo=" + taxNo + ", insuredName=" + insuredName + ", insuredValue=" + insuredValue + ", insuredAddress=" + insuredAddress + ", certificationNumber=" + certificationNumber + ", issueDate=" + issueDate + ", premium=" + premium + ", stampDuty=" + stampDuty + ", typeOfPolicy=" + typeOfPolicy + ", total=" + total + ", policyNo=" + policyNo + ", vat=" + vat + ", warrantyFrom=" + warrantyFrom + ", warrantyTo=" + warrantyTo + ", grandTotal=" + grandTotal + ", brokerName=" + brokerName + ", companyLogoURL=" + companyLogoURL + '}';
+        return "DebitNote{" + "taxNo=" + taxNo + ", insuredName=" + insuredName + ", insuredValue=" + insuredValue + ", insuredAddress=" + insuredAddress + ", certificationNumber=" + certificationNumber + ", issueDate=" + issueDate + ", premium=" + premium + ", stampDuty=" + stampDuty + ", typeOfPolicy=" + typeOfPolicy + ", total=" + total + ", policyNo=" + policyNo + ", vat=" + vat + ", warrantyFrom=" + warrantyFrom + ", warrantyTo=" + warrantyTo + ", grandTotal=" + grandTotal + ", brokerName=" + brokerName + ", companyLogoURL=" + companyLogoURL + ", homeOffice=" + homeOffice + ", branchNo=" + branchNo + ", homeOfficeLogoURL=" + homeOfficeLogoURL + ", branchCheckBoxURL=" + branchCheckBoxURL + ", taxId=" + taxId + ", authorizedSignatureURL=" + authorizedSignatureURL + ", previewURL=" + previewURL + ", copyType=" + copyType + '}';
     }
 }

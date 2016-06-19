@@ -153,7 +153,7 @@
                              rendered="#{insuranceManagementController.adminOffice}">
                 <p:commandButton value="#{msg.yes}" 
                                  process="@this"
-                                 update=":form:messageInsureMgr"
+                                 update="@form"
                                  styleClass="ui-confirmdialog-yes GreenButton" 
                                  icon="ui-icon-check fa fa-check Fs14 white"
                                  action="#{insuranceManagementController.rejectTransaction()}"

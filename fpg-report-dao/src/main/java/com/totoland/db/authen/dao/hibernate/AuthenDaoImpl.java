@@ -60,9 +60,29 @@ public class AuthenDaoImpl extends BaseDao implements AuthenDao, Serializable {
     public ViewUser findByUserId(Integer userId) {
         
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT group_lvl.GROUP_LVL_NAME,user_group.USER_GROUP_NAME,sv_user.USER_ID,sv_user.USERNAME,sv_user.PASSWORD,");
-        sql.append("sv_user.IS_ACTIVE,sv_user.FNAME,sv_user.LNAME,sv_user.SEX,sv_user.USER_GROUP_ID,sv_user.USER_GROUP_LVL , sv_user.ADDRESS , sv_user.COMPANY_NAME ,sv_user.POLICY_NO ");
-        sql.append("FROM sv_user INNER JOIN group_lvl ON sv_user.USER_GROUP_LVL = group_lvl.GROUP_LVL_ID INNER JOIN user_group ON sv_user.USER_GROUP_ID = user_group.USER_GROUP_ID ");
+        sql.append("SELECT ");
+        sql.append("sv_user.USER_ID, ");
+        sql.append("sv_user.USERNAME, ");
+        sql.append("sv_user.PASSWORD, ");
+        sql.append("sv_user.IS_ACTIVE, ");
+        sql.append("sv_user.FNAME, ");
+        sql.append("sv_user.LNAME, ");
+        sql.append("sv_user.SEX, ");
+        sql.append("user_group.USER_GROUP_NAME, ");
+        sql.append("user_group.USER_GROUP_ID, ");
+        sql.append("sv_user.USER_GROUP_LVL, ");
+        sql.append("sv_user.ADDRESS, ");
+        sql.append("sv_user.COMPANY_NAME, ");
+        sql.append("sv_user.POLICY_NO, ");
+        sql.append("group_lvl.GROUP_LVL_NAME, ");
+        sql.append("sv_user.POLICY_NO, ");
+        sql.append("sv_user.BRANCH_DESC, ");
+        sql.append("sv_user.TAX_ID, ");
+        sql.append("sv_user.COMPANY_TYPE ");
+        sql.append("FROM ");
+        sql.append("sv_user ");
+        sql.append("INNER JOIN user_group ON sv_user.USER_GROUP_ID = user_group.USER_GROUP_ID ");
+        sql.append("INNER JOIN group_lvl ON sv_user.USER_GROUP_LVL = group_lvl.GROUP_LVL_ID ");
         sql.append("WHERE 1=1 ");
         sql.append("AND sv_user.USER_ID = ? ");
 
