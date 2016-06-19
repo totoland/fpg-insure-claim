@@ -64,7 +64,6 @@ public class PDFReportExporter implements ReportExporter {
         List<JasperPrint> jasperPrints = new ArrayList<>();
 
         for (ArrayCollectionBean collection : beanCollection) {
-            System.out.println("collection.getBeanCollection() "+collection.getBeanCollection());
             InputStream inputStream;
             inputStream = new FileInputStream(collection.getJrxml());
             JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(collection.getBeanCollection());
@@ -77,8 +76,6 @@ public class PDFReportExporter implements ReportExporter {
 
             jasperPrints.add(jasperPrint);
         }
-
-        System.out.println("jasperPrints : "+jasperPrints.size());
         
         JasperPrint firstPage = jasperPrints.get(0);
         

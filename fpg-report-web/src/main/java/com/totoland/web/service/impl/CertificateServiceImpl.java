@@ -28,7 +28,6 @@ import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.certificate.dao.CertificateCopyDao;
 import com.totoland.db.certificate.dao.CertificateDao;
 import com.totoland.db.certificate.dao.ImageCertDao;
-import com.totoland.db.common.dao.GennericDao;
 import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.entity.ClaimInsureCopy;
 import com.totoland.db.entity.ImageCertExport;
@@ -96,5 +95,10 @@ public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> imp
         BeanUtils.copyProperties(insure,insureCopy);
         copyDao.edit(insureCopy);
         certificateDao.remove(insure);
+    }
+
+    @Override
+    public int countInvoiceNumberByOpenPolicy(ClaimInsure claimInsure) {
+        return certificateDao.countInvoiceNumberByOpenPolicy(claimInsure);
     }
 }

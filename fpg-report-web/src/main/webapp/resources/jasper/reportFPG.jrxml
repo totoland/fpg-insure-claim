@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFPG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03c5575f-761a-4e21-ae7f-ce00d78a7c53">
 	<property name="ireport.zoom" value="1.771561000000007"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="232"/>
+	<property name="ireport.y" value="153"/>
 	<field name="nameOfAssured" class="java.lang.String"/>
 	<field name="vesselAirline" class="java.lang.String"/>
 	<field name="referenceNumber" class="java.lang.String"/>
@@ -521,15 +521,7 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textFieldExpression><![CDATA[$F{toDesc}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="56" y="26" width="421" height="145" isRemoveLineWhenBlank="true" uuid="b658f028-5829-4ed9-9af4-119d0812f135"/>
-				<imageExpression><![CDATA[$F{previewURL}]]></imageExpression>
-			</image>
-			<image>
-				<reportElement x="56" y="233" width="421" height="145" isRemoveLineWhenBlank="true" uuid="b31e4148-0081-4f70-9433-0e9b0abb246b"/>
-				<imageExpression><![CDATA[$F{previewURL}]]></imageExpression>
-			</image>
-			<image>
-				<reportElement x="56" y="432" width="421" height="145" isRemoveLineWhenBlank="true" uuid="a9e82b74-221c-4e98-8990-8b45b7ce7a54"/>
+				<reportElement x="45" y="77" width="448" height="416" isRemoveLineWhenBlank="true" uuid="b658f028-5829-4ed9-9af4-119d0812f135"/>
 				<imageExpression><![CDATA[$F{previewURL}]]></imageExpression>
 			</image>
 			<staticText>

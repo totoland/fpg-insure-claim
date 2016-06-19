@@ -28,6 +28,7 @@ import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.certificate.dao.CertificateDao;
 import com.totoland.db.common.dao.hibernate.GennericDaoImpl;
 import com.totoland.db.entity.ClaimInsure;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -114,5 +115,14 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
     @Override
     public String getCertificateNO(ClaimInsure claimInsure) {
         return oneColumnNativeQuery("select CONCAT('F',DATE_FORMAT(SYSDATE(), '%y%m'),'-', LPAD('"+claimInsure.getClaimId()+"',7,'0'))").toString();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public int countInvoiceNumberByOpenPolicy(ClaimInsure claimInsure) {
+        BigInteger count = countNativeQuery("SELECT COUNT(1) FROM claim_insure WHERE invoice_number = ? and policy_number = ?", 
+                claimInsure.getInvoiceNumber(),claimInsure.getPolicyNumber());
+        
+        return count!=null?count.intValue():0;
     }
 }

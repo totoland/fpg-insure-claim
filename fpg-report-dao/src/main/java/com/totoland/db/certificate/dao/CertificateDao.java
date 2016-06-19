@@ -42,4 +42,6 @@ public interface CertificateDao extends GennericDao<ClaimInsure> {
     void updateStateCertNo(ClaimInsure claimInsure);
     
     String getCertificateNO(ClaimInsure claimInsure);
+
+    int countInvoiceNumberByOpenPolicy(ClaimInsure claimInsure);
 }

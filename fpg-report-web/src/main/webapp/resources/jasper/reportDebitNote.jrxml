@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDebitNote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7cc9e6c-39c7-448f-b25c-32e05a2d7e7a">
-	<property name="ireport.zoom" value="3.8906136901500266"/>
-	<property name="ireport.x" value="115"/>
-	<property name="ireport.y" value="678"/>
+	<property name="ireport.zoom" value="3.536921536500024"/>
+	<property name="ireport.x" value="739"/>
+	<property name="ireport.y" value="1150"/>
 	<field name="taxNo" class="java.lang.String"/>
 	<field name="insuredName" class="java.lang.String"/>
 	<field name="insuredValue" class="java.lang.String"/>
@@ -259,7 +259,7 @@
 				<textFieldExpression><![CDATA[$F{stampDuty}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="74" y="209" width="69" height="13" uuid="f9ec4a44-ac4e-4c7c-8f91-75c0e0cde48a"/>
+				<reportElement x="73" y="209" width="69" height="13" uuid="f9ec4a44-ac4e-4c7c-8f91-75c0e0cde48a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -287,7 +287,7 @@
 				<textFieldExpression><![CDATA[$F{vat}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="280" y="281" width="91" height="13" uuid="172ae632-5795-43fc-afa1-001a61fd6164"/>
+				<reportElement x="283" y="281" width="91" height="13" uuid="172ae632-5795-43fc-afa1-001a61fd6164"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK"/>
 				</textElement>
@@ -393,7 +393,7 @@
 				<text><![CDATA[นายหน้า/ตัวแทน]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="235" y="209" width="100" height="16" uuid="da069c41-061f-4562-b5ed-71cd724d1b24"/>
+				<reportElement x="252" y="209" width="100" height="16" uuid="da069c41-061f-4562-b5ed-71cd724d1b24"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK"/>
 				</textElement>

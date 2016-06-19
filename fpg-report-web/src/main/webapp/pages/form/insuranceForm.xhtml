@@ -541,7 +541,7 @@
                                         <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile(0)}"/>
                                     </p:commandButton>
                                     <p:commandButton value="#{msg.btn_cancel}"
-                                                     onclick="PF('printPopup').hide()"
+                                                     onclick="PF('printPreviewPopup').hide()"
                                                      type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
 
@@ -588,6 +588,7 @@
                                                  type="button" onclick="PF('printDebitNotePopup').show()">
                                 </p:commandButton>
                                 <p:commandButton value="#{msg.btn_company_copy}" immediate="true"
+                                                 rendered="false"
                                                  icon="fa fa-save Fs14 White" styleClass="BlueButton" 
                                                  type="button" onclick="PF('printCopyPopup').show()">
                                 </p:commandButton>
@@ -630,6 +631,7 @@
                                                      type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
                                 <p:confirmDialog widgetVar="printCopyPopup" 
+                                                 rendered="false"
                                                  header="#{msg.confirmation_head}" 
                                                  message="#{msg.msg_confirm_save}"
                                                  showEffect="fade" hideEffect="fade">

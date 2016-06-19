@@ -360,19 +360,32 @@ public class InsuranceFormController extends BaseController {
 
     public StreamedContent getCertificateCopyFile(int certificateType) {
 
-        //Validate insure value
-        if (this.claimInsure.getInsuredValue() != null && this.claimInsure.getInsuredValue().compareTo(maxOfInsureValue) > 0) {
-            LOGGER.warn("Insure value < {}", maxOfInsureValue);
-            super.updateCliend(":form:genericDialog");
-            super.openDialog("genericDialog");
-            return null;
-        }
+        if (certificateType != 0) {
+            //Validate insure value
+            if (this.claimInsure.getInsuredValue() != null && this.claimInsure.getInsuredValue().compareTo(maxOfInsureValue) > 0) {
+                LOGGER.warn("Insure value < {}", maxOfInsureValue);
+                super.updateCliend(":form:genericDialog");
+                super.openDialog("genericDialog");
+                return null;
+            }
 
-        //If valid shipment date return only case hack from javascript client!!
-        if (this.claimInsure.getShipmentDate() != null && this.claimInsure.getShipmentDate().before(this.minShipmentDate)) {
-            return null;
-        }
+            //If valid shipment date return only case hack from javascript client!!
+            if (this.claimInsure.getShipmentDate() != null && this.claimInsure.getShipmentDate().before(this.minShipmentDate)) {
+                LOGGER.warn("If valid shipment date return only case hack from javascript client!! minShipmentDate : {} getShipmentDate : {}",minShipmentDate,this.claimInsure.getShipmentDate());
+                return null;
+            }
 
+            //Check invoice value cannot duplicate
+            LOGGER.debug("countInvoiceNumberByOpenPolicy invoice number : {} : openpolicy {}",claimInsure.getInvoiceNumber(),claimInsure.getPolicyNumber());
+            int count = certificateService.countInvoiceNumberByOpenPolicy(claimInsure);
+            if(count>0){
+                LOGGER.debug("Duplicate [{}] invoice number",claimInsure.getInvoiceNumber());
+                JsfUtil.alertJavaScript("Found Invoice Number "+claimInsure.getInvoiceNumber()+ " in system, Please try again with new Invoice Number.");
+                return null;
+            }
+            
+        }
+        
         LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
 
         //If first time export must be export with ORIGINAL and need to create new Certificate number
@@ -464,12 +477,10 @@ public class InsuranceFormController extends BaseController {
                 certRpt.setFullCurrencyType("(" + certRpt.getCurrencyType() + "$ 1 = BATH " + this.claimInsure.getExchangeRate().doubleValue() + ")");
             }
 
-            LOGGER.debug("certRpt : {}", certRpt);
-
             String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
             List<ArrayCollectionBean> collectionBeans = new ArrayList<>();
 
-            if (CertificateType.COMPANY_COPY.getValue() == certificateType) {
+            if (CertificateType.ORIGINAL.getValue() == certificateType) {
                 certRpt.setCopyType(CertificateType.ORIGINAL.name());
                 collectionBeans.add(new ArrayCollectionBean(jrxmlPath, Arrays.asList(certRpt)));
 
@@ -482,13 +493,13 @@ public class InsuranceFormController extends BaseController {
                 BeanUtils.copyProperties(certRpt, bean2);
                 bean2.setCopyType(CertificateType.INSURED_COPY.name());
                 collectionBeans.add(new ArrayCollectionBean(jrxmlPath, Arrays.asList(bean2)));
-                
+
                 //For Debit note
                 String jrxmlPathDebit = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
                 DebitNote debitNoteOri = getDebitNoteBean();
                 debitNoteOri.setCopyType(DebitNoteType.ORIGINAL.getName());
                 collectionBeans.add(new ArrayCollectionBean(jrxmlPathDebit, Arrays.asList(debitNoteOri)));
-                
+
                 DebitNote debitNoteCopy = new DebitNote();
                 BeanUtils.copyProperties(debitNoteOri, debitNoteCopy);
                 debitNoteCopy.setCopyType(DebitNoteType.COPY.getName());
@@ -496,7 +507,7 @@ public class InsuranceFormController extends BaseController {
             } else {
                 collectionBeans.add(new ArrayCollectionBean(jrxmlPath, Arrays.asList(certRpt)));
             }
-            
+
             byte[] data = new PDFReportExporter().exporterToByteList(collectionBeans);
             SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
@@ -509,84 +520,85 @@ public class InsuranceFormController extends BaseController {
         return null;
     }
 
-    private DebitNote getDebitNoteBean(){
+    private DebitNote getDebitNoteBean() {
         DebitNote debitNote = new DebitNote();
-            //Init data for Open Policy
-            Map<String, Object> params = new HashMap<>();
-            params.put("openPolicyNo", this.claimInsure.getPolicyNumber());
-            List<OpenPolicy> listPolicy = openPolicyService.findByDynamicField(OpenPolicy.class, params);
-            if (listPolicy != null && !listPolicy.isEmpty()) {
-                debitNote.setBrokerName(listPolicy.get(0).getBrokerName());
+        //Init data for Open Policy
+        Map<String, Object> params = new HashMap<>();
+        params.put("openPolicyNo", this.claimInsure.getPolicyNumber());
+        List<OpenPolicy> listPolicy = openPolicyService.findByDynamicField(OpenPolicy.class, params);
+        if (listPolicy != null && !listPolicy.isEmpty()) {
+            debitNote.setBrokerName(listPolicy.get(0).getBrokerName());
+        }
+
+        //Init data for print Debit note
+        ViewUser userData = userService.findByUserId(this.claimInsure.getInsuredId());
+        LOGGER.debug("userData : {}", userData);
+        debitNote.setTaxNo(dropdownFactory.ddlConf().get("tax_no"));
+        debitNote.setInsuredName(userData.getCompanyName());
+        debitNote.setInsuredAddress(userData.getAddress());
+        debitNote.setCertificationNumber(this.claimInsure.getCertificationNumber());
+        debitNote.setIssueDate(this.claimInsure.getIssueDate());
+        debitNote.setTaxId(userData.getTaxId());
+
+        if (userData.getCompanyType() != null && userData.getCompanyType().equals("1")) {
+            debitNote.setBranchNo(null);
+            debitNote.setBranchCheckBoxURL(JsfUtil.getFullURI() + RESOURCES_UNCHECKED);
+            debitNote.setHomeOfficeLogoURL(JsfUtil.getFullURI() + RESOURCES_CHECKED);
+        } else if (userData.getCompanyType() != null && userData.getCompanyType().equals("2")) {
+            debitNote.setBranchNo(userData.getBranchDesc());
+            debitNote.setBranchCheckBoxURL(JsfUtil.getFullURI() + RESOURCES_CHECKED);
+            debitNote.setHomeOfficeLogoURL(JsfUtil.getFullURI() + RESOURCES_UNCHECKED);
+        }
+
+        debitNote.setAuthorizedSignatureURL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE3);
+
+        if (this.claimInsure.getPremiumRate().intValue() < 500) {
+            LOGGER.debug("Premium rate lower than 500 use Minimum Premium = 500");
+            this.claimInsure.setPremiumRate(new BigDecimal(500));
+        }
+
+        debitNote.setPremium(this.claimInsure.getPremiumRate());
+        debitNote.setInsuredValue(this.claimInsure.getInsuredValue() + "");
+        //Premium rate * 0.4%
+        debitNote.setStampDuty(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate(),
+                new BigDecimal(0.4)), new BigDecimal(100)));
+
+        if (this.claimInsure.getOriginCountryCode().equals("TH")) {
+            //ถ้าเป็น export premium * 0.04 ถ้า 1-5 บวก x+1 ถ้านอกเหนื่อ +6
+            if (debitNote.getStampDuty().doubleValue() >= 0 && debitNote.getStampDuty().doubleValue() <= 5) {
+                LOGGER.debug("Added 1 to StampDuty");
+                debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(BigInteger.ONE)));
+            } else {
+                LOGGER.debug("Added 6 to StampDuty");
+                debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(5)));
             }
+        }
+        //Premium + StampDuty
+        debitNote.setTotal(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()));
 
-            //Init data for print Debit note
-            ViewUser userData = userService.findByUserId(this.claimInsure.getInsuredId());
-            LOGGER.debug("userData : {}", userData);
-            debitNote.setTaxNo(dropdownFactory.ddlConf().get("tax_no"));
-            debitNote.setInsuredName(userData.getCompanyName());
-            debitNote.setInsuredAddress(userData.getAddress());
-            debitNote.setCertificationNumber(this.claimInsure.getCertificationNumber());
-            debitNote.setIssueDate(this.claimInsure.getIssueDate());
-            debitNote.setTaxId(userData.getTaxId());
+        //Vat = Premium + Stamp * 7%
+        debitNote.setVat(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()),
+                new BigDecimal(7)), new BigDecimal(100)));
 
-            if (userData.getCompanyType() != null && userData.getCompanyType().equals("1")) {
-                debitNote.setBranchNo(null);
-                debitNote.setBranchCheckBoxURL(JsfUtil.getFullURI() + RESOURCES_UNCHECKED);
-                debitNote.setHomeOfficeLogoURL(JsfUtil.getFullURI() + RESOURCES_CHECKED);
-            } else if (userData.getCompanyType() != null && userData.getCompanyType().equals("2")) {
-                debitNote.setBranchNo(userData.getBranchDesc());
-                debitNote.setBranchCheckBoxURL(JsfUtil.getFullURI() + RESOURCES_CHECKED);
-                debitNote.setHomeOfficeLogoURL(JsfUtil.getFullURI() + RESOURCES_UNCHECKED);
-            }
+        if (this.claimInsure.getOriginCountryCode().equals("TH")) {
+            debitNote.setVat(BigDecimal.ZERO);
+        }
 
-            debitNote.setAuthorizedSignatureURL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE3);
+        debitNote.setGrandTotal(debitNote.getTotal().add(debitNote.getVat()));
+        debitNote.setTypeOfPolicy(dropdownFactory.ddlConf().get("type_of_policy"));
+        debitNote.setPolicyNo(this.claimInsure.getPolicyNumber());
+        debitNote.setWarrantyFrom(this.claimInsure.getShipmentDate());
+        debitNote.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
 
-            if (this.claimInsure.getPremiumRate().intValue() < 500) {
-                LOGGER.debug("Premium rate lower than 500 use Minimum Premium = 500");
-                this.claimInsure.setPremiumRate(new BigDecimal(500));
-            }
-
-            debitNote.setPremium(this.claimInsure.getPremiumRate());
-            debitNote.setInsuredValue(this.claimInsure.getInsuredValue() + "");
-            //Premium rate * 0.4%
-            debitNote.setStampDuty(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate(),
-                    new BigDecimal(0.4)), new BigDecimal(100)));
-
-            if (this.claimInsure.getOriginCountryCode().equals("TH")) {
-                //ถ้าเป็น export premium * 0.04 ถ้า 1-5 บวก x+1 ถ้านอกเหนื่อ +6
-                if (debitNote.getStampDuty().doubleValue() >= 0 && debitNote.getStampDuty().doubleValue() <= 5) {
-                    LOGGER.debug("Added 1 to StampDuty");
-                    debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(BigInteger.ONE)));
-                } else {
-                    LOGGER.debug("Added 6 to StampDuty");
-                    debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(5)));
-                }
-            }
-            //Premium + StampDuty
-            debitNote.setTotal(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()));
-
-            //Vat = Premium + Stamp * 7%
-            debitNote.setVat(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()),
-                    new BigDecimal(7)), new BigDecimal(100)));
-
-            if (this.claimInsure.getOriginCountryCode().equals("TH")) {
-                debitNote.setVat(BigDecimal.ZERO);
-            }
-
-            debitNote.setGrandTotal(debitNote.getTotal().add(debitNote.getVat()));
-            debitNote.setTypeOfPolicy(dropdownFactory.ddlConf().get("type_of_policy"));
-            debitNote.setPolicyNo(this.claimInsure.getPolicyNumber());
-            debitNote.setWarrantyFrom(this.claimInsure.getShipmentDate());
-            debitNote.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
-            
-            return debitNote;
+        return debitNote;
     }
-    
+
     public StreamedContent getDebitNote() {
         LOGGER.debug("export Debit Note...");
 
         try {
             DebitNote debitNote = getDebitNoteBean();
+            debitNote.setCopyType(DebitNoteType.COPY.getName());
 
             String jrxmlPath = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(debitNote));
@@ -704,7 +716,7 @@ public class InsuranceFormController extends BaseController {
         } else if (TRUCK == this.claimInsure.getMethodOfTransportId()) {
             this.minShipmentDate = DateTimeUtils.getInstance().add(this.claimInsure.getIssueDate(), -SHIPMENT_TRUCK_BEFORE_DATE);
         }
-
+        
         if (this.claimInsure.getShipmentDate() != null && this.claimInsure.getShipmentDate().before(this.minShipmentDate)) {
             this.claimInsure.setShipmentDate(null);
         }
