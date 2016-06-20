@@ -83,7 +83,6 @@ public class InsuredManagementController extends BaseController {
         svUser.setUserGroupLvl(3);
         svUser.setUserGroupId(1);
         svUser.setIsActive(Boolean.TRUE);
-        keyMatch = new KeyMatch();
         openDialog("modalDialogCreate");
     }
 
@@ -109,12 +108,10 @@ public class InsuredManagementController extends BaseController {
             this.svUser.setBranchDesc(selsvUser.getBranchDesc());
             this.svUser.setTaxId(selsvUser.getTaxId());
 
-
-            LOGGER.trace("edit User : {}", selsvUser);
+            LOGGER.debug("edit User : {}", selsvUser);
         } catch (Exception ex) {
             LOGGER.error("cannot initEdit :", ex);
         }
-//        openDialog("modalDialogEdit");
     }
 
     public void save() {
@@ -143,7 +140,7 @@ public class InsuredManagementController extends BaseController {
     }
 
     public void edit() {
-        LOGGER.trace("edit...");
+        LOGGER.debug("edit...");
 
         if (!validateBeforeEdit()) {
             return;
@@ -152,21 +149,18 @@ public class InsuredManagementController extends BaseController {
         try {
 
             svUser.setPassword(WebUtils.encrypt(svUser.getPassword()));
-            LOGGER.trace("keyMatch {}", keyMatch);
-            userService.updateWithKeyMatching(svUser, keyMatch);
-
-            LOGGER.trace("Edit Success !! ");
-
-            JsfUtil.alertJavaScript(MessageUtils.SAVE_SUCCESS());
-
+            
+            userService.edit(svUser);
+         
+            addInfo(":formUser:messageEdit", MessageUtils.SAVE_SUCCESS());
+            
             search();
-
+            
             JsfUtil.hidePopup("modalDialogEdit");
 
         } catch (Exception ex) {
 
-            JsfUtil.alertJavaScript(MessageUtils.SAVE_NOT_SUCCESS() + " ข้อผิดพลาด :" + MDC.get("reqId"));
-
+            addError(":formUser:messageEdit", MessageUtils.SAVE_NOT_SUCCESS());
             LOGGER.error("Cannot Save Data : ", ex);
 
             svUser.setPassword(rePassword);

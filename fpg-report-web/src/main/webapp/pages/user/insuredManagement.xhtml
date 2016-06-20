@@ -61,75 +61,21 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form id="formUser">  
-            <div class="Container100">
-                <div class="ContainerIndent"> 
-                    <div class="Card">
-                        <div class="CardTopic"> 
-                            <i class="fa fa-user Fs30 Fleft MarRight10"></i>
-                            <div class="EmptyBox10 ShowOnMobile"></div>
-                            <h:outputText value="#{msg.menu_cust_mgr}"/> <br/>
-                            <span class="CardSubTopic">For create/edit user</span> 
-                        </div>
-                        <div class="SeparatorFull"></div>
-
-                        <div class="Container33 Responsive50">
-                            <div class="ContainerIndent">
-                                <div class="Card SoftGrayBack">
-                                    <i class="icon-store Fs40 Fleft Orange MarRight10"></i>
-                                    <div class="Fleft DispInlBlock">
-                                        <span class="Fs15 FontAdamantiumBold Gray">Customer Accounts</span><br/>
-                                        <span class="Fs30 FontAdamantiumBold">#{insuredManagementController.countAllCustomer}</span><br/>
-                                        <span class="Fs11 FontAdamantiumRegular Green">65% Deployed</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="Container33 Responsive50">
-                            <div class="ContainerIndent">
-                                <div class="Card SoftGrayBack">
-                                    <i class="icon-umbrella Fs40 Fleft Pink MarRight10"></i>
-                                    <div class="Fleft DispInlBlock">
-                                        <span class="Fs15 FontAdamantiumBold Gray">Admin Accounts</span><br/>
-                                        <span class="Fs30 FontAdamantiumBold">#{insuredManagementController.countAllAdmin}</span><br/>
-                                        <span class="Fs11 FontAdamantiumRegular Red">42% Remaining</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="Container33 Responsive50">
-                            <div class="ContainerIndent">
-                                <div class="Card SoftGrayBack">
-                                    <i class="icon-portfolio Fs40 Fleft LeadenGreen MarRight10"></i>
-                                    <div class="Fleft DispInlBlock">
-                                        <span class="Fs15 FontAdamantiumBold Gray">Official Accounts</span><br/>
-                                        <span class="Fs30 FontAdamantiumBold">#{insuredManagementController.countAllUser}</span><br/>
-                                        <span class="Fs11 FontAdamantiumRegular Blue">29% Ready</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="EmptyBox20"></div>
-
-                    </div>
-                </div>
-            </div>
+        <h:form id="formUser">
 
             <div class="Container100">
                 <div class="ContainerIndent">
                     <div class="Card">
                         <div class="CardTopic"> 
-                            <i class="icon-document-stroke Fs30 Fleft MarRight10"></i>
+                            <i class="fa fa-user Fs30 Fleft MarRight10"></i>
                             <div class="EmptyBox10 ShowOnMobile"></div>
-                            #{msg.panel_search}
+                            <h:outputText value="#{msg.menu_cust_mgr}"/>
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             <p:commandButton styleClass="Fright GreenButton" icon="fa fa-plus White"
                                              immediate="true"
                                              process="@this"
-                                             action="#{insuredManagementController.initCreateUser()}" update="modalDialogCreate"/>
+                                             action="#{insuredManagementController.initCreateUser()}" 
+                                             update=":formUser:modalDialogCreate"/>
                             <br/>
                         </div>
 
@@ -154,42 +100,41 @@
 
                                 <div class="SeparatorFull"></div>
 
-                                <p:dataTable id="gridUser" var="item" value="#{insuredManagementController.svUsers}"
-                                             emptyMessage="#{msg.no_data_found}"
-                                             rows="10" paginator="true" 
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="5,10,15"
-                                             reflow="true">
+                                <div class="ContainerIndent">
+                                    <p:panel id="pnResult">
+                                        <p:dataTable id="gridUser" var="item" value="#{insuredManagementController.svUsers}"
+                                                     emptyMessage="#{msg.no_data_found}"
+                                                     rows="10" paginator="true" 
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15"
+                                                     reflow="true">
+                                            <f:facet name="header">
+                                                Search Result
+                                            </f:facet>
+                                            <p:column headerText="Insured Name">
+                                                <h:outputText value="#{item.companyName}" />
+                                            </p:column>
 
-                                    <p:column headerText="Insured Name">
-                                        <h:outputText value="#{item.companyName}" />
-                                    </p:column>
+                                            <p:column headerText="Username">
+                                                <h:outputText value="#{item.username}" />
+                                            </p:column>
 
-                                    <p:column headerText="Username">
-                                        <h:outputText value="#{item.username}" />
-                                    </p:column>
-
-                                    <p:column headerText="#{msg.label_Policy_number}">
-                                        <h:outputText value="#{item.policyNo}" />
-                                    </p:column>
-                                    <p:column headerText="Status">
-                                        <h:outputText value="#{item.isActive?'Active':'In active'}" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" 
-                                             action="#{insuredManagementController.initEditUser(item)}"
-                                             process="@this"
-                                             update=":formUser:modalDialogEdit"
-                                             oncomplete="PF('modalDialogEdit').show()"/>
-                                    </p:column>
-                                </p:dataTable>
-
-                            </div>
-                        </div>
-                        <div class="Container50 Responsive50">
-                            <div class="ContainerIndent">
-                                <!--<h2 class="BigTopic">TextArea</h2>-->
-                                <!--<p:inputTextarea rows="5" placeholder="Your Message" />-->
+                                            <p:column headerText="#{msg.label_Policy_number}">
+                                                <h:outputText value="#{item.policyNo}" />
+                                            </p:column>
+                                            <p:column headerText="Status">
+                                                <h:outputText value="#{item.isActive?'Active':'In active'}" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" 
+                                                                 action="#{insuredManagementController.initEditUser(item)}"
+                                                                 process="@this"
+                                                                 update=":formUser:modalDialogEdit"
+                                                                 oncomplete="PF('modalDialogEdit').show()"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </p:panel>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -197,7 +142,8 @@
             </div>
 
             <p:dialog id="modalDialogEdit" header="Update user" widgetVar="modalDialogEdit"
-                      modal="true" showEffect="explode" hideEffect="bounce" minimizable="true" maximizable="true" responsive="true">  
+                      modal="true" showEffect="explode" minimizable="true" maximizable="true" responsive="true">
+                <p:messages id="messageEdit"/>
                 <p:panel id="pnUpdate" class="Container100" style="border: 0px">
                     <div class="Container100">
                         <div class="Container100 Responsive100">
@@ -255,10 +201,10 @@
                                                           style="border-style:none;width: 230px">
                                             <p:ajax listener="#{insuredManagementController.onChangeCompanyType()}" 
                                                     event="change"
-                                                    process=":formUser:pnGridUpdate"
+                                                    process="@this"
                                                     update=":formUser:pnGridUpdate"/>
-                                            <f:selectItem itemLabel="Home Office" itemValue="#{'1'}" />  
-                                            <f:selectItem itemLabel="Branch" itemValue="#{'2'}" />
+                                            <f:selectItem itemLabel="Home Office" itemValue="1" />  
+                                            <f:selectItem itemLabel="Branch" itemValue="2" />
                                         </p:selectOneRadio><span style="color: red">*</span>
                                         <p:messages for=":formUser:companyTypeEdit"/>
                                     </h:panelGrid>
@@ -293,8 +239,9 @@
                                 <h:panelGroup>
                                     <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" 
                                                      action="#{insuredManagementController.edit()}"
-                                                     process=":formUser:pnGridUpdate" update=":formUser:pnGridUpdate , :formUser:gridUser"/>
-                                    <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogEdit').hide()"/>
+                                                     process=":formUser:pnUpdate" 
+                                                     update=":formUser:pnGridUpdate , :formUser:gridUser , :formUser:messageEdit"/>
+                                    <p:commandButton type="button" value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogEdit').hide()"/>
                                 </h:panelGroup>
                             </p:panelGrid>  
                         </div>
@@ -366,8 +313,8 @@
                                                 event="change"
                                                 process=":formUser:pnGridNew"
                                                 update=":formUser:pnGridNew"/>
-                                        <f:selectItem itemLabel="Home Office" itemValue="#{'1'}" />  
-                                        <f:selectItem itemLabel="Branch" itemValue="#{'2'}" />
+                                        <f:selectItem itemLabel="Home Office" itemValue="1" />  
+                                        <f:selectItem itemLabel="Branch" itemValue="2" />
                                     </p:selectOneRadio><span style="color: red">*</span>
                                     <p:messages for=":formUser:companyType"/>
                                 </h:panelGrid>
@@ -384,6 +331,7 @@
                                              requiredMessage="#{msg.require_generic}"/>
                                 <toto:requireLabel id="branchNameReq" forId=":formUser:branchName"/>
                             </h:panelGroup>
+                            
                             <h:outputLabel value="TAX ID"/>
                             <h:panelGroup>
                                 <p:inputText id="taxId" 
@@ -403,8 +351,9 @@
                             <h:outputLabel value=""/>
                             <h:panelGroup>
                                 <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{insuredManagementController.save()}"
-                                                 process=":formUser:pnGridNew" update=":formUser:pnGridNew , :formUser:gridUser"/>
-                                <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="modalDialogCreate.hide()"/>
+                                                 process=":formUser:pnGridNew" 
+                                                 update=":formUser:pnGridNew , :formUser:gridUser"/>
+                                <p:commandButton type="button" value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogCreate').hide()"/>
                             </h:panelGroup>
                         </p:panelGrid>
                     </div>

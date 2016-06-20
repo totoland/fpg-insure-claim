@@ -10,67 +10,14 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form id="formUser">  
-            <div class="Container100">
-                <div class="ContainerIndent"> 
-                    <div class="Card">
-                        <div class="CardTopic"> 
-                            <i class="icon-user Fs30 Fleft MarRight10"></i>
-                            <div class="EmptyBox10 ShowOnMobile"></div>
-                            <h:outputText value="#{msg.menu_manage_user}"/> <br/>
-                            <span class="CardSubTopic">For create/edit user</span> 
-                        </div>
-                        <div class="SeparatorFull"></div>
-
-                        <div class="Container33 Responsive50">
-                            <div class="ContainerIndent">
-                                <div class="Card SoftGrayBack">
-                                    <i class="icon-store Fs40 Fleft Orange MarRight10"></i>
-                                    <div class="Fleft DispInlBlock">
-                                        <span class="Fs15 FontAdamantiumBold Gray">Customer Accounts</span><br/>
-                                        <span class="Fs30 FontAdamantiumBold">#{userManagementController.countAllCustomer}</span><br/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="Container33 Responsive50">
-                            <div class="ContainerIndent">
-                                <div class="Card SoftGrayBack">
-                                    <i class="icon-umbrella Fs40 Fleft Pink MarRight10"></i>
-                                    <div class="Fleft DispInlBlock">
-                                        <span class="Fs15 FontAdamantiumBold Gray">Admin Accounts</span><br/>
-                                        <span class="Fs30 FontAdamantiumBold">#{userManagementController.countAllAdmin}</span><br/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="Container33 Responsive50">
-                            <div class="ContainerIndent">
-                                <div class="Card SoftGrayBack">
-                                    <i class="icon-portfolio Fs40 Fleft LeadenGreen MarRight10"></i>
-                                    <div class="Fleft DispInlBlock">
-                                        <span class="Fs15 FontAdamantiumBold Gray">Official Accounts</span><br/>
-                                        <span class="Fs30 FontAdamantiumBold">#{userManagementController.countAllUser}</span><br/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="EmptyBox20"></div>
-
-                    </div>
-                </div>
-            </div>
-
+        <h:form id="formUser">
             <div class="Container100">
                 <div class="ContainerIndent">
                     <div class="Card">
                         <div class="CardTopic"> 
-                            <i class="icon-document-stroke Fs30 Fleft MarRight10"></i>
+                            <i class="icon-user Fs30 Fleft MarRight10"></i>
                             <div class="EmptyBox10 ShowOnMobile"></div>
-                            #{msg.panel_search}
+                            #{msg.menu_manage_user}
                             <div class="EmptyBox10 ShowOnMobile"></div>
                                 <p:commandButton styleClass="Fright GreenButton" icon="fa fa-plus White" action="#{userManagementController.initCreateUser()}" update="modalDialogCreate"/>
                             <br/>
