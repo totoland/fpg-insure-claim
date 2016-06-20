@@ -62,7 +62,12 @@ public class WebUtils {
             return BigDecimal.ZERO;
         }
         
-        return a.multiply(b);
+        return a.multiply(b).setScale(0, RoundingMode.UP);
+    }
+    
+    public static void main(String args[]){
+        System.out.println("mutilplyRoundUp "+ WebUtils.mutilplyRoundUp(new BigDecimal(501),new BigDecimal("0.004")));
+        System.out.println("mutilplyRoundUp "+ WebUtils.mutilplyRoundUp(new BigDecimal(1200),new BigDecimal(0.004)));
     }
     
     public static BigDecimal divideRoundUp(BigDecimal a, BigDecimal b) {

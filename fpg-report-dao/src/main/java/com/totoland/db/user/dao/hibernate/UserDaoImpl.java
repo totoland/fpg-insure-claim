@@ -72,9 +72,10 @@ public class UserDaoImpl extends GennericDaoImpl<SvUser> implements UserDao {
     @Override
     public ViewUser searchByUserName(String criteria) {
 
-        StringBuilder sql = new StringBuilder();
+         StringBuilder sql = new StringBuilder();
         sql.append("SELECT group_lvl.GROUP_LVL_NAME,user_group.USER_GROUP_NAME,sv_user.USER_ID,sv_user.USERNAME,sv_user.PASSWORD,");
-        sql.append("sv_user.IS_ACTIVE,sv_user.FNAME,sv_user.LNAME,sv_user.SEX,sv_user.USER_GROUP_ID,sv_user.USER_GROUP_LVL ");
+        sql.append("sv_user.IS_ACTIVE,sv_user.FNAME,sv_user.LNAME,sv_user.SEX,sv_user.USER_GROUP_ID,sv_user.USER_GROUP_LVL , sv_user.ADDRESS , sv_user.COMPANY_NAME ,sv_user.POLICY_NO, ");
+        sql.append("sv_user.COMPANY_TYPE,sv_user.BRANCH_DESC,sv_user.TAX_ID ");
         sql.append("FROM sv_user INNER JOIN group_lvl ON sv_user.USER_GROUP_LVL = group_lvl.GROUP_LVL_ID INNER JOIN user_group ON sv_user.USER_GROUP_ID = user_group.USER_GROUP_ID ");
         sql.append("WHERE 1=1 ");
 

@@ -17,6 +17,7 @@ import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.StringUtils;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -224,7 +225,7 @@ public class DropdownFactory implements Serializable {
         DropDownList criteria = new DropDownList();
         criteria.setTableName("apps_countries");
         criteria.setOrderByField("country_name");
-        criteria.setName("country_name");
+        criteria.setName("UPPER(country_name)");
         criteria.setValue("country_code");
         criteria.setSortName("ASC");
 
@@ -395,7 +396,9 @@ public class DropdownFactory implements Serializable {
         ddlRssExchangeRate.add(new DropDownList("THB", "THB","1"));
         for (Rss.Channel.Item item : rss.getChannel().getItem()) {
             if (StringUtils.isNumeric(item.getBuy())) {
-                ddlRssExchangeRate.add(new DropDownList(item.getSname().trim(),item.getSname().trim(), item.getBuy().trim()));
+                
+                System.out.println(item.getSname().trim() + " : " +item.getSname().trim()+ " : " + item.getBuy().trim() + " : "+new BigDecimal(item.getSell().trim()).setScale(4,RoundingMode.HALF_UP).doubleValue());
+                ddlRssExchangeRate.add(new DropDownList(item.getSname().trim(),item.getSname().trim(), String.valueOf(new BigDecimal(item.getSell().trim()).setScale(4,RoundingMode.HALF_UP).doubleValue())));
             }else{
                 //System.out.println(item.getSname().trim()+" | "+item.getBuy());
             }

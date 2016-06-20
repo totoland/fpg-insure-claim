@@ -111,26 +111,34 @@ THE SOFTWARE.
                                              process="@this"
                                              update=":form:dlgEditRateMnm"
                                              oncomplete="PF('dlgEditRateMnm').show()"/>
-                            <p:commandButton type="button" value="#{msg.btn_reject}" styleClass="PinkButton RaisedButton" onclick="PF('cmfDelete').show()"/>
-                            <p:confirmDialog widgetVar="cmfDelete" showEffect="fade" hideEffect="fade" 
-                                             header="#{msg.confirmation_head}" message="#{msg.confirmation_message_delete}">
-                                <p:commandButton value="#{msg.yes}" 
-                                                 action="#{openPolicyManagementController.delete(item)}"
-                                                 update=":form:messages :form:pnResult"
-                                                 onclick="PF('cmfDelete').hide()"
-                                                 immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
+                            <p:commandButton value="#{msg.btn_reject}" 
+                                             process="@this"
+                                             action="#{openPolicyManagementController.initDelete(item)}"
+                                             update=":form:cmfDelete"
+                                             styleClass="PinkButton RaisedButton"
+                                             oncomplete="PF('cmfDelete').show()"/>
 
-                                </p:commandButton>
-                                <p:commandButton value="#{msg.btn_cancel}" 
-                                                 onclick="PF('cmfDelete').hide()"
-                                                 type="button" 
-                                                 styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
-                            </p:confirmDialog>
                         </p:column>
                     </p:dataTable>
 
                 </p:panel>
             </div>
+
+            <p:confirmDialog id="cmfDelete" widgetVar="cmfDelete" showEffect="fade" hideEffect="fade" 
+                             header="#{msg.confirmation_head}" message="Do you want to delete #{openPolicyManagementController.selectedItem.openPolicyNo}?">
+                <p:commandButton value="#{msg.yes}" 
+                                 action="#{openPolicyManagementController.delete(openPolicyManagementController.selectedItem)}"
+                                 process="@this"
+                                 update=":form:messages :form:pnResult"
+                                 onclick="PF('cmfDelete').hide()"
+                                 immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
+
+                </p:commandButton>
+                <p:commandButton value="#{msg.btn_cancel}" 
+                                 onclick="PF('cmfDelete').hide()"
+                                 type="button" 
+                                 styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+            </p:confirmDialog>
 
             <p:dialog id="dlgNewRateMnm" header="#{msg.menu_openpolicy}" widgetVar="dlgNewRateMnm"  modal="true"
                       showEffect="explode" hideEffect="bounce" height="350" width="800" minimizable="true" maximizable="true" responsive="true">
@@ -255,11 +263,11 @@ THE SOFTWARE.
                                     <h:outputLabel value="#{msg.label_max_insure_value}"/>
                                     <h:panelGroup>
                                         <pe:inputNumber id="maxInsureValueNew" maxlength="30" style="width: 400px"
-                                                     value="#{openPolicyManagementController.selectedItem.maxInsureValue}"
-                                                     maxValue="10000000"
-                                                     decimalPlaces="2"
-                                                     required="true"
-                                                     requiredMessage="#{msg.require_generic}"/>
+                                                        value="#{openPolicyManagementController.selectedItem.maxInsureValue}"
+                                                        maxValue="10000000"
+                                                        decimalPlaces="2"
+                                                        required="true"
+                                                        requiredMessage="#{msg.require_generic}"/>
                                         <toto:requireLabel id="maxInsureValueNewReq" forId=":form:maxInsureValueNew"/>
                                     </h:panelGroup>
 
@@ -460,15 +468,15 @@ THE SOFTWARE.
                                                      requiredMessage="#{msg.require_generic}"/>
                                         <toto:requireLabel id="brokerNameLicenseEditReq" forId=":form:brokerNameLicenseEdit"/>
                                     </h:panelGroup>
-                                    
+
                                     <h:outputLabel value="#{msg.label_max_insure_value}"/>
                                     <h:panelGroup>
                                         <pe:inputNumber id="maxInsureValueEdit" maxlength="30" style="width: 400px"
-                                                     value="#{openPolicyManagementController.selectedItem.maxInsureValue}"
-                                                     maxValue="10000000"
-                                                     decimalPlaces="2"
-                                                     required="true"
-                                                     requiredMessage="#{msg.require_generic}"/>
+                                                        value="#{openPolicyManagementController.selectedItem.maxInsureValue}"
+                                                        maxValue="10000000"
+                                                        decimalPlaces="2"
+                                                        required="true"
+                                                        requiredMessage="#{msg.require_generic}"/>
                                         <toto:requireLabel id="maxInsureValueEditReq" forId=":form:maxInsureValueEdit"/>
                                     </h:panelGroup>
 

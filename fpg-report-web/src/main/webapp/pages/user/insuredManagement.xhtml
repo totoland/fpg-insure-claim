@@ -155,47 +155,33 @@
                                 <div class="SeparatorFull"></div>
 
                                 <p:dataTable id="gridUser" var="item" value="#{insuredManagementController.svUsers}"
-                                             paginator="true" rows="10" emptyMessage="#{msg.no_data_found}"
+                                             emptyMessage="#{msg.no_data_found}"
+                                             rows="10" paginator="true" 
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="10,15,20">
+                                             rowsPerPageTemplate="5,10,15"
+                                             reflow="true">
 
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Insured Name" />
-                                        </f:facet>
+                                    <p:column headerText="Insured Name">
                                         <h:outputText value="#{item.companyName}" />
                                     </p:column>
 
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Username" />
-                                        </f:facet>
+                                    <p:column headerText="Username">
                                         <h:outputText value="#{item.username}" />
                                     </p:column>
 
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="#{msg.label_Policy_number}" />
-                                        </f:facet>
+                                    <p:column headerText="#{msg.label_Policy_number}">
                                         <h:outputText value="#{item.policyNo}" />
                                     </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Status" />
-                                        </f:facet>
+                                    <p:column headerText="Status">
                                         <h:outputText value="#{item.isActive?'Active':'In active'}" />
                                     </p:column>
                                     <p:column>
-                                        <f:facet name="header">
-                                            <h:outputLabel value=""/>
-                                        </f:facet>
-                                        <p:commandButton value="#{msg.btn_edit}" action="#{insuredManagementController.initEditUser(item)}" immediate="true"
-                                                         process="@this"
-                                                         update=":formUser:modalDialogEdit"/>
+                                        <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" 
+                                             action="#{insuredManagementController.initEditUser(item)}"
+                                             process="@this"
+                                             update=":formUser:modalDialogEdit"
+                                             oncomplete="PF('modalDialogEdit').show()"/>
                                     </p:column>
-                                    <f:facet name="footer">
-
-                                    </f:facet>
                                 </p:dataTable>
 
                             </div>
@@ -210,6 +196,111 @@
                 </div>
             </div>
 
+            <p:dialog id="modalDialogEdit" header="Update user" widgetVar="modalDialogEdit"
+                      modal="true" showEffect="explode" hideEffect="bounce" minimizable="true" maximizable="true" responsive="true">  
+                <p:panel id="pnUpdate" class="Container100" style="border: 0px">
+                    <div class="Container100">
+                        <div class="Container100 Responsive100">
+                            <h2 class="BigTopic"></h2>
+                            <p:panelGrid id="pnGridUpdate" columns="2" styleClass="ui-panelgrid-blank">  
+                                <h:outputLabel for="usernameEdit" value="Username" />
+                                <h:panelGroup>
+                                    <p:inputText id="usernameEdit" value="#{insuredManagementController.svUser.username}"
+                                                 required="true" requiredMessage="#{msg.require_generic}"/>
+                                    <toto:requireLabel forId=":formUser:usernameEdit"/>
+                                </h:panelGroup>
+                                <h:outputLabel for="passwordEdit" value="Password" />
+                                <h:panelGroup>
+                                    <p:password redisplay="true" id="passwordEdit" value="#{insuredManagementController.svUser.password}"
+                                                required="true" requiredMessage="#{msg.require_generic}"/>
+                                    <toto:requireLabel forId=":formUser:password"/>
+                                </h:panelGroup>
+                                <h:outputLabel for="password2Edit" value="Re-password" title="please enter re-password"/>
+                                <h:panelGroup>
+                                    <p:password id="password2Edit" redisplay="true" value="#{insuredManagementController.rePassword}"
+                                                required="true" requiredMessage="#{msg.require_generic}"/>
+                                    <toto:requireLabel forId=":formUser:password2"/>
+                                </h:panelGroup>
+                                <h:outputLabel for="companyNameEdit" value="#{msg.label_insured_name}" />
+                                <h:panelGroup>
+                                    <p:inputText id="companyNameEdit" value="#{insuredManagementController.svUser.companyName}"
+                                                 required="true" requiredMessage="#{msg.require_generic}"/>
+                                    <toto:requireLabel forId=":formUser:companyNameEdit"/>
+                                </h:panelGroup>
+                                <h:outputLabel for="addressEdit" value="#{msg.label_insured_addres}" />
+                                <h:panelGroup>
+                                    <p:inputTextarea id="addressEdit" value="#{insuredManagementController.svUser.address}" autoResize="true"
+                                                     required="true" requiredMessage="#{msg.require_generic}"/>
+                                    <toto:requireLabel forId=":formUser:addressEdit"/>
+                                </h:panelGroup>
+                                <h:outputLabel for="policyNumberEdit" value="#{msg.label_Policy_number}" />
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="policyNumberEdit" styleClass="selectOne115" 
+                                                     filter="true" filterMatchMode="contains"
+                                                     value="#{insuredManagementController.svUser.policyNo}"
+                                                     required="true" requiredMessage="#{msg.require_generic}">
+                                        <f:selectItem itemLabel="" itemValue=""></f:selectItem>
+                                        <f:selectItems value="#{insuredManagementController.dropdownFactory.getListOpenPolicyNumber()}" 
+                                                       var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                    </p:selectOneMenu> 
+                                    <toto:requireLabel forId=":formUser:policyNumberEdit"/>
+                                </h:panelGroup>
+                                <h:outputLabel value="Office Type"/>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="2">
+                                        <p:selectOneRadio id="companyTypeEdit" 
+                                                          required="true"
+                                                          requiredMessage="#{msg.require_generic}"
+                                                          value="#{insuredManagementController.svUser.companyType}" 
+                                                          style="border-style:none;width: 230px">
+                                            <p:ajax listener="#{insuredManagementController.onChangeCompanyType()}" 
+                                                    event="change"
+                                                    process=":formUser:pnGridUpdate"
+                                                    update=":formUser:pnGridUpdate"/>
+                                            <f:selectItem itemLabel="Home Office" itemValue="#{'1'}" />  
+                                            <f:selectItem itemLabel="Branch" itemValue="#{'2'}" />
+                                        </p:selectOneRadio><span style="color: red">*</span>
+                                        <p:messages for=":formUser:companyTypeEdit"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                                <h:outputLabel id="lbCompanyTypeEdit"
+                                               value="Branch Name"
+                                               rendered="#{'2' == insuredManagementController.svUser.companyType}"/>
+                                <h:panelGroup rendered="#{'2' == insuredManagementController.svUser.companyType}">
+                                    <p:inputText id="branchNameEdit" 
+                                                 value="#{insuredManagementController.svUser.branchDesc}"
+                                                 maxlength="255" 
+                                                 required="true"
+                                                 requiredMessage="#{msg.require_generic}"/>
+                                    <toto:requireLabel id="branchNameEditReq" forId=":formUser:branchNameEdit"/>
+                                </h:panelGroup>
+                                <h:outputLabel value="TAX ID"/>
+                                <h:panelGroup>
+                                    <p:inputText id="taxIdEdit" 
+                                                 value="#{insuredManagementController.svUser.taxId}"
+                                                 maxlength="30" 
+                                                 required="true"
+                                                 requiredMessage="#{msg.require_generic}"/>
+                                    <toto:requireLabel id="taxIdEditReq" forId=":formUser:taxIdEdit"/>
+                                </h:panelGroup>
+                                <h:outputLabel for="isactiveEdit" value="Status" style="width:200px"/>
+                                <p:selectOneRadio id="isactiveEdit" value="#{insuredManagementController.svUser.isActive}" style="border-style:none">  
+                                    <f:selectItem itemLabel="Active" itemValue="true" />  
+                                    <f:selectItem itemLabel="In Active" itemValue="false" /> 
+                                </p:selectOneRadio>
+                                <h:outputLabel value=""/>
+                                <h:panelGroup>
+                                    <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" 
+                                                     action="#{insuredManagementController.edit()}"
+                                                     process=":formUser:pnGridUpdate" update=":formUser:pnGridUpdate , :formUser:gridUser"/>
+                                    <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogEdit').hide()"/>
+                                </h:panelGroup>
+                            </p:panelGrid>  
+                        </div>
+                    </div>
+                </p:panel>
+            </p:dialog>
 
 
             <p:dialog id="modalDialogCreate" header="Create new user" widgetVar="modalDialogCreate" modal="true" showEffect="explode" 
@@ -320,108 +411,6 @@
                 </div>
             </p:dialog>
 
-            <p:dialog id="modalDialogEdit" header="Update user" widgetVar="modalDialogEdit" modal="true" showEffect="explode" hideEffect="bounce" minimizable="true" maximizable="true" responsive="true">  
-                <div class="Container100">
-                    <div class="Container100 Responsive100">
-                        <h2 class="BigTopic"></h2>
-                        <p:panelGrid id="pnGridUpdate" columns="2" styleClass="ui-panelgrid-blank">  
-                            <h:outputLabel for="usernameEdit" value="Username" />
-                            <h:panelGroup>
-                                <p:inputText id="usernameEdit" value="#{insuredManagementController.svUser.username}"
-                                             required="true" requiredMessage="#{msg.require_generic}"/>
-                                <toto:requireLabel forId=":formUser:usernameEdit"/>
-                            </h:panelGroup>
-                            <h:outputLabel for="passwordEdit" value="Password" />
-                            <h:panelGroup>
-                                <p:password redisplay="true" id="passwordEdit" value="#{insuredManagementController.svUser.password}"
-                                            required="true" requiredMessage="#{msg.require_generic}"/>
-                                <toto:requireLabel forId=":formUser:password"/>
-                            </h:panelGroup>
-                            <h:outputLabel for="password2Edit" value="Re-password" title="please enter re-password"/>
-                            <h:panelGroup>
-                                <p:password id="password2Edit" redisplay="true" value="#{insuredManagementController.rePassword}"
-                                            required="true" requiredMessage="#{msg.require_generic}"/>
-                                <toto:requireLabel forId=":formUser:password2"/>
-                            </h:panelGroup>
-                            <h:outputLabel for="companyNameEdit" value="#{msg.label_insured_name}" />
-                            <h:panelGroup>
-                                <p:inputText id="companyNameEdit" value="#{insuredManagementController.svUser.companyName}"
-                                             required="true" requiredMessage="#{msg.require_generic}"/>
-                                <toto:requireLabel forId=":formUser:companyNameEdit"/>
-                            </h:panelGroup>
-                            <h:outputLabel for="addressEdit" value="#{msg.label_insured_addres}" />
-                            <h:panelGroup>
-                                <p:inputTextarea id="addressEdit" value="#{insuredManagementController.svUser.address}" autoResize="true"
-                                                 required="true" requiredMessage="#{msg.require_generic}"/>
-                                <toto:requireLabel forId=":formUser:addressEdit"/>
-                            </h:panelGroup>
-                            <h:outputLabel for="policyNumberEdit" value="#{msg.label_Policy_number}" />
-                            <h:panelGroup>
-                                <p:selectOneMenu id="policyNumberEdit" styleClass="selectOne115" 
-                                                 filter="true" filterMatchMode="contains"
-                                                 value="#{insuredManagementController.svUser.policyNo}"
-                                                 required="true" requiredMessage="#{msg.require_generic}">
-                                    <f:selectItem itemLabel="" itemValue=""></f:selectItem>
-                                    <f:selectItems value="#{insuredManagementController.dropdownFactory.getListOpenPolicyNumber()}" 
-                                                   var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                </p:selectOneMenu> 
-                                <toto:requireLabel forId=":formUser:policyNumberEdit"/>
-                            </h:panelGroup>
-                            <h:outputLabel value="Office Type"/>
-                            <h:panelGroup>
-                                <h:panelGrid columns="2">
-                                    <p:selectOneRadio id="companyTypeEdit" 
-                                                      required="true"
-                                                      requiredMessage="#{msg.require_generic}"
-                                                      value="#{insuredManagementController.svUser.companyType}" 
-                                                      style="border-style:none;width: 230px">
-                                        <p:ajax listener="#{insuredManagementController.onChangeCompanyType()}" 
-                                                event="change"
-                                                process=":formUser:pnGridUpdate"
-                                                update=":formUser:pnGridUpdate"/>
-                                        <f:selectItem itemLabel="Home Office" itemValue="#{'1'}" />  
-                                        <f:selectItem itemLabel="Branch" itemValue="#{'2'}" />
-                                    </p:selectOneRadio><span style="color: red">*</span>
-                                    <p:messages for=":formUser:companyTypeEdit"/>
-                                </h:panelGrid>
-                            </h:panelGroup>
-
-                            <h:outputLabel id="lbCompanyTypeEdit"
-                                           value="Branch Name"
-                                           rendered="#{'2' == insuredManagementController.svUser.companyType}"/>
-                            <h:panelGroup rendered="#{'2' == insuredManagementController.svUser.companyType}">
-                                <p:inputText id="branchNameEdit" 
-                                             value="#{insuredManagementController.svUser.branchDesc}"
-                                             maxlength="255" 
-                                             required="true"
-                                             requiredMessage="#{msg.require_generic}"/>
-                                <toto:requireLabel id="branchNameEditReq" forId=":formUser:branchNameEdit"/>
-                            </h:panelGroup>
-                            <h:outputLabel value="TAX ID"/>
-                            <h:panelGroup>
-                                <p:inputText id="taxIdEdit" 
-                                             value="#{insuredManagementController.svUser.taxId}"
-                                             maxlength="30" 
-                                             required="true"
-                                             requiredMessage="#{msg.require_generic}"/>
-                                <toto:requireLabel id="taxIdEditReq" forId=":formUser:taxIdEdit"/>
-                            </h:panelGroup>
-                            <h:outputLabel for="isactiveEdit" value="Status" style="width:200px"/>
-                            <p:selectOneRadio id="isactiveEdit" value="#{insuredManagementController.svUser.isActive}" style="border-style:none">  
-                                <f:selectItem itemLabel="Active" itemValue="true" />  
-                                <f:selectItem itemLabel="In Active" itemValue="false" /> 
-                            </p:selectOneRadio>
-                            <h:outputLabel value=""/>
-                            <h:panelGroup>
-                                <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" 
-                                                 action="#{insuredManagementController.edit()}"
-                                                 process=":formUser:pnGridUpdate" update=":formUser:pnGridUpdate , :formUser:gridUser"/>
-                                <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogEdit').hide()"/>
-                            </h:panelGroup>
-                        </p:panelGrid>  
-                    </div>
-                </div>
-            </p:dialog>
         </h:form>
     </ui:define>
 

@@ -33,6 +33,7 @@ import com.totoland.web.utils.WebUtils;
 import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -422,9 +423,9 @@ public class InsuranceFormController extends BaseController {
             certRpt.setSailingFlightDate(this.claimInsure.getShipmentDate());
             certRpt.setIssueOn(this.claimInsure.getIssueDate());
             certRpt.setCopyType(CertificateType.valueOf(certificateType));
-            certRpt.setFrom(findCountryName(this.claimInsure.getOriginCountryCode()));
+            certRpt.setFrom(this.claimInsure.getOriginDescription().toUpperCase() +" , "+findCountryName(this.claimInsure.getOriginCountryCode()));
             certRpt.setFromDesc(this.claimInsure.getOriginDescription());
-            certRpt.setTo(findCountryName(this.claimInsure.getDestinationCountryCode()));
+            certRpt.setTo(this.claimInsure.getDestinationDescription().toUpperCase()+" , "+findCountryName(this.claimInsure.getDestinationCountryCode()));
             certRpt.setToDesc(this.claimInsure.getDestinationDescription());
             certRpt.setCurrencyType(this.claimInsure.getCurrencyType() != null
                     && this.claimInsure.getCurrencyType().contains("USD") ? "USD" : this.claimInsure.getCurrencyType());
@@ -436,7 +437,7 @@ public class InsuranceFormController extends BaseController {
                     && !this.claimInsure.getBillOfLadingNumber().trim().isEmpty()) {
                 String newLine = this.claimInsure.getCommodityDescription() != null
                         && !this.claimInsure.getCommodityDescription().trim().isEmpty() ? "\n" : "";
-                certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription() + newLine + "B/L no : "
+                certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription() + newLine + "Invoice Number : "+this.claimInsure.getInvoiceNumber()+ newLine + "B/L no : "
                         + this.claimInsure.getBillOfLadingNumber().trim());
             }
 
@@ -475,7 +476,7 @@ public class InsuranceFormController extends BaseController {
                 certRpt.setDetail(detail);
                 certRpt.setBrokerName(listPolicy.get(0).getBrokerName());
                 certRpt.setBrokerLicense(listPolicy.get(0).getBrokerLicense());
-                certRpt.setFullCurrencyType("(" + certRpt.getCurrencyType() + "$ 1 = BATH " + this.claimInsure.getExchangeRate().doubleValue() + ")");
+                certRpt.setFullCurrencyType("(" + certRpt.getCurrencyType() + " 1 = BATH " + this.claimInsure.getExchangeRate().doubleValue() + ")");
             }
 
             String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
@@ -487,7 +488,7 @@ public class InsuranceFormController extends BaseController {
 
                 CertificationBean bean1 = new CertificationBean();
                 BeanUtils.copyProperties(certRpt, bean1);
-                bean1.setCopyType(CertificateType.DUPPICATE.name());
+                bean1.setCopyType(CertificateType.DUPLICATE.name());
                 collectionBeans.add(new ArrayCollectionBean(jrxmlPath, Arrays.asList(bean1)));
 
                 CertificationBean bean2 = new CertificationBean();
@@ -557,31 +558,34 @@ public class InsuranceFormController extends BaseController {
             LOGGER.debug("Premium rate lower than 500 use Minimum Premium = 500");
             this.claimInsure.setPremiumRate(new BigDecimal(500));
         }
-
+        BigDecimal pRate = new BigDecimal("0.004");
         debitNote.setPremium(this.claimInsure.getPremiumRate());
         debitNote.setInsuredValue(this.claimInsure.getInsuredValue() + "");
         //Premium rate * 0.4%
-        debitNote.setStampDuty(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate(),
-                new BigDecimal(0.4)), new BigDecimal(100)));
-
-        if (this.claimInsure.getOriginCountryCode().equals("TH")) {
-            //ถ้าเป็น export premium * 0.04 ถ้า 1-5 บวก x+1 ถ้านอกเหนื่อ +6
+        debitNote.setStampDuty((WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate(),
+                pRate)));
+        LOGGER.debug("Premium rate * 0.4% : {}",debitNote.getStampDuty());
+        
+        if (!this.claimInsure.getDestinationCountryCode().equals("TH")) {
+            //ถ้าเป็น export premium * 0.04 ถ้า 1-5 บวก x+1 ถ้านอกเหนื่อ +5
             if (debitNote.getStampDuty().doubleValue() >= 0 && debitNote.getStampDuty().doubleValue() <= 5) {
-                LOGGER.debug("Added 1 to StampDuty");
                 debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(BigInteger.ONE)));
+                LOGGER.debug("Added 1 to StampDuty : {}",debitNote.getStampDuty());
             } else {
-                LOGGER.debug("Added 6 to StampDuty");
                 debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(5)));
+                LOGGER.debug("Added 5 to StampDuty : {}",debitNote.getStampDuty());
             }
         }
         //Premium + StampDuty
         debitNote.setTotal(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()));
 
         //Vat = Premium + Stamp * 7%
-        debitNote.setVat(WebUtils.divideRoundUp(WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()),
-                new BigDecimal(7)), new BigDecimal(100)));
+        debitNote.setVat((this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()).multiply(
+                new BigDecimal("0.07"))));
 
-        if (this.claimInsure.getOriginCountryCode().equals("TH")) {
+        LOGGER.debug("vat : {}",debitNote.getVat());
+        
+        if (!this.claimInsure.getDestinationCountryCode().equals("TH")) {
             debitNote.setVat(BigDecimal.ZERO);
         }
 

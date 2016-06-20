@@ -148,7 +148,7 @@
                                         <p:ajax event="change" 
                                                 listener="#{insuranceFormController.onCurrencyChange()}"
                                                 process="@this ,:form:valuation , :form:invoiceValue , :form:amountOfInsurance"
-                                                update=":form:exchangeRate ,:form:localAmountOfInsurance"/>
+                                                update=":form:exchangeRate ,:form:localAmountOfInsurance , :form:dtRate"/>
                                         <f:selectItem itemLabel="" itemValue="" />
                                         <f:selectItems value="#{insuranceFormController.currencyTypeList}"
                                                        var="item" itemLabel="#{item.name}" itemValue="#{item.value}" />
@@ -157,7 +157,9 @@
                                 </h:panelGroup>
 
                                 <h:outputLabel value="#{msg.label_exchange_rate}"/>
-                                <pe:inputNumber id="exchangeRate" value="#{insuranceFormController.claimInsure.exchangeRate}" disabled="true"/>
+                                <pe:inputNumber id="exchangeRate" value="#{insuranceFormController.claimInsure.exchangeRate}"
+                                                decimalPlaces="4"
+                                                disabled="true"/>
 
                                 <h:outputLabel value="Insured Value (THB)"/>
                                 <h:panelGroup>
@@ -453,7 +455,7 @@
                                 </p:column>
                                 <p:column headerText="#{msg.label_amount_of_insurance}">
                                     <h:outputLabel value="#{insuranceFormController.claimInsure.amountOfInsurance}">
-                                        <f:convertNumber pattern="###,###" type="currency"/>
+                                        <f:convertNumber pattern="###,###0.00" type="currency"/>
                                     </h:outputLabel>
                                 </p:column>
                                 <p:column headerText="Insured Value (THB)">
@@ -656,7 +658,7 @@
                                 </p:confirmDialog>
 
                                 <p:confirmDialog widgetVar="printCopyDupp" 
-                                                 header="#{msg.confirmation_head} Dup" 
+                                                 header="#{msg.confirmation_head}" 
                                                  message="#{msg.msg_confirm_save}"
                                                  showEffect="fade" hideEffect="fade">
                                     <p:commandButton value="#{msg.yes}" 

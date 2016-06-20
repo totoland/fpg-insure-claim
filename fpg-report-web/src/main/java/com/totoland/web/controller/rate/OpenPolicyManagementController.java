@@ -358,10 +358,15 @@ public class OpenPolicyManagementController extends BaseController {
             addError(MessageUtils.SAVE_NOT_SUCCESS());
         }
     }
+    
+    public void initDelete(OpenPolicy selectedItem){
+        LOGGER.debug("selected : {}",selectedItem);
+        this.selectedItem = selectedItem;
+    }
 
     public void delete(OpenPolicy selectedItem) {
         try {
-            LOGGER.debug("Delete openpolicy number : {}", selectedItem.getOpenPolicyNo());
+            LOGGER.debug("Delete openpolicy number : {}", selectedItem);
 
             //Find OpenPolicy if it already used by someone must be cannot delete
             Map<String, Object> params = new HashMap<>();

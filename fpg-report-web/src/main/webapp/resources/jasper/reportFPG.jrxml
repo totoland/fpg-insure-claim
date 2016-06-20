@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFPG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03c5575f-761a-4e21-ae7f-ce00d78a7c53">
-	<property name="ireport.zoom" value="1.771561000000007"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="153"/>
+	<property name="ireport.zoom" value="1.9487171000000079"/>
+	<property name="ireport.x" value="62"/>
+	<property name="ireport.y" value="24"/>
 	<field name="nameOfAssured" class="java.lang.String"/>
 	<field name="vesselAirline" class="java.lang.String"/>
 	<field name="referenceNumber" class="java.lang.String"/>
@@ -243,14 +243,14 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<text><![CDATA[Issued in Bangkok this]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="80" y="1" width="133" height="13" uuid="6c595a6b-38e6-416b-a392-f1cb5a6501e2"/>
+				<reportElement x="164" y="1" width="378" height="13" uuid="6c595a6b-38e6-416b-a392-f1cb5a6501e2"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nameOfAssured}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="38" y="27" width="100" height="13" uuid="6905dfce-24a9-481b-a3e0-0843fd714e05"/>
+				<reportElement x="38" y="27" width="335" height="13" uuid="6905dfce-24a9-481b-a3e0-0843fd714e05"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -264,14 +264,14 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("en")).format($F{sailingFlightDate})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="279" y="53" width="96" height="13" uuid="1c78b4ec-26cb-40fa-b5f4-fd09c159ccda"/>
+				<reportElement x="291" y="53" width="254" height="13" uuid="1c78b4ec-26cb-40fa-b5f4-fd09c159ccda"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{to}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="90" y="53" width="74" height="13" uuid="fc3a9c1d-df32-4b5b-8efd-0fa03c3579de"/>
+				<reportElement x="99" y="53" width="153" height="13" uuid="fc3a9c1d-df32-4b5b-8efd-0fa03c3579de"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -506,20 +506,6 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{additionalInfomation}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="164" y="53" width="88" height="13" uuid="9ea666fd-5b52-4a6e-a4fd-ac4b01feb783"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{fromDesc}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="375" y="53" width="180" height="13" uuid="291e87c5-28ca-4cc5-8cd8-8e7bc529ab03"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="TH SarabunPSK" size="11" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{toDesc}]]></textFieldExpression>
-			</textField>
 			<image>
 				<reportElement x="45" y="77" width="448" height="416" isRemoveLineWhenBlank="true" uuid="b658f028-5829-4ed9-9af4-119d0812f135"/>
 				<imageExpression><![CDATA[$F{previewURL}]]></imageExpression>
@@ -536,7 +522,7 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textElement textAlignment="Justified" verticalAlignment="Top">
 					<font fontName="TH SarabunPSK" size="11" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{certificationNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{policyNumber}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="61">

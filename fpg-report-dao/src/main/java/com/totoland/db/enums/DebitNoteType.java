@@ -43,7 +43,7 @@ public enum DebitNoteType {
                 return "SAMPLE";
             }
             case 1: {
-                return "DEBIT NOTE";
+                return "ORIGINAL";
             }
             case 2: {
                 return "DEBIT NOTE COPY";

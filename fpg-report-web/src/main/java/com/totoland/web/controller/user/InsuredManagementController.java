@@ -41,7 +41,7 @@ public class InsuredManagementController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(InsuredManagementController.class);
     private List<ViewUser> svUsers;
     private UserCriteria userCriteria = new UserCriteria();
-    
+
     @ManagedProperty("#{userService}")
     private UserService userService;
     @ManagedProperty("#{dropdownFactory}")
@@ -50,7 +50,7 @@ public class InsuredManagementController extends BaseController {
     private CustomerService customerService;
     @ManagedProperty("#{keyMatchService}")
     private KeyMatchService keyMatchService;
-    
+
     private SvUser svUser = new SvUser();
     private KeyMatch keyMatch = new KeyMatch();
     private long countAllCustomer;
@@ -88,8 +88,7 @@ public class InsuredManagementController extends BaseController {
     }
 
     public void initEditUser(ViewUser selsvUser) {
-        LOGGER.trace("edit User");
-        
+
         try {
             this.svUser = new SvUser();
             this.svUser.setUserId(selsvUser.getUserId());
@@ -109,22 +108,17 @@ public class InsuredManagementController extends BaseController {
             this.svUser.setCompanyName(selsvUser.getCompanyName());
             this.svUser.setBranchDesc(selsvUser.getBranchDesc());
             this.svUser.setTaxId(selsvUser.getTaxId());
-            
-            //Find KeyMatching
-            keyMatch = keyMatchService.findByCustomerId(String.valueOf(selsvUser.getUserId()));
-            
-            if(keyMatch == null){
-                keyMatch = new KeyMatch();
-            }
-            
+
+
+            LOGGER.trace("edit User : {}", selsvUser);
         } catch (Exception ex) {
             LOGGER.error("cannot initEdit :", ex);
         }
-        openDialog("modalDialogEdit");
+//        openDialog("modalDialogEdit");
     }
 
     public void save() {
-        
+
         LOGGER.trace("Save... {} ", svUser);
 
         if (!validateBeforeSave()) {
@@ -132,18 +126,18 @@ public class InsuredManagementController extends BaseController {
         }
 
         try {
-            LOGGER.trace("keyMatch {}",keyMatch);
+            LOGGER.trace("keyMatch {}", keyMatch);
             svUser.setPassword(WebUtils.encrypt(svUser.getPassword()));
-            userService.createWithKeyMatching(svUser,keyMatch);
-            
+            userService.createWithKeyMatching(svUser, keyMatch);
+
             LOGGER.trace("Save Success !! ");
 
             JsfUtil.alertJavaScript(MessageUtils.SAVE_SUCCESS());
             JsfUtil.hidePopup("modalDialogCreate");
-            
+
             search();
         } catch (Exception ex) {
-            JsfUtil.alertJavaScript(MessageUtils.SAVE_NOT_SUCCESS()+" ข้อผิดพลาด :"+ MDC.get("reqId"));
+            JsfUtil.alertJavaScript(MessageUtils.SAVE_NOT_SUCCESS() + " ข้อผิดพลาด :" + MDC.get("reqId"));
             LOGGER.error("Cannot Save Data : ", ex);
         }
     }
@@ -156,10 +150,10 @@ public class InsuredManagementController extends BaseController {
         }
 
         try {
-            
+
             svUser.setPassword(WebUtils.encrypt(svUser.getPassword()));
-            LOGGER.trace("keyMatch {}",keyMatch);
-            userService.updateWithKeyMatching(svUser,keyMatch);
+            LOGGER.trace("keyMatch {}", keyMatch);
+            userService.updateWithKeyMatching(svUser, keyMatch);
 
             LOGGER.trace("Edit Success !! ");
 
@@ -169,15 +163,14 @@ public class InsuredManagementController extends BaseController {
 
             JsfUtil.hidePopup("modalDialogEdit");
 
-
         } catch (Exception ex) {
 
-            JsfUtil.alertJavaScript(MessageUtils.SAVE_NOT_SUCCESS()+" ข้อผิดพลาด :"+ MDC.get("reqId"));
+            JsfUtil.alertJavaScript(MessageUtils.SAVE_NOT_SUCCESS() + " ข้อผิดพลาด :" + MDC.get("reqId"));
 
             LOGGER.error("Cannot Save Data : ", ex);
-            
+
             svUser.setPassword(rePassword);
-            
+
         } finally {
 
             LOGGER.trace("Save... {} ", svUser);
@@ -199,10 +192,10 @@ public class InsuredManagementController extends BaseController {
         userCriteria.setGroupLvl(UserType.CUSTOMER.getId());
     }
 
-    public void onChangeCompanyType(){
-        LOGGER.debug("companyType : {}",this.svUser.getCompanyType());
+    public void onChangeCompanyType() {
+        LOGGER.debug("companyType : {}", this.svUser.getCompanyType());
     }
-    
+
     /**
      * @return the svUsers
      */
@@ -275,7 +268,7 @@ public class InsuredManagementController extends BaseController {
 
     private boolean validateBeforeEdit() {
         String msg = "";
-                
+
         if (StringUtils.isBlank(svUser.getUsername())) {
             msg += (MessageUtils.getResourceBundleString("require_message", "Username")) + ("\\n");
         }
@@ -301,16 +294,16 @@ public class InsuredManagementController extends BaseController {
 
         return true;
     }
-    
+
     private boolean validateBeforeSave() {
         String msg = "";
-        
-        if(userService.findByUserName(svUser.getUsername())!=null){
-            
-            JsfUtil.alertJavaScript(MessageUtils.getResourceBundleString("dupp_username",svUser.getUsername()));
+
+        if (userService.findByUserName(svUser.getUsername()) != null) {
+
+            JsfUtil.alertJavaScript(MessageUtils.getResourceBundleString("dupp_username", svUser.getUsername()));
             return false;
         };
-        
+
         if (StringUtils.isBlank(svUser.getUsername())) {
             msg += (MessageUtils.getResourceBundleString("require_message", "Username")) + ("\\n");
         }
