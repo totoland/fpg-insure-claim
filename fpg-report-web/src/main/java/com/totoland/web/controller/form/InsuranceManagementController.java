@@ -37,7 +37,8 @@ public class InsuranceManagementController extends BaseController {
     private List<ViewCertificate> listViewCertificate;
     
     private ViewCertificate selectedRecord;
-
+    private List<DropDownList>insureNameList;
+    
     @PostConstruct
     public void init() {
         this.criteria = new CertifaicationCriteria();
@@ -46,6 +47,7 @@ public class InsuranceManagementController extends BaseController {
             this.criteria.setInsuredName(String.valueOf(getUserAuthen().getUserId()));
         }
         this.listViewCertificate = null;
+        this.insureNameList = dropdownFactory.ddlInsureName();
     }
 
     public void search() {
@@ -148,5 +150,13 @@ public class InsuranceManagementController extends BaseController {
 
     public void setSelectedRecord(ViewCertificate selectedRecord) {
         this.selectedRecord = selectedRecord;
+    }
+
+    public List<DropDownList> getInsureNameList() {
+        return insureNameList;
+    }
+
+    public void setInsureNameList(List<DropDownList> insureNameList) {
+        this.insureNameList = insureNameList;
     }
 }

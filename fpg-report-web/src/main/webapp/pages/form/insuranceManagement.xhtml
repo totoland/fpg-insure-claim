@@ -41,12 +41,12 @@
                                              style="border:0px !important; background:none;">
                                     <h:outputLabel value="#{msg.label_cert_no}" rendered="#{insuranceManagementController.adminOffice}"/>
                                     <p:inputText value="#{insuranceManagementController.criteria.certificateNumber}"
-                                                 maxlength="20"
+                                                 maxlength="30"
                                                  rendered="#{insuranceManagementController.adminOffice}"/>
 
                                     <h:outputLabel value="#{msg.label_Policy_number}"/>
                                     <p:inputText value="#{insuranceManagementController.criteria.policyNumber}"
-                                                 maxlength="20"/>
+                                                 maxlength="30"/>
 
                                     <h:outputLabel value="#{msg.label_insured_name}"/>
                                     <p:selectOneMenu styleClass="selectOne115"
@@ -54,7 +54,7 @@
                                                      value="#{insuranceManagementController.criteria.insuredName}"
                                                      maxlength="255">
                                         <f:selectItem itemLabel="" itemValue="" />
-                                        <f:selectItems value="#{insuranceManagementController.dropdownFactory.ddlInsureName()}" var="item"
+                                        <f:selectItems value="#{insuranceManagementController.insureNameList}" var="item"
                                                        itemValue="#{item.value}"
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
@@ -129,7 +129,7 @@
                                   width="120"
                                   sortBy="#{item.issueDate}" footerText="#{msg.label_issue_date}">
                             <h:outputText value="#{item.issueDate}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MMMM/yyyy"/>
                             </h:outputText>
                         </p:column>
                         <p:column>
