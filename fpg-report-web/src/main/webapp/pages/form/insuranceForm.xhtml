@@ -514,10 +514,9 @@
                                                  onclick="PF('cmfDiscard').show()">
                                 </p:commandButton>
                                 <p:confirmDialog widgetVar="cmfDiscard" showEffect="fade" hideEffect="fade" 
-                                                 header="#{msg.confirmation_head}" message="#{msg.confirmation_message_delete}?">
+                                                 header="#{msg.confirmation_head}" message="#{msg.confirmation_message_delete}">
                                     <p:commandButton value="#{msg.yes}" 
-                                                     action="#{insuranceFormController.cancel(param.trxId)}"
-                                                     oncomplete="PF('cmfDiscard').hide();PF('dlgCancel').show()" update="messagesDiscard"
+                                                     oncomplete="PF('cmfDiscard').hide();window.location=''" update="messagesDiscard"
                                                      immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
 
                                     </p:commandButton>
