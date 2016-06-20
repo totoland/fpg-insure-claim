@@ -93,6 +93,14 @@
                                                      requiredMessage="#{msg.require_generic}"/>
                                         <toto:requireLabel forId="form:insuredId"/>
                                     </p:inplace>
+                                    <script>
+                                        $('#form\\:insuredId').bind('keypress', function (e) {
+                                            if (e.keyCode == 13) {
+                                                $("#form\\:editInsuredName_editor").find("button")[0].click();
+                                                return false;
+                                            }
+                                        });
+                                    </script>
                                 </h:panelGroup>
                                 <h:outputLabel value="#{msg.label_consignee_name}"/>
                                 <p:inputText value="#{insuranceFormController.claimInsure.consigneeName}"/>
@@ -135,7 +143,7 @@
                                     <p:selectOneMenu id="currencyType"
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                      
+
                                                      value="#{insuranceFormController.claimInsure.currencyType}">
                                         <p:ajax event="change" 
                                                 listener="#{insuranceFormController.onCurrencyChange()}"
@@ -200,7 +208,7 @@
                                                      filter="true"
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                      value="#{insuranceFormController.claimInsure.destinationCountryCode}">
+                                                     value="#{insuranceFormController.claimInsure.destinationCountryCode}">
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{insuranceFormController.countriesList}" 
                                                        var="item"
@@ -236,7 +244,7 @@
                                     <p:selectOneMenu id="selectInsureType2" 
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                      
+
                                                      value="#{insuranceFormController.claimInsure.methodOfTransportId}">
                                         <p:ajax event="change" 
                                                 listener="#{insuranceFormController.onMethodOfTransportChange()}"
@@ -292,7 +300,7 @@
                                                      filter="true" filterMatchMode="contains"                                                                                                                     
                                                      required="true"
                                                      requiredMessage="#{msg.require_generic}"
-                                                      value="#{insuranceFormController.claimInsure.commodityTypeCode}">
+                                                     value="#{insuranceFormController.claimInsure.commodityTypeCode}">
                                         <f:selectItem itemLabel="" itemValue=""/>
                                         <f:selectItems value="#{insuranceFormController.commodityTypeList}" 
                                                        var="item" itemLabel="#{item.name}" itemValue="#{item.value}"/>
@@ -513,7 +521,7 @@
                                                      immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
 
                                     </p:commandButton>
-                                    <p:commandButton value="#{msg.btn_cancel}" onclick="PF('cmfDiscard').hide();PF('dlgCancel').show();" 
+                                    <p:commandButton value="#{msg.btn_cancel}" onclick="PF('cmfDiscard').hide();" 
                                                      type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
 
