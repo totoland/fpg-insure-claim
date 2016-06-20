@@ -49,17 +49,26 @@
                     PF('statusDialog').hide();
                 }
                 
-                $('html').bind('keypress', function (e)
-                {
-//                    if (e.keyCode == 13)
-//                    {
-//                        return false;
-//                    }
+                $(function(){
+                   disKeyEnter();
                 });
+                
+                function disKeyEnter(){
+                    $("input:text").bind('keypress', function (e) {
+                    if (e.keyCode == 13) {
+                        return false;
+                    }
+                    });
+                    $("textarea").bind('keypress', function (e) {
+                        if (e.keyCode == 13) {
+                            return true;
+                        }
+                    }); 
+                }
             </script>
 
             <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px"
-                          onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
+                          onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" oncomplete="disKeyEnter();">
                 <f:facet name="start">
                 </f:facet>
 
