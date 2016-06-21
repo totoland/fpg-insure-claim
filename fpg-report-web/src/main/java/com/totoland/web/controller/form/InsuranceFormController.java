@@ -437,7 +437,8 @@ public class InsuranceFormController extends BaseController {
                     && !this.claimInsure.getBillOfLadingNumber().trim().isEmpty()) {
                 String newLine = this.claimInsure.getCommodityDescription() != null
                         && !this.claimInsure.getCommodityDescription().trim().isEmpty() ? "\n" : "";
-                certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription() + newLine + "Invoice Number : "+this.claimInsure.getInvoiceNumber()+ newLine + "B/L no : "
+                certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription() + newLine 
+                        + "Invoice Number : "+this.claimInsure.getInvoiceNumber()+ newLine + "B/L no : "
                         + this.claimInsure.getBillOfLadingNumber().trim());
             }
 
