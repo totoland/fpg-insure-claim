@@ -535,8 +535,6 @@ public class InsuranceFormController extends BaseController {
 
         //Init data for print Debit note
         ViewUser userData = userService.findByUserId(this.claimInsure.getInsuredId());
-        LOGGER.debug("userData : {}", userData);
-        debitNote.setTaxNo(dropdownFactory.ddlConf().get("tax_no"));
         debitNote.setInsuredName(userData.getCompanyName());
         debitNote.setInsuredAddress(userData.getAddress());
         debitNote.setCertificationNumber(this.claimInsure.getCertificationNumber());
