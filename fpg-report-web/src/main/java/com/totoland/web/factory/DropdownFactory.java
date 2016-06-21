@@ -15,9 +15,13 @@ import com.totoland.web.service.CommonService;
 import com.totoland.web.service.impl.XMLService;
 import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.StringUtils;
+import it.sauronsoftware.feed4j.FeedParser;
+import it.sauronsoftware.feed4j.bean.Feed;
+import it.sauronsoftware.feed4j.bean.FeedItem;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -368,37 +372,26 @@ public class DropdownFactory implements Serializable {
         return map;
     }
 
-    public String getCurrentExchangeRate() {
-
-        List<DropDownList> customers = new ArrayList<>();
-        DropDownList criteria = new DropDownList();
-        criteria.setTableName("conf");
-        criteria.setName("conf_name");
-        criteria.setValue("conf_value");
-        criteria.setCondition("conf_name like '%exchange_rate%'");
-
-        customers = commonService.getDropdownList(criteria);
-
-        if (customers != null && !customers.isEmpty()) {
-            return customers.get(0).getValue();
-        }
-
-        return "0";
-    }
-
+    private static URL url = null;
+    
     public List<DropDownList> getRssExchangeRate() throws Exception {
 
-        List<DropDownList> ddlRssExchangeRate = new ArrayList<>();
-
-        XMLService<Rss> xml = new XMLService<>();
-        Rss rss = xml.xmlToObject(Rss.class);
+        if(url == null){
+            url = new URL("http://www2.bot.or.th/RSS/fxrates/fxrate-all.xml");
+        }
         
-        ddlRssExchangeRate.add(new DropDownList("THB", "THB","1"));
-        for (Rss.Channel.Item item : rss.getChannel().getItem()) {
-            if (StringUtils.isNumeric(item.getBuy())) {
-                
-                System.out.println(item.getSname().trim() + " : " +item.getSname().trim()+ " : " + item.getBuy().trim() + " : "+new BigDecimal(item.getSell().trim()).setScale(4,RoundingMode.HALF_UP).doubleValue());
-                ddlRssExchangeRate.add(new DropDownList(item.getSname().trim(),item.getSname().trim(), String.valueOf(new BigDecimal(item.getSell().trim()).setScale(4,RoundingMode.HALF_UP).doubleValue())));
+        List<DropDownList> ddlRssExchangeRate = new ArrayList<>();
+        ddlRssExchangeRate.add(new DropDownList("THB", "THB", "1.0000"));
+        Feed feed = FeedParser.parse(url);
+
+        int items = feed.getItemCount();
+        for (int i = 0; i < items; i++) {
+            FeedItem item = feed.getItem(i);
+            String targetCurrency = item.getElement("http://centralbanks.org/cb/1.0/", "targetCurrency").getValue();
+            String value = item.getElement("http://centralbanks.org/cb/1.0/", "value").getValue();
+            
+            if (StringUtils.isNumeric(value)) {
+                ddlRssExchangeRate.add(new DropDownList(targetCurrency.trim(),targetCurrency.trim(), String.valueOf(new BigDecimal(value.trim()).setScale(4,RoundingMode.HALF_UP).doubleValue())));
             }else{
                 //System.out.println(item.getSname().trim()+" | "+item.getBuy());
             }
@@ -406,6 +399,8 @@ public class DropdownFactory implements Serializable {
 
         return ddlRssExchangeRate;
     }
+    
+    
 
     public String getMinimumPremium() {
 

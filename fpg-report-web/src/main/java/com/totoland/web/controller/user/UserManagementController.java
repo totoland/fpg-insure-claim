@@ -120,7 +120,7 @@ public class UserManagementController extends BaseController {
         if (!validateBeforeSave()) {
             return;
         }
-
+        
         try {
             svUser.setPassword(WebUtils.encrypt(svUser.getPassword()));
             userService.create(svUser);

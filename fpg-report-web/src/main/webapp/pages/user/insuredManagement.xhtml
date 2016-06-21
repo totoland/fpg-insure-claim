@@ -265,7 +265,7 @@
                             <h:outputLabel for="password" value="Password" />
                             <h:panelGroup>
                                 <p:password id="password" value="#{insuredManagementController.svUser.password}"
-                                            required="true" requiredMessage="#{msg.require_generic}"/>
+                                            required="true" requiredMessage="#{msg.require_generic}" redisplay="true"/>
                                 <toto:requireLabel forId=":formUser:password"/>
                             </h:panelGroup>
                             <h:outputLabel for="password2" value="Re-password" />

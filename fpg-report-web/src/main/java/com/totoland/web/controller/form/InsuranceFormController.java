@@ -416,7 +416,7 @@ public class InsuranceFormController extends BaseController {
             certRpt.setVesselAirline(this.claimInsure.getConveyanceName());
             certRpt.setReferenceNumber(this.claimInsure.getInvoiceNumber());
             certRpt.setAmountInsuredHereunder(String.valueOf(this.claimInsure.getAmountOfInsurance()));
-            certRpt.setAmountInsuredHereunderWord(new NumberToWord.DefaultProcessor().getName(String.valueOf(this.claimInsure.getAmountOfInsurance())).toUpperCase());
+            certRpt.setAmountInsuredHereunderWord(NumberToWord.convert(String.valueOf(this.claimInsure.getAmountOfInsurance())).toUpperCase());
             certRpt.setPolicyNumber(this.claimInsure.getPolicyNumber());
             certRpt.setCertificationNumber(this.claimInsure.getCertificationNumber());
             certRpt.setVoyageFlightNo("");

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.totoland.web.utils;
+package com.totoland.test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -31,7 +31,7 @@ import java.text.DecimalFormat;
  *
  * @author totoland
  */
-public class NumberToWord {
+public class EnglishNumberToWords {
 
     private static final String[] tensNames = {
         "",
@@ -69,7 +69,7 @@ public class NumberToWord {
         " nineteen"
     };
 
-    private NumberToWord() {
+    private EnglishNumberToWords() {
     }
 
     private static String convertLessThanOneThousand(int number) {
@@ -179,7 +179,7 @@ public class NumberToWord {
 
         if (snumber.contains(".")) {
             snumber = splNumber[0];
-            decimalNumber = " AND " + splNumber[1].substring(0, 2) + " / " + "100";
+            decimalNumber = " AND " + splNumber[1].substring(0,2) + " / " + "100";
         }
 
         System.out.println("snmber : " + snumber);
@@ -247,5 +247,39 @@ public class NumberToWord {
 
         // remove extra spaces!
         return result.replaceAll("^\\s+", "").replaceAll("\\b\\s{2,}\\b", " ").toUpperCase() + (decimalNumber != null ? decimalNumber : "");
+    }
+
+    /**
+     * testing
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+
+        System.out.println("*** " + EnglishNumberToWords.convert("3000000010.2555"));
+
+        /*
+         *** zero
+         *** one
+         *** sixteen
+         *** one hundred
+         *** one hundred eighteen
+         *** two hundred
+         *** two hundred nineteen
+         *** eight hundred
+         *** eight hundred one
+         *** one thousand three hundred sixteen
+         *** one million
+         *** two millions
+         *** three millions two hundred
+         *** seven hundred thousand
+         *** nine millions
+         *** nine millions one thousand
+         *** one hundred twenty three millions four hundred
+         **      fifty six thousand seven hundred eighty nine
+         *** two billion one hundred forty seven millions
+         **      four hundred eighty three thousand six hundred forty seven
+         *** three billion ten
+         **/
     }
 }
