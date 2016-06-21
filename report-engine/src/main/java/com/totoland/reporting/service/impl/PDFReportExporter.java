@@ -86,6 +86,7 @@ public class PDFReportExporter implements ReportExporter {
             firstPage.addPage(object);
         }
 
+        JasperViewer.viewReport(firstPage, false);
         return JasperExportManager.exportReportToPdf(firstPage);
 
     }
