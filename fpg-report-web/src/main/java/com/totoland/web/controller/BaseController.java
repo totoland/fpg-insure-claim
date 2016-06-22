@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
@@ -25,8 +24,6 @@ import org.primefaces.component.dialog.Dialog;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.context.RequestContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -34,10 +31,10 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class BaseController implements Serializable {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
     private static final long serialVersionUID = -3424239608725799082L;
-    protected RequestContext context = RequestContext.getCurrentInstance();
 
+    public abstract void init();
+    
     public String getMessage(String key) {
         return MessageUtils.getResourceBundleString(key);
     }
@@ -203,7 +200,6 @@ public abstract class BaseController implements Serializable {
     protected void checkRoleAdmin() {
         if (getUserAuthen().getUserGroupLvl() != GroupLvl.GroupLevel.SYSTEM_ADMIN.getLevel()) {
             sendError(401, "Cannot Access This Page ,You are not Admin.");
-            //throw new AccessDenieException("Cannot Access User Management Page ,You are not Admin.");
         };
     }
 }

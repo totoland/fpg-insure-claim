@@ -59,9 +59,11 @@ public class CertificateActiveReport extends BaseController {
     private List<DropDownList>insureNameList;
     
     @PostConstruct
-    public void intit(){
+    @Override
+    public void init(){
         this.criteria = new CertifaicationCriteria();
         this.insureNameList = dropdownFactory.ddlInsureName();
+        this.listViewCertificate = null;
     }
     
     public void search(){
@@ -82,7 +84,7 @@ public class CertificateActiveReport extends BaseController {
     
     @Override
     public void resetForm() {
-
+        init();
     }
 
     public CertificateService getCertificateService() {

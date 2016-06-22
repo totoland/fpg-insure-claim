@@ -28,7 +28,7 @@
                         <div class="Container100 Responsive50">
                             <div class="ContainerIndent">
                                 <h2 class="BigTopic"></h2>
-                                <p:panelGrid columns="4" 
+                                <p:panelGrid id="pnCriteria" columns="4" 
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
@@ -60,19 +60,19 @@
                                                  rendered="#{certificateActiveReport.adminOffice}"/>
 
                                     <h:outputLabel value="#{msg.label_issue_date_from}"/>
-                                    <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy"
+                                    <p:calendar pattern="dd MMM yyyy" readonlyInput="true"
                                                 value="#{certificateActiveReport.criteria.issueDateFrom}"/>
 
                                     <h:outputLabel value="#{msg.label_issue_date_to}"/>
-                                    <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy"
+                                    <p:calendar pattern="dd MMM yyyy" readonlyInput="true"
                                                 value="#{certificateActiveReport.criteria.issueDateTo}"/>
 
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
                                         <p:commandButton value="#{msg.panel_search}" action="#{certificateActiveReport.search()}"
-                                                         update="pnResult"/>
-                                        <p:commandButton value="#{msg.btn_reset}" action="#{certificateActiveReport.init()}"
-                                                         update="@form"/>
+                                                         update=":form:pnResult"/>
+                                        <p:commandButton value="#{msg.btn_reset}" action="#{certificateActiveReport.resetForm()}"
+                                                         update=":form:pnCriteria , :form:pnResult"/>
                                     </h:panelGroup>
                                     <h:outputLabel value=""/>
                                 </p:panelGrid>
@@ -87,10 +87,14 @@
                     <p:dataTable id="singleDT" var="item" value="#{certificateActiveReport.listViewCertificate}" 
                                  rendered="#{certificateActiveReport.listViewCertificate!=null}" 
                                  rowKey="#{item.claimId}"
+                                 scrollable="true" scrollWidth="1170"
+                                 selectionMode="single"
                                  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
-                                 rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" reflow="true">
+                                 rowsPerPageTemplate="10,20,50,100" emptyMessage="#{msg.no_data_found}" reflow="true">
                         <f:facet name="header">
                             Search Result
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="singleDT" trigger="toggler" />
                         </f:facet>
                         <f:facet name="{Exporters}">
                             <h:commandLink>
@@ -99,14 +103,18 @@
                             </h:commandLink>
                         </f:facet>
                         <p:column headerText="#{msg.label_cert_no}" 
+                                  width="160"
                                   sortBy="#{item.certificationNumber}" footerText="#{msg.label_company_code}">
                             <h:outputText value="#{item.certificationNumber}" />
                         </p:column>
                         <p:column headerText="#{msg.label_Policy_number}" 
+                                  width="250"
                                   sortBy="#{item.policyNumber}" footerText="#{msg.label_Policy_number}">
                             <h:outputText value="#{item.policyNumber}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{item.insuredName}" footerText="#{msg.label_insured_name}">
+                        <p:column headerText="#{msg.label_insured_name}" 
+                                  width="250"
+                                  sortBy="#{item.insuredName}" footerText="#{msg.label_insured_name}">
                             <h:outputText value="#{item.insuredName}" />
                         </p:column>
                         <p:column headerText="#{msg.label_method_of_transport}" 
@@ -115,35 +123,59 @@
                                   footerText="#{msg.label_method_of_transport}">
                             <h:outputText value="#{certificateActiveReport.findMethodTransport(item.transportMethod)}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_issue_date}" 
+                        <p:column headerText="#{msg.label_shipment_date}" 
                                   width="120"
+                                  sortBy="#{item.issueDate}" footerText="#{msg.label_shipment_date}">
+                            <h:outputText value="#{item.issueDate}">
+                                <f:convertDateTime pattern="dd MMMM yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.label_commodity_type}" 
+                                  width="150"
+                                  sortBy="#{item.issueDate}" footerText="#{msg.label_commodity_type}">
+                            <h:outputText value="#{item.issueDate}">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.label_amount_of_insurance}" 
+                                  width="150"
+                                  sortBy="#{item.issueDate}" footerText="#{msg.label_amount_of_insurance}">
+                            <h:outputText value="#{item.issueDate}">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.label_premium}" 
+                                  width="150"
+                                  sortBy="#{item.issueDate}" footerText="#{msg.label_premium}">
+                            <h:outputText value="#{item.issueDate}">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.label_stamp}" 
+                                  width="150"
+                                  sortBy="#{item.issueDate}" footerText="#{msg.label_stamp}">
+                            <h:outputText value="#{item.issueDate}">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.label_vat}" 
+                                  width="150"
+                                  sortBy="#{item.issueDate}" footerText="#{msg.label_vat}">
+                            <h:outputText value="#{item.issueDate}">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.label_total}" 
+                                  width="150"
+                                  sortBy="#{item.issueDate}" footerText="#{msg.label_total}">
+                            <h:outputText value="#{item.issueDate}">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.label_issue_date}" 
+                                  width="150"
                                   sortBy="#{item.issueDate}" footerText="#{msg.label_issue_date}">
                             <h:outputText value="#{item.issueDate}">
-                                <f:convertDateTime pattern="dd/MMMM/yyyy"/>
                             </h:outputText>
                         </p:column>
                     </p:dataTable>
 
                 </p:panel>
             </div>
-
-            <p:confirmDialog widgetVar="confirmReject" 
-                             header="#{msg.confirmation_head}" 
-                             message="#{msg.msg_confirm_reject}"
-                             showEffect="fade" hideEffect="fade"
-                             rendered="#{certificateActiveReport.adminOffice}">
-                <p:commandButton value="#{msg.yes}" 
-                                 process="@this"
-                                 update="@form"
-                                 styleClass="ui-confirmdialog-yes GreenButton" 
-                                 icon="ui-icon-check fa fa-check Fs14 white"
-                                 action="#{certificateActiveReport.rejectTransaction()}"
-                                 oncomplete="PF('confirmReject').hide()">
-                </p:commandButton>
-                <p:commandButton value="#{msg.btn_cancel}"
-                                 onclick="PF('confirmReject').hide()"
-                                 type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
-            </p:confirmDialog>
         </h:form>
         <style>
             .ui-inputfield{
