@@ -29,29 +29,16 @@ package com.totoland.db.enums;
  */
 public enum DebitNoteType {
 
-    PREVIEW(0),ORIGINAL(1), COPY(2);
+    PREVIEW(0,"SAMPLE",""),ORIGINAL(1,"ORIGINAL DEBIT NOTE","ต้นฉบับใบแจ้งหนี้"), COPY(2,"DEBIT NOTE COPY","สำเนาใบแจ้งหนี้");
 
     int value;
-
-    DebitNoteType(int value) {
+    String name;
+    String title;
+    
+    DebitNoteType(int value,String name,String title) {
         this.value = value;
-    }
-
-    public static String valueOf(int value) {
-        switch (value) {
-            case 0: {
-                return "SAMPLE";
-            }
-            case 1: {
-                return "ORIGINAL";
-            }
-            case 2: {
-                return "DEBIT NOTE COPY";
-            }
-            default: {
-                return null;
-            }
-        }
+        this.name = name;
+        this.title = title;
     }
 
     public int getValue() {
@@ -59,6 +46,10 @@ public enum DebitNoteType {
     }
     
     public String getName(){
-        return valueOf(this.value);
+        return name;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

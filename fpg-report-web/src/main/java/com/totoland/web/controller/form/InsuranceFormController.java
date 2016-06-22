@@ -394,9 +394,7 @@ public class InsuranceFormController extends BaseController {
         if (CertificateType.ORIGINAL.getValue() == certificateType) {
             try {
                 LOGGER.debug("createCertificateNumber...");
-
                 createCertificateNumber();
-
             } catch (Exception ex) {
                 LOGGER.error("Fail when create createCertificateNumber : ", ex);
                 return null;
@@ -413,7 +411,6 @@ public class InsuranceFormController extends BaseController {
             CertificationBean certRpt = new CertificationBean();
             //Init data for print Certificate
             certRpt.setNameOfAssured(this.claimInsure.getInsuredName());
-            certRpt.setVesselAirline(this.claimInsure.getConveyanceName());
             certRpt.setReferenceNumber(this.claimInsure.getInvoiceNumber());
             certRpt.setAmountInsuredHereunder(String.valueOf(this.claimInsure.getAmountOfInsurance()));
             certRpt.setAmountInsuredHereunderWord(NumberToWord.convert(String.valueOf(this.claimInsure.getAmountOfInsurance())).toUpperCase());
@@ -423,9 +420,9 @@ public class InsuranceFormController extends BaseController {
             certRpt.setSailingFlightDate(this.claimInsure.getShipmentDate());
             certRpt.setIssueOn(this.claimInsure.getIssueDate());
             certRpt.setCopyType(CertificateType.valueOf(certificateType));
-            certRpt.setFrom(this.claimInsure.getOriginDescription().toUpperCase() +" , "+findCountryName(this.claimInsure.getOriginCountryCode()));
+            certRpt.setFrom(this.claimInsure.getOriginDescription().toUpperCase() + " , " + findCountryName(this.claimInsure.getOriginCountryCode()));
             certRpt.setFromDesc(this.claimInsure.getOriginDescription());
-            certRpt.setTo(this.claimInsure.getDestinationDescription().toUpperCase()+" , "+findCountryName(this.claimInsure.getDestinationCountryCode()));
+            certRpt.setTo(this.claimInsure.getDestinationDescription().toUpperCase() + " , " + findCountryName(this.claimInsure.getDestinationCountryCode()));
             certRpt.setToDesc(this.claimInsure.getDestinationDescription());
             certRpt.setCurrencyType(this.claimInsure.getCurrencyType() != null
                     && this.claimInsure.getCurrencyType().contains("USD") ? "USD" : this.claimInsure.getCurrencyType());
@@ -437,8 +434,8 @@ public class InsuranceFormController extends BaseController {
                     && !this.claimInsure.getBillOfLadingNumber().trim().isEmpty()) {
                 String newLine = this.claimInsure.getCommodityDescription() != null
                         && !this.claimInsure.getCommodityDescription().trim().isEmpty() ? "\n" : "";
-                certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription() + newLine 
-                        + "Invoice Number : "+this.claimInsure.getInvoiceNumber()+ newLine + "B/L no : "
+                certRpt.setCommodityDescription(this.claimInsure.getCommodityDescription() + newLine
+                        + "Invoice Number : " + this.claimInsure.getInvoiceNumber() + newLine + "B/L no : "
                         + this.claimInsure.getBillOfLadingNumber().trim());
             }
 
@@ -465,19 +462,35 @@ public class InsuranceFormController extends BaseController {
             if (listPolicy != null && !listPolicy.isEmpty()) {
 
                 String detail = "";
-
+                String airLineVessel = this.claimInsure.getConveyanceName()!=null?this.claimInsure.getConveyanceName()+",":"";
+                airLineVessel += this.claimInsure.getVoyageFlightNumber()!=null?this.claimInsure.getVoyageFlightNumber():"";
+                airLineVessel += this.claimInsure.getTransshipmentVessel()!=null&&!this.claimInsure.getTransshipmentVessel().trim().isEmpty()?
+                        ("/"+this.claimInsure.getTransshipmentVessel()):"";
+                
                 if (AIR == this.claimInsure.getMethodOfTransportId()) {
                     detail = listPolicy.get(0).getClausesAir();
+                    certRpt.setMethodOfTranSport("AIRLINE &:");
+                    certRpt.setForMethod("(FOR SENDING BY AIRFREIGHT ONLY)");
+                    certRpt.setVesselAirline("FLIGHT NO. "+airLineVessel);
+                    certRpt.setFlightDateLabel("FLIGHT DATE:");
                 } else if (VESSEL == this.claimInsure.getMethodOfTransportId()) {
                     detail = listPolicy.get(0).getClausesVessel();
+                    certRpt.setMethodOfTranSport("VESSEL:");
+                    certRpt.setForMethod("");
+                    certRpt.setVesselAirline("           "+airLineVessel);
+                    certRpt.setFlightDateLabel("SAILING ON OR ABOUT:");
                 } else if (TRUCK == this.claimInsure.getMethodOfTransportId()) {
                     detail = listPolicy.get(0).getClausesTruck();
+                    certRpt.setMethodOfTranSport("VESSEL:");
+                    certRpt.setForMethod("");
+                    certRpt.setVesselAirline("TRUCK NO.  "+airLineVessel);
+                    certRpt.setFlightDateLabel("SAILING ON OR ABOUT:");
                 }
 
                 certRpt.setDetail(detail);
                 certRpt.setBrokerName(listPolicy.get(0).getBrokerName());
                 certRpt.setBrokerLicense(listPolicy.get(0).getBrokerLicense());
-                certRpt.setFullCurrencyType("(" + certRpt.getCurrencyType() + " 1 = BATH " + this.claimInsure.getExchangeRate().doubleValue() + ")");
+                certRpt.setFullCurrencyType("(" + certRpt.getCurrencyType() + " 1 = BATH " + this.claimInsure.getExchangeRate().setScale(4) + ")");
             }
 
             String jrxmlPath = JsfUtil.getRealPath(MARINE_PDF_TEMPLATE);
@@ -501,11 +514,13 @@ public class InsuranceFormController extends BaseController {
                 String jrxmlPathDebit = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
                 DebitNote debitNoteOri = getDebitNoteBean();
                 debitNoteOri.setCopyType(DebitNoteType.ORIGINAL.getName());
+                debitNoteOri.setTitleCopy(DebitNoteType.ORIGINAL.getTitle());
                 collectionBeans.add(new ArrayCollectionBean(jrxmlPathDebit, Arrays.asList(debitNoteOri)));
 
                 DebitNote debitNoteCopy = new DebitNote();
                 BeanUtils.copyProperties(debitNoteOri, debitNoteCopy);
                 debitNoteCopy.setCopyType(DebitNoteType.COPY.getName());
+                debitNoteCopy.setTitleCopy(DebitNoteType.COPY.getTitle());
                 collectionBeans.add(new ArrayCollectionBean(jrxmlPathDebit, Arrays.asList(debitNoteCopy)));
             } else {
                 collectionBeans.add(new ArrayCollectionBean(jrxmlPath, Arrays.asList(certRpt)));
@@ -514,7 +529,7 @@ public class InsuranceFormController extends BaseController {
             byte[] data = new PDFReportExporter().exporterToByteList(collectionBeans);
             SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
-                    "application/pdf", "CERTIFICATE_" + this.claimInsure.getCertificationNumber() + "_" + dateFormat.format(new Date()) + ".pdf");
+                    "application/pdf", "CERTIFICATE_" + (this.claimInsure.getCertificationNumber()==null?"PREVIEW":this.claimInsure.getCertificationNumber()) + "_" + dateFormat.format(new Date()) + ".pdf");
         } catch (Exception ex) {
             LOGGER.error("download error ", ex);
             JsfUtil.alertJavaScript(ex.getMessage());
@@ -563,16 +578,16 @@ public class InsuranceFormController extends BaseController {
         //Premium rate * 0.4%
         debitNote.setStampDuty((WebUtils.mutilplyRoundUp(this.claimInsure.getPremiumRate(),
                 pRate)));
-        LOGGER.debug("Premium rate * 0.4% : {}",debitNote.getStampDuty());
-        
+        LOGGER.debug("Premium rate * 0.4% : {}", debitNote.getStampDuty());
+
         if (!this.claimInsure.getDestinationCountryCode().equals("TH")) {
             //ถ้าเป็น export premium * 0.04 ถ้า 1-5 บวก x+1 ถ้านอกเหนื่อ +5
             if (debitNote.getStampDuty().doubleValue() >= 0 && debitNote.getStampDuty().doubleValue() <= 5) {
                 debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(BigInteger.ONE)));
-                LOGGER.debug("Added 1 to StampDuty : {}",debitNote.getStampDuty());
+                LOGGER.debug("Added 1 to StampDuty : {}", debitNote.getStampDuty());
             } else {
                 debitNote.setStampDuty(debitNote.getStampDuty().add(new BigDecimal(5)));
-                LOGGER.debug("Added 5 to StampDuty : {}",debitNote.getStampDuty());
+                LOGGER.debug("Added 5 to StampDuty : {}", debitNote.getStampDuty());
             }
         }
         //Premium + StampDuty
@@ -582,8 +597,8 @@ public class InsuranceFormController extends BaseController {
         debitNote.setVat((this.claimInsure.getPremiumRate().add(debitNote.getStampDuty()).multiply(
                 new BigDecimal("0.07"))));
 
-        LOGGER.debug("vat : {}",debitNote.getVat());
-        
+        LOGGER.debug("vat : {}", debitNote.getVat());
+
         if (!this.claimInsure.getDestinationCountryCode().equals("TH")) {
             debitNote.setVat(BigDecimal.ZERO);
         }
@@ -603,6 +618,7 @@ public class InsuranceFormController extends BaseController {
         try {
             DebitNote debitNote = getDebitNoteBean();
             debitNote.setCopyType(DebitNoteType.COPY.getName());
+            debitNote.setTitleCopy(DebitNoteType.COPY.getTitle());
 
             String jrxmlPath = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
             byte[] data = new PDFReportExporter().exporterToByte(jrxmlPath, Arrays.asList(debitNote));

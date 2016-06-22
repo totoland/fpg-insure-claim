@@ -47,6 +47,7 @@ public class ViewCertificate implements Serializable {
     private static final long serialVersionUID = -1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "claim_id")
     private Long claimId;
@@ -112,7 +113,7 @@ public class ViewCertificate implements Serializable {
     private Date issueDate;
     @Column(name = "commodity_type_code")
     private String commodityTypeCode;
-    @Transient
+    @Column(name = "commodity_type_name")
     private String commodityTypeName;
     @Lob
     @Column(name = "commodity_description")
@@ -157,6 +158,10 @@ public class ViewCertificate implements Serializable {
     private BigDecimal vat;
     @Column(name = "total")
     private BigDecimal total;
+    @Column(name = "claim_status_name")
+    private String claimStatusName;
+    @Column(name = "transport_method")
+    private String transportMethod;
 
     public Long getClaimId() {
         return claimId;
@@ -558,8 +563,20 @@ public class ViewCertificate implements Serializable {
         this.total = total;
     }
 
+    public String getClaimStatusName() {
+        return claimStatusName;
+    }
+
+    public void setClaimStatusName(String claimStatusName) {
+        this.claimStatusName = claimStatusName;
+    }
+
+    public String getTransportMethod() {
+        return transportMethod;
+    }
+
     @Override
     public String toString() {
-        return "ViewCertificate{" + "claimId=" + claimId + ", policyNumber=" + policyNumber + ", certificationNumber=" + certificationNumber + ", claimStatusId=" + claimStatusId + ", insuredId=" + insuredId + ", insuredName=" + insuredName + ", consigneeName=" + consigneeName + ", invoiceValue=" + invoiceValue + ", insuredValue=" + insuredValue + ", amountOfInsurance=" + amountOfInsurance + ", deductibleAmount=" + deductibleAmount + ", currencyType=" + currencyType + ", exchangeRate=" + exchangeRate + ", localAmountOfInsurance=" + localAmountOfInsurance + ", originCountryCode=" + originCountryCode + ", originStateProv=" + originStateProv + ", originDescription=" + originDescription + ", transshipmentPort=" + transshipmentPort + ", destinationCountryCode=" + destinationCountryCode + ", destinationStateProv=" + destinationStateProv + ", destinationDescription=" + destinationDescription + ", conveyanceName=" + conveyanceName + ", transshipmentVessel=" + transshipmentVessel + ", voyageFlightNumber=" + voyageFlightNumber + ", methodOfTransportId=" + methodOfTransportId + ", invoiceNumber=" + invoiceNumber + ", billOfLadingNumber=" + billOfLadingNumber + ", shipmentDate=" + shipmentDate + ", issueDate=" + issueDate + ", commodityTypeCode=" + commodityTypeCode + ", commodityTypeName=" + commodityTypeName + ", commodityDescription=" + commodityDescription + ", marksAndNumbers=" + marksAndNumbers + ", coverageTypeId=" + coverageTypeId + ", valuation=" + valuation + ", insuringTermsId=" + insuringTermsId + ", additionalInfomation=" + additionalInfomation + ", claimSurveyorId=" + claimSurveyorId + ", claimPayableAt=" + claimPayableAt + ", createdDateTime=" + createdDateTime + ", updatedDateTime=" + updatedDateTime + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", trxId=" + trxId + ", rate=" + rate + ", premiumRate=" + premiumRate + ", minimumPremiumRate=" + minimumPremiumRate + ", stamp=" + stamp + ", vat=" + vat + ", total=" + total + '}';
+        return "ViewCertificate{" + "claimId=" + claimId + ", policyNumber=" + policyNumber + ", certificationNumber=" + certificationNumber + ", claimStatusId=" + claimStatusId + ", insuredId=" + insuredId + ", insuredName=" + insuredName + ", consigneeName=" + consigneeName + ", invoiceValue=" + invoiceValue + ", insuredValue=" + insuredValue + ", amountOfInsurance=" + amountOfInsurance + ", deductibleAmount=" + deductibleAmount + ", currencyType=" + currencyType + ", exchangeRate=" + exchangeRate + ", localAmountOfInsurance=" + localAmountOfInsurance + ", originCountryCode=" + originCountryCode + ", originStateProv=" + originStateProv + ", originDescription=" + originDescription + ", transshipmentPort=" + transshipmentPort + ", destinationCountryCode=" + destinationCountryCode + ", destinationStateProv=" + destinationStateProv + ", destinationDescription=" + destinationDescription + ", conveyanceName=" + conveyanceName + ", transshipmentVessel=" + transshipmentVessel + ", voyageFlightNumber=" + voyageFlightNumber + ", methodOfTransportId=" + methodOfTransportId + ", invoiceNumber=" + invoiceNumber + ", billOfLadingNumber=" + billOfLadingNumber + ", shipmentDate=" + shipmentDate + ", issueDate=" + issueDate + ", commodityTypeCode=" + commodityTypeCode + ", commodityTypeName=" + commodityTypeName + ", commodityDescription=" + commodityDescription + ", marksAndNumbers=" + marksAndNumbers + ", coverageTypeId=" + coverageTypeId + ", valuation=" + valuation + ", insuringTermsId=" + insuringTermsId + ", additionalInfomation=" + additionalInfomation + ", claimSurveyorId=" + claimSurveyorId + ", claimPayableAt=" + claimPayableAt + ", createdDateTime=" + createdDateTime + ", updatedDateTime=" + updatedDateTime + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", trxId=" + trxId + ", rate=" + rate + ", premiumRate=" + premiumRate + ", minimumPremiumRate=" + minimumPremiumRate + ", stamp=" + stamp + ", vat=" + vat + ", total=" + total + ", claimStatusName=" + claimStatusName + ", transportMethod=" + transportMethod + '}';
     }
 }

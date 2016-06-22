@@ -24,7 +24,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -380,13 +379,5 @@ public class InsuredManagementController extends BaseController {
 
     public void setKeyMatchService(KeyMatchService keyMatchService) {
         this.keyMatchService = keyMatchService;
-    }
-
-    public RequestContext getContext() {
-        return context;
-    }
-
-    public void setContext(RequestContext context) {
-        this.context = context;
     }
 }

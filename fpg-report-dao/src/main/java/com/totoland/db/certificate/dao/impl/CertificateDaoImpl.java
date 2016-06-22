@@ -56,17 +56,58 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
                 + "claim_insure.insured_name, "
                 + "claim_insure.method_of_transport_id, "
                 + "claim_insure.issue_date, "
-                + "claim_insure.trx_id "
+                + "claim_insure.trx_id, "
                 + "claim_insure.rate, "
                 + "claim_insure.premium_rate, "
                 + "claim_insure.minimum_premium_rate, "
                 + "claim_insure.stamp, "
                 + "claim_insure.vat, "
                 + "claim_insure.total, "
-                + "claim_status.claim_status_name"
+                + "claim_status.claim_status_name, "
+                + "claim_insure.invoice_value, "
+                + "claim_insure.insured_value, "
+                + "claim_insure.consignee_name, "
+                + "claim_insure.amount_of_insurance, "
+                + "claim_insure.deductible_amount, "
+                + "claim_insure.currency_type, "
+                + "claim_insure.exchange_rate, "
+                + "claim_insure.local_amount_of_insurance, "
+                + "claim_insure.origin_country_code, "
+                + "claim_insure.origin_state_prov, "
+                + "claim_insure.origin_description, "
+                + "claim_insure.transshipment_port, "
+                + "claim_insure.destination_country_code, "
+                + "claim_insure.destination_state_prov, "
+                + "claim_insure.destination_description, "
+                + "claim_insure.conveyance_name, "
+                + "claim_insure.transshipment_vessel, "
+                + "claim_insure.voyage_flight_number, "
+                + "claim_insure.invoice_number, "
+                + "claim_insure.bill_of_lading_number, "
+                + "claim_insure.shipment_date, "
+                + "claim_insure.commodity_type_code, "
+                + "claim_insure.commodity_description, "
+                + "claim_insure.marks_and_numbers, "
+                + "claim_insure.coverage_type_id, "
+                + "claim_insure.valuation, "
+                + "claim_insure.insuring_terms_id, "
+                + "claim_insure.additional_infomation, "
+                + "claim_insure.claim_surveyor_id, "
+                + "claim_insure.claim_payable_at, "
+                + "claim_insure.created_date_time, "
+                + "claim_insure.updated_date_time, "
+                + "claim_insure.created_by, "
+                + "claim_insure.updated_by, "
+                + "transport_method.transport_name transport_method, "
+                + "commodity_type.commodity_type_name, "
+                + "open_policy.broker_license, " 
+                + "open_policy.broker_name "
                 + "FROM "
                 + "claim_insure "
                 + "INNER JOIN claim_status ON claim_insure.claim_status_id = claim_status.claim_status_id "
+                + "INNER JOIN transport_method ON method_of_transport_id = transport_method.transport_id "
+                + "INNER JOIN commodity_type ON claim_insure.commodity_type_code = commodity_type.commodity_type_code "
+                + "INNER JOIN open_policy ON claim_insure.policy_number = open_policy.open_policy_no "
                 + "WHERE 1=1  ";
 
         List<Object> params = new ArrayList<>();
@@ -82,13 +123,23 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
         }
 
         if (criteria.getPolicyNumber() != null && !criteria.getPolicyNumber().isEmpty()) {
-            SQL += "and claim_insure.policy_number = ? ";
-            params.add(criteria.getPolicyNumber());
+            SQL += "and claim_insure.policy_number LIKE ?";
+            params.add("%"+criteria.getPolicyNumber()+"%");
         }
 
         if (criteria.getInsuredName() != null && !criteria.getInsuredName().isEmpty()) {
-            SQL += "and claim_insure.insured_id = ? ";
-            params.add(criteria.getInsuredName());
+            SQL += "and claim_insure.insured_name LIKE ? ";
+            params.add("%"+criteria.getInsuredName()+"%");
+        }
+        
+        if (criteria.getBrokerName()!= null && !criteria.getBrokerName().isEmpty()) {
+            SQL += "and open_policy.broker_name LIKE ? ";
+            params.add("%"+criteria.getBrokerName()+"%");
+        }
+        
+        if (criteria.getBrokerLicenses()!= null && !criteria.getBrokerLicenses().isEmpty()) {
+            SQL += "and open_policy.broker_license LIKE ? ";
+            params.add("%"+criteria.getBrokerLicenses()+"%");
         }
 
         if (criteria.getStatus() != null && !criteria.getStatus().isEmpty()) {

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDebitNote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7cc9e6c-39c7-448f-b25c-32e05a2d7e7a">
 	<property name="ireport.zoom" value="1.996500000000013"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="336"/>
 	<field name="taxNo" class="java.lang.String"/>
 	<field name="insuredName" class="java.lang.String"/>
 	<field name="insuredValue" class="java.lang.String"/>
@@ -279,7 +279,7 @@
 				<text><![CDATA[Home Office]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="253" width="152" height="17" uuid="4b1ee4ed-27eb-493a-8ba4-fbbd1d6bbb82"/>
+				<reportElement x="3" y="260" width="152" height="17" uuid="4b1ee4ed-27eb-493a-8ba4-fbbd1d6bbb82"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -377,7 +377,7 @@
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="178" y="253" width="100" height="17" uuid="400aafc9-4888-4fff-a297-693725cb4ebc"/>
+				<reportElement x="178" y="260" width="100" height="17" uuid="400aafc9-4888-4fff-a297-693725cb4ebc"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="10" isBold="false"/>
 				</textElement>
@@ -452,7 +452,7 @@
 				<imageExpression><![CDATA[$F{authorizedSignatureURL}]]></imageExpression>
 			</image>
 			<line>
-				<reportElement x="373" y="0" width="1" height="274" uuid="12ebfa04-5487-40d3-9c35-b6bee8be472c"/>
+				<reportElement x="373" y="0" width="1" height="285" uuid="12ebfa04-5487-40d3-9c35-b6bee8be472c"/>
 			</line>
 			<line>
 				<reportElement x="374" y="78" width="181" height="1" uuid="7f558e63-fbd4-4c9e-8d24-082b3dc12695"/>

@@ -38,26 +38,15 @@
                                                  maxlength="30"/>
 
                                     <h:outputLabel value="#{msg.label_insured_name}"/>
-                                    <p:selectOneMenu styleClass="selectOne115"
-                                                     filter="true"
-                                                     disabled="#{certificateActiveReport.userAuthen.userGroupLvl == '3'}"
-                                                     value="#{certificateActiveReport.criteria.insuredName}"
-                                                     maxlength="255">
-                                        <f:selectItem itemLabel="" itemValue="" />
-                                        <f:selectItems value="#{certificateActiveReport.insureNameList}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
-
+                                    <p:inputText value="#{certificateActiveReport.criteria.insuredName}"
+                                                 maxlength="255"/>
                                     <h:outputLabel value="#{msg.label_broker_name}"/>
-                                    <p:inputText value="#{certificateActiveReport.criteria.certificateNumber}"
-                                                 maxlength="50"
-                                                 rendered="#{certificateActiveReport.adminOffice}"/>
+                                    <p:inputText value="#{certificateActiveReport.criteria.brokerName}"
+                                                 maxlength="50"/>
 
                                     <h:outputLabel value="#{msg.label_broker_license}"/>
-                                    <p:inputText value="#{certificateActiveReport.criteria.certificateNumber}"
-                                                 maxlength="30"
-                                                 rendered="#{certificateActiveReport.adminOffice}"/>
+                                    <p:inputText value="#{certificateActiveReport.criteria.brokerLicenses}"
+                                                 maxlength="30"/>
 
                                     <h:outputLabel value="#{msg.label_issue_date_from}"/>
                                     <p:calendar pattern="dd MMM yyyy" readonlyInput="true"
@@ -70,6 +59,7 @@
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
                                         <p:commandButton value="#{msg.panel_search}" action="#{certificateActiveReport.search()}"
+                                                         process=":form:pnCriteria"
                                                          update=":form:pnResult"/>
                                         <p:commandButton value="#{msg.btn_reset}" action="#{certificateActiveReport.resetForm()}"
                                                          update=":form:pnCriteria , :form:pnResult"/>
@@ -93,7 +83,8 @@
                                  rowsPerPageTemplate="10,20,50,100" emptyMessage="#{msg.no_data_found}" reflow="true">
                         <f:facet name="header">
                             Search Result
-                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:commandButton id="toggler" type="button" value="Columns"
+                                             style="float:left" icon="ui-icon-calculator" />
                             <p:columnToggler datasource="singleDT" trigger="toggler" />
                         </f:facet>
                         <f:facet name="{Exporters}">
@@ -121,11 +112,11 @@
                                   width="150"
                                   sortBy="#{item.transportMethod}" 
                                   footerText="#{msg.label_method_of_transport}">
-                            <h:outputText value="#{certificateActiveReport.findMethodTransport(item.transportMethod)}" />
+                            <h:outputText value="#{item.transportMethod}" />
                         </p:column>
                         <p:column headerText="#{msg.label_shipment_date}" 
                                   width="120"
-                                  sortBy="#{item.issueDate}" footerText="#{msg.label_shipment_date}">
+                                  sortBy="#{item.shipmentDate}" footerText="#{msg.label_shipment_date}">
                             <h:outputText value="#{item.issueDate}">
                                 <f:convertDateTime pattern="dd MMMM yyyy"/>
                             </h:outputText>
@@ -133,43 +124,54 @@
                         <p:column headerText="#{msg.label_commodity_type}" 
                                   width="150"
                                   sortBy="#{item.issueDate}" footerText="#{msg.label_commodity_type}">
-                            <h:outputText value="#{item.issueDate}">
+                            <h:outputText value="#{item.commodityTypeName}">
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_amount_of_insurance}" 
                                   width="150"
-                                  sortBy="#{item.issueDate}" footerText="#{msg.label_amount_of_insurance}">
-                            <h:outputText value="#{item.issueDate}">
+                                  sortBy="#{item.issueDate}" footerText="#{msg.label_amount_of_insurance}"
+                                  style="text-align: right">
+                            <h:outputText value="#{item.amountOfInsurance}">
+                                <f:convertNumber pattern="###,#,##0.00" type="currency"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_premium}" 
                                   width="150"
-                                  sortBy="#{item.issueDate}" footerText="#{msg.label_premium}">
-                            <h:outputText value="#{item.issueDate}">
+                                  sortBy="#{item.premiumRate}" footerText="#{msg.label_premium}"
+                                  style="text-align: right">
+                            <h:outputText value="#{item.premiumRate}">
+                                <f:convertNumber pattern="###,#,##0.00" type="currency"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_stamp}" 
                                   width="150"
-                                  sortBy="#{item.issueDate}" footerText="#{msg.label_stamp}">
-                            <h:outputText value="#{item.issueDate}">
+                                  sortBy="#{item.stamp}" footerText="#{msg.label_stamp}"
+                                  style="text-align: right">
+                            <h:outputText value="#{item.stamp}">
+                                <f:convertNumber pattern="###,###" type="currency"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_vat}" 
                                   width="150"
-                                  sortBy="#{item.issueDate}" footerText="#{msg.label_vat}">
-                            <h:outputText value="#{item.issueDate}">
+                                  sortBy="#{item.vat}" footerText="#{msg.label_vat}"
+                                  style="text-align: right">
+                            <h:outputText value="#{item.vat}">
+                                <f:convertNumber pattern="###,###" type="currency"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_total}" 
                                   width="150"
-                                  sortBy="#{item.issueDate}" footerText="#{msg.label_total}">
-                            <h:outputText value="#{item.issueDate}">
+                                  sortBy="#{item.total}" footerText="#{msg.label_total}"
+                                  style="text-align: right">
+                            <h:outputText value="#{item.total}">
+                                <f:convertNumber pattern="###,###" type="currency"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_issue_date}" 
                                   width="150"
                                   sortBy="#{item.issueDate}" footerText="#{msg.label_issue_date}">
                             <h:outputText value="#{item.issueDate}">
+                                <f:convertDateTime pattern="dd MMM yyyy"/>
                             </h:outputText>
                         </p:column>
                     </p:dataTable>

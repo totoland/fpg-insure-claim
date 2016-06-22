@@ -121,7 +121,7 @@
                                   width="150"
                                   sortBy="#{item.transportMethod}" 
                                   footerText="#{msg.label_method_of_transport}">
-                            <h:outputText value="#{insuranceManagementController.findMethodTransport(item.transportMethod)}" />
+                            <h:outputText value="#{item.transportMethod}" />
                         </p:column>
 <!--                        <p:column headerText="#{msg.label_status}" width="70"
                                   sortBy="#{item.statusName}" 

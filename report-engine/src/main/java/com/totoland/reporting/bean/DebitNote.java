@@ -16,7 +16,7 @@ import java.util.Date;
 public class DebitNote implements Serializable {
 
     private static final long serialVersionUID = 7410557423558657621L;
-    
+
     //เลขประจำตัวผู้เสียภาษี
     private String taxNo;
     //ชื่อและที่อยู่ผู้เอาประกัน
@@ -53,13 +53,14 @@ public class DebitNote implements Serializable {
     private String branchNo;
     private String homeOfficeLogoURL;
     private String branchCheckBoxURL;
-    
+
     private String taxId;
     private String authorizedSignatureURL;
     private String previewURL;
 
     private String copyType;
-    
+    private String titleCopy;
+
     public String getTaxNo() {
         return taxNo;
     }
@@ -260,8 +261,16 @@ public class DebitNote implements Serializable {
         this.copyType = copyType;
     }
 
+    public String getTitleCopy() {
+        return titleCopy;
+    }
+
+    public void setTitleCopy(String titleCopy) {
+        this.titleCopy = titleCopy;
+    }
+
     @Override
     public String toString() {
-        return "DebitNote{" + "taxNo=" + taxNo + ", insuredName=" + insuredName + ", insuredValue=" + insuredValue + ", insuredAddress=" + insuredAddress + ", certificationNumber=" + certificationNumber + ", issueDate=" + issueDate + ", premium=" + premium + ", stampDuty=" + stampDuty + ", typeOfPolicy=" + typeOfPolicy + ", total=" + total + ", policyNo=" + policyNo + ", vat=" + vat + ", warrantyFrom=" + warrantyFrom + ", warrantyTo=" + warrantyTo + ", grandTotal=" + grandTotal + ", brokerName=" + brokerName + ", companyLogoURL=" + companyLogoURL + ", homeOffice=" + homeOffice + ", branchNo=" + branchNo + ", homeOfficeLogoURL=" + homeOfficeLogoURL + ", branchCheckBoxURL=" + branchCheckBoxURL + ", taxId=" + taxId + ", authorizedSignatureURL=" + authorizedSignatureURL + ", previewURL=" + previewURL + ", copyType=" + copyType + '}';
+        return "DebitNote{" + "taxNo=" + taxNo + ", insuredName=" + insuredName + ", insuredValue=" + insuredValue + ", insuredAddress=" + insuredAddress + ", certificationNumber=" + certificationNumber + ", issueDate=" + issueDate + ", premium=" + premium + ", stampDuty=" + stampDuty + ", typeOfPolicy=" + typeOfPolicy + ", total=" + total + ", policyNo=" + policyNo + ", vat=" + vat + ", warrantyFrom=" + warrantyFrom + ", warrantyTo=" + warrantyTo + ", grandTotal=" + grandTotal + ", brokerName=" + brokerName + ", companyLogoURL=" + companyLogoURL + ", homeOffice=" + homeOffice + ", branchNo=" + branchNo + ", homeOfficeLogoURL=" + homeOfficeLogoURL + ", branchCheckBoxURL=" + branchCheckBoxURL + ", taxId=" + taxId + ", authorizedSignatureURL=" + authorizedSignatureURL + ", previewURL=" + previewURL + ", copyType=" + copyType + ", titleCopy=" + titleCopy + '}';
     }
 }

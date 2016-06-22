@@ -40,8 +40,8 @@ public class CertifaicationCriteria implements Serializable {
     private String status;
     private Date issueDateFrom;
     private Date issueDateTo;
-    private Date brokerName;
-    private Date brokerLicenses;
+    private String brokerName;
+    private String brokerLicenses;
 
     public String getCertificateNumber() {
         return certificateNumber;
@@ -91,19 +91,19 @@ public class CertifaicationCriteria implements Serializable {
         this.issueDateTo = issueDateTo;
     }
 
-    public Date getBrokerName() {
+    public String getBrokerName() {
         return brokerName;
     }
 
-    public void setBrokerName(Date brokerName) {
+    public void setBrokerName(String brokerName) {
         this.brokerName = brokerName;
     }
 
-    public Date getBrokerLicenses() {
+    public String getBrokerLicenses() {
         return brokerLicenses;
     }
 
-    public void setBrokerLicenses(Date brokerLicenses) {
+    public void setBrokerLicenses(String brokerLicenses) {
         this.brokerLicenses = brokerLicenses;
     }
 
