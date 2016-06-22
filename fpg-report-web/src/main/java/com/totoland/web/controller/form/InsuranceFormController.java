@@ -207,7 +207,7 @@ public class InsuranceFormController extends BaseController {
     private void initData() {
         this.insureTypeList = getInsureTypeList();
         try {
-            if (this.claimInsure.getCertificationNumber() == null) {
+            if (!this.readOnly) {
                 this.currencyTypeList = dropdownFactory.getRssExchangeRate();
                 LOGGER.debug("currencyTypeList for user [{}] : {}", getUserAuthen().getUsername(), currencyTypeList);
             }
@@ -367,7 +367,8 @@ public class InsuranceFormController extends BaseController {
 
     public StreamedContent getCertificateCopyFile(int certificateType) {
 
-        if (this.claimInsure.getClaimStatusId() == InsureState.PRINT_CERT.getState()) {
+        if (CertificateType.ORIGINAL.getValue() == certificateType &&
+                this.claimInsure.getClaimStatusId() == InsureState.PRINT_CERT.getState()) {
             LOGGER.debug("Transaction has been printed set page to mode readOnly...");
             readOnly = true;
             JsfUtil.alertJavaScript("Transaction [" + this.claimInsure.getCertificationNumber() + "] has been printed");
