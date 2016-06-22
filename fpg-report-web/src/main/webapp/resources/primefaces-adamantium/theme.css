@@ -128,7 +128,7 @@ label.ui-state-error {
 .ui-state-disabled,
 .ui-widget-content .ui-state-disabled,
 .ui-widget-header .ui-state-disabled {
-  opacity: .50;
+/*  opacity: .50;*/
   filter: alpha(opacity=50);
   background-image: none;
 }

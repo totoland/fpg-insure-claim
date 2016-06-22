@@ -148,7 +148,7 @@
                                   sortBy="#{item.stamp}" footerText="#{msg.label_stamp}"
                                   style="text-align: right">
                             <h:outputText value="#{item.stamp}">
-                                <f:convertNumber pattern="###,###" type="currency"/>
+                                <f:convertNumber pattern="###,#,##0.00" type="currency"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_vat}" 
@@ -156,7 +156,7 @@
                                   sortBy="#{item.vat}" footerText="#{msg.label_vat}"
                                   style="text-align: right">
                             <h:outputText value="#{item.vat}">
-                                <f:convertNumber pattern="###,###" type="currency"/>
+                                <f:convertNumber pattern="###,#,##0.00" type="currency"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_total}" 
@@ -164,7 +164,7 @@
                                   sortBy="#{item.total}" footerText="#{msg.label_total}"
                                   style="text-align: right">
                             <h:outputText value="#{item.total}">
-                                <f:convertNumber pattern="###,###" type="currency"/>
+                                <f:convertNumber pattern="###,#,##0.00" type="currency"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_issue_date}" 

@@ -104,7 +104,7 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
                 + "open_policy.broker_name "
                 + "FROM "
                 + "claim_insure "
-                + "INNER JOIN claim_status ON claim_insure.claim_status_id = claim_status.claim_status_id "
+                + "LEFT JOIN claim_status ON claim_insure.claim_status_id = claim_status.claim_status_id "
                 + "INNER JOIN transport_method ON method_of_transport_id = transport_method.transport_id "
                 + "INNER JOIN commodity_type ON claim_insure.commodity_type_code = commodity_type.commodity_type_code "
                 + "INNER JOIN open_policy ON claim_insure.policy_number = open_policy.open_policy_no "
@@ -118,8 +118,8 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
         }
 
         if (criteria.getCertificateNumber() != null && !criteria.getCertificateNumber().isEmpty()) {
-            SQL += "and claim_insure.certification_number = ? ";
-            params.add(criteria.getCertificateNumber());
+            SQL += "and claim_insure.certification_number LIKE ? ";
+            params.add("%"+criteria.getCertificateNumber()+"%");
         }
 
         if (criteria.getPolicyNumber() != null && !criteria.getPolicyNumber().isEmpty()) {
@@ -148,7 +148,7 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
         }
 
         SQL += " ORDER BY claim_insure.issue_date DESC";
-
+        
         return findNativeQuery(SQL, ViewCertificate.class, params);
 
     }

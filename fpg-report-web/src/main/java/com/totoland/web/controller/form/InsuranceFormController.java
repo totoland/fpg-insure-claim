@@ -207,8 +207,10 @@ public class InsuranceFormController extends BaseController {
     private void initData() {
         this.insureTypeList = getInsureTypeList();
         try {
-            this.currencyTypeList = dropdownFactory.getRssExchangeRate();
-            LOGGER.debug("currencyTypeList for user [{}] : {}", getUserAuthen().getUsername(), currencyTypeList);
+            if (this.claimInsure.getCertificationNumber() == null) {
+                this.currencyTypeList = dropdownFactory.getRssExchangeRate();
+                LOGGER.debug("currencyTypeList for user [{}] : {}", getUserAuthen().getUsername(), currencyTypeList);
+            }
         } catch (Exception ex) {
             LOGGER.error("Cannot fetch RSS feed : ", ex);
             super.redirectPage(JsfUtil.getContextPath() + "/errors/505.xhtml");
@@ -320,13 +322,17 @@ public class InsuranceFormController extends BaseController {
         }
     }
 
-    private void createCertificateNumber() {
+    private void createCertificateNumberWithDebitNote(DebitNote debitNote) {
         this.claimInsure.setClaimStatusId(InsureState.PRINT_CERT.getState());
         this.claimInsure.setCreatedBy(getUserAuthen().getUserId());
         this.claimInsure.setCreatedDateTime(new Date());
         if (this.claimInsure.getTrxId() == null) {
             this.claimInsure.setTrxId(WebUtils.generateToken());
         }
+
+        this.claimInsure.setStamp(debitNote.getStampDuty());
+        this.claimInsure.setVat(debitNote.getVat());
+        this.claimInsure.setTotal(debitNote.getTotal());
 
         if (this.claimInsure.getClaimId() == null || this.claimInsure.getClaimId() == 0) {
             certificateService.create(this.claimInsure);
@@ -361,6 +367,13 @@ public class InsuranceFormController extends BaseController {
 
     public StreamedContent getCertificateCopyFile(int certificateType) {
 
+        if (this.claimInsure.getClaimStatusId() == InsureState.PRINT_CERT.getState()) {
+            LOGGER.debug("Transaction has been printed set page to mode readOnly...");
+            readOnly = true;
+            JsfUtil.alertJavaScript("Transaction [" + this.claimInsure.getCertificationNumber() + "] has been printed");
+            return null;
+        }
+
         if (certificateType != 0) {
             //Validate insure value
             if (this.claimInsure.getInsuredValue() != null && this.claimInsure.getInsuredValue().compareTo(maxOfInsureValue) > 0) {
@@ -391,10 +404,35 @@ public class InsuranceFormController extends BaseController {
         LOGGER.debug("export CertificateType : {}", CertificateType.valueOf(certificateType));
 
         //If first time export must be export with ORIGINAL and need to create new Certificate number
+        DebitNote debitNoteOri = getDebitNoteBean();
         if (CertificateType.ORIGINAL.getValue() == certificateType) {
             try {
-                LOGGER.debug("createCertificateNumber...");
-                createCertificateNumber();
+                LOGGER.debug("createCertificateNumberWithDebitNote...");
+                this.claimInsure.setClaimStatusId(InsureState.PRINT_CERT.getState());
+                this.claimInsure.setCreatedBy(getUserAuthen().getUserId());
+                this.claimInsure.setCreatedDateTime(new Date());
+                if (this.claimInsure.getTrxId() == null) {
+                    this.claimInsure.setTrxId(WebUtils.generateToken());
+                }
+
+                this.claimInsure.setStamp(debitNoteOri.getStampDuty());
+                this.claimInsure.setVat(debitNoteOri.getVat());
+                this.claimInsure.setTotal(debitNoteOri.getTotal());
+
+                if (this.claimInsure.getClaimId() == null || this.claimInsure.getClaimId() == 0) {
+                    certificateService.create(this.claimInsure);
+                } else {
+                    certificateService.edit(this.claimInsure);
+                }
+                this.certNumber = certificateService.getCertificateNO(this.claimInsure);
+                LOGGER.debug("createCertificateNumberWithDebitNote... {}", this.claimInsure);
+                this.claimInsure.setCertificationNumber(certNumber);
+                certificateService.updateStateCertNo(this.claimInsure);
+
+                debitNoteOri.setCertificationNumber(certNumber);
+
+                readOnly = true;
+                LOGGER.info("Print Certificate number : {} by user {}", certNumber, getUserAuthen().getUserId());
             } catch (Exception ex) {
                 LOGGER.error("Fail when create createCertificateNumber : ", ex);
                 return null;
@@ -462,28 +500,28 @@ public class InsuranceFormController extends BaseController {
             if (listPolicy != null && !listPolicy.isEmpty()) {
 
                 String detail = "";
-                String airLineVessel = this.claimInsure.getConveyanceName()!=null?this.claimInsure.getConveyanceName()+",":"";
-                airLineVessel += this.claimInsure.getVoyageFlightNumber()!=null?this.claimInsure.getVoyageFlightNumber():"";
-                airLineVessel += this.claimInsure.getTransshipmentVessel()!=null&&!this.claimInsure.getTransshipmentVessel().trim().isEmpty()?
-                        ("/"+this.claimInsure.getTransshipmentVessel()):"";
-                
+                String airLineVessel = this.claimInsure.getConveyanceName() != null ? this.claimInsure.getConveyanceName() + "," : "";
+                airLineVessel += this.claimInsure.getVoyageFlightNumber() != null ? this.claimInsure.getVoyageFlightNumber() : "";
+                airLineVessel += this.claimInsure.getTransshipmentVessel() != null && !this.claimInsure.getTransshipmentVessel().trim().isEmpty()
+                        ? ("/" + this.claimInsure.getTransshipmentVessel()) : "";
+
                 if (AIR == this.claimInsure.getMethodOfTransportId()) {
                     detail = listPolicy.get(0).getClausesAir();
                     certRpt.setMethodOfTranSport("AIRLINE &:");
                     certRpt.setForMethod("(FOR SENDING BY AIRFREIGHT ONLY)");
-                    certRpt.setVesselAirline("FLIGHT NO. "+airLineVessel);
+                    certRpt.setVesselAirline("FLIGHT NO. " + airLineVessel);
                     certRpt.setFlightDateLabel("FLIGHT DATE:");
                 } else if (VESSEL == this.claimInsure.getMethodOfTransportId()) {
                     detail = listPolicy.get(0).getClausesVessel();
                     certRpt.setMethodOfTranSport("VESSEL:");
                     certRpt.setForMethod("");
-                    certRpt.setVesselAirline("           "+airLineVessel);
+                    certRpt.setVesselAirline("           " + airLineVessel);
                     certRpt.setFlightDateLabel("SAILING ON OR ABOUT:");
                 } else if (TRUCK == this.claimInsure.getMethodOfTransportId()) {
                     detail = listPolicy.get(0).getClausesTruck();
                     certRpt.setMethodOfTranSport("VESSEL:");
                     certRpt.setForMethod("");
-                    certRpt.setVesselAirline("TRUCK NO.  "+airLineVessel);
+                    certRpt.setVesselAirline("TRUCK NO.  " + airLineVessel);
                     certRpt.setFlightDateLabel("SAILING ON OR ABOUT:");
                 }
 
@@ -512,7 +550,7 @@ public class InsuranceFormController extends BaseController {
 
                 //For Debit note
                 String jrxmlPathDebit = JsfUtil.getRealPath(DEBIT_NOTE_PDF_TEMPLATE);
-                DebitNote debitNoteOri = getDebitNoteBean();
+
                 debitNoteOri.setCopyType(DebitNoteType.ORIGINAL.getName());
                 debitNoteOri.setTitleCopy(DebitNoteType.ORIGINAL.getTitle());
                 collectionBeans.add(new ArrayCollectionBean(jrxmlPathDebit, Arrays.asList(debitNoteOri)));
@@ -529,7 +567,7 @@ public class InsuranceFormController extends BaseController {
             byte[] data = new PDFReportExporter().exporterToByteList(collectionBeans);
             SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
             return new DefaultStreamedContent(new ByteArrayInputStream(data),
-                    "application/pdf", "CERTIFICATE_" + (this.claimInsure.getCertificationNumber()==null?"PREVIEW":this.claimInsure.getCertificationNumber()) + "_" + dateFormat.format(new Date()) + ".pdf");
+                    "application/pdf", "CERTIFICATE_" + (this.claimInsure.getCertificationNumber() == null ? "PREVIEW" : this.claimInsure.getCertificationNumber()) + "_" + dateFormat.format(new Date()) + ".pdf");
         } catch (Exception ex) {
             LOGGER.error("download error ", ex);
             JsfUtil.alertJavaScript(ex.getMessage());

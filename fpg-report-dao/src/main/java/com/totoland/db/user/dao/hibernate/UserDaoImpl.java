@@ -43,8 +43,8 @@ public class UserDaoImpl extends GennericDaoImpl<SvUser> implements UserDao {
         }
 
         if (criteria.getInsuredName() != null && !criteria.getInsuredName().trim().isEmpty()) {
-            sql.append("AND sv_user.COMPANY_NAME = ? ");
-            lst.add(criteria.getInsuredName());
+            sql.append("AND sv_user.COMPANY_NAME LIKE ? ");
+            lst.add("%"+criteria.getInsuredName()+"%");
         }
 
         if (criteria.getGroupId() != null && criteria.getGroupId() != -1) {
@@ -55,9 +55,8 @@ public class UserDaoImpl extends GennericDaoImpl<SvUser> implements UserDao {
         if (criteria.getUserName() != null && !criteria.getUserName().trim().isEmpty()) {
             sql.append("AND sv_user.FNAME LIKE ? OR sv_user.LNAME LIKE ? ");
             lst.add("%" + criteria.getUserName() + "%");
-            lst.add("%" + criteria.getUserName() + "%");
         }
-
+        
         if (criteria.getGroupLvl() != null && criteria.getGroupLvl() != -1) {
             sql.append("AND sv_user.USER_GROUP_LVL = ? ");
             lst.add(criteria.getGroupLvl());
