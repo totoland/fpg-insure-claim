@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDebitNote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7cc9e6c-39c7-448f-b25c-32e05a2d7e7a">
 	<property name="ireport.zoom" value="1.996500000000013"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="192"/>
 	<field name="taxNo" class="java.lang.String"/>
 	<field name="insuredName" class="java.lang.String"/>
 	<field name="insuredValue" class="java.lang.String"/>
@@ -26,6 +26,7 @@
 	<field name="branchNo" class="java.lang.String"/>
 	<field name="taxId" class="java.lang.String"/>
 	<field name="copyType" class="java.lang.String"/>
+	<field name="titleCopy" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -81,13 +82,6 @@
 				<text><![CDATA[เลขประจำตัวผู้เสียภาษีอากร / ทะเบียนเลขที่ Taxpayer ID No. / Registration No. 0107555000279]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="355" y="150" width="199" height="17" uuid="e85994db-bd83-433d-b22f-ba00877cf9c8"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[สำเนาใบแจ้งหนี้]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="355" y="165" width="199" height="17" uuid="2fa25b18-4f87-4cf8-ad42-3bfdfe83050f"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
@@ -95,9 +89,9 @@
 				<text><![CDATA["เอกสารออกเป็นชุด และ ไม่ใช่ใบกำกับภาษี"]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="381" y="130" width="173" height="17" forecolor="#999999" uuid="e70ccecd-0c50-45d6-9ebd-713f1efedfd1"/>
+				<reportElement x="267" y="104" width="287" height="37" forecolor="#999999" uuid="e70ccecd-0c50-45d6-9ebd-713f1efedfd1"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="THTahoma" size="10" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="24" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{copyType}]]></textFieldExpression>
 			</textField>
@@ -105,13 +99,20 @@
 				<reportElement x="3" y="3" width="152" height="51" uuid="48c8490e-912a-444e-9e79-d8193f30e60f"/>
 				<imageExpression><![CDATA[$F{companyLogoURL}]]></imageExpression>
 			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="367" y="141" width="187" height="24" uuid="b71a7ab3-7467-4293-8e7a-b12b6a979ff2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="THTahoma" size="10" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titleCopy}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
 		<band height="598" splitType="Stretch">
 			<staticText>
-				<reportElement x="3" y="42" width="123" height="17" uuid="ebee3374-08da-4406-b1ac-55904040d8b1"/>
-				<textElement verticalAlignment="Top">
+				<reportElement x="3" y="39" width="123" height="19" uuid="ebee3374-08da-4406-b1ac-55904040d8b1"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ชื่อและที่อยู่ผู้เอาประกันภัย         ]]></text>
@@ -159,42 +160,42 @@
 				<text><![CDATA[จำนวนเงินเอาประกันภัย Sum Insured]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="167" y="277" width="83" height="17" uuid="09c01250-b69a-4cb6-b2cb-ffa68c6fcde8"/>
+				<reportElement x="167" y="289" width="83" height="17" uuid="09c01250-b69a-4cb6-b2cb-ffa68c6fcde8"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ระยะเวลาประกันภัย]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="167" y="288" width="83" height="17" uuid="5e199cc5-b338-44db-962f-35dcf1cb0fd0"/>
+				<reportElement x="167" y="308" width="83" height="17" uuid="5e199cc5-b338-44db-962f-35dcf1cb0fd0"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Period of Insurance]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="267" y="277" width="28" height="17" uuid="cb8cfd97-77c1-4e41-98b8-8ff690bb5ac9"/>
+				<reportElement x="267" y="290" width="26" height="17" uuid="cb8cfd97-77c1-4e41-98b8-8ff690bb5ac9"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[จาก]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="267" y="288" width="28" height="17" uuid="d4b71cd1-92a5-43f7-b88e-1b9399080fd8"/>
+				<reportElement x="267" y="308" width="28" height="17" uuid="d4b71cd1-92a5-43f7-b88e-1b9399080fd8"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[From]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="394" y="288" width="28" height="17" uuid="f7a10a9c-f3ca-44f5-89c6-4d8a13602ae6"/>
+				<reportElement x="395" y="308" width="27" height="17" uuid="f7a10a9c-f3ca-44f5-89c6-4d8a13602ae6"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[To]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="394" y="277" width="28" height="17" uuid="86281663-e287-4149-8a1b-4a16911927ca"/>
+				<reportElement x="394" y="290" width="28" height="17" uuid="86281663-e287-4149-8a1b-4a16911927ca"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -222,28 +223,28 @@
 				<text><![CDATA[รวมทั้งสิ้น  Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="348" y="448" width="206" height="17" uuid="29ba9461-879a-4f13-8913-5854e3087725"/>
+				<reportElement x="348" y="474" width="206" height="17" uuid="29ba9461-879a-4f13-8913-5854e3087725"/>
 				<textElement textAlignment="Center">
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ผู้รับมอบอำนาจอนุมัติ / Authorized Signature]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="329" width="352" height="16" uuid="7812c633-2029-4643-a37c-7458e195470a"/>
+				<reportElement x="3" y="362" width="352" height="16" uuid="7812c633-2029-4643-a37c-7458e195470a"/>
 				<textElement>
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[กรุณาเขียนเช็คขีดคร่อมจ่ายในนาม "บริษัท เอฟพีจี ประกันภัย (ประเทศไทย) จำกัด (มหาชน)"]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="341" width="371" height="16" uuid="e505f387-136d-402a-aafb-547bfdb4dcef"/>
+				<reportElement x="3" y="374" width="371" height="16" uuid="e505f387-136d-402a-aafb-547bfdb4dcef"/>
 				<textElement>
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Please make crossed cheque payable to "FPG Insurance (Thailand) Public Company Limited"]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="138" width="133" height="17" uuid="f8c1745c-78b8-45e1-995f-75c7284bdba7"/>
+				<reportElement x="3" y="131" width="133" height="17" uuid="f8c1745c-78b8-45e1-995f-75c7284bdba7"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -264,7 +265,7 @@
 				<text><![CDATA[สาขา ลำดับที่]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="41" y="179" width="70" height="17" uuid="c8d8b100-8c59-4ee8-ab82-5813f3811ab1"/>
+				<reportElement x="41" y="181" width="70" height="15" uuid="c8d8b100-8c59-4ee8-ab82-5813f3811ab1"/>
 				<textElement textAlignment="Justified" verticalAlignment="Top">
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -292,42 +293,42 @@
 				<text><![CDATA[กรมธรรม์เลขที่/สลักหลังเลขที่/ใบรับรองเลขที่]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="288" width="51" height="17" uuid="73943bf3-1885-4b70-b1f6-0da853d5cf21"/>
+				<reportElement x="3" y="306" width="60" height="17" uuid="73943bf3-1885-4b70-b1f6-0da853d5cf21"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Broker/Argent           ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="277" width="72" height="17" uuid="4ff8b51b-2fa2-4ecf-a932-6c4120c99aae"/>
+				<reportElement x="3" y="290" width="72" height="17" uuid="4ff8b51b-2fa2-4ecf-a932-6c4120c99aae"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[นายหน้า/ตัวแทน]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="54" width="133" height="17" uuid="e38dd288-fb50-4d2a-8675-1a824def4ca3"/>
+				<reportElement x="3" y="58" width="133" height="15" uuid="e38dd288-fb50-4d2a-8675-1a824def4ca3"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Insured Name And Address:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="150" width="140" height="17" uuid="3f4751ea-35c8-42ae-86d5-253cbd58cf7f"/>
+				<reportElement x="3" y="147" width="140" height="17" uuid="3f4751ea-35c8-42ae-86d5-253cbd58cf7f"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Company Register No./TAX ID:           ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="3" y="82" width="352" height="55" uuid="38a4ca07-3742-44e8-bf14-8d4db48b1fd8"/>
+				<reportElement x="3" y="91" width="352" height="40" uuid="38a4ca07-3742-44e8-bf14-8d4db48b1fd8"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="10" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{insuredAddress}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="3" y="65" width="133" height="17" uuid="088dff15-5622-46f5-8cba-bcd9f71d1a88"/>
+				<reportElement x="3" y="71" width="133" height="17" uuid="088dff15-5622-46f5-8cba-bcd9f71d1a88"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="10" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -390,14 +391,14 @@
 				<textFieldExpression><![CDATA[$F{vat}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="298" y="277" width="91" height="17" uuid="172ae632-5795-43fc-afa1-001a61fd6164"/>
+				<reportElement x="298" y="290" width="91" height="17" uuid="172ae632-5795-43fc-afa1-001a61fd6164"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("en")).format($F{warrantyFrom})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="422" y="277" width="91" height="17" uuid="ed698772-257c-41c1-ba48-4da5a2e0fc9c"/>
+				<reportElement x="423" y="289" width="117" height="17" uuid="ed698772-257c-41c1-ba48-4da5a2e0fc9c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="10" isBold="false"/>
 				</textElement>
@@ -418,7 +419,7 @@
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Float.valueOf($F{insuredValue}))]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="64" y="288" width="94" height="24" uuid="64ae080c-b3cb-4ffa-8328-f161fafe3cc6"/>
+				<reportElement x="64" y="306" width="95" height="28" uuid="64ae080c-b3cb-4ffa-8328-f161fafe3cc6"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="10" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -432,22 +433,22 @@
 				<textFieldExpression><![CDATA[$F{branchNo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="155" y="150" width="157" height="17" uuid="2b9856f9-92ed-49b1-8bba-ee98cba4f66b"/>
+				<reportElement x="155" y="149" width="157" height="17" uuid="2b9856f9-92ed-49b1-8bba-ee98cba4f66b"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="10" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{taxId}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="26" y="169" width="13" height="13" uuid="c9ae9d77-1462-47e6-873b-7972ebeac3e2"/>
+				<reportElement x="25" y="167" width="13" height="13" uuid="c9ae9d77-1462-47e6-873b-7972ebeac3e2"/>
 				<imageExpression><![CDATA[$F{homeOfficeLogoURL}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="143" y="168" width="13" height="13" uuid="fb4eb259-7700-408a-a6ec-c4a1d7fb6c9f"/>
+				<reportElement x="143" y="166" width="13" height="13" uuid="fb4eb259-7700-408a-a6ec-c4a1d7fb6c9f"/>
 				<imageExpression><![CDATA[$F{branchCheckBoxURL}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="395" y="380" width="138" height="56" uuid="1a31e481-55b8-41da-acd2-9ee3ed987af3"/>
+				<reportElement x="395" y="406" width="138" height="56" uuid="1a31e481-55b8-41da-acd2-9ee3ed987af3"/>
 				<imageExpression><![CDATA[$F{authorizedSignatureURL}]]></imageExpression>
 			</image>
 			<line>
@@ -469,16 +470,16 @@
 				<reportElement x="1" y="236" width="555" height="1" uuid="97fbf34c-92a2-46b3-be3f-ffe7367d21b7"/>
 			</line>
 			<line>
-				<reportElement x="1" y="274" width="555" height="1" uuid="6f51e55b-872e-4527-8459-85d056aead1f"/>
+				<reportElement x="1" y="285" width="555" height="1" uuid="6f51e55b-872e-4527-8459-85d056aead1f"/>
 			</line>
 			<line>
-				<reportElement x="0" y="312" width="555" height="1" uuid="e084817e-fb3c-44e1-a29c-6262bf6b1a19"/>
+				<reportElement x="0" y="335" width="555" height="1" uuid="e084817e-fb3c-44e1-a29c-6262bf6b1a19"/>
 			</line>
 			<line>
-				<reportElement x="0" y="39" width="1" height="273" uuid="47fab289-e2a9-4f55-9919-14b5feca2552"/>
+				<reportElement x="0" y="39" width="1" height="296" uuid="47fab289-e2a9-4f55-9919-14b5feca2552"/>
 			</line>
 			<line>
-				<reportElement x="555" y="1" width="1" height="312" uuid="f4bcd686-93b4-4820-9621-1cde98e1ed5b"/>
+				<reportElement x="555" y="1" width="1" height="334" uuid="f4bcd686-93b4-4820-9621-1cde98e1ed5b"/>
 			</line>
 			<line>
 				<reportElement x="0" y="38" width="556" height="1" uuid="9435a18d-f3a8-4762-b486-ea9e9ee4f40e"/>
@@ -490,10 +491,10 @@
 				<reportElement x="161" y="198" width="1" height="38" uuid="cd8cf413-7347-4cf3-bceb-228d955e7124"/>
 			</line>
 			<line>
-				<reportElement x="161" y="275" width="1" height="38" uuid="fae5d4ed-412a-435a-b392-3d441f7d41d9"/>
+				<reportElement x="161" y="286" width="1" height="49" uuid="fae5d4ed-412a-435a-b392-3d441f7d41d9"/>
 			</line>
 			<line>
-				<reportElement x="373" y="441" width="181" height="1" uuid="52682978-8a0b-4a64-abf3-3f99442db90a"/>
+				<reportElement x="373" y="467" width="181" height="1" uuid="52682978-8a0b-4a64-abf3-3f99442db90a"/>
 			</line>
 		</band>
 	</detail>
