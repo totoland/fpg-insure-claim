@@ -30,14 +30,18 @@ import java.util.Date;
  *
  * @author totoland
  */
-public class CertifaicationCriteria implements Serializable{
-    
+public class CertifaicationCriteria implements Serializable {
+
+    private static final long serialVersionUID = 5004656164826203543L;
+
     private String certificateNumber;
     private String policyNumber;
     private String insuredName;
     private String status;
     private Date issueDateFrom;
     private Date issueDateTo;
+    private Date brokerName;
+    private Date brokerLicenses;
 
     public String getCertificateNumber() {
         return certificateNumber;
@@ -87,8 +91,27 @@ public class CertifaicationCriteria implements Serializable{
         this.issueDateTo = issueDateTo;
     }
 
+    public Date getBrokerName() {
+        return brokerName;
+    }
+
+    public void setBrokerName(Date brokerName) {
+        this.brokerName = brokerName;
+    }
+
+    public Date getBrokerLicenses() {
+        return brokerLicenses;
+    }
+
+    public void setBrokerLicenses(Date brokerLicenses) {
+        this.brokerLicenses = brokerLicenses;
+    }
+
     @Override
     public String toString() {
-        return "CertifaicationCriteria{" + "certificateNumber=" + certificateNumber + ", policyNumber=" + policyNumber + ", insuredName=" + insuredName + ", status=" + status + ", issueDateFrom=" + issueDateFrom + ", issueDateTo=" + issueDateTo + '}';
+        return "CertifaicationCriteria{" + "certificateNumber=" + certificateNumber
+                + ", policyNumber=" + policyNumber + ", insuredName=" + insuredName + ", status="
+                + status + ", issueDateFrom=" + issueDateFrom + ", issueDateTo=" + issueDateTo
+                + ", brokerName=" + brokerName + ", brokerLicenses=" + brokerLicenses + '}';
     }
 }

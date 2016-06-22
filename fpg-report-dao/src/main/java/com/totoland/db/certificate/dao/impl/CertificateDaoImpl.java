@@ -42,7 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements CertificateDao {
 
     private static final long serialVersionUID = -2516485566461068565L;
-    
+
     @Transactional(readOnly = true)
     @Override
     public List<ViewCertificate> findByCriteria(CertifaicationCriteria criteria) {
@@ -57,72 +57,79 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
                 + "claim_insure.method_of_transport_id, "
                 + "claim_insure.issue_date, "
                 + "claim_insure.trx_id "
+                + "claim_insure.rate, "
+                + "claim_insure.premium_rate, "
+                + "claim_insure.minimum_premium_rate, "
+                + "claim_insure.stamp, "
+                + "claim_insure.vat, "
+                + "claim_insure.total, "
+                + "claim_status.claim_status_name"
                 + "FROM "
                 + "claim_insure "
                 + "INNER JOIN claim_status ON claim_insure.claim_status_id = claim_status.claim_status_id "
                 + "WHERE 1=1  ";
-        
+
         List<Object> params = new ArrayList<>();
         if (criteria.getIssueDateFrom() != null && criteria.getIssueDateTo() != null) {
             SQL += "and (claim_insure.issue_date >= ? and claim_insure.issue_date <= ?) ";
             params.add(criteria.getIssueDateFrom());
             params.add(criteria.getIssueDateTo());
         }
-        
+
         if (criteria.getCertificateNumber() != null && !criteria.getCertificateNumber().isEmpty()) {
             SQL += "and claim_insure.certification_number = ? ";
             params.add(criteria.getCertificateNumber());
         }
-        
+
         if (criteria.getPolicyNumber() != null && !criteria.getPolicyNumber().isEmpty()) {
             SQL += "and claim_insure.policy_number = ? ";
             params.add(criteria.getPolicyNumber());
         }
-        
+
         if (criteria.getInsuredName() != null && !criteria.getInsuredName().isEmpty()) {
             SQL += "and claim_insure.insured_id = ? ";
             params.add(criteria.getInsuredName());
         }
-        
+
         if (criteria.getStatus() != null && !criteria.getStatus().isEmpty()) {
             SQL += "and claim_insure.claim_status_id = ? ";
             params.add(criteria.getStatus());
         }
-        
+
         SQL += " ORDER BY claim_insure.issue_date DESC";
-        
+
         return findNativeQuery(SQL, ViewCertificate.class, params);
-        
+
     }
-    
+
     @Transactional(readOnly = true)
     @Override
     public ClaimInsure findByTrxId(String trxId) {
         return (ClaimInsure) findUniqNativeQuery("SELECT * FROM claim_insure where trx_id = ?", ClaimInsure.class, trxId);
     }
-    
+
     @Transactional(rollbackFor = {Throwable.class})
     @Override
-    public void updateStateCertNo(ClaimInsure claimInsure){
+    public void updateStateCertNo(ClaimInsure claimInsure) {
         updateNativeQuery("UPDATE claim_insure set certification_number=?,claim_status_id=? where claim_id=?", claimInsure.getCertificationNumber(),
-                claimInsure.getClaimStatusId(),claimInsure.getClaimId());
-        
+                claimInsure.getClaimStatusId(), claimInsure.getClaimId());
+
         updateNativeQuery("INSERT INTO cert_no values (?,?,?)", claimInsure.getCertificationNumber(),
-                claimInsure.getCreatedBy(),claimInsure.getCreatedDateTime());
+                claimInsure.getCreatedBy(), claimInsure.getCreatedDateTime());
     }
 
     @Transactional(readOnly = true)
     @Override
     public String getCertificateNO(ClaimInsure claimInsure) {
-        return oneColumnNativeQuery("select CONCAT('F',DATE_FORMAT(SYSDATE(), '%y%m'),'-', LPAD('"+claimInsure.getClaimId()+"',7,'0'))").toString();
+        return oneColumnNativeQuery("select CONCAT('F',DATE_FORMAT(SYSDATE(), '%y%m'),'-', LPAD('" + claimInsure.getClaimId() + "',7,'0'))").toString();
     }
 
     @Transactional(readOnly = true)
     @Override
     public int countInvoiceNumberByOpenPolicy(ClaimInsure claimInsure) {
-        BigInteger count = countNativeQuery("SELECT COUNT(1) FROM claim_insure WHERE invoice_number = ? and policy_number = ?", 
-                claimInsure.getInvoiceNumber(),claimInsure.getPolicyNumber());
-        
-        return count!=null?count.intValue():0;
+        BigInteger count = countNativeQuery("SELECT COUNT(1) FROM claim_insure WHERE invoice_number = ? and policy_number = ?",
+                claimInsure.getInvoiceNumber(), claimInsure.getPolicyNumber());
+
+        return count != null ? count.intValue() : 0;
     }
 }

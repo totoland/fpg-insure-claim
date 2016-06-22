@@ -8,8 +8,6 @@ import com.totoland.db.authen.dao.AuthenDao;
 import com.totoland.db.dao.BaseDao;
 import com.totoland.db.entity.ViewUser;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

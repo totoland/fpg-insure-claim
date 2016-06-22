@@ -5,7 +5,6 @@
 package com.totoland.db.entity;
 
 import com.totoland.db.domain.entity.DomainEntity;
-import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
