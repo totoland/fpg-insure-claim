@@ -373,13 +373,13 @@ public class DropdownFactory implements Serializable {
     }
 
     private static URL url = null;
-    
+
     public List<DropDownList> getRssExchangeRate() throws Exception {
 
-        if(url == null){
+        if (url == null) {
             url = new URL("http://www2.bot.or.th/RSS/fxrates/fxrate-all.xml");
         }
-        
+
         List<DropDownList> ddlRssExchangeRate = new ArrayList<>();
         ddlRssExchangeRate.add(new DropDownList("THB", "THB", "1.0000"));
         Feed feed = FeedParser.parse(url);
@@ -389,18 +389,35 @@ public class DropdownFactory implements Serializable {
             FeedItem item = feed.getItem(i);
             String targetCurrency = item.getElement("http://centralbanks.org/cb/1.0/", "targetCurrency").getValue();
             String value = item.getElement("http://centralbanks.org/cb/1.0/", "value").getValue();
-            
+            String description = item.getDescriptionAsText();
+
             if (StringUtils.isNumeric(value)) {
-                ddlRssExchangeRate.add(new DropDownList(targetCurrency.trim(),targetCurrency.trim(), String.valueOf(new BigDecimal(value.trim()).setScale(4,RoundingMode.HALF_UP).doubleValue())));
-            }else{
+                try {
+                    //Thai Baht =
+                    String[] spl = description.split("Thai Baht = ");
+                    String unit = "";
+                    if (spl.length > 1) {
+                        String[] units = spl[1].split(targetCurrency.trim());
+                        if (units[0] != null) {
+                            unit = units[0].replaceAll(targetCurrency.trim(), "").replaceAll(" ", "");
+                            if (!unit.trim().equals("1")) {
+                                String newValue = String.valueOf(new BigDecimal(value).divide(new BigDecimal(unit)).setScale(4, RoundingMode.HALF_UP).doubleValue());
+                                ddlRssExchangeRate.add(new DropDownList(targetCurrency.trim(), targetCurrency.trim(), 
+                                        newValue));
+                                continue;
+                            }
+                        }
+                    }
+                } catch (Exception ex) {
+                }
+                ddlRssExchangeRate.add(new DropDownList(targetCurrency.trim(), targetCurrency.trim(), String.valueOf(new BigDecimal(value.trim()).setScale(4, RoundingMode.HALF_UP).doubleValue())));
+            } else {
                 //System.out.println(item.getSname().trim()+" | "+item.getBuy());
             }
         }
 
         return ddlRssExchangeRate;
     }
-    
-    
 
     public String getMinimumPremium() {
 

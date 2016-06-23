@@ -98,7 +98,7 @@ public class CertificateServiceImpl extends GennericServiceImpl<ClaimInsure> imp
     }
 
     @Override
-    public int countInvoiceNumberByOpenPolicy(ClaimInsure claimInsure) {
+    public int countInsuredValueByOpenPolicy(ClaimInsure claimInsure) {
         return certificateDao.countInvoiceNumberByOpenPolicy(claimInsure);
     }
 }

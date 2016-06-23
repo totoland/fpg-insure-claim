@@ -29,5 +29,5 @@ public interface CertificateService extends GennericService<ClaimInsure>{
     
     void removeAndBackup(ClaimInsure claimInsure)throws Exception;
     
-    int countInvoiceNumberByOpenPolicy(ClaimInsure claimInsure);
+    int countInsuredValueByOpenPolicy(ClaimInsure claimInsure);
 }

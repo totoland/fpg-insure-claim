@@ -33,7 +33,6 @@ import com.totoland.web.utils.WebUtils;
 import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -136,6 +135,7 @@ public class InsuranceFormController extends BaseController {
     }
 
     @PostConstruct
+    @Override
     public void init() {
         LOGGER.debug("init...");
 
@@ -391,11 +391,14 @@ public class InsuranceFormController extends BaseController {
 
             if (CertificateType.ORIGINAL.getValue() == certificateType) {
                 //Check invoice value cannot duplicate
-                LOGGER.debug("countInvoiceNumberByOpenPolicy invoice number : {} : openpolicy {}", claimInsure.getInvoiceNumber(), claimInsure.getPolicyNumber());
-                int count = certificateService.countInvoiceNumberByOpenPolicy(claimInsure);
+                LOGGER.debug("countInvoiceNumberByOpenPolicy insured value : {} : openpolicy {}", claimInsure.getInsuredValue(), claimInsure.getPolicyNumber());
+                int count = certificateService.countInsuredValueByOpenPolicy(claimInsure);
                 if (count > 0) {
                     LOGGER.debug("Duplicate [{}] invoice number", claimInsure.getInvoiceNumber());
-                    JsfUtil.alertJavaScript("Found Invoice Number " + claimInsure.getInvoiceNumber() + " in system, Please try again with new Invoice Number.");
+                    //JsfUtil.alertJavaScript("Found Invoice Number " + claimInsure.getInvoiceNumber() + " in system, Please try again with new Insured value.");
+                    JsfUtil.executeJavaScript("$('#form\\\\:insuredValueSpan').html('"+"Found Invoice Number " + claimInsure.getInvoiceNumber() 
+                            + " in system, Please try again with new Insured value."
+                            +"');PF('genericInsuredValueDialog').show()");
                     return null;
                 }
             }

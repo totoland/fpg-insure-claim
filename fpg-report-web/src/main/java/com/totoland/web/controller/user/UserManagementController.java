@@ -399,12 +399,4 @@ public class UserManagementController extends BaseController {
     public void setKeyMatchService(KeyMatchService keyMatchService) {
         this.keyMatchService = keyMatchService;
     }
-
-    public RequestContext getContext() {
-        return context;
-    }
-
-    public void setContext(RequestContext context) {
-        this.context = context;
-    }
 }

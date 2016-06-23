@@ -785,6 +785,21 @@
                     </div>
                 </div>
             </p:dialog>
+                
+            <p:dialog id="genericInsuredValueDialog" widgetVar="genericDialog" showEffect="fade" modal="true" 
+                      onHide="PF('genericDialog').hide();">
+                <div class="ui-messages ui-widget" aria-live="polite">
+                    <div class="ui-messages-error ui-corner-all">
+                        <span class="ui-messages-error-icon"></span>
+                        <ul>
+                            <li>
+                                <span id="insuredValueSpan" class="ui-messages-error-summary">
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </p:dialog>    
 
             <style>
                 .ui-inputfield{

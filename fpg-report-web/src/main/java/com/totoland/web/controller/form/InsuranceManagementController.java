@@ -40,11 +40,12 @@ public class InsuranceManagementController extends BaseController {
     private List<DropDownList>insureNameList;
     
     @PostConstruct
+    @Override
     public void init() {
         this.criteria = new CertifaicationCriteria();
         //Customer accout must be fecth only owner data
         if (UserType.CUSTOMER.getId() == getUserAuthen().getUserGroupLvl()) {
-            this.criteria.setInsuredName(String.valueOf(getUserAuthen().getUserId()));
+            this.criteria.setInsuredId(String.valueOf(getUserAuthen().getUserId()));
         }
         this.listViewCertificate = null;
         this.insureNameList = dropdownFactory.ddlInsureName();

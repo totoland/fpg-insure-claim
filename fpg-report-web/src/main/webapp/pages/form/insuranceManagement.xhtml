@@ -51,8 +51,7 @@
                                     <h:outputLabel value="#{msg.label_insured_name}"/>
                                     <p:selectOneMenu styleClass="selectOne115"
                                                      disabled="#{insuranceManagementController.userAuthen.userGroupLvl == '3'}"
-                                                     value="#{insuranceManagementController.criteria.insuredName}"
-                                                     maxlength="255">
+                                                     value="#{insuranceManagementController.criteria.insuredId}">
                                         <f:selectItem itemLabel="" itemValue="" />
                                         <f:selectItems value="#{insuranceManagementController.insureNameList}" var="item"
                                                        itemValue="#{item.value}"
