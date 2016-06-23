@@ -7,45 +7,6 @@
                 template="/WEB-INF/template.xhtml">
 
     <ui:define name="head">
-        <script type="text/javascript">
-            function skinChart() {
-                this.cfg.shadow = false;
-                this.cfg.title = '';
-                this.cfg.seriesColors = ['#FF4081', '#FB8C00', '#43A047', '#8E24AA'];
-                this.cfg.grid = {
-                    background: '#ffffff',
-                    borderColor: '#ffffff',
-                    gridLineColor: '#F5F5F5',
-                    shadow: false
-                };
-                this.cfg.axesDefaults = {
-                    rendererOptions: {
-                        textColor: '#666F77'
-                    }
-                };
-                this.cfg.seriesDefaults = {
-                    shadow: false,
-                    lineWidth: 1,
-                    markerOptions: {
-                        shadow: false,
-                        size: 7,
-                        style: 'circle'
-                    }
-                }
-            }
-
-            function skinPie() {
-                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
-                this.cfg.grid = {
-                    background: '#ffffff',
-                    borderColor: '#eaeaea',
-                    gridLineColor: '#e5ebf0',
-                    shadow: false,
-                    borderWidth: 0
-                };
-                this.cfg.seriesDefaults.shadow = false;
-            }
-        </script>
         <style type="text/css">
             .jqplot-target, .jqplot-axis {
                 color: #546E7A;
@@ -359,7 +320,7 @@
                     </div>
                 </div>
             </p:dialog>
-
+            
         </h:form>
     </ui:define>
 

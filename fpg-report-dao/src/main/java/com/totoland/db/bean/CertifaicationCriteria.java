@@ -43,6 +43,8 @@ public class CertifaicationCriteria implements Serializable {
     private Date issueDateTo;
     private String brokerName;
     private String brokerLicenses;
+    private String invoiceNumber;
+    private String invoiceValue;
 
     public String getCertificateNumber() {
         return certificateNumber;
@@ -116,12 +118,24 @@ public class CertifaicationCriteria implements Serializable {
         this.insuredId = insuredId;
     }
 
+    public String getInvoiceValue() {
+        return invoiceValue;
+    }
+
+    public void setInvoiceValue(String invoiceValue) {
+        this.invoiceValue = invoiceValue;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
     @Override
     public String toString() {
-        return "CertifaicationCriteria{" + "certificateNumber=" + certificateNumber
-                + ", policyNumber=" + policyNumber + ", insuredName=" + insuredName + ", insuredId="
-                + insuredId + ", status=" + status + ", issueDateFrom=" + issueDateFrom
-                + ", issueDateTo=" + issueDateTo + ", brokerName=" + brokerName
-                + ", brokerLicenses=" + brokerLicenses + '}';
+        return "CertifaicationCriteria{" + "certificateNumber=" + certificateNumber + ", policyNumber=" + policyNumber + ", insuredName=" + insuredName + ", insuredId=" + insuredId + ", status=" + status + ", issueDateFrom=" + issueDateFrom + ", issueDateTo=" + issueDateTo + ", brokerName=" + brokerName + ", brokerLicenses=" + brokerLicenses + ", invoiceNumber=" + invoiceNumber + ", invoiceValue=" + invoiceValue + '}';
     }
 }

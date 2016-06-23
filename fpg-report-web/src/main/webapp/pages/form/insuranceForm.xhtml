@@ -108,7 +108,7 @@
                                 <h:outputLabel value="Invoice Value" title="invoice*exchange rate*valuation"/>
                                 <pe:inputNumber id="invoiceValue" value="#{insuranceFormController.claimInsure.invoiceValue}"
                                                 decimalPlaces="2"
-                                                maxValue="#{insuranceFormController.defaultMaxInsureValue}">
+                                                maxValue="1000000000">
                                     <p:ajax event="blur" listener="#{insuranceFormController.calAmountOfInsurance()}"
                                             process="@this , :form:valuation"
                                             update=":form:amountOfInsurance, :form:localAmountOfInsurance , :form:dtRate"/>
@@ -133,8 +133,8 @@
                                 <h:outputLabel value="#{msg.label_amount_of_insurance}"/>
                                 <pe:inputNumber id="amountOfInsurance" disabled="true"
                                                 value="#{insuranceFormController.claimInsure.amountOfInsurance}"
-                                                decimalPlaces="2"/>
-
+                                                decimalPlaces="2" maxValue="99999999999999.99" maxlength="30"/>
+                                
                                 <h:outputLabel value="#{msg.label_deductible_amount}"/>
                                 <h:outputLabel value="#{insuranceFormController.claimInsure.deductibleAmount}"/>
 
@@ -166,6 +166,7 @@
                                 <h:panelGroup>
                                     <pe:inputNumber id="localAmountOfInsurance" disabled="true"
                                                     value="#{insuranceFormController.claimInsure.insuredValue}"
+                                                    maxValue="99999999999999.99" maxlength="30"
                                                     decimalPlaces="0" roundMethod="U">
                                     </pe:inputNumber>
                                     <toto:requireLabel forId="form:localAmountOfInsurance"/>
@@ -528,6 +529,17 @@
                                                      type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
                                 </p:confirmDialog>
 
+                                <p:commandButton id="printCertHide" 
+                                                 ajax="false"
+                                                 process="@form"
+                                                 update="@form"
+                                                 style="display:none;"
+                                                 onclick="PrimeFaces.monitorDownload(start, function () {
+                                                                 stop();
+                                                                 window.location = window.location; 
+                                                             });">
+                                    <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile(1)}" />
+                                </p:commandButton>
                                 <p:dialog widgetVar="dlgCancel" modal="true" onHide="window.location = 'insuranceForm.xhtml'">
                                     <p:messages id="messagesDiscard" closable="false"/>
                                 </p:dialog> 
@@ -565,14 +577,12 @@
                                                  header="#{msg.confirmation_head}" 
                                                  message="#{msg.msg_confirm_save}"
                                                  showEffect="fade" hideEffect="fade">
-                                    <p:commandButton value="#{msg.yes}" 
-                                                     ajax="false"
+                                    <p:commandButton value="#{msg.yes}"
                                                      process="@form"
                                                      update="@form"
                                                      styleClass="ui-confirmdialog-yes GreenButton"
-                                                     onclick="return printCert()" 
+                                                     oncomplete="return printCert()" 
                                                      icon="ui-icon-check fa fa-check Fs14 white">
-                                        <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile(1)}"/>
                                     </p:commandButton>
                                     <p:commandButton value="#{msg.btn_cancel}"
                                                      onclick="PF('printPopup').hide()"
@@ -746,23 +756,37 @@
                     padding: 12px 10px!important;
                 }
             </style>
+            <p:remoteCommand name="checkInsuredVale" actionListener="#{insuranceFormController.checkInsuredVale()}" 
+                             oncomplete="handleComplete(xhr, status, args)"/>
             <script>
                 $("#form\\:originCountryCode").attr("style", "");
                 $("#form\\:destinationCountryCode").attr("style", "");
                 //<![CDATA[
-                var maxOfInsureValue = "#{insuranceFormController.maxOfInsureValue}";
+
                 function printCert() {
-                    var insureValue = $('#form\\:localAmountOfInsurance_input').val().replace(/,/g, '');
-                    if (parseInt(insureValue) > parseInt(maxOfInsureValue)) {
+                    if (checkMaxInsureValue()) {
                         PF('genericDialog').show();
                         PF('printPopup').hide();
                         return false;
+                    }
+
+                    checkInsuredVale();
+                    return false;
+                }
+                var maxOfInsureValue = "#{insuranceFormController.maxOfInsureValue}";
+                function checkMaxInsureValue() {
+                    var insureValue = $('#form\\:localAmountOfInsurance_input').val().replace(/,/g, '');
+                    return (parseInt(insureValue) > parseInt(maxOfInsureValue));
+                }
+                function handleComplete(xhr, status, args) {
+                    console.log(args);
+                    if (!args.isDuplicateValue) {
+                        $("#form\\:printCertHide").click();
+                        PF('printPopup').hide();
+                        start();
                     } else {
                         PF('printPopup').hide();
-                        PrimeFaces.monitorDownload(start, function () {
-                            stop();
-                            PF('cmPrintDone').show();
-                        });
+                        return false;
                     }
                 }
                 //]]>
@@ -775,7 +799,7 @@
                         <span class="ui-messages-error-icon"></span>
                         <ul>
                             <li>
-                                <span class="ui-messages-error-summary">Insure value must be less than 
+                                <span class="ui-messages-error-summary">Insure Value must be less than 
                                     <p:outputLabel value="#{insuranceFormController.maxOfInsureValue}">
                                         <f:convertNumber pattern="###,###.##"/>
                                     </p:outputLabel>
@@ -784,22 +808,7 @@
                         </ul>
                     </div>
                 </div>
-            </p:dialog>
-                
-            <p:dialog id="genericInsuredValueDialog" widgetVar="genericDialog" showEffect="fade" modal="true" 
-                      onHide="PF('genericDialog').hide();">
-                <div class="ui-messages ui-widget" aria-live="polite">
-                    <div class="ui-messages-error ui-corner-all">
-                        <span class="ui-messages-error-icon"></span>
-                        <ul>
-                            <li>
-                                <span id="insuredValueSpan" class="ui-messages-error-summary">
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </p:dialog>    
+            </p:dialog>  
 
             <style>
                 .ui-inputfield{

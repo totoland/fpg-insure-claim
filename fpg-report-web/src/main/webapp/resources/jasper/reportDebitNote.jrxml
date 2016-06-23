@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDebitNote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7cc9e6c-39c7-448f-b25c-32e05a2d7e7a">
-	<property name="ireport.zoom" value="1.996500000000013"/>
+	<property name="ireport.zoom" value="1.8150000000000117"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="336"/>
+	<property name="ireport.y" value="672"/>
 	<field name="taxNo" class="java.lang.String"/>
 	<field name="insuredName" class="java.lang.String"/>
 	<field name="insuredValue" class="java.lang.String"/>
@@ -293,7 +293,7 @@
 				<text><![CDATA[กรมธรรม์เลขที่/สลักหลังเลขที่/ใบรับรองเลขที่]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="306" width="60" height="17" uuid="73943bf3-1885-4b70-b1f6-0da853d5cf21"/>
+				<reportElement x="3" y="306" width="62" height="17" uuid="73943bf3-1885-4b70-b1f6-0da853d5cf21"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -419,9 +419,9 @@
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Float.valueOf($F{insuredValue}))]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="64" y="306" width="95" height="28" uuid="64ae080c-b3cb-4ffa-8328-f161fafe3cc6"/>
+				<reportElement x="75" y="306" width="84" height="28" uuid="64ae080c-b3cb-4ffa-8328-f161fafe3cc6"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="THTahoma" size="10" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{brokerName}]]></textFieldExpression>
 			</textField>

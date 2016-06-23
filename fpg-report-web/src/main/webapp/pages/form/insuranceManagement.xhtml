@@ -39,19 +39,25 @@
                                              layout="grid" 
                                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                              style="border:0px !important; background:none;">
-                                    <h:outputLabel value="#{msg.label_cert_no}" rendered="#{insuranceManagementController.adminOffice}"/>
+                                    <h:outputLabel value="#{msg.label_cert_no}"/>
                                     <p:inputText value="#{insuranceManagementController.criteria.certificateNumber}"
+                                                 maxlength="30"/>
+
+                                    <h:outputLabel value="#{msg.label_Policy_number}"
+                                                   rendered="#{insuranceManagementController.adminOffice}"/>
+                                    <p:inputText value="#{insuranceManagementController.criteria.policyNumber}"
                                                  maxlength="30"
                                                  rendered="#{insuranceManagementController.adminOffice}"/>
 
-                                    <h:outputLabel value="#{msg.label_Policy_number}"/>
-                                    <p:inputText value="#{insuranceManagementController.criteria.policyNumber}"
+                                    <h:outputLabel value="#{msg.label_invoice}"/>
+                                    <p:inputText value="#{insuranceManagementController.criteria.invoiceNumber}"
                                                  maxlength="30"/>
-
-                                    <h:outputLabel value="#{msg.label_insured_name}"/>
+                                    
+                                    <h:outputLabel value="#{msg.label_insured_name}" rendered="#{insuranceManagementController.adminOffice}"/>
                                     <p:selectOneMenu styleClass="selectOne115"
                                                      disabled="#{insuranceManagementController.userAuthen.userGroupLvl == '3'}"
-                                                     value="#{insuranceManagementController.criteria.insuredId}">
+                                                     value="#{insuranceManagementController.criteria.insuredId}"
+                                                     rendered="#{insuranceManagementController.adminOffice}">
                                         <f:selectItem itemLabel="" itemValue="" />
                                         <f:selectItems value="#{insuranceManagementController.insureNameList}" var="item"
                                                        itemValue="#{item.value}"
@@ -99,6 +105,7 @@
                                  rendered="#{insuranceManagementController.listViewCertificate!=null}" 
                                  rowKey="#{item.claimId}"
                                  selectionMode="single"
+                                 currentPageReportTemplate="#{msg.current_pagereport_template}"
                                  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" reflow="true">
                         <f:facet name="header">
@@ -113,7 +120,13 @@
                                   sortBy="#{item.policyNumber}" footerText="#{msg.label_Policy_number}">
                             <h:outputText value="#{item.policyNumber}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_insured_name}" sortBy="#{item.insuredName}" footerText="#{msg.label_insured_name}">
+                        <p:column headerText="#{msg.label_invoice}" 
+                                  sortBy="#{item.invoiceNumber}" footerText="#{msg.label_invoice}">
+                            <h:outputText value="#{item.invoiceNumber}" />
+                        </p:column>
+                        <p:column headerText="#{msg.label_insured_name}" 
+                                  sortBy="#{item.insuredName}" footerText="#{msg.label_insured_name}"
+                                  rendered="#{insuranceManagementController.adminOffice}">
                             <h:outputText value="#{item.insuredName}" />
                         </p:column>
                         <p:column headerText="#{msg.label_method_of_transport}" 
@@ -141,6 +154,7 @@
                                              rendered="#{insuranceManagementController.adminOffice}"
                                              styleClass="PinkButton RaisedButton"
                                              action="#{insuranceManagementController.selecteRecord(item)}"
+                                             update=":form:confirmReject"
                                              oncomplete="PF('confirmReject').show()"/>
                         </p:column>
                     </p:dataTable>
@@ -148,9 +162,10 @@
                 </p:panel>
             </div>
 
-            <p:confirmDialog widgetVar="confirmReject" 
+            <p:confirmDialog id="confirmReject" 
+                             widgetVar="confirmReject" 
                              header="#{msg.confirmation_head}" 
-                             message="#{msg.msg_confirm_reject}"
+                             message="Do you want to reject '#{insuranceManagementController.selectedRecord.certificationNumber}'?"
                              showEffect="fade" hideEffect="fade"
                              rendered="#{insuranceManagementController.adminOffice}">
                 <p:commandButton value="#{msg.yes}" 
@@ -165,6 +180,17 @@
                                  onclick="PF('confirmReject').hide()"
                                  type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
             </p:confirmDialog>
+            <style>
+                .ui-inputfield{
+                    width: 250px !important;
+                }
+                .ui-selectonemenu{
+                    width: 218px !important;
+                }
+                .ui-selectonemenu-label{
+                    width: 218px !important;
+                } 
+            </style>
         </h:form>
     </ui:define>
 

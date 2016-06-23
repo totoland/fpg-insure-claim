@@ -143,6 +143,10 @@ public class JsfUtil implements Serializable {
         executeJavaScript("parent." + report_MainDialog.concat(".").concat("hide();"));
     }
 
+    public static void openCustomDialog(String msgs) {
+        JsfUtil.executeJavaScript("$('#genericErrorDialogSpan').html('"+msgs+"');PF('genericErrorDialog').show()");
+    }
+    
     public static void executeJavaScript(String function) {
         RequestContext.getCurrentInstance().execute(function);
     }

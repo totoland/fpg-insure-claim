@@ -11,6 +11,7 @@
 
     <ui:define name="content">
         <h:form id="formUser">
+            <p:messages id="msgUser" closable="true"/>
             <div class="Container100">
                 <div class="ContainerIndent">
                     <div class="Card">
@@ -34,11 +35,6 @@
                                         <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
                                         <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
                                     </p:selectOneMenu>
-<!--                                    <h:outputLabel for="groupId" value="#{msg.userGroup}" />
-                                    <p:selectOneMenu id="groupId" style="width:200px" value="#{userManagementController.userCriteria.groupId}">
-                                        <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
-                                        <f:selectItems value="#{userManagementController.dropdownFactory.ddlUserGroup()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                    </p:selectOneMenu>-->
                                     <h:outputLabel for="criteria_username" value="#{msg.search_first_or_last_name}" style="width:200px"/>
                                     <p:inputText id="criteria_username" value="#{userManagementController.userCriteria.userName}" style="width:235px"/>
                                     <h:outputLabel/>
@@ -68,13 +64,6 @@
                                         </f:facet>
                                         <h:outputText value="#{item.fname} #{item.lname}" />
                                     </p:column>
-
-<!--                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="User Group" />
-                                        </f:facet>
-                                        <h:outputText value="#{item.userGroupName}"/>
-                                    </p:column>-->
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="#{msg.label_user_type}" />
@@ -144,7 +133,8 @@
                                 </p:selectOneRadio>
                                 <h:outputLabel value=""/>
                                 <h:panelGroup>
-                                    <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.save()}" process="modalDialogCreate" update="gridUser"/>
+                                    <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.save()}" 
+                                                     process="modalDialogCreate" update=":formUser:gridUser , :formUser:msgUser"/>
                                     <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="modalDialogCreate.hide()"/>
                                 </h:panelGroup>
                             </p:panelGrid>
@@ -189,7 +179,8 @@
                                     </p:selectOneRadio>
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
-                                        <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.edit()}" process="modalDialogEdit" update=":formUser:modalDialogEdit"/>
+                                        <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{userManagementController.edit()}" 
+                                                         process="modalDialogEdit" update=":formUser:modalDialogEdit , :formUser:gridUser , :formUser:msgUser"/>
                                         <p:commandButton value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogEdit').hide()"/>
                                     </h:panelGroup>
                                 </p:panelGrid>  

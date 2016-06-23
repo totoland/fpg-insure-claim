@@ -29,13 +29,10 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 /**
  *
@@ -47,7 +44,6 @@ public class ViewCertificate implements Serializable {
     private static final long serialVersionUID = -1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "claim_id")
     private Long claimId;
@@ -162,7 +158,11 @@ public class ViewCertificate implements Serializable {
     private String claimStatusName;
     @Column(name = "transport_method")
     private String transportMethod;
-
+    @Column(name = "origin_country_name")
+    private String originCountryName;
+    @Column(name = "destination_country_name")
+    private String destinationCountryName;
+    
     public Long getClaimId() {
         return claimId;
     }
@@ -573,6 +573,22 @@ public class ViewCertificate implements Serializable {
 
     public String getTransportMethod() {
         return transportMethod;
+    }
+
+    public String getOriginCountryName() {
+        return originCountryName;
+    }
+
+    public void setOriginCountryName(String originCountryName) {
+        this.originCountryName = originCountryName;
+    }
+
+    public String getDestinationCountryName() {
+        return destinationCountryName;
+    }
+
+    public void setDestinationCountryName(String destinationCountryName) {
+        this.destinationCountryName = destinationCountryName;
     }
 
     @Override

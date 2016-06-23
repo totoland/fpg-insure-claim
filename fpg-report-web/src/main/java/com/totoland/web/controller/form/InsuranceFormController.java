@@ -29,6 +29,8 @@ import com.totoland.web.utils.DateTimeUtils;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.NumberToWord;
+import com.totoland.web.utils.NumberUtils;
+import com.totoland.web.utils.StringUtils;
 import com.totoland.web.utils.WebUtils;
 import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
@@ -207,7 +209,7 @@ public class InsuranceFormController extends BaseController {
     private void initData() {
         this.insureTypeList = getInsureTypeList();
         try {
-            if (this.claimInsure.getCertificationNumber() == null) {
+            if (StringUtils.isBlank(this.claimInsure.getCertificationNumber())) {
                 this.currencyTypeList = dropdownFactory.getRssExchangeRate();
                 LOGGER.debug("currencyTypeList for user [{}] : {}", getUserAuthen().getUsername(), currencyTypeList);
             }
@@ -365,9 +367,25 @@ public class InsuranceFormController extends BaseController {
         return null;
     }
 
+    public void checkInsuredVale() {
+        //Check invoice value cannot duplicate
+        LOGGER.debug("countInvoiceNumberByOpenPolicy Invoice Number : {} : openpolicy {}", 
+                        claimInsure.getInvoiceNumber(), claimInsure.getPolicyNumber());
+        int count = certificateService.countInvoiceNumberByOpenPolicy(claimInsure);
+        final String isDuplicateValue = "isDuplicateValue";
+        if (count > 0) {
+            LOGGER.debug("Duplicate [{}] invoice number", claimInsure.getInvoiceNumber());
+            JsfUtil.openCustomDialog("Found Invoice Number " + (claimInsure.getInvoiceNumber())      
+                    + " in system, Please try again with new Invoice Number.");
+            super.addCallbackParam(isDuplicateValue, true);
+        }else{
+            super.addCallbackParam(isDuplicateValue, false);
+        }
+    }
+
     public StreamedContent getCertificateCopyFile(int certificateType) {
 
-        if (this.claimInsure.getClaimStatusId() == InsureState.PRINT_CERT.getState()) {
+        if (certificateType == 0 && this.claimInsure.getClaimStatusId() == InsureState.PRINT_CERT.getState()) {
             LOGGER.debug("Transaction has been printed set page to mode readOnly...");
             readOnly = true;
             JsfUtil.alertJavaScript("Transaction [" + this.claimInsure.getCertificationNumber() + "] has been printed");
@@ -391,14 +409,11 @@ public class InsuranceFormController extends BaseController {
 
             if (CertificateType.ORIGINAL.getValue() == certificateType) {
                 //Check invoice value cannot duplicate
-                LOGGER.debug("countInvoiceNumberByOpenPolicy insured value : {} : openpolicy {}", claimInsure.getInsuredValue(), claimInsure.getPolicyNumber());
-                int count = certificateService.countInsuredValueByOpenPolicy(claimInsure);
+                LOGGER.debug("countInvoiceNumberByOpenPolicy Invoice Number : {} : openpolicy {}", 
+                        claimInsure.getInvoiceNumber(), claimInsure.getPolicyNumber());
+                int count = certificateService.countInvoiceNumberByOpenPolicy(claimInsure);
                 if (count > 0) {
                     LOGGER.debug("Duplicate [{}] invoice number", claimInsure.getInvoiceNumber());
-                    //JsfUtil.alertJavaScript("Found Invoice Number " + claimInsure.getInvoiceNumber() + " in system, Please try again with new Insured value.");
-                    JsfUtil.executeJavaScript("$('#form\\\\:insuredValueSpan').html('"+"Found Invoice Number " + claimInsure.getInvoiceNumber() 
-                            + " in system, Please try again with new Insured value."
-                            +"');PF('genericInsuredValueDialog').show()");
                     return null;
                 }
             }

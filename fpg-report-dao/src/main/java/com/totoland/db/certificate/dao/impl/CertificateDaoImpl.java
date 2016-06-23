@@ -101,13 +101,17 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
                 + "transport_method.transport_name transport_method, "
                 + "commodity_type.commodity_type_name, "
                 + "open_policy.broker_license, " 
-                + "open_policy.broker_name "
+                + "open_policy.broker_name, "
+                + "CONCAT(origin_description,' , ',apps_countries.country_name) AS origin_country_name, "
+                + "CONCAT(countrie.country_name , ' , ', destination_description) AS destination_country_name "
                 + "FROM "
                 + "claim_insure "
                 + "LEFT JOIN claim_status ON claim_insure.claim_status_id = claim_status.claim_status_id "
                 + "INNER JOIN transport_method ON method_of_transport_id = transport_method.transport_id "
                 + "INNER JOIN commodity_type ON claim_insure.commodity_type_code = commodity_type.commodity_type_code "
                 + "INNER JOIN open_policy ON claim_insure.policy_number = open_policy.open_policy_no "
+                + "INNER JOIN apps_countries ON claim_insure.origin_country_code = apps_countries.country_code "
+                + "INNER JOIN apps_countries countrie ON claim_insure.destination_country_code = countrie.country_code "
                 + "WHERE 1=1  ";
 
         List<Object> params = new ArrayList<>();
@@ -125,6 +129,16 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
         if (criteria.getPolicyNumber() != null && !criteria.getPolicyNumber().isEmpty()) {
             SQL += "and claim_insure.policy_number LIKE ?";
             params.add("%"+criteria.getPolicyNumber()+"%");
+        }
+        
+        if (criteria.getInvoiceValue()!= null && !criteria.getInvoiceValue().isEmpty()) {
+            SQL += "and claim_insure.invoice_balue LIKE ?";
+            params.add("%"+criteria.getInvoiceValue()+"%");
+        }
+        
+        if (criteria.getInvoiceNumber()!= null && !criteria.getInvoiceNumber().isEmpty()) {
+            SQL += "and claim_insure.invoice_number LIKE ?";
+            params.add("%"+criteria.getInvoiceNumber()+"%");
         }
 
         if (criteria.getInsuredId()!= null && !criteria.getInsuredId().isEmpty()) {
@@ -151,7 +165,7 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
             params.add(criteria.getStatus());
         }
 
-        SQL += " ORDER BY claim_insure.issue_date DESC";
+        SQL += " ORDER BY claim_insure.issue_date , claim_insure.created_date_time , claim_insure.certification_number DESC";
         
         return findNativeQuery(SQL, ViewCertificate.class, params);
 
@@ -182,8 +196,8 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
     @Transactional(readOnly = true)
     @Override
     public int countInvoiceNumberByOpenPolicy(ClaimInsure claimInsure) {
-        BigInteger count = countNativeQuery("SELECT COUNT(1) FROM claim_insure WHERE insured_value = ? and policy_number = ?",
-                claimInsure.getInsuredValue(), claimInsure.getPolicyNumber());
+        BigInteger count = countNativeQuery("SELECT COUNT(1) FROM claim_insure WHERE invoice_number = ? and policy_number = ?",
+                claimInsure.getInvoiceNumber(), claimInsure.getPolicyNumber());
 
         return count != null ? count.intValue() : 0;
     }

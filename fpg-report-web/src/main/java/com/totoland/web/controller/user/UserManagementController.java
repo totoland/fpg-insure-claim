@@ -23,7 +23,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -127,7 +126,7 @@ public class UserManagementController extends BaseController {
             
             LOGGER.trace("Save Success !! ");
 
-            JsfUtil.alertJavaScript(MessageUtils.SAVE_SUCCESS());
+            addInfo(MessageUtils.SAVE_SUCCESS());
             JsfUtil.hidePopup("modalDialogCreate");
             
             search();
@@ -147,13 +146,12 @@ public class UserManagementController extends BaseController {
         try {
             
             svUser.setPassword(WebUtils.encrypt(svUser.getPassword()));
-            LOGGER.trace("keyMatch {}",keyMatch);
+            
             userService.edit(svUser);
 
             LOGGER.trace("Edit Success !! ");
 
-            JsfUtil.alertJavaScript(MessageUtils.SAVE_SUCCESS());
-
+            addInfo(MessageUtils.SAVE_SUCCESS());
             search();
 
             JsfUtil.hidePopup("modalDialogEdit");

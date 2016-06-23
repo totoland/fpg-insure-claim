@@ -37,7 +37,7 @@
                 </ui:insert>
 
                 <ui:include src="footer.xhtml" />
-                
+
             </div>
 
             <script type="text/javascript">
@@ -48,22 +48,22 @@
                 function stop() {
                     PF('statusDialog').hide();
                 }
-                
-                $(function(){
-                   disKeyEnter();
+
+                $(function () {
+                    disKeyEnter();
                 });
-                
-                function disKeyEnter(){
+
+                function disKeyEnter() {
                     $("input:text").bind('keypress', function (e) {
-                    if (e.keyCode == 13) {
-                        return false;
-                    }
+                        if (e.keyCode == 13) {
+                            return false;
+                        }
                     });
                     $("textarea").bind('keypress', function (e) {
                         if (e.keyCode == 13) {
                             return true;
                         }
-                    }); 
+                    });
                 }
             </script>
 
@@ -81,6 +81,21 @@
                       closable="false" resizable="false" showHeader="false">
                 <p:graphicImage name="images/preloader.gif" library="adamantium-layout"/>
             </p:dialog>
+
+            <p:dialog id="genericErrorDialog" widgetVar="genericErrorDialog" showEffect="fade" modal="true" 
+                      onHide="PF('genericErrorDialog').hide();" header="">
+                <div class="ui-messages ui-widget" aria-live="polite">
+                    <div class="ui-messages-error ui-corner-all">
+                        <span class="ui-messages-error-icon"></span>
+                        <ul>
+                            <li>
+                                <span id="genericErrorDialogSpan" class="ui-messages-error-summary">
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </p:dialog>  
 
             <h:outputStylesheet name="css/core-layout.css" library="adamantium-layout" />
             <h:outputStylesheet name="css/animate.css" library="adamantium-layout" />

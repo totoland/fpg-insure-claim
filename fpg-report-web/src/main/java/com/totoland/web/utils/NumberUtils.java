@@ -5,6 +5,7 @@
 package com.totoland.web.utils;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -59,5 +60,10 @@ public class NumberUtils {
         }
         
         return nvl;
+    }
+    
+    public static String numberFormat(Object number){
+        DecimalFormat df = new DecimalFormat("###,##0.00");
+        return df.format(number);
     }
 }
