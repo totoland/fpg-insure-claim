@@ -127,8 +127,12 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
             params.add("%"+criteria.getPolicyNumber()+"%");
         }
 
+        if (criteria.getInsuredId()!= null && !criteria.getInsuredId().isEmpty()) {
+            SQL += "and claim_insure.insured_id LIKE ? ";
+            params.add("%"+criteria.getInsuredId()+"%");
+        }
         if (criteria.getInsuredName() != null && !criteria.getInsuredName().isEmpty()) {
-            SQL += "and claim_insure.insured_name LIKE ? ";
+            SQL += "and claim_insure.insured_id = ? ";
             params.add("%"+criteria.getInsuredName()+"%");
         }
         
@@ -178,8 +182,8 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
     @Transactional(readOnly = true)
     @Override
     public int countInvoiceNumberByOpenPolicy(ClaimInsure claimInsure) {
-        BigInteger count = countNativeQuery("SELECT COUNT(1) FROM claim_insure WHERE invoice_number = ? and policy_number = ?",
-                claimInsure.getInvoiceNumber(), claimInsure.getPolicyNumber());
+        BigInteger count = countNativeQuery("SELECT COUNT(1) FROM claim_insure WHERE insured_value = ? and policy_number = ?",
+                claimInsure.getInsuredValue(), claimInsure.getPolicyNumber());
 
         return count != null ? count.intValue() : 0;
     }

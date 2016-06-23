@@ -37,6 +37,7 @@ public class CertifaicationCriteria implements Serializable {
     private String certificateNumber;
     private String policyNumber;
     private String insuredName;
+    private String insuredId;
     private String status;
     private Date issueDateFrom;
     private Date issueDateTo;
@@ -107,11 +108,20 @@ public class CertifaicationCriteria implements Serializable {
         this.brokerLicenses = brokerLicenses;
     }
 
+    public String getInsuredId() {
+        return insuredId;
+    }
+
+    public void setInsuredId(String insuredId) {
+        this.insuredId = insuredId;
+    }
+
     @Override
     public String toString() {
         return "CertifaicationCriteria{" + "certificateNumber=" + certificateNumber
-                + ", policyNumber=" + policyNumber + ", insuredName=" + insuredName + ", status="
-                + status + ", issueDateFrom=" + issueDateFrom + ", issueDateTo=" + issueDateTo
-                + ", brokerName=" + brokerName + ", brokerLicenses=" + brokerLicenses + '}';
+                + ", policyNumber=" + policyNumber + ", insuredName=" + insuredName + ", insuredId="
+                + insuredId + ", status=" + status + ", issueDateFrom=" + issueDateFrom
+                + ", issueDateTo=" + issueDateTo + ", brokerName=" + brokerName
+                + ", brokerLicenses=" + brokerLicenses + '}';
     }
 }
