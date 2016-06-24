@@ -64,7 +64,7 @@
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
 
-                                    <h:outputLabel value="#{msg.label_status}" rendered="#{insuranceManagementController.adminOffice}"/>
+<!--                                    <h:outputLabel value="#{msg.label_status}" rendered="#{insuranceManagementController.adminOffice}"/>
                                     <p:selectOneMenu styleClass="selectOne115"
                                                      value="#{insuranceManagementController.criteria.status}"
                                                      rendered="#{insuranceManagementController.adminOffice}">
@@ -72,7 +72,7 @@
                                         <f:selectItems value="#{insuranceManagementController.statusTypeList}" var="item"
                                                        itemValue="#{item.value}"
                                                        itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>
+                                    </p:selectOneMenu>-->
 
                                     <h:outputLabel value="#{msg.label_issue_date_from}"/>
                                     <p:calendar readonlyInput="true"
@@ -107,7 +107,8 @@
                                  selectionMode="single"
                                  currentPageReportTemplate="#{msg.current_pagereport_template}"
                                  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" reflow="true">
+                                 rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" 
+                                 reflow="true">
                         <f:facet name="header">
                             Search Result
                         </f:facet>
