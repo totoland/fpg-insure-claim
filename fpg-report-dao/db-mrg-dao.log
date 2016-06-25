@@ -1,0 +1,50 @@
+[ectDao][INFO] 2016-06-26 00:24:37.959 main [org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean:780]Building new Hibernate SessionFactory
+[ectDao][DEBUG] 2016-06-26 00:24:39.566 main [org.springframework.orm.hibernate3.SessionFactoryUtils:322]Opening Hibernate Session
+[ectDao][DEBUG] 2016-06-26 00:24:39.915 main [org.springframework.orm.hibernate3.HibernateTemplate:389]Eagerly flushing Hibernate session
+[ectDao][DEBUG] 2016-06-26 00:24:39.915 main [org.springframework.orm.hibernate3.SessionFactoryUtils:800]Closing Hibernate Session
+[ectDao][DEBUG] 2016-06-26 00:24:39.922 main [org.springframework.orm.hibernate3.HibernateTransactionManager:366]Creating new transaction with name [com.totoland.db.user.dao.hibernate.UserDaoImpl.searchByUserCriteria]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly; ''
+[ectDao][DEBUG] 2016-06-26 00:24:39.923 main [org.springframework.orm.hibernate3.HibernateTransactionManager:494]Opened new Session [org.hibernate.impl.SessionImpl@8bc1eb2] for Hibernate transaction
+[ectDao][DEBUG] 2016-06-26 00:24:39.925 main [org.springframework.orm.hibernate3.HibernateTransactionManager:505]Preparing JDBC Connection of Hibernate Session [org.hibernate.impl.SessionImpl@8bc1eb2]
+[ectDao][DEBUG] 2016-06-26 00:24:40.259 main [org.springframework.orm.hibernate3.HibernateTransactionManager:570]Exposing Hibernate transaction as JDBC transaction [com.mysql.jdbc.JDBC4Connection@62e7b78]
+[ectDao][DEBUG] 2016-06-26 00:24:40.260 main [org.springframework.orm.hibernate3.HibernateTemplate:397]Found thread-bound Session for HibernateTemplate
+[ectDao][DEBUG] 2016-06-26 00:24:40.328 main [org.springframework.orm.hibernate3.HibernateTemplate:422]Not closing pre-bound Hibernate Session after HibernateTemplate
+[ectDao][DEBUG] 2016-06-26 00:24:40.329 main [org.springframework.orm.hibernate3.HibernateTransactionManager:753]Initiating transaction commit
+[ectDao][DEBUG] 2016-06-26 00:24:40.329 main [org.springframework.orm.hibernate3.HibernateTransactionManager:653]Committing Hibernate transaction on Session [org.hibernate.impl.SessionImpl@8bc1eb2]
+[ectDao][DEBUG] 2016-06-26 00:24:40.394 main [org.springframework.orm.hibernate3.HibernateTransactionManager:735]Closing Hibernate Session [org.hibernate.impl.SessionImpl@8bc1eb2] after transaction
+[ectDao][DEBUG] 2016-06-26 00:24:40.394 main [org.springframework.orm.hibernate3.SessionFactoryUtils:800]Closing Hibernate Session
+[ectDao][DEBUG] 2016-06-26 00:24:40.401 main [org.springframework.orm.hibernate3.HibernateTransactionManager:366]Creating new transaction with name [com.totoland.db.openpolicy.dao.impl.OpenPolicyDaoImpl.findByCriteria]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly; ''
+[ectDao][DEBUG] 2016-06-26 00:24:40.402 main [org.springframework.orm.hibernate3.HibernateTransactionManager:494]Opened new Session [org.hibernate.impl.SessionImpl@76fa68b0] for Hibernate transaction
+[ectDao][DEBUG] 2016-06-26 00:24:40.403 main [org.springframework.orm.hibernate3.HibernateTransactionManager:505]Preparing JDBC Connection of Hibernate Session [org.hibernate.impl.SessionImpl@76fa68b0]
+[ectDao][DEBUG] 2016-06-26 00:24:40.709 main [org.springframework.orm.hibernate3.HibernateTransactionManager:570]Exposing Hibernate transaction as JDBC transaction [com.mysql.jdbc.JDBC4Connection@21f54e49]
+[ectDao][DEBUG] 2016-06-26 00:24:40.711 main [org.springframework.orm.hibernate3.HibernateTemplate:397]Found thread-bound Session for HibernateTemplate
+[ectDao][DEBUG] 2016-06-26 00:24:40.750 main [org.springframework.orm.hibernate3.HibernateTemplate:422]Not closing pre-bound Hibernate Session after HibernateTemplate
+[ectDao][DEBUG] 2016-06-26 00:24:40.751 main [org.springframework.orm.hibernate3.HibernateTransactionManager:753]Initiating transaction commit
+[ectDao][DEBUG] 2016-06-26 00:24:40.751 main [org.springframework.orm.hibernate3.HibernateTransactionManager:653]Committing Hibernate transaction on Session [org.hibernate.impl.SessionImpl@76fa68b0]
+[ectDao][DEBUG] 2016-06-26 00:24:40.811 main [org.springframework.orm.hibernate3.HibernateTransactionManager:735]Closing Hibernate Session [org.hibernate.impl.SessionImpl@76fa68b0] after transaction
+[ectDao][DEBUG] 2016-06-26 00:24:40.811 main [org.springframework.orm.hibernate3.SessionFactoryUtils:800]Closing Hibernate Session
+[ectDao][INFO] 2016-06-26 00:24:40.819 Thread-0 [org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean:223]Closing Hibernate SessionFactory
+[ectDao][INFO] 2016-06-26 00:25:08.792 main [org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean:780]Building new Hibernate SessionFactory
+[ectDao][DEBUG] 2016-06-26 00:25:10.112 main [org.springframework.orm.hibernate3.SessionFactoryUtils:322]Opening Hibernate Session
+[ectDao][DEBUG] 2016-06-26 00:25:10.515 main [org.springframework.orm.hibernate3.HibernateTemplate:389]Eagerly flushing Hibernate session
+[ectDao][DEBUG] 2016-06-26 00:25:10.516 main [org.springframework.orm.hibernate3.SessionFactoryUtils:800]Closing Hibernate Session
+[ectDao][DEBUG] 2016-06-26 00:25:10.523 main [org.springframework.orm.hibernate3.HibernateTransactionManager:366]Creating new transaction with name [com.totoland.db.user.dao.hibernate.UserDaoImpl.searchByUserCriteria]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly; ''
+[ectDao][DEBUG] 2016-06-26 00:25:10.524 main [org.springframework.orm.hibernate3.HibernateTransactionManager:494]Opened new Session [org.hibernate.impl.SessionImpl@629608df] for Hibernate transaction
+[ectDao][DEBUG] 2016-06-26 00:25:10.526 main [org.springframework.orm.hibernate3.HibernateTransactionManager:505]Preparing JDBC Connection of Hibernate Session [org.hibernate.impl.SessionImpl@629608df]
+[ectDao][DEBUG] 2016-06-26 00:25:10.853 main [org.springframework.orm.hibernate3.HibernateTransactionManager:570]Exposing Hibernate transaction as JDBC transaction [com.mysql.jdbc.JDBC4Connection@2a610a39]
+[ectDao][DEBUG] 2016-06-26 00:25:10.854 main [org.springframework.orm.hibernate3.HibernateTemplate:397]Found thread-bound Session for HibernateTemplate
+[ectDao][DEBUG] 2016-06-26 00:25:10.934 main [org.springframework.orm.hibernate3.HibernateTemplate:422]Not closing pre-bound Hibernate Session after HibernateTemplate
+[ectDao][DEBUG] 2016-06-26 00:25:10.935 main [org.springframework.orm.hibernate3.HibernateTransactionManager:753]Initiating transaction commit
+[ectDao][DEBUG] 2016-06-26 00:25:10.935 main [org.springframework.orm.hibernate3.HibernateTransactionManager:653]Committing Hibernate transaction on Session [org.hibernate.impl.SessionImpl@629608df]
+[ectDao][DEBUG] 2016-06-26 00:25:10.994 main [org.springframework.orm.hibernate3.HibernateTransactionManager:735]Closing Hibernate Session [org.hibernate.impl.SessionImpl@629608df] after transaction
+[ectDao][DEBUG] 2016-06-26 00:25:10.994 main [org.springframework.orm.hibernate3.SessionFactoryUtils:800]Closing Hibernate Session
+[ectDao][DEBUG] 2016-06-26 00:25:11.006 main [org.springframework.orm.hibernate3.HibernateTransactionManager:366]Creating new transaction with name [com.totoland.db.openpolicy.dao.impl.OpenPolicyDaoImpl.findByCriteria]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly; ''
+[ectDao][DEBUG] 2016-06-26 00:25:11.007 main [org.springframework.orm.hibernate3.HibernateTransactionManager:494]Opened new Session [org.hibernate.impl.SessionImpl@559cd8ea] for Hibernate transaction
+[ectDao][DEBUG] 2016-06-26 00:25:11.008 main [org.springframework.orm.hibernate3.HibernateTransactionManager:505]Preparing JDBC Connection of Hibernate Session [org.hibernate.impl.SessionImpl@559cd8ea]
+[ectDao][DEBUG] 2016-06-26 00:25:11.326 main [org.springframework.orm.hibernate3.HibernateTransactionManager:570]Exposing Hibernate transaction as JDBC transaction [com.mysql.jdbc.JDBC4Connection@6d672980]
+[ectDao][DEBUG] 2016-06-26 00:25:11.327 main [org.springframework.orm.hibernate3.HibernateTemplate:397]Found thread-bound Session for HibernateTemplate
+[ectDao][DEBUG] 2016-06-26 00:25:11.367 main [org.springframework.orm.hibernate3.HibernateTemplate:422]Not closing pre-bound Hibernate Session after HibernateTemplate
+[ectDao][DEBUG] 2016-06-26 00:25:11.368 main [org.springframework.orm.hibernate3.HibernateTransactionManager:753]Initiating transaction commit
+[ectDao][DEBUG] 2016-06-26 00:25:11.368 main [org.springframework.orm.hibernate3.HibernateTransactionManager:653]Committing Hibernate transaction on Session [org.hibernate.impl.SessionImpl@559cd8ea]
+[ectDao][DEBUG] 2016-06-26 00:25:11.429 main [org.springframework.orm.hibernate3.HibernateTransactionManager:735]Closing Hibernate Session [org.hibernate.impl.SessionImpl@559cd8ea] after transaction
+[ectDao][DEBUG] 2016-06-26 00:25:11.430 main [org.springframework.orm.hibernate3.SessionFactoryUtils:800]Closing Hibernate Session
+[ectDao][INFO] 2016-06-26 00:25:11.440 Thread-0 [org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean:223]Closing Hibernate SessionFactory

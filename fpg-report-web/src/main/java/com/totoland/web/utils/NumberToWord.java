@@ -191,6 +191,8 @@ public class NumberToWord {
                 decimalNumber = " AND " + splNumber[1].substring(0, splNumber[1].length()) + " / " + "100";
             }
 
+        }else{
+            decimalNumber = " ONLY";
         }
 
         System.out.println("snmber : " + snumber);

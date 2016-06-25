@@ -49,16 +49,16 @@ public enum CertificateType {
                 return "DUPLICATE";
             }
             case 3: {
-                return "INSURED_COPY";
+                return "INSURED COPY";
             }
             case 4: {
-                return "PRODUCER_COPY";
+                return "PRODUCER COPY";
             }
             case 5: {
-                return "OFFICE_COPY";
+                return "OFFICE COPY";
             }
             case 6: {
-                return "COMPANY_COPY";
+                return "COMPANY COPY";
             }
             default: {
                 return null;

@@ -77,7 +77,6 @@
                     <p:dataTable id="singleDT" var="item" value="#{certificateActiveReport.listViewCertificate}" 
                                  rendered="#{certificateActiveReport.listViewCertificate!=null}" 
                                  rowKey="#{item.claimId}"
-                                 scrollable="true" scrollWidth="1170"
                                  selectionMode="single"
                                  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
                                  rowsPerPageTemplate="10,20,50,100" emptyMessage="#{msg.no_data_found}" reflow="true"
@@ -208,6 +207,13 @@
             .ui-selectonemenu-label{
                 width: 218px !important;
             } 
+            .ui-datatable-scrollable-header-box {
+                padding-right: 16px !important; /*originally this is 40px*/
+             }
+
+            .ui-datatable-scrollable-body {
+                overflow-y: scroll !important;
+            }
         </style>
     </ui:define>
 

@@ -52,7 +52,7 @@
                                     <h:outputLabel value="#{msg.label_invoice}"/>
                                     <p:inputText value="#{insuranceManagementController.criteria.invoiceNumber}"
                                                  maxlength="30"/>
-                                    
+
                                     <h:outputLabel value="#{msg.label_insured_name}" rendered="#{insuranceManagementController.adminOffice}"/>
                                     <p:selectOneMenu styleClass="selectOne115"
                                                      disabled="#{insuranceManagementController.userAuthen.userGroupLvl == '3'}"
@@ -191,6 +191,13 @@
                 .ui-selectonemenu-label{
                     width: 218px !important;
                 } 
+                .ui-datatable-scrollable-header-box {
+                    padding-right: 16px !important; /*originally this is 40px*/
+                }
+
+                .ui-datatable-scrollable-body {
+                    overflow-y: scroll !important;
+                }
             </style>
         </h:form>
     </ui:define>
