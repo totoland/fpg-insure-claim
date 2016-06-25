@@ -69,11 +69,6 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>1.2.0</version>
-        </dependency>
-        <dependency>
             <groupId>com.totoland</groupId>
             <artifactId>report-engine</artifactId>
             <version>${fpg-report-engine-version}</version>
