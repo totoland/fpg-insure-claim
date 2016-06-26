@@ -135,30 +135,30 @@ public class ClaimInsure implements Serializable {
     private BigDecimal premiumRate;
     @Column(name = "minimum_premium_rate")
     private BigDecimal minimumPremiumRate;
-    
+
     @Column(name = "stamp")
     private BigDecimal stamp;
     @Column(name = "vat")
     private BigDecimal vat;
     @Column(name = "total")
     private BigDecimal total;
-    
-    @Transient
+
+    @Column(name = "claim_payable_at_company")
     private String claimPayableAtCompany;
-    @Transient
+    @Column(name = "claim_payable_at_address")
     private String claimPayableAtAddress;
-    @Transient
+    @Column(name = "claim_payable_at_tel")
     private String claimPayableAtTel;
-    @Transient
+    @Column(name = "claim_payable_at_fax")
     private String claimPayableAtFax;
-    
+
     public ClaimInsure() {
     }
 
     public ClaimInsure(Long claimId) {
         this.claimId = claimId;
     }
-    
+
     public ClaimInsure(String trxId) {
         this.trxId = trxId;
     }

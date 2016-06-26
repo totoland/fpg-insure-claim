@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFPG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03c5575f-761a-4e21-ae7f-ce00d78a7c53">
 	<property name="ireport.zoom" value="1.948717100000011"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="238"/>
+	<property name="ireport.y" value="0"/>
 	<field name="nameOfAssured" class="java.lang.String"/>
 	<field name="vesselAirline" class="java.lang.String"/>
 	<field name="referenceNumber" class="java.lang.String"/>
@@ -48,55 +48,6 @@
 	</background>
 	<pageHeader>
 		<band height="142">
-			<staticText>
-				<reportElement x="159" y="-3" width="275" height="19" uuid="4a5544f7-a9a3-4471-96e9-7771b2ac9cef"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="8" isBold="true" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[บริษัท เอฟพีจี ประกันภัย (ประเทศไทย) จำกัด (มหาชน)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="159" y="9" width="349" height="19" uuid="51ca26b5-53e0-4adc-b275-02cca9f17ef7"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="8" isBold="true" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[FPG Insurance (Thailand) Public Company Limited]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="159" y="23" width="349" height="19" uuid="99358282-0301-4aca-90dd-3d68140b41df"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="8" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[52 อาคารธนิยะพลาซ่า ชั้น 24 ถนนสีลม แขวงสุริยวงศ์ เขตบางรัก กรุงเทพมฯ 10500]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="159" y="35" width="335" height="19" uuid="0d092518-b3bf-4940-b492-4f33145acd9f"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="8" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[52 Thaniya Plaza Building, 24th floor,Silom Road, Bangkok 10500]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="159" y="48" width="314" height="19" uuid="1f8d7d0c-ad6d-4212-867a-a32544a969cf"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="8" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[t (66) 2231-2640  f (66) 2231-2653  www.fpgins.com]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="159" y="64" width="250" height="14" uuid="8b75d240-3fc5-4ef9-8cca-90cde5f84d90"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="8" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[สาขาที่ออกใบกำกับภาษี : สำนักงานใหญ่]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="159" y="76" width="349" height="14" uuid="3e139cfd-8b5d-47a9-a033-bd9f9c6c50a4"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="8" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[เลขประจำตัวผู้เสียภาษีอากร / ทะเบียนเลขที่ Taxpayer ID No. / Registration No. 0107555000279]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="189" y="96" width="164" height="18" uuid="0ffbfc23-b609-42a8-b543-e3c903eda472"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
@@ -148,7 +99,7 @@
 				<textFieldExpression><![CDATA[$F{certificationNumber}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="2" y="0" width="152" height="51" uuid="224f31ca-39fe-4e04-b545-28569b0c55e1"/>
+				<reportElement x="2" y="0" width="554" height="86" uuid="224f31ca-39fe-4e04-b545-28569b0c55e1"/>
 				<imageExpression><![CDATA[$F{companyLogoURL}]]></imageExpression>
 			</image>
 			<textField isBlankWhenNull="true">

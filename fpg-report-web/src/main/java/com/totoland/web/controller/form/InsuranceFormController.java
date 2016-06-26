@@ -29,7 +29,6 @@ import com.totoland.web.utils.DateTimeUtils;
 import com.totoland.web.utils.JsfUtil;
 import com.totoland.web.utils.MessageUtils;
 import com.totoland.web.utils.NumberToWord;
-import com.totoland.web.utils.NumberUtils;
 import com.totoland.web.utils.StringUtils;
 import com.totoland.web.utils.WebUtils;
 import java.io.ByteArrayInputStream;
@@ -69,7 +68,8 @@ public class InsuranceFormController extends BaseController {
     private static final long serialVersionUID = -4658297318038575831L;
     private static final String MARINE_PDF_TEMPLATE = "/resources/jasper/reportFPG.jrxml";
     private static final String DEBIT_NOTE_PDF_TEMPLATE = "/resources/jasper/reportDebitNote.jrxml";
-    private static final String RESOURCES_LOGO = "/resources/images/fpg/logo.png";
+    private static final String RESOURCES_NONE_HEAD_LOGO = "/resources/images/fpg/Marine_none_head_office.jpg";
+    private static final String RESOURCES_WITH_HEAD_LOGO = "/resources/images/fpg/Marine_with_head_office.jpg";
     private static final String RESOURCES_SIGNATURE1 = "/resources/images/signature/1.png";
     private static final String RESOURCES_SIGNATURE2 = "/resources/images/signature/2.png";
     private static final String RESOURCES_SIGNATURE3 = "/resources/images/signature/sign_authorized_signature.jpg";
@@ -497,7 +497,7 @@ public class InsuranceFormController extends BaseController {
 
             certRpt.setAdditionalInfomation(this.claimInsure.getAdditionalInfomation());
 
-            certRpt.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
+            certRpt.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_NONE_HEAD_LOGO);
             certRpt.setSignature1URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE1);
             certRpt.setSignature2URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE2);
             certRpt.setSignature3URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE3);
@@ -663,7 +663,7 @@ public class InsuranceFormController extends BaseController {
         debitNote.setTypeOfPolicy(dropdownFactory.ddlConf().get("type_of_policy"));
         debitNote.setPolicyNo(this.claimInsure.getPolicyNumber());
         debitNote.setWarrantyFrom(this.claimInsure.getShipmentDate());
-        debitNote.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_LOGO);
+        debitNote.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_WITH_HEAD_LOGO);
 
         return debitNote;
     }

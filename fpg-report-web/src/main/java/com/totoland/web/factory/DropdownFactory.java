@@ -285,7 +285,7 @@ public class DropdownFactory implements Serializable {
         DropDownList criteria = new DropDownList();
         criteria.setTableName("surveyors");
         criteria.setOrderByField("feild_name");
-        criteria.setName("CONCAT(Country,' - ',Location)");
+        criteria.setName("CONCAT(Country,' - ',Location , ' - ', Company)");
         criteria.setValue("surveyor_id");
         criteria.setSortName("ASC");
 

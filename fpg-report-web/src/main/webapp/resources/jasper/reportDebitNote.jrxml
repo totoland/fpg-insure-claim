@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDebitNote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7cc9e6c-39c7-448f-b25c-32e05a2d7e7a">
 	<property name="ireport.zoom" value="1.8150000000000117"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="240"/>
+	<property name="ireport.y" value="43"/>
 	<field name="taxNo" class="java.lang.String"/>
 	<field name="insuredName" class="java.lang.String"/>
 	<field name="insuredValue" class="java.lang.String"/>
@@ -33,55 +33,6 @@
 	<pageHeader>
 		<band height="184" splitType="Stretch">
 			<staticText>
-				<reportElement x="164" y="0" width="275" height="19" uuid="500b56da-d4c3-46e2-9baa-5814e4e06381"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="10" isBold="true" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[บริษัท เอฟพีจี ประกันภัย (ประเทศไทย) จำกัด (มหาชน)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="164" y="12" width="349" height="19" uuid="a2b84931-4465-43cb-8055-f91a83b19bd5"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="true" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[FPG Insurance (Thailand) Public Company Limited]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="164" y="26" width="349" height="19" uuid="a991c861-ac2d-4547-a5d6-7ed70e72d848"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[52 อาคารธนิยะพลาซ่า ชั้น 24 ถนนสีลม แขวงสุริยวงศ์ เขตบางรัก กรุงเทพมฯ 10500]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="164" y="40" width="335" height="16" uuid="351bbe25-c70e-4b2d-90a8-067db83573ff"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[52 Thaniya Plaza Building, 24th floor,Silom Road, Bangkok 10500]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="164" y="51" width="314" height="19" uuid="730960ac-940b-43ee-9255-c9faeeb06f54"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[t (66) 2231-2640  f (66) 2231-2653  www.fpgins.com]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="164" y="67" width="250" height="14" uuid="8cc4d180-0b47-4713-9b2c-990f12409488"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[สาขาที่ออกใบกำกับภาษี : สำนักงานใหญ่]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="164" y="79" width="376" height="15" uuid="01fa2304-cded-45d5-8e0c-dc7c3399a3a3"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[เลขประจำตัวผู้เสียภาษีอากร / ทะเบียนเลขที่ Taxpayer ID No. / Registration No. 0107555000279]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="355" y="165" width="199" height="17" uuid="2fa25b18-4f87-4cf8-ad42-3bfdfe83050f"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
@@ -96,7 +47,7 @@
 				<textFieldExpression><![CDATA[$F{copyType}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="3" y="3" width="152" height="51" uuid="48c8490e-912a-444e-9e79-d8193f30e60f"/>
+				<reportElement x="3" y="3" width="551" height="90" uuid="48c8490e-912a-444e-9e79-d8193f30e60f"/>
 				<imageExpression><![CDATA[$F{companyLogoURL}]]></imageExpression>
 			</image>
 			<textField isBlankWhenNull="true">
