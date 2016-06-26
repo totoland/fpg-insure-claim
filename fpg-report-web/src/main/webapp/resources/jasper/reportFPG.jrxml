@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFPG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03c5575f-761a-4e21-ae7f-ce00d78a7c53">
 	<property name="ireport.zoom" value="1.948717100000011"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="238"/>
 	<field name="nameOfAssured" class="java.lang.String"/>
 	<field name="vesselAirline" class="java.lang.String"/>
 	<field name="referenceNumber" class="java.lang.String"/>
@@ -198,11 +198,11 @@
 				<text><![CDATA[SUBJECT-MATTER INSURED:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="236" width="289" height="13" uuid="107968ad-55b4-4878-8013-c4b7b7d3eac4"/>
+				<reportElement x="2" y="236" width="304" height="13" uuid="107968ad-55b4-4878-8013-c4b7b7d3eac4"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[CLAUSES, ENDORSEMENTS, SPECIAL CONDITIONS AND WARRENTIES:]]></text>
+				<text><![CDATA[CLAUSES, ENDORSEMENTS, SPECIAL CONDITIONS AND WARRANTIES:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="2" y="399" width="233" height="11" uuid="e62c791a-c965-46c1-8eb4-d73ba51f1775"/>
@@ -332,154 +332,154 @@ given to and a survey report obtained from or with the approval of:]]></text>
 			<textField isBlankWhenNull="true">
 				<reportElement x="164" y="0" width="378" height="25" uuid="6c595a6b-38e6-416b-a392-f1cb5a6501e2"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H"/>
+					<font fontName="THTahoma" size="8" isBold="false" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nameOfAssured}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="4" y="38" width="318" height="13" uuid="6905dfce-24a9-481b-a3e0-0843fd714e05"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{vesselAirline}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="375" y="38" width="102" height="13" uuid="51c6cf9c-f1d0-4a8c-909c-042ec7aa1477"/>
 				<textElement textAlignment="Justified" verticalAlignment="Top">
-					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H"/>
+					<font fontName="THTahoma" size="8" isBold="false" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("en")).format($F{sailingFlightDate})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="291" y="54" width="254" height="13" uuid="1c78b4ec-26cb-40fa-b5f4-fd09c159ccda"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{to}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="101" y="54" width="153" height="13" uuid="fc3a9c1d-df32-4b5b-8efd-0fa03c3579de"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{from}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="167" y="79" width="194" height="13" uuid="3a756946-6b48-4401-a4af-5d5f9c00d2df"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Float.valueOf($F{amountInsuredHereunder}))]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="2" y="119" width="240" height="113" uuid="659f0f3e-97b8-4f32-8df1-bd28e5c34be9"/>
 				<textElement>
-					<font fontName="THTahoma" size="9" isBold="false"/>
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{subject}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="279" y="121" width="263" height="114" uuid="4cb5f43b-ba74-4432-a7c6-0e2361008d21"/>
 				<textElement>
-					<font fontName="THTahoma" size="9" isBold="false"/>
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{commodityDescription}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="24" y="444" width="494" height="17" uuid="997e31da-c400-41f7-955a-dd7f9645141c"/>
 				<textElement textAlignment="Justified">
-					<font fontName="THTahoma" size="9" isBold="false"/>
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{surveyorAddress}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="24" y="430" width="494" height="13" uuid="ef6cefa7-35a8-4a8b-a288-4b9592f3aceb"/>
 				<textElement textAlignment="Justified">
-					<font fontName="THTahoma" size="9" isBold="false"/>
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{surveyorCompany}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="45" y="465" width="97" height="13" uuid="d173722d-dec4-428e-8cb1-dd77b6144686"/>
-				<textElement textAlignment="Justified">
-					<font fontName="THTahoma" size="9" isBold="false"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{surveyorTel}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="173" y="465" width="97" height="13" uuid="35e8c250-a2a7-4fcf-ae30-59bfc11d9373"/>
-				<textElement textAlignment="Justified">
-					<font fontName="THTahoma" size="9" isBold="false"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{surveyorFax}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="104" y="568" width="151" height="13" uuid="f0b0b405-6626-4a6a-82a1-f36a9ea5f4cb"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false"/>
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("en")).format($F{shipmentDate})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="2" y="249" width="239" height="150" isRemoveLineWhenBlank="true" uuid="465a196f-1297-45d0-bd3f-4b11bd2cfcfd"/>
 				<textElement>
-					<font fontName="THTahoma" size="9" isBold="false"/>
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{detail}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="142" y="79" width="22" height="13" uuid="45c05d23-fb2b-4b3a-a38d-e4df1f52ec52"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{currencyType}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="167" y="91" width="359" height="13" uuid="66713a81-b8b7-48c0-86e1-a9908e00bf5f"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amountInsuredHereunderWord}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="142" y="91" width="22" height="13" uuid="f7a0e996-7e91-46f1-9144-4ec3c01ae39b"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{currencyType}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="438" y="548" width="97" height="13" uuid="a379c240-4354-41e7-8d2a-dd6e47d4b89e"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false"/>
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{brokerLicense}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="200" y="548" width="173" height="13" uuid="33b763c1-9649-4248-93c3-dd578cd4c22a"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false"/>
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{brokerName}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="375" y="79" width="129" height="13" uuid="f7261b6f-20a9-45df-904e-afc41913026e"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="THTahoma" size="9" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fullCurrencyType}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="279" y="252" width="263" height="150" isRemoveLineWhenBlank="true" uuid="23ab308f-94c8-49b8-8e01-0e1ca623e217"/>
 				<textElement>
-					<font fontName="THTahoma" size="9" isBold="false"/>
+					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{additionalInfomation}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="381" y="236" width="141" height="13" uuid="c1e170bd-f832-4334-97df-d8b101e2d84e"/>
-				<textElement textAlignment="Justified" verticalAlignment="Top">
-					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="THTahoma" size="8" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{policyNumber}]]></textFieldExpression>
 			</textField>
@@ -570,19 +570,19 @@ given to and a survey report obtained from or with the approval of:]]></text>
 			<textField isBlankWhenNull="true">
 				<reportElement x="4" y="25" width="122" height="14" uuid="07d86edf-e48f-4e05-b440-847575a17e70"/>
 				<textElement>
-					<font fontName="THTahoma" size="9" isBold="true"/>
+					<font fontName="THTahoma" size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{methodOfTranSport}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="375" y="26" width="180" height="13" uuid="5f72807e-5141-4794-b292-7a408ad9ce46"/>
 				<textElement>
-					<font fontName="THTahoma" size="9" isBold="true"/>
+					<font fontName="THTahoma" size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{flightDateLabel}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="58" y="11" width="469" height="374" uuid="461bf68a-d689-4421-b0ff-7e559221388a"/>
+				<reportElement x="66" y="28" width="469" height="374" uuid="461bf68a-d689-4421-b0ff-7e559221388a"/>
 				<imageExpression><![CDATA[$F{previewURL}]]></imageExpression>
 			</image>
 		</band>
@@ -590,21 +590,21 @@ given to and a survey report obtained from or with the approval of:]]></text>
 			<staticText>
 				<reportElement x="223" y="49" width="83" height="15" uuid="5ded72c7-5551-499a-86fb-2f59ef24490f"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="THTahoma" size="9" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Director]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="43" y="49" width="83" height="15" uuid="46c9dd3f-3385-4be4-a9e2-92d9c8e56012"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="THTahoma" size="9" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Director]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="49" width="83" height="15" uuid="286ed028-927e-4233-8adc-4dbac8d20c1e"/>
+				<reportElement x="410" y="49" width="108" height="15" uuid="286ed028-927e-4233-8adc-4dbac8d20c1e"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="THTahoma" size="9" isBold="true" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Authorized Signature]]></text>
 			</staticText>
@@ -617,7 +617,7 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<imageExpression><![CDATA[$F{signature2URL}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="409" y="18" width="118" height="31" uuid="82a753d5-f67b-428a-a3ea-d713c1e84b07"/>
+				<reportElement x="425" y="28" width="83" height="21" uuid="82a753d5-f67b-428a-a3ea-d713c1e84b07"/>
 				<imageExpression><![CDATA[$F{signature3URL}]]></imageExpression>
 			</image>
 		</band>

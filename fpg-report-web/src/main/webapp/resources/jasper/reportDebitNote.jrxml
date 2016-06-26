@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDebitNote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7cc9e6c-39c7-448f-b25c-32e05a2d7e7a">
 	<property name="ireport.zoom" value="1.8150000000000117"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="672"/>
+	<property name="ireport.y" value="240"/>
 	<field name="taxNo" class="java.lang.String"/>
 	<field name="insuredName" class="java.lang.String"/>
 	<field name="insuredValue" class="java.lang.String"/>
@@ -91,7 +91,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="267" y="104" width="287" height="37" forecolor="#999999" uuid="e70ccecd-0c50-45d6-9ebd-713f1efedfd1"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="THTahoma" size="24" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="THTahoma" size="14" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{copyType}]]></textFieldExpression>
 			</textField>
@@ -167,7 +167,7 @@
 				<text><![CDATA[ระยะเวลาประกันภัย]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="167" y="308" width="83" height="17" uuid="5e199cc5-b338-44db-962f-35dcf1cb0fd0"/>
+				<reportElement x="167" y="308" width="90" height="17" uuid="5e199cc5-b338-44db-962f-35dcf1cb0fd0"/>
 				<textElement>
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -209,7 +209,7 @@
 				<text><![CDATA[รวมเป็นเงิน  SubTotal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="381" y="200" width="74" height="34" uuid="ed1ef8a6-93bc-4646-b016-afc97741ccea"/>
+				<reportElement x="381" y="200" width="75" height="34" uuid="ed1ef8a6-93bc-4646-b016-afc97741ccea"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="10" isBold="false" pdfFontName="THTahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -321,14 +321,14 @@
 				<text><![CDATA[Company Register No./TAX ID:           ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="3" y="91" width="352" height="40" uuid="38a4ca07-3742-44e8-bf14-8d4db48b1fd8"/>
+				<reportElement x="38" y="91" width="329" height="40" uuid="38a4ca07-3742-44e8-bf14-8d4db48b1fd8"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="10" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{insuredAddress}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="3" y="71" width="133" height="17" uuid="088dff15-5622-46f5-8cba-bcd9f71d1a88"/>
+				<reportElement x="38" y="73" width="133" height="17" uuid="088dff15-5622-46f5-8cba-bcd9f71d1a88"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="10" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -384,7 +384,7 @@
 				<textFieldExpression><![CDATA[$F{certificationNumber}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="444" y="209" width="100" height="17" uuid="2975383e-6bee-4b47-b776-47717260c7d8"/>
+				<reportElement x="466" y="209" width="78" height="17" uuid="2975383e-6bee-4b47-b776-47717260c7d8"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="THTahoma" size="10" isBold="false"/>
 				</textElement>
@@ -448,7 +448,7 @@
 				<imageExpression><![CDATA[$F{branchCheckBoxURL}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="395" y="406" width="138" height="56" uuid="1a31e481-55b8-41da-acd2-9ee3ed987af3"/>
+				<reportElement x="407" y="438" width="79" height="29" uuid="1a31e481-55b8-41da-acd2-9ee3ed987af3"/>
 				<imageExpression><![CDATA[$F{authorizedSignatureURL}]]></imageExpression>
 			</image>
 			<line>
