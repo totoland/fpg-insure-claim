@@ -26,7 +26,6 @@ package com.totoland.web.controller.report;
 import com.totoland.db.bean.CertifaicationCriteria;
 import com.totoland.db.bean.ViewCertificate;
 import com.totoland.db.common.entity.DropDownList;
-import com.totoland.db.entity.ClaimInsure;
 import com.totoland.db.enums.InsureState;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;

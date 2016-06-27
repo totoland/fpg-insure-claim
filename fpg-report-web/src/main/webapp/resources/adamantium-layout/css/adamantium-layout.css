@@ -36,11 +36,12 @@ body {
   margin: 0px;
   height: 100%;
   width: 100%;
-  background-color: #f7f5f3;
+  /*background-color: #f7f5f3;*/
+  background-color: #eeeeee;
   font-family: 'latoregular';
 }
 .loginback {
-  background-image: url("#{resource['adamantium-layout:images/loginback.svg']}");
+  /*background-image: url("#{resource['adamantium-layout:images/loginback.svg']}");*/
   background-repeat: repeat;
 }
 /* TOPBAR --------------------------------------------------------------------------------*/
@@ -431,10 +432,11 @@ body {
 }
 .CardTopic {
   font-size: 20px;
-  color: #439fe0;
+  color: #F37021;
   padding: 0px;
   font-family: 'latobold', sans-serif;
   line-height: 80%;
+  text-transform: uppercase;
 }
 .CardSubTopic {
   font-family: 'latoregular', sans-serif;
@@ -443,7 +445,7 @@ body {
 }
 .CardTopicMini {
   font-size: 14px;
-  color: #439fe0;
+  color: #F37021;
   padding: 0px;
   font-family: 'latobold', sans-serif;
 }
@@ -547,7 +549,7 @@ li {
 }
 .BlueBack {
   /*background-color: #0288D1;*/  
-  background-color: #ffc966;
+  /*background-color: #ffc966;*/
 }
 .TurquoiseBack {
   background-color: #26C6DA;

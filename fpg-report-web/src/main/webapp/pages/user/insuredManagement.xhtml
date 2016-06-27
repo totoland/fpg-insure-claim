@@ -32,7 +32,7 @@
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             <h:outputText value="#{msg.menu_cust_mgr}"/>
                             <div class="EmptyBox10 ShowOnMobile"></div>
-                            <p:commandButton styleClass="Fright GreenButton" icon="fa fa-plus White"
+                            <p:commandButton styleClass="Fright OrangeButton" icon="fa fa-plus White"
                                              immediate="true"
                                              process="@this"
                                              action="#{insuredManagementController.initCreateUser()}" 
@@ -44,20 +44,41 @@
                         <div class="Container100 Responsive50">
                             <div class="ContainerIndent">
                                 <h2 class="BigTopic"></h2>
+                                <div class="Container33 Responsive50">
+                                    <div class="ContainerIndent">
+                                       
+                                            <div>
 
-                                <h:panelGrid columns="2" id="pnCriteria">  
-                                    <h:outputLabel for="groupLvl" value="#{msg.label_user_type}" />
-                                    <p:selectOneMenu id="groupLvl" style="width:200px" value="#{insuredManagementController.userCriteria.groupLvl}">
-                                        <f:selectItems value="#{insuredManagementController.dropdownFactory.ddlCustomerLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                    </p:selectOneMenu>
-                                    <h:outputLabel for="criteria_username" value="#{msg.label_insured_name}" style="width:200px"/>
-                                    <p:inputText id="criteria_username" value="#{insuredManagementController.userCriteria.insuredName}" style="width:235px"/>
-                                    <h:outputLabel/>
-                                    <h:panelGroup>
-                                        <p:commandButton value="#{msg.btn_search}" id="search" icon="ui-icon-search" action="#{insuredManagementController.search()}" process="pnCriteria" update="gridUser"/>
-                                        <p:commandButton value="#{msg.btn_reset}" icon="ui-icon-arrowrefresh-1-w" action="#{insuredManagementController.resetForm()}" process="pnCriteria" update="pnCriteria,gridUser"/>
-                                    </h:panelGroup>
-                                </h:panelGrid>  
+                                                <h:panelGrid columns="2" id="pnCriteria">  
+                                                    <h:outputLabel for="groupLvl" value="#{msg.label_user_type}" />
+                                                    <p:selectOneMenu id="groupLvl" style="width:200px" value="#{insuredManagementController.userCriteria.groupLvl}">
+                                                        <f:selectItems value="#{insuredManagementController.dropdownFactory.ddlCustomerLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                                    </p:selectOneMenu>
+                                                    <h:outputLabel for="criteria_username" value="#{msg.label_insured_name}" style="width:200px"/>
+                                                    <p:inputText id="criteria_username" 
+                                                                 value="#{insuredManagementController.userCriteria.insuredName}" style="width:235px"/>
+                                                    <h:outputLabel/>
+                                                    <h:panelGroup>
+                                                        <p:commandButton value="#{msg.btn_search}" id="search" 
+                                                                         action="#{insuredManagementController.search()}"
+                                                                         styleClass="OrangeButton"
+                                                                         
+                                                                         process="pnCriteria" update="gridUser"/>
+                                                        <p:commandButton value="#{msg.btn_reset}" 
+                                                                         styleClass="OrangeButton"
+                                                                         
+                                                                         action="#{insuredManagementController.resetForm()}" process="pnCriteria" update="pnCriteria,gridUser"/>
+                                                    </h:panelGroup>
+                                                </h:panelGrid> 
+                                            </div>
+                                      
+                                    </div>
+                                </div>
+                                <div class="Container33 Responsive50">
+                                    <div class="ContainerIndent">
+                                        <h:graphicImage name="arthit4.png" id="arthit4" library="images/fpg" width="150"/>
+                                    </div>
+                                </div>
 
                                 <div class="SeparatorFull"></div>
 
@@ -76,7 +97,7 @@
                                                 <h:outputText value="#{item.companyName}" />
                                             </p:column>
 
-                                            <p:column headerText="Username">
+                                            <p:column headerText="#{msg.username}">
                                                 <h:outputText value="#{item.username}" />
                                             </p:column>
 
@@ -87,7 +108,7 @@
                                                 <h:outputText value="#{item.isActive?'Active':'In active'}" />
                                             </p:column>
                                             <p:column>
-                                                <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" 
+                                                <p:commandButton value="#{msg.btn_edit}" styleClass="OrangeButton2" 
                                                                  action="#{insuredManagementController.initEditUser(item)}"
                                                                  process="@this"
                                                                  update=":formUser:modalDialogEdit"
@@ -98,6 +119,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -199,10 +221,13 @@
                                 <h:outputLabel value=""/>
                                 <h:panelGroup>
                                     <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" 
+                                                     styleClass="OrangeButton"
                                                      action="#{insuredManagementController.edit()}"
                                                      process=":formUser:pnUpdate" 
                                                      update=":formUser:pnGridUpdate , :formUser:gridUser , :formUser:messageEdit"/>
-                                    <p:commandButton type="button" value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogEdit').hide()"/>
+                                    <p:commandButton type="button" 
+                                                     styleClass="OrangeButton"
+                                                     value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogEdit').hide()"/>
                                 </h:panelGroup>
                             </p:panelGrid>  
                         </div>
@@ -292,7 +317,7 @@
                                              requiredMessage="#{msg.require_generic}"/>
                                 <toto:requireLabel id="branchNameReq" forId=":formUser:branchName"/>
                             </h:panelGroup>
-                            
+
                             <h:outputLabel value="TAX ID"/>
                             <h:panelGroup>
                                 <p:inputText id="taxId" 
@@ -320,7 +345,7 @@
                     </div>
                 </div>
             </p:dialog>
-            
+
         </h:form>
     </ui:define>
 

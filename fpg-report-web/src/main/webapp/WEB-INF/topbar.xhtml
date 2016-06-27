@@ -15,7 +15,7 @@
                 <span id="menuline2" class="Animated05"></span>
                 <span id="menuline3" class="Animated05"></span>
             </a>
-            <a href="#"><h:graphicImage name="logo.png" id="logo" library="images" /></a>
+            <a href="#"><h:graphicImage name="logo-1.png" id="logo" style="margin-left: 25px" library="images" width="180"/></a>
 
             <a id="topmenu-button" class="Animated1">
                 <i class="icon-list2"></i>
@@ -69,6 +69,7 @@
                                         <p:separator/>
                                         <p:commandButton value="#{msg.btn_save}"
                                                          process="pnGridChangePWD"
+                                                         styleClass="OrangeButton"
                                                          update="pnGridChangePWD , changePWDMessage"
                                                          action="#{changePasswordController.changePassword()}"/>
                                     </p:panelGrid>

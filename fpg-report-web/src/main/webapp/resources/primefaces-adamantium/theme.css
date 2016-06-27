@@ -145,7 +145,8 @@ label.ui-state-error {
 }
 .ui-icon,
 .ui-widget-content .ui-icon {
-  background-image: url("#{resource['primefaces-adamantium:images/ui-icons_72b42d_256x240.png']}");
+  /*background-image: url("#{resource['primefaces-adamantium:images/ui-icons_72b42d_256x240.png']}");*/
+  background-image: url("#{resource['primefaces-adamantium:images/ui-icons_72b42d_256x240_white.png']}");
 }
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
@@ -848,7 +849,7 @@ label {
 .ui-datatable .ui-datatable-subtable-header,
 .ui-datatable .ui-datatable-summaryrow {
   color: #ffffff;
-  background-color: #0288d1;
+  background-color: #5C6670;
   border-radius: 1px !important;
   -webkit-border-radius: 1px !important;
   -moz-border-radius: 1px !important;
@@ -920,7 +921,7 @@ label {
 .ui-datatable table tfoot tr td,
 .ui-datatable table thead tr th {
   color: #546e7a;
-  background-color: #dae8ef;
+  background-color: #BEC1C6;
   border: solid 1px #c1d5df;
   outline: none;
   padding: 10px;
@@ -1216,17 +1217,17 @@ label {
   color: #ffffff;
 }
 .ui-paginator-top {
-  background-color: #0277bd;
+  background-color: #F37021;
   border-radius: 1px;
 }
 .ui-paginator-bottom {
-  background-color: #0277bd;
+  background-color: #F37021;
   border-radius: 1px;
 }
 .ui-paginator .ui-paginator-current {
   font-size: 14px;
   padding: 15px;
-  color: #9ad6f8;
+  color: #FFFFFF;
   font-family: 'latolight';
 }
 .ui-paginator .ui-paginator-first,
@@ -1291,7 +1292,7 @@ label {
   color: #ffffff !important;
   font-family: 'latoregular';
   font-size: 16px !important;
-  background-color: #0277bd;
+  background-color: #F37021;
   border: solid 1px transparent;
 }
 .ui-paginator .ui-paginator-rpp-options.ui-state-focus {
@@ -3382,7 +3383,7 @@ hr.ui-widget-header {
 }
 .ui-button.ui-state-hover,
 .ui-buttonset .ui-state-hover {
-  background-color: #29a1ec;
+  background-color: #edaa01;
 }
 .ui-button-icon-left {
   margin-left: 8px;
@@ -4424,7 +4425,7 @@ hr.ui-widget-header {
 }
 .ui-radiobutton .ui-state-hover,
 .ui-radiobutton .ui-state-active {
-  border: solid 2px #26c6da;
+  border: solid 2px #F37021;
 }
 .ui-radiobutton .ui-state-focus {
   outline: dotted 1px #778d9b;
@@ -4455,7 +4456,7 @@ hr.ui-widget-header {
   background-size: 100%;
   background-position: center;
   margin: 0px;
-  background-color: #26C6DA;
+  background-color: #EDAA00;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -5802,8 +5803,13 @@ hr.ui-widget-header {
   background-color: #FC6296 !important;
 }
 .OrangeButton {
+  background-color: #F37021;
+}
+
+.OrangeButton2 {
   background-color: #FB8C00;
 }
+
 .OrangeButton.ui-state-hover,
 .OrangeButton.ui-state-focus {
   background-color: #FCA537 !important;

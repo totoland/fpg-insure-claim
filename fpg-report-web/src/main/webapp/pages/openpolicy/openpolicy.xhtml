@@ -48,15 +48,16 @@ THE SOFTWARE.
                             #{msg.menu_openpolicy} 
                             <div class="EmptyBox10 ShowOnMobile"></div>
                             <p:commandButton icon="fa fa-plus White" 
-                                             styleClass="Fright GreenButton" 
+                                             styleClass="Fright OrangeButton" 
                                              title="#{msg.label_create_new_openpolicy}"
                                              action="#{openPolicyManagementController.initCreate()}"
                                              process="@this"
                                              update="dlgNewRateMnm"
                                              oncomplete="PF('dlgNewRateMnm').show()"/>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:button value="#{msg.yes}" href="insuranceForm.xhtml" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white" />
-                                <p:commandButton value="#{msg.btn_cancel}" type="button" styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close fa fa-close Fs14 white" />
+                                <p:button value="#{msg.yes}" href="insuranceForm.xhtml" styleClass="ui-confirmdialog-yes OrangeButton" icon="ui-icon-check fa fa-check Fs14 white" />
+                                <p:commandButton value="#{msg.btn_cancel}" 
+                                                 type="button" styleClass="ui-confirmdialog-no OrangeButton" icon="ui-icon-close fa fa-close Fs14 white" />
                             </p:confirmDialog>
                             <br/>
                         </div>
@@ -76,9 +77,13 @@ THE SOFTWARE.
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
                                         <p:commandButton value="#{msg.panel_search}" action="#{openPolicyManagementController.search()}"
+                                                         styleClass="OrangeButton"
+                                                         
                                                          process=":form:searchPn"
                                                          update=":form:pnResult"/>
                                         <p:commandButton value="#{msg.btn_reset}" action="#{openPolicyManagementController.init()}"
+                                                         styleClass="OrangeButton"
+                                                         
                                                          process=":form:searchPn"
                                                          update=":form:searchPn,:form:pnResult"/>
                                     </h:panelGroup>
@@ -106,7 +111,7 @@ THE SOFTWARE.
                             <h:outputText value="#{item.openPolicyNo}" />
                         </p:column>
                         <p:column>
-                            <p:commandButton value="#{msg.btn_edit}" styleClass="CyanButton" 
+                            <p:commandButton value="#{msg.btn_edit}" styleClass="OrangeButton2" 
                                              action="#{openPolicyManagementController.initEdit(item)}"
                                              process="@this"
                                              update=":form:dlgEditRateMnm"
@@ -115,7 +120,7 @@ THE SOFTWARE.
                                              process="@this"
                                              action="#{openPolicyManagementController.initDelete(item)}"
                                              update=":form:cmfDelete"
-                                             styleClass="PinkButton RaisedButton"
+                                             styleClass="RedButton"
                                              oncomplete="PF('cmfDelete').show()"/>
 
                         </p:column>
@@ -131,7 +136,7 @@ THE SOFTWARE.
                                  process="@this"
                                  update=":form:messages :form:pnResult"
                                  onclick="PF('cmfDelete').hide()"
-                                 immediate="true" styleClass="ui-confirmdialog-yes GreenButton" icon="ui-icon-check fa fa-check Fs14 white">
+                                 immediate="true" styleClass="ui-confirmdialog-yes OrangeButton" icon="ui-icon-check fa fa-check Fs14 white">
 
                 </p:commandButton>
                 <p:commandButton value="#{msg.btn_cancel}" 
@@ -164,7 +169,7 @@ THE SOFTWARE.
                                     <h:panelGroup style="border:solid 0px!important; ">
 
                                         <p:commandButton icon="fa fa-plus White" 
-                                                         styleClass="Fright GreenButton" 
+                                                         styleClass="Fright OrangeButton" 
                                                          title="#{msg.label_create_new_product_rate}"
                                                          process="@this"
                                                          update=":form:dlgNewProductRate"
@@ -215,7 +220,7 @@ THE SOFTWARE.
                                     <h:panelGroup style="border:solid 0px!important; ">
 
                                         <p:commandButton icon="fa fa-plus White" 
-                                                         styleClass="Fright GreenButton" 
+                                                         styleClass="Fright OrangeButton" 
                                                          title="#{msg.label_create_new_valuation}"
                                                          process="@this"
                                                          update=":form:dlgNewValuation"
@@ -274,6 +279,7 @@ THE SOFTWARE.
                                     <h:outputLabel/>
                                     <p:commandButton value="#{msg.btn_save}"
                                                      action="#{openPolicyManagementController.save()}"
+                                                     styleClass="OrangeButton"
                                                      process="dlgNewRateMnm"
                                                      update=":form:pnResult,pnNewRateMnm"/>
                                 </p:panelGrid>
@@ -312,6 +318,7 @@ THE SOFTWARE.
                         <h:outputLabel/>
                         <p:commandButton value="#{msg.btn_save}"
                                          action="#{openPolicyManagementController.addNewValuation()}"
+                                         styleClass="OrangeButton"
                                          process=":form:pnNewValuation"
                                          update=":form:dtValuation , :form:msgNewValuation"/>
                     </h:panelGrid>
@@ -344,6 +351,7 @@ THE SOFTWARE.
                         <h:outputLabel/>
                         <p:commandButton value="#{msg.btn_save}"
                                          action="#{openPolicyManagementController.addNewProductRate()}"
+                                         styleClass="OrangeButton"
                                          process=":form:pnNewProductRate"
                                          update=":form:dtNewProductRate , :form:msgNewProductRate"/>
                     </h:panelGrid>
@@ -373,7 +381,7 @@ THE SOFTWARE.
                                     <h:outputLabel value="#{msg.label_product_rate}"/>
                                     <h:panelGroup style="border:solid 0px!important; ">
                                         <p:commandButton icon="fa fa-plus White" 
-                                                         styleClass="Fright GreenButton" 
+                                                         styleClass="Fright OrangeButton" 
                                                          title="#{msg.label_create_new_product_rate}"
                                                          process="@this"
                                                          update=":form:dlgEditProductRate"
@@ -424,7 +432,7 @@ THE SOFTWARE.
                                     <h:panelGroup style="border:solid 0px!important; ">
 
                                         <p:commandButton icon="fa fa-plus White" 
-                                                         styleClass="Fright GreenButton" 
+                                                         styleClass="Fright OrangeButton" 
                                                          title="#{msg.label_create_Edit_valuation}"
                                                          process="@this"
                                                          update=":form:dlgEditValuation"
@@ -484,6 +492,7 @@ THE SOFTWARE.
                                     <p:commandButton value="#{msg.btn_save}"
                                                      action="#{openPolicyManagementController.edit()}"
                                                      process="dlgEditRateMnm"
+                                                     styleClass="OrangeButton"
                                                      update=":form:pnResult,pnEditRateMnm"/>
                                 </p:panelGrid>
                             </div>

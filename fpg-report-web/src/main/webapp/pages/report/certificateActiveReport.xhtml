@@ -58,10 +58,15 @@
 
                                     <h:outputLabel value=""/>
                                     <h:panelGroup>
-                                        <p:commandButton value="#{msg.panel_search}" action="#{certificateActiveReport.search()}"
+                                        <p:commandButton value="#{msg.panel_search}" 
+                                                         styleClass="OrangeButton"
+                                                         action="#{certificateActiveReport.search()}"
+                                                         
                                                          process=":form:pnCriteria"
                                                          update=":form:pnResult"/>
                                         <p:commandButton value="#{msg.btn_reset}" action="#{certificateActiveReport.resetForm()}"
+                                                         styleClass="OrangeButton"
+                                                         
                                                          update=":form:pnCriteria , :form:pnResult"/>
                                     </h:panelGroup>
                                     <h:outputLabel value=""/>
@@ -84,6 +89,7 @@
                         <f:facet name="header">
                             Search Result
                             <p:commandButton id="toggler" type="button" value="Columns"
+                                             styleClass="OrangeButton2"
                                              style="float:left" icon="ui-icon-calculator" />
                             <p:columnToggler datasource="singleDT" trigger="toggler" />
                         </f:facet>
@@ -94,7 +100,7 @@
                             </h:commandLink>
                         </f:facet>
                         <p:column headerText="#{msg.label_cert_no}" 
-                                  width="160"
+                                  width="250"
                                   sortBy="#{item.certificationNumber}" footerText="#{msg.label_company_code}">
                             <h:outputText value="#{item.certificationNumber}" />
                         </p:column>
@@ -114,6 +120,11 @@
                                   footerText="#{msg.label_method_of_transport}">
                             <h:outputText value="#{item.transportMethod}" />
                         </p:column>
+                        <p:column headerText="Shipment type" 
+                                  width="150"
+                                  footerText="Shipment type">
+                            <h:outputText value="#{item.destinationCountryCode == 'TH'?'Import':'Export'}" />
+                        </p:column>
                         <p:column headerText="#{msg.label_origin_to}" 
                                   width="250"
                                   sortBy="#{item.originCountryName}" footerText="#{msg.label_origin_to}">
@@ -127,13 +138,13 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_invoice}" 
-                                  width="150"
+                                  width="250"
                                   sortBy="#{item.invoiceNumber}" footerText="#{msg.label_destination_to}">
                             <h:outputText value="#{item.invoiceNumber}">
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_shipment_date}" 
-                                  width="120"
+                                  width="150"
                                   sortBy="#{item.shipmentDate}" footerText="#{msg.label_shipment_date}">
                             <h:outputText value="#{item.issueDate}">
                                 <f:convertDateTime pattern="dd MMMM yyyy"/>
