@@ -114,7 +114,7 @@
                                  currentPageReportTemplate="#{msg.current_pagereport_template}"
                                  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15" emptyMessage="No data found with given criteria" 
-                                 reflow="true" resizableColumns="true">
+                                 reflow="true">
                         <f:facet name="header">
                             Search Result
                         </f:facet>
@@ -130,10 +130,12 @@
                             <h:outputText value="#{item.policyNumber}" />
                         </p:column>
                         <p:column headerText="#{msg.label_invoice}" 
+                                  width="250"
                                   sortBy="#{item.invoiceNumber}" footerText="#{msg.label_invoice}">
                             <h:outputText value="#{item.invoiceNumber}" />
                         </p:column>
                         <p:column headerText="#{msg.label_insured_name}" 
+                                  width="250"
                                   sortBy="#{item.insuredName}" footerText="#{msg.label_insured_name}"
                                   rendered="#{insuranceManagementController.adminOffice}">
                             <h:outputText value="#{item.insuredName}" />
@@ -144,11 +146,6 @@
                                   footerText="#{msg.label_method_of_transport}">
                             <h:outputText value="#{item.transportMethod}" />
                         </p:column>
-<!--                        <p:column headerText="#{msg.label_status}" width="70"
-                                  sortBy="#{item.statusName}" 
-                                  footerText="#{msg.label_status}">
-                            <h:outputText value="#{item.statusName}" />
-                        </p:column>-->
                         <p:column headerText="#{msg.label_issue_date}" 
                                   width="120"
                                   sortBy="#{item.issueDate}" footerText="#{msg.label_issue_date}">
