@@ -19,7 +19,13 @@
     <h:body>
 
         <h:form id="form">
-            
+
+            <div style="width: 400px;
+                 height: 50px;
+                 text-align: center;margin: auto">
+                <p:messages id="messages" closable="true"/>
+            </div>
+
             <div style="width: 200px;
                  height: 50px;
                  position: absolute;
@@ -31,8 +37,7 @@
                 <table style="margin: 0px auto;">
                     <tr>
                         <td colspan="3">
-                            
-                <p:messages id="messages" closable="true"/>
+
                         </td>
                     </tr>
                     <tr>
@@ -43,7 +48,7 @@
                         </td>
                         <td rowspan="4">
 
-                            </td>
+                        </td>
                     </tr>
                     <tr>
                         <td></td>
@@ -59,8 +64,8 @@
                     <tr>
                         <td style="text-align: center">
                             <div style="margin: 0px auto;height: 20px;margin-top: 15px;margin-left:  -25px">
-                                
-                            <p:commandButton value="Sign In" 
+
+                                <p:commandButton value="Sign In" 
                                                  style="width: 135px;text-align: center"
                                                  update="messages" 
                                                  onclick="$('html,body').scrollTop(0);"
