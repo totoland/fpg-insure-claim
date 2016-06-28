@@ -46,32 +46,33 @@
                                 <h2 class="BigTopic"></h2>
                                 <div class="Container33 Responsive50">
                                     <div class="ContainerIndent">
-                                       
-                                            <div>
 
-                                                <h:panelGrid columns="2" id="pnCriteria">  
-                                                    <h:outputLabel for="groupLvl" value="#{msg.label_user_type}" />
-                                                    <p:selectOneMenu id="groupLvl" style="width:200px" value="#{insuredManagementController.userCriteria.groupLvl}">
-                                                        <f:selectItems value="#{insuredManagementController.dropdownFactory.ddlCustomerLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
-                                                    </p:selectOneMenu>
-                                                    <h:outputLabel for="criteria_username" value="#{msg.label_insured_name}" style="width:200px"/>
-                                                    <p:inputText id="criteria_username" 
-                                                                 value="#{insuredManagementController.userCriteria.insuredName}" style="width:235px"/>
-                                                    <h:outputLabel/>
-                                                    <h:panelGroup>
-                                                        <p:commandButton value="#{msg.btn_search}" id="search" 
-                                                                         action="#{insuredManagementController.search()}"
-                                                                         styleClass="OrangeButton"
-                                                                         
-                                                                         process="pnCriteria" update="gridUser"/>
-                                                        <p:commandButton value="#{msg.btn_reset}" 
-                                                                         styleClass="OrangeButton"
-                                                                         
-                                                                         action="#{insuredManagementController.resetForm()}" process="pnCriteria" update="pnCriteria,gridUser"/>
-                                                    </h:panelGroup>
-                                                </h:panelGrid> 
-                                            </div>
-                                      
+                                        <div>
+
+                                            <h:panelGrid columns="2" id="pnCriteria"
+                                                         style="border:0px !important; background:none;width: 450px">  
+                                                <h:outputLabel for="groupLvl" value="#{msg.label_user_type}" />
+                                                <p:selectOneMenu id="groupLvl" style="width:200px" value="#{insuredManagementController.userCriteria.groupLvl}">
+                                                    <f:selectItems value="#{insuredManagementController.dropdownFactory.ddlCustomerLvl()}" var="item" itemLabel="#{item.name}" itemValue="#{item.value}"></f:selectItems>
+                                                </p:selectOneMenu>
+                                                <h:outputLabel for="criteria_username" value="#{msg.label_insured_name}" style="width:200px"/>
+                                                <p:inputText id="criteria_username" 
+                                                             value="#{insuredManagementController.userCriteria.insuredName}" style="width:235px"/>
+                                                <h:outputLabel/>
+                                                <h:panelGroup>
+                                                    <p:commandButton value="#{msg.btn_search}" id="search" 
+                                                                     action="#{insuredManagementController.search()}"
+                                                                     styleClass="OrangeButton"
+
+                                                                     process="pnCriteria" update="gridUser"/>
+                                                    <p:commandButton value="#{msg.btn_reset}" 
+                                                                     styleClass="OrangeButton"
+
+                                                                     action="#{insuredManagementController.resetForm()}" process="pnCriteria" update="pnCriteria,gridUser"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid> 
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="Container33 Responsive50">
@@ -338,8 +339,11 @@
                             <h:panelGroup>
                                 <p:commandButton value="#{msg.btn_save}"  icon="ui-icon-disk" action="#{insuredManagementController.save()}"
                                                  process=":formUser:pnGridNew" 
+                                                 styleClass="OrangeButton"
                                                  update=":formUser:pnGridNew , :formUser:gridUser"/>
-                                <p:commandButton type="button" value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogCreate').hide()"/>
+                                <p:commandButton type="button"
+                                                 styleClass="OrangeButton"
+                                                 value="#{msg.btn_close}" icon="ui-icon-close" onclick="PF('modalDialogCreate').hide()"/>
                             </h:panelGroup>
                         </p:panelGrid>
                     </div>

@@ -30,7 +30,8 @@
                                 <h2 class="BigTopic"></h2>
                                 <div class="Container33 Responsive50">
                                     <div class="ContainerIndent">
-                                        <h:panelGrid columns="2" id="pnCriteria">  
+                                        <h:panelGrid columns="2" id="pnCriteria"
+                                                     style="border:0px !important; background:none;">  
                                             <h:outputLabel for="groupLvl" value="#{msg.label_user_type}" />
                                             <p:selectOneMenu id="groupLvl" style="width:200px" value="#{userManagementController.userCriteria.groupLvl}">
                                                 <f:selectItem itemLabel="" itemValue="-1"></f:selectItem>
@@ -39,13 +40,13 @@
                                             <h:outputLabel for="criteria_username" value="#{msg.username}" style="width:200px"/>
                                             <p:inputText id="criteria_username" value="#{userManagementController.userCriteria.userName}" style="width:235px"/>
                                             <h:outputLabel/>
-                                            <h:panelGroup>
+                                            <h:panelGroup style="width: 200px">
                                                 <p:commandButton value="#{msg.btn_search}" 
                                                                  styleClass="OrangeButton"
                                                                  id="search"  action="#{userManagementController.search()}" update="gridUser"/>
                                                 <p:commandButton value="#{msg.btn_reset}" 
                                                                  styleClass="OrangeButton"
-                                                                  action="#{userManagementController.resetForm()}" update="pnCriteria,gridUser"/>
+                                                                 action="#{userManagementController.resetForm()}" update="pnCriteria,gridUser"/>
                                             </h:panelGroup>
                                         </h:panelGrid>  
                                     </div>

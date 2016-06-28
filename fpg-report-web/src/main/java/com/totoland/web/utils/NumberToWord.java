@@ -165,13 +165,6 @@ public class NumberToWord {
         return result.replaceAll("^\\s+", "").replaceAll("\\b\\s{2,}\\b", " ");
     }
 
-    public static void main(String args[]) {
-        System.out.println(convert("279719.0"));
-        System.out.println(convert("279719.1"));
-        System.out.println(convert("279719.10"));
-        System.out.println(convert("279719.123"));
-    }
-
     public static String convert(String fNumber) {
         // 0 to 999 999 999 999
         long number = new BigDecimal(fNumber).setScale(0, RoundingMode.DOWN).longValue();
