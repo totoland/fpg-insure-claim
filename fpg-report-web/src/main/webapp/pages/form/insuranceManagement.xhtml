@@ -64,16 +64,6 @@
                                                        itemLabel="#{item.name}"/>
                                     </p:selectOneMenu>
 
-<!--                                    <h:outputLabel value="#{msg.label_status}" rendered="#{insuranceManagementController.adminOffice}"/>
-                                    <p:selectOneMenu styleClass="selectOne115"
-                                                     value="#{insuranceManagementController.criteria.status}"
-                                                     rendered="#{insuranceManagementController.adminOffice}">
-                                        <f:selectItem itemLabel="" itemValue=""/>
-                                        <f:selectItems value="#{insuranceManagementController.statusTypeList}" var="item"
-                                                       itemValue="#{item.value}"
-                                                       itemLabel="#{item.name}"/>
-                                    </p:selectOneMenu>-->
-
                                     <h:outputLabel value="#{msg.label_issue_date_from}"/>
                                     <p:calendar readonlyInput="true"
                                                 pattern="dd MMM yyyy"
@@ -121,7 +111,7 @@
 
                         <p:column headerText="#{msg.label_cert_no}" 
                                   width="250"
-                                  sortBy="#{item.certificationNumber}" footerText="#{msg.label_company_code}">
+                                  sortBy="#{item.certificationNumber}" footerText="#{msg.label_cert_nofinb}">
                             <h:outputText value="#{item.certificationNumber}" />
                         </p:column>
                         <p:column headerText="#{msg.label_Policy_number}" 
