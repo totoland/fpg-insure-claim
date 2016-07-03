@@ -32,7 +32,7 @@ import org.slf4j.MDC;
 public class LoginController extends BaseController {
 
     private static final long serialVersionUID = 3291979904925054393L;
-    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
     private String userName;
     private String passWord;
     @ManagedProperty(value = "#{authenDao}")
@@ -45,9 +45,9 @@ public class LoginController extends BaseController {
     public String sessionId;
 
     @PostConstruct
+    @Override
     public void init() {
-
-        logger.info("init");
+        LOGGER.info("init");
     }
 
     public void loginProcess() throws IOException {
@@ -56,9 +56,9 @@ public class LoginController extends BaseController {
 
         MDC.put("reqId", sessionId);
 
-        logger.info("loginProcess...");
+        LOGGER.debug("loginProcess...");
 
-        logger.info("userName : {} , passWord : {}", userName, "********");
+        LOGGER.debug("userName : {} , passWord : {}", userName, "********");
 
         if (!validateLongin()) {
             addError("loggin fial!!");
@@ -79,7 +79,7 @@ public class LoginController extends BaseController {
 
         } catch (Exception ex) {
 
-            logger.error("Cannot Authen : ", ex);
+            LOGGER.error("Cannot Authen : ", ex);
 
             addError(ex.getMessage());
 
@@ -90,7 +90,7 @@ public class LoginController extends BaseController {
 
             addError(MessageUtils.getResourceBundleString("login.authen.fail"));
 
-            logger.warn("Login {} fail!!", loginUser);
+            LOGGER.warn("Login {} fail!!", loginUser);
 
             return;
 
@@ -100,7 +100,7 @@ public class LoginController extends BaseController {
 
             addError(MessageUtils.getResourceBundleString("login.authen.disabled"));
 
-            logger.warn("Login {} block user was disbled!!", loginUser);
+            LOGGER.warn("Login {} block user was disbled!!", loginUser);
 
             return;
 
@@ -116,24 +116,28 @@ public class LoginController extends BaseController {
 
         String path = JsfUtil.getContextPath();
 
-        logger.trace("path : {}", path);
-        logger.trace("getUserGroupLvl : {}", loginUser.getUserGroupLvl());
+        LOGGER.trace("path : {}", path);
+        LOGGER.trace("getUserGroupLvl : {}", loginUser.getUserGroupLvl());
 
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         
+        
         if (UserType.ADMIN.getId() == loginUser.getUserGroupLvl()) {
-            externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
+            super.redirectPage(path+"/pages/user/userManagement.xhtml?firstLogin=true");
+            //externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
         } else if (UserType.OFFICIAL_USER.getId() == loginUser.getUserGroupLvl()) {
-            externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
+            super.redirectPage(path+"/pages/user/userManagement.xhtml?firstLogin=true");
+            //externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
         } else if (UserType.CUSTOMER.getId() == loginUser.getUserGroupLvl()) {
-            externalContext.redirect(path+"/pages/form/insuranceManagement.xhtml?firstLogin=true");
+            super.redirectPage(path+"/pages/form/insuranceManagement.xhtml?firstLogin=true");
+            //externalContext.redirect(path+"/pages/form/insuranceManagement.xhtml?firstLogin=true");
         }
 
     }
 
     public void logout() {
 
-        logger.trace("logout!!");
+        LOGGER.trace("logout!!");
 
         redirectPage(JsfUtil.getContextPath() + "/LogoutController");
 

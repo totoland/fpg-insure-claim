@@ -497,12 +497,12 @@ public class InsuranceFormController extends BaseController {
 
             certRpt.setAdditionalInfomation(this.claimInsure.getAdditionalInfomation());
 
-            certRpt.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_NONE_HEAD_LOGO);
-            certRpt.setSignature1URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE1);
-            certRpt.setSignature2URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE2);
-            certRpt.setSignature3URL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE3);
+            certRpt.setCompanyLogoURL(JsfUtil.getRealPath(RESOURCES_NONE_HEAD_LOGO));
+            certRpt.setSignature1URL(JsfUtil.getRealPath(RESOURCES_SIGNATURE1));
+            certRpt.setSignature2URL(JsfUtil.getRealPath(RESOURCES_SIGNATURE2));
+            certRpt.setSignature3URL(JsfUtil.getRealPath(RESOURCES_SIGNATURE3));
             if (certificateType == 0) {
-                certRpt.setPreviewURL(JsfUtil.getFullURI() + RESOURCES_PREVIEW);
+                certRpt.setPreviewURL(JsfUtil.getRealPath(RESOURCES_PREVIEW));
             }
 
             Surveyors surveyor = surveyorService.findById(this.claimInsure.getClaimSurveyorId());
@@ -614,15 +614,15 @@ public class InsuranceFormController extends BaseController {
 
         if (userData.getCompanyType() != null && userData.getCompanyType().equals("1")) {
             debitNote.setBranchNo(null);
-            debitNote.setBranchCheckBoxURL(JsfUtil.getFullURI() + RESOURCES_UNCHECKED);
-            debitNote.setHomeOfficeLogoURL(JsfUtil.getFullURI() + RESOURCES_CHECKED);
+            debitNote.setBranchCheckBoxURL(JsfUtil.getRealPath(RESOURCES_UNCHECKED));
+            debitNote.setHomeOfficeLogoURL(JsfUtil.getRealPath(RESOURCES_CHECKED));
         } else if (userData.getCompanyType() != null && userData.getCompanyType().equals("2")) {
             debitNote.setBranchNo(userData.getBranchDesc());
-            debitNote.setBranchCheckBoxURL(JsfUtil.getFullURI() + RESOURCES_CHECKED);
-            debitNote.setHomeOfficeLogoURL(JsfUtil.getFullURI() + RESOURCES_UNCHECKED);
+            debitNote.setBranchCheckBoxURL(JsfUtil.getRealPath(RESOURCES_CHECKED));
+            debitNote.setHomeOfficeLogoURL(JsfUtil.getRealPath(RESOURCES_UNCHECKED));
         }
 
-        debitNote.setAuthorizedSignatureURL(JsfUtil.getFullURI() + RESOURCES_SIGNATURE3);
+        debitNote.setAuthorizedSignatureURL(JsfUtil.getRealPath(RESOURCES_SIGNATURE3));
 
         if (this.claimInsure.getPremiumRate().intValue() < 500) {
             LOGGER.debug("Premium rate lower than 500 use Minimum Premium = 500");
@@ -663,7 +663,7 @@ public class InsuranceFormController extends BaseController {
         debitNote.setTypeOfPolicy(dropdownFactory.ddlConf().get("type_of_policy"));
         debitNote.setPolicyNo(this.claimInsure.getPolicyNumber());
         debitNote.setWarrantyFrom(this.claimInsure.getShipmentDate());
-        debitNote.setCompanyLogoURL(JsfUtil.getFullURI() + RESOURCES_WITH_HEAD_LOGO);
+        debitNote.setCompanyLogoURL(JsfUtil.getRealPath(RESOURCES_WITH_HEAD_LOGO));
 
         return debitNote;
     }

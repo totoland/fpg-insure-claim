@@ -88,7 +88,7 @@ public class LoginFilter implements Filter {
         }
 
         HttpSession session = req.getSession(true);
-        final ViewUser authenticated = (ViewUser) session.getAttribute("userAuthen");
+        ViewUser authenticated = (ViewUser) session.getAttribute("userAuthen");
 
         String loginURL = req.getContextPath() + "/pages/login/login.xhtml";
         String errorPage = req.getContextPath() + "/errors/session_expired.xhtml";

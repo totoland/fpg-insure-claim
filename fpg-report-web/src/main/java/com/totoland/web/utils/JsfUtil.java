@@ -44,7 +44,7 @@ public class JsfUtil implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().getRealPath(resourcesjasperreportFPGjrxml);
     }
 
-    public UIComponent findComponent(final String id) {
+    public static UIComponent findComponent(final String id) {
         FacesContext context = FacesContext.getCurrentInstance();
         UIViewRoot root = context.getViewRoot();
         final UIComponent[] found = new UIComponent[1];

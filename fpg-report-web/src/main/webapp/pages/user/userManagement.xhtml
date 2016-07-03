@@ -61,7 +61,8 @@
                                     <p:dataTable id="gridUser" var="item" value="#{userManagementController.svUsers}"
                                                  paginator="true" rows="10" emptyMessage="#{msg.no_data_found}"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 rowsPerPageTemplate="10,15,20">
+                                                 rowsPerPageTemplate="10,15,20"
+                                                 reflow="true">
                                         <f:facet name="header">
                                             Search Result
                                         </f:facet>
@@ -80,7 +81,7 @@
                                         </p:column>
                                         <p:column>
                                             <p:commandButton value="#{msg.btn_edit}" 
-                                                             styleClass="OrangeButton2"
+                                                             styleClass="OrangeButton"
                                                              action="#{userManagementController.initEditUser(item)}" update=":formUser:modalDialogEdit"/>
                                         </p:column>
                                         <f:facet name="footer">
