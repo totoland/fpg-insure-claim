@@ -71,6 +71,7 @@ public class CertificateActiveReport extends BaseController {
         this.criteria.setStatus(String.valueOf(InsureState.PRINT_CERT.getState()));
         LOGGER.debug("search with : {}", getCriteria());
         listViewCertificate = certificateService.searchCertificate(getCriteria());
+        LOGGER.debug("listViewCertificate {}",this.listViewCertificate);
     }
     
     public String findMethodTransport(String methodType) {

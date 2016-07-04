@@ -123,13 +123,13 @@ public class LoginController extends BaseController {
         
         
         if (UserType.ADMIN.getId() == loginUser.getUserGroupLvl()) {
-            super.redirectPage(path+"/pages/user/userManagement.xhtml?firstLogin=true");
+            super.redirectPage(path+"/pages/user/userManagement.xhtml?firstLogin=true",1000L);
             //externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
         } else if (UserType.OFFICIAL_USER.getId() == loginUser.getUserGroupLvl()) {
-            super.redirectPage(path+"/pages/user/userManagement.xhtml?firstLogin=true");
+            super.redirectPage(path+"/pages/user/userManagement.xhtml?firstLogin=true",1000L);
             //externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
         } else if (UserType.CUSTOMER.getId() == loginUser.getUserGroupLvl()) {
-            super.redirectPage(path+"/pages/form/insuranceManagement.xhtml?firstLogin=true");
+            super.redirectPage(path+"/pages/form/insuranceManagement.xhtml?firstLogin=true",1000L);
             //externalContext.redirect(path+"/pages/form/insuranceManagement.xhtml?firstLogin=true");
         }
 

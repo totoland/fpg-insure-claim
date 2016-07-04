@@ -81,11 +81,11 @@
                             <p:panelGrid id="pnGrid" 
                                          columns="4" 
                                          columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
-                                         layout="grid" 
+                                         layout="grid"  
                                          styleClass="ui-panelgrid-blank" 
                                          style="border:0px none; background-color:transparent;">
                                 <h:outputLabel value="#{msg.label_insured_name}"/>
-                                <h:panelGroup>
+                                <h:panelGroup id="pnEditInsuredName">
                                     <p:inplace id="editInsuredName" editor="#{!insuranceFormController.readOnly}">
                                         <p:inputText id="insuredId"
                                                      value="#{insuranceFormController.claimInsure.insuredName}" 
@@ -102,8 +102,8 @@
                                         });
                                     </script>
                                 </h:panelGroup>
-                                <h:outputLabel value="#{msg.label_consignee_name}"/>
-                                <p:inputText value="#{insuranceFormController.claimInsure.consigneeName}"/>
+                                <h:outputLabel  value="#{msg.label_consignee_name}"/>
+                                <p:inputText id="consigneeName" value="#{insuranceFormController.claimInsure.consigneeName}"/>
 
                                 <h:outputLabel value="Invoice Value" title="invoice*exchange rate*valuation"/>
                                 <pe:inputNumber id="invoiceValue" value="#{insuranceFormController.claimInsure.invoiceValue}"
@@ -405,7 +405,8 @@
                 <p:dataTable var="item" value="#{insuranceFormController.commodityTypeList}" 
                              selectionMode="single"
                              selection="#{insuranceFormController.selectedCommodityType}"
-                             rowKey="#{item}">
+                             rowKey="#{item}"
+                             reflow="true">
                     <p:ajax event="rowSelect" listener="#{insuranceFormController.onRowselectedCommodityType}" 
                             update=":form:commodityTypeId" oncomplete="PF('dgCommodityTypeId').hide()"/>
                     <p:column headerText="Code">
@@ -452,7 +453,7 @@
                                 </h:panelGroup>
 
                             </p:panelGrid>
-                            <p:dataTable value="#{1}" id="dtRate">
+                            <p:dataTable value="#{1}" id="dtRate" reflow="true">
                                 <p:column headerText="#{msg.label_premium_type}">
                                     <h:outputLabel value="Marine"/>
                                 </p:column>
@@ -812,13 +813,16 @@
 
             <style>
                 .ui-inputfield{
-                    width: 250px !important;
+                    width: 90% ;
+                    /*max-width: 250px;*/
                 }
                 .ui-selectonemenu{
-                    width: 218px !important;
+                    width: 79% ;
+                    /*max-width: 218px;*/
                 }
                 .ui-selectonemenu-label{
-                    width: 218px !important;
+                    width: 100% ;
+                    /*max-width: 218px;*/
                 } 
                 .ui-state-disabled {
                     cursor: default !important;

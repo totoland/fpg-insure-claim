@@ -133,6 +133,10 @@ public abstract class BaseController implements Serializable {
     public void redirectPage(String url) {
         executeJavaScript("window.location='" + url + "'");
     }
+    
+    public void redirectPage(String url,long delay) {
+        executeJavaScript("setTimeout(function(){window.location='" + url + "'},"+delay+")");
+    }
 
     public void clearAllMessage() {
 

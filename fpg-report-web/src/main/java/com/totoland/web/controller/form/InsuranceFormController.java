@@ -140,7 +140,7 @@ public class InsuranceFormController extends BaseController {
     @Override
     public void init() {
         LOGGER.debug("init...");
-
+        
         String trxId = super.getParameter("id");
 
         if (trxId == null) {
@@ -435,7 +435,7 @@ public class InsuranceFormController extends BaseController {
 
                 this.claimInsure.setStamp(debitNoteOri.getStampDuty());
                 this.claimInsure.setVat(debitNoteOri.getVat());
-                this.claimInsure.setTotal(debitNoteOri.getTotal());
+                this.claimInsure.setTotal(debitNoteOri.getGrandTotal());
 
                 if (this.claimInsure.getClaimId() == null || this.claimInsure.getClaimId() == 0) {
                     certificateService.create(this.claimInsure);
