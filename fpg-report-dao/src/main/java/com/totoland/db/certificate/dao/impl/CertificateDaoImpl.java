@@ -166,7 +166,7 @@ public class CertificateDaoImpl extends GennericDaoImpl<ClaimInsure> implements 
         }
 
         SQL += " ORDER BY claim_insure.issue_date , claim_insure.created_date_time , claim_insure.certification_number DESC";
-        
+
         return findNativeQuery(SQL, ViewCertificate.class, params);
 
     }
