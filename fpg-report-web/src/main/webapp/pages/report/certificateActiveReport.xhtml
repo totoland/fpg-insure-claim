@@ -95,7 +95,7 @@
                         <f:facet name="{Exporters}">
                             <h:commandLink>
                                 <p:graphicImage url="/resources/images/excel.png" width="24"/>
-                                <p:dataExporter type="xls" target="singleDT" fileName="ViewCertificate" />
+                                <p:dataExporter type="xls" target="singleDT" fileName="#{certificateActiveReport.viewCertificateReportName}" />
                             </h:commandLink>
                         </f:facet>
                         <p:column headerText="#{msg.label_cert_no}" 
@@ -196,6 +196,7 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.label_issue_date}" 
+                                  exportable="false"
                                   width="150"
                                   sortBy="#{item.issueDate}" footerText="#{msg.label_issue_date}">
                             <h:outputText value="#{item.issueDate}">

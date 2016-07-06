@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFPG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03c5575f-761a-4e21-ae7f-ce00d78a7c53">
-	<property name="ireport.zoom" value="1.948717100000011"/>
+	<property name="ireport.zoom" value="2.357947691000016"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="1172"/>
 	<field name="nameOfAssured" class="java.lang.String"/>
 	<field name="vesselAirline" class="java.lang.String"/>
 	<field name="referenceNumber" class="java.lang.String"/>
@@ -112,7 +112,7 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="586">
+		<band height="577">
 			<staticText>
 				<reportElement x="2" y="0" width="89" height="25" uuid="b205e00e-1cae-4060-b1cd-8042e374214c"/>
 				<textElement verticalAlignment="Middle">
@@ -149,7 +149,7 @@
 				<text><![CDATA[SUBJECT-MATTER INSURED:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="236" width="304" height="13" uuid="107968ad-55b4-4878-8013-c4b7b7d3eac4"/>
+				<reportElement x="2" y="278" width="304" height="13" uuid="107968ad-55b4-4878-8013-c4b7b7d3eac4"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -199,56 +199,56 @@
 given to and a survey report obtained from or with the approval of:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="208" y="511" width="83" height="13" uuid="e5c05387-30b8-4368-957f-426a53025797"/>
+				<reportElement x="208" y="506" width="83" height="13" uuid="e5c05387-30b8-4368-957f-426a53025797"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[SAME AS ABOVE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="523" width="408" height="16" uuid="a7e4b9ae-61d2-4c79-b619-c1fece7f7b0a"/>
+				<reportElement x="2" y="518" width="408" height="16" uuid="a7e4b9ae-61d2-4c79-b619-c1fece7f7b0a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="8" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[In case where there is no Agents, the Lloyd's Agents must be applied for.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="38" y="548" width="28" height="13" uuid="4ef75926-0eb6-42dc-9ab4-9b234fa267dc"/>
+				<reportElement x="38" y="540" width="28" height="13" uuid="4ef75926-0eb6-42dc-9ab4-9b234fa267dc"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ตัวแทน]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="104" y="548" width="37" height="13" uuid="166ca2af-731f-47d7-bbee-5ba5a97a7697"/>
+				<reportElement x="104" y="540" width="37" height="13" uuid="166ca2af-731f-47d7-bbee-5ba5a97a7697"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[นายหน้า]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="144" y="548" width="54" height="13" uuid="29a18092-e64a-4865-ad6e-425aa6782e04"/>
+				<reportElement x="144" y="540" width="54" height="13" uuid="29a18092-e64a-4865-ad6e-425aa6782e04"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ประกันรายนี้ ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="373" y="548" width="65" height="13" uuid="0e246454-c55a-4b5d-98de-4c92b99efd0f"/>
+				<reportElement x="373" y="540" width="65" height="13" uuid="0e246454-c55a-4b5d-98de-4c92b99efd0f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ใบอนุญาตเลขที่]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="568" width="90" height="13" uuid="0ab14270-00d6-425b-b0b2-2b535cddb4d4"/>
+				<reportElement x="2" y="559" width="90" height="13" uuid="0ab14270-00d6-425b-b0b2-2b535cddb4d4"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Issued in Bangkok this]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="24" y="548" width="11" height="13" uuid="eb2467b1-148d-45ae-ba79-1fc41942dc31"/>
+				<reportElement x="24" y="540" width="11" height="13" uuid="eb2467b1-148d-45ae-ba79-1fc41942dc31"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -261,7 +261,7 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="90" y="548" width="11" height="13" uuid="21800372-e977-430c-b849-f4415cc660c2"/>
+				<reportElement x="90" y="540" width="11" height="13" uuid="21800372-e977-430c-b849-f4415cc660c2"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -274,7 +274,7 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="236" width="88" height="13" uuid="bcfef7c6-b3f3-4c32-847f-7df854e18c64"/>
+				<reportElement x="291" y="278" width="88" height="13" uuid="bcfef7c6-b3f3-4c32-847f-7df854e18c64"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -323,14 +323,14 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Float.valueOf($F{amountInsuredHereunder}))]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="2" y="119" width="240" height="113" uuid="659f0f3e-97b8-4f32-8df1-bd28e5c34be9"/>
+				<reportElement x="2" y="119" width="252" height="157" isRemoveLineWhenBlank="true" uuid="659f0f3e-97b8-4f32-8df1-bd28e5c34be9"/>
 				<textElement>
 					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{subject}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="279" y="121" width="263" height="114" uuid="4cb5f43b-ba74-4432-a7c6-0e2361008d21"/>
+				<reportElement x="279" y="118" width="263" height="158" uuid="4cb5f43b-ba74-4432-a7c6-0e2361008d21"/>
 				<textElement>
 					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
@@ -365,14 +365,14 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textFieldExpression><![CDATA[$F{surveyorFax}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="104" y="568" width="151" height="13" uuid="f0b0b405-6626-4a6a-82a1-f36a9ea5f4cb"/>
+				<reportElement x="104" y="559" width="151" height="13" uuid="f0b0b405-6626-4a6a-82a1-f36a9ea5f4cb"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("en")).format($F{shipmentDate})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="2" y="249" width="239" height="150" isRemoveLineWhenBlank="true" uuid="465a196f-1297-45d0-bd3f-4b11bd2cfcfd"/>
+				<reportElement x="2" y="292" width="252" height="107" isRemoveLineWhenBlank="true" uuid="465a196f-1297-45d0-bd3f-4b11bd2cfcfd"/>
 				<textElement>
 					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
@@ -400,14 +400,14 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textFieldExpression><![CDATA[$F{currencyType}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="438" y="548" width="97" height="13" uuid="a379c240-4354-41e7-8d2a-dd6e47d4b89e"/>
+				<reportElement x="438" y="540" width="97" height="13" uuid="a379c240-4354-41e7-8d2a-dd6e47d4b89e"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{brokerLicense}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="548" width="173" height="13" uuid="33b763c1-9649-4248-93c3-dd578cd4c22a"/>
+				<reportElement x="200" y="540" width="173" height="13" uuid="33b763c1-9649-4248-93c3-dd578cd4c22a"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
@@ -421,14 +421,14 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textFieldExpression><![CDATA[$F{fullCurrencyType}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="279" y="252" width="263" height="150" isRemoveLineWhenBlank="true" uuid="23ab308f-94c8-49b8-8e01-0e1ca623e217"/>
+				<reportElement x="279" y="292" width="263" height="118" isRemoveLineWhenBlank="true" uuid="23ab308f-94c8-49b8-8e01-0e1ca623e217"/>
 				<textElement>
 					<font fontName="THTahoma" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{additionalInfomation}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="381" y="236" width="141" height="13" uuid="c1e170bd-f832-4334-97df-d8b101e2d84e"/>
+				<reportElement x="381" y="278" width="154" height="13" uuid="c1e170bd-f832-4334-97df-d8b101e2d84e"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="THTahoma" size="8" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -465,7 +465,7 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="0" y="232" width="555" height="1" uuid="98550788-28ae-4ef8-a155-f011b8860ff5"/>
+				<reportElement x="0" y="276" width="555" height="1" uuid="98550788-28ae-4ef8-a155-f011b8860ff5"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>
@@ -489,31 +489,31 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="0" y="542" width="555" height="1" uuid="3353b1b9-74c4-4320-ad1b-8194f525487e"/>
+				<reportElement x="0" y="536" width="555" height="1" uuid="3353b1b9-74c4-4320-ad1b-8194f525487e"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="0" y="564" width="555" height="1" uuid="92425cfb-a08a-4d3d-ae29-7d3c8b2f7737"/>
+				<reportElement x="0" y="556" width="555" height="1" uuid="92425cfb-a08a-4d3d-ae29-7d3c8b2f7737"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="0" y="584" width="555" height="1" uuid="b3226b4e-935d-40c2-bf4b-ba0b7673d892"/>
+				<reportElement x="0" y="575" width="555" height="1" uuid="b3226b4e-935d-40c2-bf4b-ba0b7673d892"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="555" y="-1" width="1" height="586" uuid="86965753-252c-46ac-bc3f-f5099584f99f"/>
+				<reportElement x="555" y="-10" width="1" height="586" uuid="86965753-252c-46ac-bc3f-f5099584f99f"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="0" y="-1" width="1" height="585" uuid="44f77e0c-8f9b-4e43-93da-a45de437c133"/>
+				<reportElement x="0" y="-10" width="1" height="585" uuid="44f77e0c-8f9b-4e43-93da-a45de437c133"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>
@@ -533,42 +533,42 @@ given to and a survey report obtained from or with the approval of:]]></text>
 				<textFieldExpression><![CDATA[$F{flightDateLabel}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="66" y="28" width="469" height="374" uuid="461bf68a-d689-4421-b0ff-7e559221388a"/>
+				<reportElement x="72" y="39" width="450" height="360" uuid="461bf68a-d689-4421-b0ff-7e559221388a"/>
 				<imageExpression><![CDATA[$F{previewURL}]]></imageExpression>
 			</image>
 		</band>
 		<band height="65">
 			<staticText>
-				<reportElement x="223" y="49" width="83" height="15" uuid="5ded72c7-5551-499a-86fb-2f59ef24490f"/>
+				<reportElement x="207" y="37" width="83" height="15" uuid="5ded72c7-5551-499a-86fb-2f59ef24490f"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Director]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="43" y="49" width="83" height="15" uuid="46c9dd3f-3385-4be4-a9e2-92d9c8e56012"/>
+				<reportElement x="27" y="37" width="83" height="15" uuid="46c9dd3f-3385-4be4-a9e2-92d9c8e56012"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Director]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="49" width="108" height="15" uuid="286ed028-927e-4233-8adc-4dbac8d20c1e"/>
+				<reportElement x="394" y="37" width="108" height="15" uuid="286ed028-927e-4233-8adc-4dbac8d20c1e"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="THTahoma" size="9" isBold="false" pdfFontName="&lt;Different Values&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Authorized Signature]]></text>
 			</staticText>
 			<image>
-				<reportElement x="67" y="18" width="128" height="31" uuid="1fc19ea9-d878-4ae5-8ac8-443a0611a42a"/>
+				<reportElement x="51" y="6" width="128" height="31" uuid="1fc19ea9-d878-4ae5-8ac8-443a0611a42a"/>
 				<imageExpression><![CDATA[$F{signature1URL}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="235" y="18" width="118" height="31" uuid="8d50515a-71b9-44d7-9948-f1ca99681aa1"/>
+				<reportElement x="219" y="6" width="118" height="31" uuid="8d50515a-71b9-44d7-9948-f1ca99681aa1"/>
 				<imageExpression><![CDATA[$F{signature2URL}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="425" y="28" width="83" height="21" uuid="82a753d5-f67b-428a-a3ea-d713c1e84b07"/>
+				<reportElement x="409" y="16" width="83" height="21" uuid="82a753d5-f67b-428a-a3ea-d713c1e84b07"/>
 				<imageExpression><![CDATA[$F{signature3URL}]]></imageExpression>
 			</image>
 		</band>

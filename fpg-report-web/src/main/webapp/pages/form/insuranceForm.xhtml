@@ -134,7 +134,7 @@
                                 <pe:inputNumber id="amountOfInsurance" disabled="true"
                                                 value="#{insuranceFormController.claimInsure.amountOfInsurance}"
                                                 decimalPlaces="2" maxValue="99999999999999.99" maxlength="30"/>
-                                
+
                                 <h:outputLabel value="#{msg.label_deductible_amount}"/>
                                 <h:outputLabel value="#{insuranceFormController.claimInsure.deductibleAmount}"/>
 
@@ -232,7 +232,10 @@
                                 </h:panelGroup>
                                 <h:outputLabel value="#{msg.label_conveyance_name}"/>
                                 <h:panelGroup>
-                                    <p:inputText id="conveyanceName" value="#{insuranceFormController.claimInsure.conveyanceName}"/>
+                                    <p:inputText id="conveyanceName" 
+                                                 value="#{insuranceFormController.claimInsure.conveyanceName}"
+                                                 required="true"
+                                                 requiredMessage="#{msg.require_generic}"/>
                                     <toto:requireLabel forId="form:conveyanceName"/>
                                 </h:panelGroup>
                                 <h:outputLabel value="#{msg.label_transshipment_vessel}"/>
@@ -240,7 +243,10 @@
 
                                 <h:outputLabel value="#{msg.label_voyage_flight_no}"/>
                                 <h:panelGroup>
-                                    <p:inputText id="voyageFlightNumber" value="#{insuranceFormController.claimInsure.voyageFlightNumber}"/>
+                                    <p:inputText id="voyageFlightNumber" 
+                                                 required="true"
+                                                 requiredMessage="#{msg.require_generic}"
+                                                 value="#{insuranceFormController.claimInsure.voyageFlightNumber}"/>
                                     <toto:requireLabel forId="form:voyageFlightNumber"/>
                                 </h:panelGroup>
                                 <h:outputLabel value="#{msg.label_method_of_transport}"/>
@@ -323,7 +329,8 @@
                                 <p:inputTextarea value="#{insuranceFormController.claimInsure.commodityDescription}"/>
 
                                 <h:outputLabel value="#{msg.label_marks_and_numbers}"/>
-                                <p:inputTextarea value="#{insuranceFormController.claimInsure.marksAndNumbers}"/>
+                                <p:inputTextarea value="#{insuranceFormController.claimInsure.marksAndNumbers}"
+                                                 rows="15" cols="69" maxlength="1035"/>
 
                                 <h:outputLabel value="#{msg.label_coverage_type}"/>
                                 <h:panelGroup>
@@ -536,9 +543,9 @@
                                                  update="@form"
                                                  style="display:none;"
                                                  onclick="PrimeFaces.monitorDownload(start, function () {
-                                                                 stop();
-                                                                 window.location = window.location; 
-                                                             });">
+                                                             stop();
+                                                             window.location = window.location;
+                                                         });">
                                     <p:fileDownload value="#{insuranceFormController.getCertificateCopyFile(1)}" />
                                 </p:commandButton>
                                 <p:dialog widgetVar="dlgCancel" modal="true" onHide="window.location = 'insuranceForm.xhtml'">
@@ -828,7 +835,7 @@
                     cursor: default !important;
                     border-bottom: solid 1px #fbfcfd!important;
                 }
-                
+
             </style>
         </h:form>
     </ui:define>

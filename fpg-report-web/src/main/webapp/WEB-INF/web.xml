@@ -84,14 +84,14 @@
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
-    <filter>
+<!--    <filter>
         <filter-name>Character Encoding Filter</filter-name>
         <filter-class>org.primefaces.adamantium.filter.CharacterEncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>Character Encoding Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
-    </filter-mapping>
+    </filter-mapping>-->
     <filter>
         <filter-name>Login Encoding Filter</filter-name>
         <filter-class>com.totoland.web.filter.LoginFilter</filter-class>

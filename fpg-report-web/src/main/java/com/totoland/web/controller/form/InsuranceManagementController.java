@@ -8,6 +8,7 @@ import com.totoland.db.enums.UserType;
 import com.totoland.web.controller.BaseController;
 import com.totoland.web.factory.DropdownFactory;
 import com.totoland.web.service.CertificateService;
+import com.totoland.web.utils.DateTimeUtils;
 import com.totoland.web.utils.MessageUtils;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -39,6 +40,8 @@ public class InsuranceManagementController extends BaseController {
     private ViewCertificate selectedRecord;
     private List<DropDownList>insureNameList;
     
+    private String viewCertificateReportName;
+    
     @PostConstruct
     @Override
     public void init() {
@@ -49,6 +52,7 @@ public class InsuranceManagementController extends BaseController {
         }
         this.listViewCertificate = null;
         this.insureNameList = dropdownFactory.ddlInsureName();
+        this.viewCertificateReportName = "view certificate "+DateTimeUtils.getInstance().getDateNowEN("ddMMyyyy");
     }
 
     public void search() {
@@ -159,5 +163,13 @@ public class InsuranceManagementController extends BaseController {
 
     public void setInsureNameList(List<DropDownList> insureNameList) {
         this.insureNameList = insureNameList;
+    }
+
+    public String getViewCertificateReportName() {
+        return viewCertificateReportName;
+    }
+
+    public void setViewCertificateReportName(String viewCertificateReportName) {
+        this.viewCertificateReportName = viewCertificateReportName;
     }
 }
