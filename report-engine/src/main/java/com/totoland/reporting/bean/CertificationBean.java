@@ -37,6 +37,7 @@ public class CertificationBean implements Serializable {
     private String copyType;
     private String certificationNumber;
     private String companyLogoURL;
+    private String reportLogoURL;
     private String signature1URL;
     private String signature2URL;
     private String signature3URL;
@@ -62,7 +63,7 @@ public class CertificationBean implements Serializable {
     private String forMethod;
     private String methodOfTranSport;
     private String flightDateLabel;
-    
+
     public String getNameOfAssured() {
         return nameOfAssured;
     }
@@ -391,8 +392,16 @@ public class CertificationBean implements Serializable {
         this.flightDateLabel = flightDateLabel;
     }
 
+    public String getReportLogoURL() {
+        return reportLogoURL;
+    }
+
+    public void setReportLogoURL(String reportLogoURL) {
+        this.reportLogoURL = reportLogoURL;
+    }
+
     @Override
     public String toString() {
-        return "CertificationBean{" + "nameOfAssured=" + nameOfAssured + ", vesselAirline=" + vesselAirline + ", referenceNumber=" + referenceNumber + ", voyage=" + voyage + ", from=" + from + ", fromDesc=" + fromDesc + ", to=" + to + ", toDesc=" + toDesc + ", amountInsuredHereunder=" + amountInsuredHereunder + ", amountInsuredHereunderWord=" + amountInsuredHereunderWord + ", policyNumber=" + policyNumber + ", voyageFlightNo=" + voyageFlightNo + ", sailingFlightDate=" + sailingFlightDate + ", issueDate=" + issueDate + ", subject=" + subject + ", detail=" + detail + ", issueOn=" + issueOn + ", copyType=" + copyType + ", certificationNumber=" + certificationNumber + ", companyLogoURL=" + companyLogoURL + ", signature1URL=" + signature1URL + ", signature2URL=" + signature2URL + ", signature3URL=" + signature3URL + ", certImageURL=" + certImageURL + ", quantity=" + quantity + ", surveyorCompany=" + surveyorCompany + ", surveyorAddress=" + surveyorAddress + ", surveyorTel=" + surveyorTel + ", surveyorFax=" + surveyorFax + ", contactName=" + contactName + ", commodityDescription=" + commodityDescription + ", currencyType=" + currencyType + ", brokerName=" + brokerName + ", brokerLicense=" + brokerLicense + ", fullCurrencyType=" + fullCurrencyType + ", shipmentDate=" + shipmentDate + ", additionalInfomation=" + additionalInfomation + ", previewURL=" + previewURL + ", forMethod=" + forMethod + ", methodOfTranSport=" + methodOfTranSport + '}';
+        return "CertificationBean{" + "nameOfAssured=" + nameOfAssured + ", vesselAirline=" + vesselAirline + ", referenceNumber=" + referenceNumber + ", voyage=" + voyage + ", from=" + from + ", fromDesc=" + fromDesc + ", to=" + to + ", toDesc=" + toDesc + ", amountInsuredHereunder=" + amountInsuredHereunder + ", amountInsuredHereunderWord=" + amountInsuredHereunderWord + ", policyNumber=" + policyNumber + ", voyageFlightNo=" + voyageFlightNo + ", sailingFlightDate=" + sailingFlightDate + ", issueDate=" + issueDate + ", subject=" + subject + ", detail=" + detail + ", issueOn=" + issueOn + ", copyType=" + copyType + ", certificationNumber=" + certificationNumber + ", companyLogoURL=" + companyLogoURL + ", reportLogoURL=" + reportLogoURL + ", signature1URL=" + signature1URL + ", signature2URL=" + signature2URL + ", signature3URL=" + signature3URL + ", certImageURL=" + certImageURL + ", quantity=" + quantity + ", surveyorCompany=" + surveyorCompany + ", surveyorAddress=" + surveyorAddress + ", surveyorTel=" + surveyorTel + ", surveyorFax=" + surveyorFax + ", contactName=" + contactName + ", commodityDescription=" + commodityDescription + ", currencyType=" + currencyType + ", brokerName=" + brokerName + ", brokerLicense=" + brokerLicense + ", fullCurrencyType=" + fullCurrencyType + ", shipmentDate=" + shipmentDate + ", additionalInfomation=" + additionalInfomation + ", previewURL=" + previewURL + ", forMethod=" + forMethod + ", methodOfTranSport=" + methodOfTranSport + ", flightDateLabel=" + flightDateLabel + '}';
     }
 }

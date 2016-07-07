@@ -137,16 +137,16 @@
                             <h:outputText value="#{item.insuredName}" />
                         </p:column>
                         <p:column headerText="#{msg.label_method_of_transport}" 
-                                  width="150"
+                                  width="180"
                                   sortBy="#{item.transportMethod}" 
                                   footerText="#{msg.label_method_of_transport}">
                             <h:outputText value="#{item.transportMethod}" />
                         </p:column>
-                        <p:column headerText="#{msg.label_premium}" 
+                        <p:column headerText="#{msg.label_total_premium}" 
                                   width="150"
-                                  sortBy="#{item.premiumRate}" footerText="#{msg.label_premium}"
+                                  sortBy="#{item.total}" footerText="#{msg.label_total_premium}"
                                   style="text-align: right">
-                            <h:outputText value="#{item.premiumRate}">
+                            <h:outputText value="#{item.total}">
                                 <f:convertNumber pattern="###,#,##0.00" type="currency"/>
                             </h:outputText>
                         </p:column>

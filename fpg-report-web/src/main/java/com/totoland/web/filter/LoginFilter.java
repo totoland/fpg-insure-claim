@@ -82,7 +82,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
-        if (!req.getRequestURI().contains("/pages/")) {
+        if (!req.getRequestURI().contains("/pages/") || req.getRequestURI().contains("login.xhtml")) {
             chain.doFilter(request, response);
             return;
         }

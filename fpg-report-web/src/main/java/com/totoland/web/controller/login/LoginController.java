@@ -19,6 +19,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -119,17 +122,18 @@ public class LoginController extends BaseController {
         LOGGER.trace("path : {}", path);
         LOGGER.trace("getUserGroupLvl : {}", loginUser.getUserGroupLvl());
 
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+
         if (UserType.ADMIN.getId() == loginUser.getUserGroupLvl()) {
 //            super.redirectPage(path+"/pages/user/userManagement.xhtml?firstLogin=true",1000L);
-            externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
+            externalContext.redirect(path + "/pages/user/userManagement.xhtml?firstLogin=true");
         } else if (UserType.OFFICIAL_USER.getId() == loginUser.getUserGroupLvl()) {
 //            super.redirectPage(path+"/pages/user/userManagement.xhtml?firstLogin=true",1000L);
-            externalContext.redirect(path+"/pages/user/userManagement.xhtml?firstLogin=true");
+            externalContext.redirect(path + "/pages/user/userManagement.xhtml?firstLogin=true");
         } else if (UserType.CUSTOMER.getId() == loginUser.getUserGroupLvl()) {
 //            super.redirectPage(path+"/pages/form/insuranceManagement.xhtml?firstLogin=true",1000L);
-            externalContext.redirect(path+"/pages/form/insuranceManagement.xhtml?firstLogin=true");
+            externalContext.redirect(path + "/pages/form/insuranceManagement.xhtml?firstLogin=true");
         }
 
     }

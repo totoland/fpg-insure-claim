@@ -69,6 +69,7 @@ public class InsuranceFormController extends BaseController {
     private static final String MARINE_PDF_TEMPLATE = "/resources/jasper/reportFPG.jrxml";
     private static final String DEBIT_NOTE_PDF_TEMPLATE = "/resources/jasper/reportDebitNote.jrxml";
     private static final String RESOURCES_NONE_HEAD_LOGO = "/resources/images/fpg/Marine_none_head_office.jpg";
+    private static final String RESOURCES_REPORT_LOGO = "/resources/images/fpg/report_logo.jpg";
     private static final String RESOURCES_WITH_HEAD_LOGO = "/resources/images/fpg/Marine_with_head_office.jpg";
     private static final String RESOURCES_SIGNATURE1 = "/resources/images/signature/1.png";
     private static final String RESOURCES_SIGNATURE2 = "/resources/images/signature/2.png";
@@ -498,6 +499,7 @@ public class InsuranceFormController extends BaseController {
             certRpt.setAdditionalInfomation(this.claimInsure.getAdditionalInfomation());
 
             certRpt.setCompanyLogoURL(JsfUtil.getRealPath(RESOURCES_NONE_HEAD_LOGO));
+            certRpt.setReportLogoURL(JsfUtil.getRealPath(RESOURCES_REPORT_LOGO));
             certRpt.setSignature1URL(JsfUtil.getRealPath(RESOURCES_SIGNATURE1));
             certRpt.setSignature2URL(JsfUtil.getRealPath(RESOURCES_SIGNATURE2));
             certRpt.setSignature3URL(JsfUtil.getRealPath(RESOURCES_SIGNATURE3));
